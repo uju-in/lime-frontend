@@ -23,6 +23,7 @@ export default function Categories({ categories }: { categories: string[] }) {
             checked={selectedItem === item}
             onChange={() => setSelectedItem(item)}
             className="sr-only"
+            required
           />
           {item}
         </label>
