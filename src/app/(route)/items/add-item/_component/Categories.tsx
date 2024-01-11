@@ -3,7 +3,8 @@
 import { useState } from 'react'
 
 export default function Categories({ categories }: { categories: string[] }) {
-  const [selectedItem, setSelectedItem] = useState('')
+  const [selectedItem, setSelectedItem] = useState<string | null>(null)
+
   return (
     <div className="flex flex-wrap">
       {categories.map((item: string) => (
