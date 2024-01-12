@@ -7,9 +7,7 @@ export default function AddItemLayout({
 }) {
   return (
     <Layout>
-      <div className="mx-auto flex h-dvh max-w-[1440px] justify-center bg-[#F7F7F7]">
-        {children}
-      </div>
+      <div className="flex h-dvh justify-center bg-[#F7F7F7]">{children}</div>
     </Layout>
   )
 }
