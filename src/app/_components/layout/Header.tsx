@@ -1,10 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
 
-/**
- *  첫 줄 div px-[150px] 추가
- */
-
 export default function Header() {
   return (
     <div className="flex w-full items-center justify-between px-[150px] py-[23px]">
