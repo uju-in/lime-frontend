@@ -27,8 +27,8 @@ export default function Header() {
               className="cursor-pointer"
               width={20}
               height={20}
-              src="image/icon/icon-arrow_bottom.svg"
-              alt="search"
+              src="/image/icon/icon-arrow_bottom.svg"
+              alt="arrow_bottom"
             />
             <div className="absolute left-0 top-[40px] flex min-w-[300px] origin-top scale-y-0 transform divide-x rounded-[4px] bg-white p-[18px_30px] text-[15px] text-[#575757] shadow-[0px_0px_7.8px_3px_rgba(0,0,0,0.10)] transition duration-300 ease-in-out group-hover:scale-y-100">
               <ul className="flex flex-col gap-[13px] pr-[42px]">
@@ -61,7 +61,7 @@ export default function Header() {
           className="cursor-pointer"
           width={22}
           height={22}
-          src="image/icon/icon-search.svg"
+          src="/image/icon/icon-search.svg"
           alt="search"
         />
         {/* 프로필 */}
