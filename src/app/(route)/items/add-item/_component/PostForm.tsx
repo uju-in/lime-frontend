@@ -50,7 +50,7 @@ export default function PostForm() {
         아이템 추가할 URL을 입력하세요
       </p>
       <div className="flex  w-[690px] justify-between">
-        <input className="h-[40px] w-[600px] rounded-[2px] border p-1 focus:outline-none" />
+        <input className="h-[40px] w-[600px] rounded-[2px] border border-[#DADADA] p-1 focus:outline-none" />
         <button
           className="h-[40px] w-[65px] rounded-[2px] bg-black text-[15px] text-white"
           type="button"
