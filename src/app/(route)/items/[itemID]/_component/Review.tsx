@@ -37,39 +37,39 @@ export default function Review() {
         </div>
       </div>
       <div className="flex h-[140px] w-[150px] flex-col items-end justify-between">
-        <div className="flex h-[33px] w-[97px]">
+        <div className="flex h-[33px] w-[97px] justify-between">
           <Image
-            className="mr-1 cursor-pointer"
-            width={12}
-            height={12}
+            className="cursor-pointer"
+            width={14}
+            height={14}
             src="/image/icon/icon-filled_star.svg"
             alt="grade"
           />
           <Image
-            className="mr-1 cursor-pointer"
-            width={12}
-            height={12}
+            className="cursor-pointer"
+            width={14}
+            height={14}
             src="/image/icon/icon-filled_star.svg"
             alt="grade"
           />
           <Image
-            className="mr-1 cursor-pointer"
-            width={12}
-            height={12}
+            className="cursor-pointer"
+            width={14}
+            height={14}
             src="/image/icon/icon-filled_star.svg"
             alt="grade"
           />
           <Image
-            className="mr-1 cursor-pointer"
-            width={12}
-            height={12}
+            className="cursor-pointer"
+            width={14}
+            height={14}
             src="/image/icon/icon-filled_star.svg"
             alt="grade"
           />
           <Image
-            className="mr-1 cursor-pointer"
-            width={12}
-            height={12}
+            className="cursor-pointer"
+            width={14}
+            height={14}
             src="/image/icon/icon-empty_star.svg"
             alt="grade"
           />
