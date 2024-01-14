@@ -5,7 +5,7 @@ function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="my-0 flex h-screen flex-col">
       <Header />
-      <div className="h-full py-[18px]">{children}</div>
+      <div className="h-full pb-[18px]">{children}</div>
     </div>
   )
 }
