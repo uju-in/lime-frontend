@@ -1,51 +1,14 @@
-'use client'
+import React from 'react'
 
-import React, { useState } from 'react'
-
-import Categories from './Categories'
-
-const sportCategories: string[] = [
-  '농구',
-  '야구',
-  '배드민턴',
-  '헬스',
-  '클라이밍',
-]
-
-const lifeCategories: string[] = [
-  '드로잉',
-  '음악',
-  '쿠킹',
-  '게임',
-  '데스크테리어',
-]
+import Categories from '../../../../_components/categorySelector'
 
 export default function PostForm() {
-  const [selectedCategory, setSelectedCategory] = useState('')
-
-  const handleRadioChange = (e: {
-    target: { value: React.SetStateAction<string> }
-  }) => {
-    setSelectedCategory(e.target.value)
-  }
-
   return (
     <form>
       <p className="text-xl font-semibold">
         아이템 추가할 취미를 선택해 주세요.
       </p>
-      <p className="mt-8 text-[18px] font-[800px]">스포츠</p>
-      <Categories
-        categories={sportCategories}
-        selectedCategory={selectedCategory}
-        handleRadioChange={handleRadioChange}
-      />
-      <p className="mt-8 text-[18px] font-[800px]">라이프</p>
-      <Categories
-        categories={lifeCategories}
-        selectedCategory={selectedCategory}
-        handleRadioChange={handleRadioChange}
-      />
+      <Categories />
       <p className="mb-6 mt-12 text-[18px] font-[800px]">
         아이템 추가할 URL을 입력하세요
       </p>
