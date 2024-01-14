@@ -19,6 +19,12 @@
     "react/react-in-jsx-scope": "off",
     "prettier/prettier": "error",
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "off"
+    "@typescript-eslint/no-unused-vars": "off",
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "labelAttributes": ["htmlFor"]
+      }
+    ]
   }
 }

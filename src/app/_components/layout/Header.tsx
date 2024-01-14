@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Header() {
   return (
-    <div className="flex w-full items-center justify-between py-[23px]">
+    <div className="flex w-full items-center justify-between px-[150px] py-[23px]">
       <div className="flex items-center gap-[50px]">
         {/* 로고 */}
         <div className="pr-[50px] text-[35px] font-bold">
