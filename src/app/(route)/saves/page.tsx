@@ -9,34 +9,36 @@ export default function page() {
       <section className="h-full px-[150px]">
         <h1 className="mb-5 text-[36px] font-[700]">세이브 목록</h1>
         <div className="flex">
-          <div className="relative mr-5 flex h-[230px] w-[350px]">
-            <div className="z-0 h-[230px] w-[270px] rounded-l-[8.83px] bg-[#D2D2D2]" />
+          <div className="relative mr-5 flex h-[232px] w-[350px]">
+            <div className="z-0 h-[232px] w-[270px] rounded-l-[8.83px] bg-[#D2D2D2]" />
             <div className="z-0">
-              <div className="h-[115px] w-[120px] rounded-tr-[8.83px] bg-[#E8E8E8]" />
-              <div className="h-[115px] w-[120px] rounded-br-[8.83px] bg-[#E8E8E8]" />
+              <div className="h-[116px] w-[120px] rounded-tr-[8.83px] bg-[#E8E8E8]" />
+              <div className="h-[116px] w-[120px] rounded-br-[8.83px] bg-[#E8E8E8]" />
             </div>
-            <div className="absolute left-0 top-0 z-10 h-[114px] h-full w-full rounded-t-[8.83px] bg-gradient-to-b from-[#000] to-[#D2D2D2] pl-4 pt-4 opacity-50">
+            <div className="absolute left-0 top-0 z-10 h-[116px] w-full rounded-t-[8.83px] bg-gradient-to-b from-[#000] to-[#D2D2D2] pl-4 pt-4 opacity-50">
               <p className="text-[20px] font-[700] text-white">농구</p>
             </div>
           </div>
-          <div className="relative mr-5 flex h-[230px] w-[350px]">
-            <div className="z-0 h-[230px] w-[270px] rounded-l-[8.83px] bg-[#D2D2D2]" />
+          <div className="relative mr-5 flex h-[232px] w-[350px]">
+            <div className="z-0 h-[232px] w-[270px] rounded-l-[8.83px] bg-[#D2D2D2]" />
             <div className="z-0">
-              <div className="h-[115px] w-[120px] rounded-tr-[8.83px] bg-[#E8E8E8]" />
-              <div className="h-[115px] w-[120px] rounded-br-[8.83px] bg-[#E8E8E8]" />
+              <div className="h-[116px] w-[120px] rounded-tr-[8.83px] bg-[#E8E8E8]" />
+              <div className="h-[116px] w-[120px] rounded-br-[8.83px] bg-[#E8E8E8]" />
             </div>
-            <div className="absolute left-0 top-0 z-10 h-[114px] h-full w-full rounded-t-[8.83px] bg-gradient-to-b from-[#000] to-[#D2D2D2] pl-4 pt-4 opacity-50">
+            <div className="absolute left-0 top-0 z-10 h-[116px] w-full rounded-t-[8.83px] bg-gradient-to-b from-[#000] to-[#D2D2D2] pl-4 pt-4 opacity-50">
               <p className="text-[20px] font-[700] text-white">드로잉</p>
             </div>
           </div>
-          <div className="relative flex h-[230px] w-[350px]">
-            <div className="z-0 h-[230px] w-[270px] rounded-l-[8.83px] bg-[#D2D2D2]" />
+          <div className="relative flex h-[232px] w-[350px]">
+            <div className="z-0 h-[232px] w-[270px] rounded-l-[8.83px] bg-[#D2D2D2]" />
             <div className="z-0">
-              <div className="h-[115px] w-[120px] rounded-tr-[8.83px] bg-[#E8E8E8]" />
-              <div className="h-[115px] w-[120px] rounded-br-[8.83px] bg-[#E8E8E8]" />
+              <div className="h-[116px] w-[120px] rounded-tr-[8.83px] bg-[#E8E8E8]" />
+              <div className="h-[116px] w-[120px] rounded-br-[8.83px] bg-[#E8E8E8]" />
             </div>
-            <div className="absolute left-0 top-0 z-10 h-[114px] h-full w-full rounded-t-[8.83px] bg-gradient-to-b from-[#000] to-[#D2D2D2] pl-4 pt-4 opacity-50">
-              <p className="text-[20px] font-[700] text-white">배드민턴</p>
+            <div className="absolute left-0 top-0 z-10 h-[116px] w-full rounded-t-[8.83px] bg-gradient-to-b from-[#000] to-[#D2D2D2]  opacity-50">
+              <p className="pl-4 pt-4 text-[20px] font-[700] text-white">
+                배드민턴
+              </p>
             </div>
           </div>
         </div>
