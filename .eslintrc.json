@@ -25,6 +25,7 @@
       {
         "labelAttributes": ["htmlFor"]
       }
-    ]
+    ],
+    "import/no-extraneous-dependencies": 0
   }
 }
