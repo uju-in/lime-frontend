@@ -10,6 +10,7 @@ export default function JoinPage() {
         <p className="mb-[10px] text-[26px] font-[700]">Lime</p>
         <h1 className="mb-[69px] text-[30px] font-[600]">프로필 작성</h1>
         <UserInfoForm />
+        {/* 임시 주석 처리 */}
         {/* <UserHobbyForm /> */}
       </form>
     </main>
