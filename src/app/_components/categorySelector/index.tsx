@@ -28,16 +28,16 @@ export default function CategorySelector() {
         const items = categories[categoryGroup as keyof Categories]
         return (
           <React.Fragment key={categoryGroup}>
-            <p className="mt-8 text-[18px] font-[800]">{categoryGroup}</p>
+            <p className="mt-8 text-[14px] font-[400]">{categoryGroup}</p>
             <div className="flex flex-wrap">
               {items.map((item) => (
                 <label
                   key={item}
-                  className={`my-4 mr-6 inline-block cursor-pointer rounded-full border px-5 py-1 font-medium ${
+                  className={`my-3 mr-6 inline-block h-[32px] cursor-pointer rounded-[40px] border px-5 py-1 font-[500] font-medium ${
                     selected.item === item &&
                     selected.category === categoryGroup
                       ? 'border-black'
-                      : 'border-[#DADADA] text-[#898989]'
+                      : 'border-[#BDBDBD] text-[#BDBDBD]'
                   }`}
                 >
                   <input
