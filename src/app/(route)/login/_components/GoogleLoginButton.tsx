@@ -6,7 +6,7 @@ import React from 'react'
 export default function GoogleLoginButton() {
   return (
     <button
-      className="flex h-[45px] w-[300px] items-center justify-center rounded-[8px] border p-[10px]"
+      className="flex h-[45px] w-[300px] items-center justify-center rounded-[8px] border border-[#DFDFDF] p-[10px]"
       type="button"
       onClick={() => {}}
     >
