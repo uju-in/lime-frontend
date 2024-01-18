@@ -91,7 +91,7 @@ export default function UserInfoField() {
           required
         />
       </div>
-      <p className="font-[600]">대표 취미</p>
+      <p className="mt-[36px] font-[600]">대표 취미</p>
       <CategorySelector />
       <div className="mt-[36px]">
         <p className="mb-[16px] font-[600]">취미 경력</p>

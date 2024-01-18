@@ -33,7 +33,7 @@ export default function CategorySelector() {
               {items.map((item) => (
                 <label
                   key={item}
-                  className={`my-3 mr-6 inline-block h-[32px] cursor-pointer rounded-[40px] border px-5 py-1 font-[500] font-medium ${
+                  className={`my-3 mr-3 inline-block h-[32px] cursor-pointer rounded-[40px] border px-5 py-1 text-[12px] font-[500] font-medium ${
                     selected.item === item &&
                     selected.category === categoryGroup
                       ? 'border-black'
