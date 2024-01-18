@@ -42,7 +42,7 @@ export default function CategorySelector() {
                 >
                   <input
                     type="radio"
-                    name="categorySelection"
+                    name="hobby"
                     value={item}
                     checked={
                       selected.item === item &&
