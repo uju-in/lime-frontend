@@ -4,21 +4,54 @@ import React, { useState } from 'react'
 
 import CategorySelector from '@/app/_components/categorySelector'
 
+import { useCheckNickname } from '@/app/_hook/api/useCheckNickname'
+
 export default function UserInfoField() {
   const [isClickNext, setIsClickNext] = useState<boolean>(false)
+  const [isDuplicated, setIsDuplicated] = useState<boolean>(false)
+  const [nickname, setNickname] = useState<string | null>(null)
 
-  const handleNextClick = (
+  const { mutateAsync: verifyUniqueNickname } = useCheckNickname()
+
+  /* 다음 프로필 작성(취미) */
+  const handleNextClick = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    if (!isDuplicated) {
+      alert('닉네임 중복 확인을 진행해 주세요.')
+
+      return
+    }
+
+    setIsClickNext(true)
+  }
+
+  /* 닉네임 중복 확인 */
+  const handleCheckNickname = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     e.preventDefault()
-    setIsClickNext(true)
+
+    if (!nickname) {
+      alert('닉네임을 입력하세요.')
+
+      return
+    }
+
+    const data = await verifyUniqueNickname(nickname)
+
+    if (data.isDuplicated) {
+      setIsDuplicated(false)
+    } else {
+      setIsDuplicated(true)
+    }
   }
 
   return (
     <>
       {!isClickNext ? (
         /* 프로필 작성 1 */
-        <form>
+        <form onSubmit={(e) => handleNextClick(e)}>
           <div className="w-[436px]">
             <label htmlFor="nickname" className="font-[600]">
               닉네임
@@ -27,12 +60,14 @@ export default function UserInfoField() {
               <input
                 id="nickname"
                 name="nickname"
+                onChange={(e) => setNickname(e.target.value)}
                 placeholder="닉네임을 입력해 주세요."
                 className="mr-[16px] h-[48px] w-[324px] rounded-[4px] border border-[#BDBDBD] px-[12px] outline-0"
               />
               <button
                 className="h-[48px] w-[96px] cursor-pointer rounded-[4px] bg-black font-[600] text-white"
                 type="button"
+                onClick={(e) => handleCheckNickname(e)}
               >
                 중복확인
               </button>
@@ -47,6 +82,7 @@ export default function UserInfoField() {
               name="content"
               placeholder="자기소개를 입력해 주세요."
               className="mt-[16px] h-[140px] w-[436px] resize-none rounded-[4px] border border-[#BDBDBD] px-[12px] pt-[14px] outline-0"
+              required
             />
           </div>
           <div className="mt-[36px]">
@@ -58,13 +94,15 @@ export default function UserInfoField() {
               name="mbti"
               placeholder="MBTI를 입력해 주세요."
               className="mt-[16px] h-[48px] w-[436px] rounded-[4px] border border-[#BDBDBD] px-[12px] outline-0"
+              maxLength={4}
+              minLength={4}
+              required
             />
           </div>
           <div className="h-[148px]">
             <button
               className="mt-[119px] flex h-[48px] w-[436px] items-center justify-center rounded-[4px] bg-black font-[600] text-white"
               type="submit"
-              onClick={(e) => handleNextClick(e)}
             >
               다음
             </button>
