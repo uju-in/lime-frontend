@@ -7,7 +7,7 @@ import CategorySelector from '@/app/_components/categorySelector'
 import { useCheckNickname } from '@/app/_hook/api/useCheckNickname'
 
 export default function UserInfoField() {
-  const [isClickNext, setIsClickNext] = useState<boolean>(false)
+  const [isClickNext, setIsClickNext] = useState<boolean>(true)
   const [isDuplicated, setIsDuplicated] = useState<boolean>(false)
   const [nickname, setNickname] = useState<string | null>(null)
 
@@ -145,7 +145,7 @@ export default function UserInfoField() {
               <option value="20">20년 이상</option>
             </select>
           </div>
-          <div className="h-[148px]">
+          <div className="h-[128px]">
             <button
               className="mt-[119px] flex h-[48px] w-[436px] items-center justify-center rounded-[4px] bg-black font-[600] text-white"
               type="submit"
