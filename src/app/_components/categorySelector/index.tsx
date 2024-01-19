@@ -7,12 +7,18 @@ interface Categories {
   라이프: string | null
 }
 
+interface CategorySelectorProps {
+  setCategory: (item: string) => void
+}
+
 const categories: { [K in keyof Categories]: string[] } = {
   스포츠: ['농구', '야구', '배드민턴', '헬스', '클라이밍'],
   라이프: ['드로잉', '음악', '쿠킹', '게임', '데스크테리어'],
 }
 
-export default function CategorySelector() {
+export default function CategorySelector({
+  setCategory,
+}: CategorySelectorProps) {
   const [selected, setSelected] = useState<{
     category: keyof Categories | null
     item: string | null
@@ -20,6 +26,7 @@ export default function CategorySelector() {
 
   const handleRadioChange = (category: keyof Categories, item: string) => {
     setSelected({ category, item })
+    setCategory(item)
   }
 
   return (
