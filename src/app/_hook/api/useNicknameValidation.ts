@@ -6,7 +6,7 @@ interface CheckNicknameResponse {
 
 async function postCheckNickname(name: string | null) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/users/name
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/members/check/nickname
       `,
     {
       method: 'POST',
@@ -26,7 +26,7 @@ async function postCheckNickname(name: string | null) {
   return data
 }
 
-export function useCheckNickname() {
+export function useNicknameValidation() {
   return useMutation<CheckNicknameResponse, unknown, string | null>({
     mutationFn: postCheckNickname,
     onSuccess: ({ isDuplicated }) => {
