@@ -1,7 +1,9 @@
 'use client'
 
 import React, { ChangeEvent, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
+import { useSignUp } from '@/app/_hook/api/useSignUp'
 import { useNicknameValidation } from '@/app/_hook/api/useNicknameValidation'
 
 import { SignUpState } from '@/app/_types/signUp.types'
@@ -10,7 +12,10 @@ import CategorySelector from '@/app/_components/categorySelector'
 import CareerSelector from './CareerSelector'
 
 export default function UserInfoField() {
+  const router = useRouter()
+
   const { mutateAsync: verifyUniqueNickname } = useNicknameValidation()
+  const { mutateAsync: signUp } = useSignUp()
 
   const [isDuplicated, setIsDuplicated] = useState<boolean>(true)
   const [profile, setProfile] = useState<SignUpState>({
@@ -43,8 +48,19 @@ export default function UserInfoField() {
     }
   }
 
+  /* 회원가입 */
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const status = await signUp(profile)
+
+    if (status === 200) {
+      router.push('/items')
+    }
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="w-[436px]">
         <label htmlFor="nickname" className="font-[600]">
           닉네임
