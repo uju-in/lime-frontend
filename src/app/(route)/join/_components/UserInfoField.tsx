@@ -9,6 +9,8 @@ import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 
 import { SignUpState } from '@/app/_types/signUp.types'
 
+import { validateForm, validateNickname } from '@/app/_utils/validation'
+
 import CategorySelector from '@/app/_components/categorySelector'
 import CareerSelector from './CareerSelector'
 
@@ -48,6 +50,12 @@ export default function UserInfoField() {
 
   /* 닉네임 중복 확인 */
   const handleValidationNickname = async () => {
+    const isValid = validateNickname(profile.nickname)
+
+    if (!isValid) {
+      return
+    }
+
     const data = await verifyUniqueNickname(profile.nickname)
 
     if (data.isDuplicated) {
@@ -60,6 +68,12 @@ export default function UserInfoField() {
   /* 회원가입 */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    const isValid = validateForm({ isDuplicated, career: profile.career })
+
+    if (!isValid) {
+      return
+    }
 
     const status = await signUp(profile)
 
