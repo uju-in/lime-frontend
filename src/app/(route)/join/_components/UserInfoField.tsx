@@ -58,10 +58,10 @@ export default function UserInfoField() {
 
     const data = await verifyUniqueNickname(profile.nickname)
 
-    if (data.isDuplicated) {
-      setIsDuplicated(false)
-    } else {
+    if (data) {
       setIsDuplicated(true)
+    } else {
+      setIsDuplicated(false)
     }
   }
 
@@ -75,10 +75,10 @@ export default function UserInfoField() {
       return
     }
 
-    const status = await signUp(profile)
+    const data = await signUp(profile)
 
-    if (status === 200) {
-      router.push('/items')
+    if (data === 200) {
+      router.push('/')
     }
   }
 

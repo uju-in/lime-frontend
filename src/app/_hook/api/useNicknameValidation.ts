@@ -16,22 +16,20 @@ async function postCheckNickname(nickname: string) {
   if (!res.ok) {
     throw new Error('에러!!')
   }
-  console.log(res)
 
-  const data = await res.json()
+  const { isDuplicated } = await res.json()
 
-  console.log(data)
-  return data
+  return isDuplicated
 }
 
 export function useNicknameValidation() {
-  return useMutation<any, unknown, string>({
+  return useMutation<boolean, unknown, string>({
     mutationFn: postCheckNickname,
-    onSuccess: ({ isDuplicated }) => {
+    onSuccess: (isDuplicated) => {
       if (isDuplicated) {
-        alert('닉네임이 중복됩니다.')
+        alert('중복된 닉네임입니다.')
       } else {
-        alert('닉네임 사용 가능.')
+        alert('사용 가능한 닉네임입니다.')
       }
     },
     onError: () => {
