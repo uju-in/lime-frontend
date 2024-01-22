@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 import { CareerOption } from '@/app/_types/signUp.types'
 
-import { careerOptions } from '../_utils/careerOptions'
+import { careerOptions } from '../_constants/careerOptions'
 
 interface CareerSelectorProps {
   setCareer: (value: number) => void
