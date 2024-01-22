@@ -1,33 +1,31 @@
 import { useMutation } from '@tanstack/react-query'
 
-interface CheckNicknameResponse {
-  isDuplicated: boolean
-}
-
-async function postCheckNickname(name: string | null) {
+async function postCheckNickname(nickname: string) {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/members/check/nickname
-      `,
+        `,
     {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ nickname }),
     },
   )
 
   if (!res.ok) {
     throw new Error('에러!!')
   }
+  console.log(res)
 
   const data = await res.json()
 
+  console.log(data)
   return data
 }
 
 export function useNicknameValidation() {
-  return useMutation<CheckNicknameResponse, unknown, string | null>({
+  return useMutation<any, unknown, string>({
     mutationFn: postCheckNickname,
     onSuccess: ({ isDuplicated }) => {
       if (isDuplicated) {
