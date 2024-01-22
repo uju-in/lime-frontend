@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 
-async function postCheckNickname(nickname: string) {
+async function postNicknameValidation(nickname: string) {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/members/check/nickname
         `,
@@ -24,7 +24,7 @@ async function postCheckNickname(nickname: string) {
 
 export function useNicknameValidation() {
   return useMutation<boolean, unknown, string>({
-    mutationFn: postCheckNickname,
+    mutationFn: postNicknameValidation,
     onSuccess: (isDuplicated) => {
       if (isDuplicated) {
         alert('중복된 닉네임입니다.')
