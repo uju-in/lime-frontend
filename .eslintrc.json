@@ -26,8 +26,6 @@
         "labelAttributes": ["htmlFor"]
       }
     ],
-    "import/no-extraneous-dependencies": 0,
-    "import/prefer-default-export": "off",
-    "react/jsx-no-useless-fragment": "off"
+    "import/prefer-default-export": "off"
   }
 }
