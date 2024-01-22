@@ -4,7 +4,8 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 
 import { CareerOption } from '@/app/_types/signUp.types'
-import { careerOptions } from '../_utils/CareerOptions'
+
+import { careerOptions } from '../_utils/careerOptions'
 
 interface CareerSelectorProps {
   setCareer: (value: number) => void
