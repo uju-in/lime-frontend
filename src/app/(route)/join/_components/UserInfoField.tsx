@@ -3,18 +3,22 @@
 import React, { ChangeEvent, useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
-import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
-
 import { SignUpState } from '@/app/_types/signUp.types'
 
 import { useNicknameValidation, useSignUp } from '@/app/_hook/api'
-import { validateForm, validateNickname } from '@/app/_utils/validation'
+import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
+
+import {
+  validateForm,
+  validateNickname,
+} from '@/app/(route)/join/_utils/validation'
 
 import CategorySelector from '@/app/_components/categorySelector'
 import CareerSelector from './CareerSelector'
 
 export default function UserInfoField() {
   const router = useRouter()
+
   const accessToken = useGetSearchParam('accessToken')
 
   const { mutateAsync: verifyUniqueNickname } = useNicknameValidation()
