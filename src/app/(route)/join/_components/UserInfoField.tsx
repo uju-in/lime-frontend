@@ -3,12 +3,11 @@
 import React, { ChangeEvent, useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { useSignUp } from '@/app/_hook/api/useSignUp'
-import { useNicknameValidation } from '@/app/_hook/api/useNicknameValidation'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 
 import { SignUpState } from '@/app/_types/signUp.types'
 
+import { useNicknameValidation, useSignUp } from '@/app/_hook/api'
 import { validateForm, validateNickname } from '@/app/_utils/validation'
 
 import CategorySelector from '@/app/_components/categorySelector'

@@ -22,7 +22,7 @@ async function postNicknameValidation(nickname: string) {
   return isDuplicated
 }
 
-export function useNicknameValidation() {
+export default function useNicknameValidation() {
   return useMutation<boolean, unknown, string>({
     mutationFn: postNicknameValidation,
     onSuccess: (isDuplicated) => {

@@ -24,7 +24,7 @@ async function postSignUp(params: SignUpState) {
   return res.status
 }
 
-export function useSignUp() {
+export default function useSignUp() {
   return useMutation<number, unknown, SignUpState>({
     mutationFn: postSignUp,
     onSuccess: () => {
