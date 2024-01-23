@@ -1,3 +1,4 @@
+import RQProvider from '@/app/_components/RQProvider'
 import PostForm from './_component/PostForm'
 
 export default function AddItemPage() {
@@ -6,7 +7,9 @@ export default function AddItemPage() {
       <div className="flex flex h-[150px] items-center">
         <h1 className="text-[32px] font-bold">아이템 생성</h1>
       </div>
-      <PostForm />
+      <RQProvider>
+        <PostForm />
+      </RQProvider>
     </section>
   )
 }
