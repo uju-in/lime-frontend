@@ -39,7 +39,13 @@ export default function CareerSelector({ setCareer }: CareerSelectorProps) {
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         className="flex h-[48px] w-[436px] items-center justify-between rounded-[4px] border border-[#BDBDBD] px-4"
       >
-        <p className="text-[14px] font-[500] text-[#BDBDBD]">{careerLabel}</p>
+        <p
+          className={`text-[14px] font-[500] ${
+            careerLabel === '경력 기간 선택' ? 'text-[#BDBDBD]' : 'text-[#000]'
+          }`}
+        >
+          {careerLabel}
+        </p>
         <Image
           className="cursor-pointer"
           width={14}
