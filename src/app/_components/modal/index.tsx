@@ -1,12 +1,10 @@
-import Image from 'next/image'
 import { ReactNode } from 'react'
 
 type ModalProps = {
   children: ReactNode
-  onClose: () => void
 }
 
-function Modal({ children, onClose }: ModalProps) {
+function Modal({ children }: ModalProps) {
   return (
     <div
       id="ModalContainer"
@@ -16,22 +14,6 @@ function Modal({ children, onClose }: ModalProps) {
         id="ModalInner"
         className="absolute left-[50%] top-[50%] max-w-[90vw] -translate-x-1/2 -translate-y-1/2 rounded-[8px] bg-white"
       >
-        <button
-          type="button"
-          aria-label="close"
-          className="absolute right-[15px] top-[20px] w-[20px]"
-          onClick={() => {
-            onClose()
-          }}
-        >
-          <Image
-            width={36}
-            height={36}
-            className=""
-            src="/image/icon/icon-close.svg"
-            alt="close"
-          />
-        </button>
         {children}
       </div>
     </div>
