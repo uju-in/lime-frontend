@@ -10,7 +10,7 @@ function Modal({ children, onClose }: ModalProps) {
   return (
     <div
       id="ModalContainer"
-      className="fixed bottom-0 left-0 right-0 top-0 z-[500] h-screen min-h-screen w-full bg-[rgba(0,0,0,0.5)]"
+      className="fixed bottom-0 left-0 right-0 top-0 z-[500] h-screen min-h-screen w-full bg-[rgba(0,0,0,0.7)]"
     >
       <div
         id="ModalInner"
