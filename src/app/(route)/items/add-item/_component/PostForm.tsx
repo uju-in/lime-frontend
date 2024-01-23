@@ -7,6 +7,8 @@ import { ItemState } from '@/app/_types/addItem.type'
 
 import useAddItem from '@/app/_hook/api/useAddItem'
 
+import { validateUrl } from '../_utils/validation'
+
 import Categories from '../../../../_components/categorySelector'
 
 export default function PostForm() {
@@ -31,6 +33,12 @@ export default function PostForm() {
   /** 아이템 등록 */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    const isValid = validateUrl(item.itemUrl)
+
+    if (!isValid) {
+      return
+    }
 
     const data = await addItem(item)
 
