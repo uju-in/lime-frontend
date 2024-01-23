@@ -64,7 +64,6 @@ export default function CareerSelector({ setCareer }: CareerSelectorProps) {
           className="absolute z-10 mt-3 h-[288px] w-[436px] overflow-y-scroll rounded-[4px] bg-white shadow-[0px_0px_7.8px_3px_rgba(0,0,0,0.10)]"
         >
           {careerOptions.map((item) => (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
             <li
               key={item.label}
               className="flex h-[48px] cursor-pointer items-center pl-3 hover:bg-[#F2F2F2]"
