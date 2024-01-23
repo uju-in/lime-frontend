@@ -1,7 +1,9 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Image from 'next/image'
+
+import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 
 import { CareerOption } from '@/app/_types/signUp.types'
 
@@ -12,6 +14,8 @@ interface CareerSelectorProps {
 }
 
 export default function CareerSelector({ setCareer }: CareerSelectorProps) {
+  const dropdownRef = useRef(null)
+
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
   const [careerLabel, setCareerLabel] = useState<string>('경력 기간 선택')
 
@@ -20,6 +24,13 @@ export default function CareerSelector({ setCareer }: CareerSelectorProps) {
     setIsDropdownOpen(false)
     setCareerLabel(label)
   }
+
+  /** 외부 클릭 시 dropdown 닫기 */
+  useOutsideClick(dropdownRef, () => {
+    if (isDropdownOpen) {
+      setIsDropdownOpen(false)
+    }
+  })
 
   return (
     <>
@@ -42,7 +53,10 @@ export default function CareerSelector({ setCareer }: CareerSelectorProps) {
         />
       </button>
       {isDropdownOpen && (
-        <ul className="absolute z-10 mt-3 h-[288px] w-[436px] overflow-y-scroll rounded-[4px] bg-white shadow-[0px_0px_7.8px_3px_rgba(0,0,0,0.10)]">
+        <ul
+          ref={dropdownRef}
+          className="absolute z-10 mt-3 h-[288px] w-[436px] overflow-y-scroll rounded-[4px] bg-white shadow-[0px_0px_7.8px_3px_rgba(0,0,0,0.10)]"
+        >
           {careerOptions.map((item) => (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
             <li
