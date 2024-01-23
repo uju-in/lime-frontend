@@ -5,9 +5,5 @@ export default function DetailItemLayout({
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <Layout>
-      <div>{children}</div>
-    </Layout>
-  )
+  return <Layout>{children}</Layout>
 }
