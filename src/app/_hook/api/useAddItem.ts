@@ -17,8 +17,10 @@ async function postAddItem(params: ItemState) {
     },
   )
 
+  const data = await res.json()
+
   if (!res.ok) {
-    throw new Error('에러!!')
+    throw data.message
   }
 
   return res.status
@@ -30,8 +32,8 @@ export default function useAddItem() {
     onSuccess: () => {
       alert('아이템 등록 성공!')
     },
-    onError: () => {
-      alert('아이템 등록 실패')
+    onError: (error) => {
+      alert(error)
     },
   })
 }
