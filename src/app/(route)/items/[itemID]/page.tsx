@@ -1,24 +1,27 @@
-'use client'
-
-import React, { useState } from 'react'
+import React from 'react'
 import Image from 'next/image'
 
-import RQProvider from '@/app/_components/RQProvider'
-import ReviewModal from './_component/ReviewModal'
+import fetchItemDetail from '@/app/_hook/api/useGetItemDetail'
 
-export default function DetailPage() {
-  const [showReviewModal, setShowReviewModal] = useState(false)
+export default async function DetailPage() {
+  const data = await fetchItemDetail(160)
+
+  console.log(data)
 
   return (
     <section className="mx-auto mt-[32px] w-[720px]">
       {/** 상단 아이템 정보 */}
       <article className="flex h-[227px] justify-between">
-        <div className="h-[227px] w-[227px] rounded-[8px] bg-[#D2D2D2]" />
+        <Image
+          className="rounded-[8px]"
+          width={227}
+          height={227}
+          src={data.itemInfo.image}
+          alt="grade"
+        />
         <div className="w-[473px]">
           <div className="h-[179px] w-[473px] border-t-[3px] border-[#000]">
-            <p className="mt-3 text-[22px] font-[600]">
-              영결무람 문라이트 야광 반사 농구공 레인보우
-            </p>
+            <p className="mt-3 text-[22px] font-[600]">{data.itemInfo.name}</p>
             <div className="mt-4 flex">
               <Image
                 className="mr-1"
@@ -30,7 +33,9 @@ export default function DetailPage() {
               <p className="text-[14px] font-[500] text-[#6F6F6F]">4.5/5</p>
             </div>
             <div className="mt-4 flex justify-between">
-              <p className="text-[26px] font-[700]">29,200원</p>
+              <p className="text-[26px] font-[700]">
+                {data.itemInfo.price.toLocaleString()}원
+              </p>
               <div className="flex items-center font-[500] text-[#6F6F6F]">
                 <Image
                   className="mr-2"
@@ -59,11 +64,6 @@ export default function DetailPage() {
           </div>
         </div>
       </article>
-      {showReviewModal && (
-        <RQProvider>
-          <ReviewModal setShowReviewModal={setShowReviewModal} />
-        </RQProvider>
-      )}
     </section>
   )
 }
