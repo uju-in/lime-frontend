@@ -2,7 +2,7 @@
 
 import Modal from '@/app/_components/modal'
 import Image from 'next/image'
-import React, { useRef } from 'react'
+import React from 'react'
 
 interface PropsType {
   setShowReviewModal: React.Dispatch<React.SetStateAction<boolean>>
@@ -10,24 +10,10 @@ interface PropsType {
 
 export default function ReviewModal(props: PropsType) {
   const { setShowReviewModal } = props
-  const ref = useRef<HTMLDivElement>(null)
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (ref.current && !ref.current.contains(event.target as Node)) {
-      setShowReviewModal(false)
-    }
-  }
-
-  React.useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [])
 
   return (
     <Modal>
-      <div ref={ref} className="p-[13px_0_45px]">
+      <div className="p-[13px_0_45px]">
         <div className="flex justify-between border-b px-[23px] py-[18px]">
           <div className="w-[36px]" />
           <div className="w-full text-center text-[24px]">리뷰작성</div>
