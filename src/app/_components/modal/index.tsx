@@ -12,7 +12,7 @@ function Modal({ children }: ModalProps) {
     >
       <div
         id="ModalInner"
-        className="absolute left-[50%] top-[50%] max-w-[90vw] -translate-x-1/2 -translate-y-1/2 rounded-[8px] bg-white"
+        className="absolute left-[50%] top-[50%] max-h-[90vh] max-w-[90vw] -translate-x-1/2 -translate-y-1/2 overflow-scroll rounded-[8px] bg-white"
       >
         {children}
       </div>
