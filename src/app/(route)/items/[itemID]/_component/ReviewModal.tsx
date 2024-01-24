@@ -82,7 +82,7 @@ export default function ReviewModal(props: PropsType) {
             <div>리뷰글을 작성해주세요.</div>
             <textarea
               placeholder="최소 10자 이상 작성해주세요."
-              className="h-[152px] w-[508px] resize-none border border-[#DADADA] bg-[#F4F4F4] p-[14px_12px] text-[14px] outline-none"
+              className="h-[152px] w-[508px] max-w-full resize-none border border-[#DADADA] bg-[#F4F4F4] p-[14px_12px] text-[14px] outline-none"
             />
             <button
               type="button"
