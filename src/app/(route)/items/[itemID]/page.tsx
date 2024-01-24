@@ -3,6 +3,9 @@ import Image from 'next/image'
 
 import fetchItemDetail from '@/app/_hook/api/useGetItemDetail'
 
+import ReviewSection from './_component/ReviewSection'
+import { ActionButtons } from './_component/ActionButtons'
+
 export default async function DetailPage() {
   const data = await fetchItemDetail(160)
 
@@ -48,20 +51,8 @@ export default async function DetailPage() {
               </div>
             </div>
           </div>
-          <div className="flex h-[48px] justify-between">
-            <button
-              className="w-[164px] rounded-[4px] bg-[#EDEDED] text-[14px] font-[600]"
-              type="button"
-            >
-              아이템 담기
-            </button>
-            <button
-              className="w-[292px] rounded-[4px] bg-black text-[14px] font-[600] text-[#fff]"
-              type="button"
-            >
-              구매하러 가기
-            </button>
-          </div>
+          {/** 아이템 담기, 구매하러 가기 버튼 */}
+          <ActionButtons itemUrl={data.itemUrl} />
         </div>
       </article>
     </section>
