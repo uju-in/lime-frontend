@@ -1,9 +1,14 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
 import Image from 'next/image'
 
 import Review from './Review'
+import ReviewModal from './ReviewModal'
 
 export default function ReviewSection() {
+  const [showReviewModal, setShowReviewModal] = useState(false)
+
   return (
     <article className="mt-[64px]">
       <div className="flex h-[42px] justify-between border-b-2 border-b-[#000]">
@@ -15,7 +20,15 @@ export default function ReviewSection() {
             src="/image/icon/icon-pencil.svg"
             alt="write review"
           />
-          <p className="flex items-center text-[14px] font-[600]">리뷰작성</p>
+          <button
+            type="button"
+            className="flex items-center text-[14px] font-[600]"
+            onClick={() => {
+              setShowReviewModal((prev) => !prev)
+            }}
+          >
+            리뷰 작성
+          </button>
         </div>
       </div>
       {/** 리뷰 정렬 */}
@@ -55,6 +68,9 @@ export default function ReviewSection() {
           </button>
         </div>
       </div>
+      {showReviewModal && (
+        <ReviewModal setShowReviewModal={setShowReviewModal} />
+      )}
     </article>
   )
 }
