@@ -1,4 +1,4 @@
 export interface ItemState {
-  hobbyValue: string
+  hobbyName: string
   itemUrl: string
 }

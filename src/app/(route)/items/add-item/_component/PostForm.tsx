@@ -17,7 +17,7 @@ export default function PostForm() {
   const { mutateAsync: addItem } = useAddItem()
 
   const [item, setItem] = useState<ItemState>({
-    hobbyValue: '',
+    hobbyName: '',
     itemUrl: '',
   })
 
@@ -53,7 +53,7 @@ export default function PostForm() {
         아이템 추가할 취미를 선택해 주세요.
       </p>
       <Categories
-        setCategory={(hobbyValue) => setItem({ ...item, hobbyValue })}
+        setCategory={(hobbyName) => setItem({ ...item, hobbyName })}
       />
       <p className="my-12 text-[18px] font-[600]">
         아이템 추가할 URL을 입력하세요
