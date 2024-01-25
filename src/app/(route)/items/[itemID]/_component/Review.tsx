@@ -28,7 +28,7 @@ export default function Review({ review }: { review: ReviewDetails }) {
               </p>
               <div className="flex h-[13px] w-[27px] justify-center rounded-[4px] bg-[#000]">
                 <p className="text-[8px] font-[700] text-white">
-                  {review.memberInfo.level}
+                  Lv. {review.memberInfo.level}
                 </p>
               </div>
             </div>
