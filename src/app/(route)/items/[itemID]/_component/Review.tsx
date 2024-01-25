@@ -5,6 +5,8 @@ import Image from 'next/image'
 
 import { ReviewDetails } from '@/app/_types/review.type'
 
+import { dateFormatter } from '../_utils/dateFormatter'
+
 export default function Review({ review }: { review: ReviewDetails }) {
   console.log(review)
   return (
@@ -19,7 +21,6 @@ export default function Review({ review }: { review: ReviewDetails }) {
             alt="member profile"
             className="mr-[8px] h-[40px] w-[40px] rounded-full"
           />
-          {/* <div className="mr-[8px] h-[40px] w-[40px] rounded-full bg-[#D9D9D9]" /> */}
           <div>
             <div className=" flex items-center">
               <p className="mr-[4.52px] text-[12px] font-[700]">
@@ -71,7 +72,7 @@ export default function Review({ review }: { review: ReviewDetails }) {
               </div>
               <div className="mx-[10px] h-[12px] border-l-[0.5px] border-[#B3B3B3] " />
               <p className="flex items-center text-[10px] font-[500] text-[#747474]">
-                {review.createdAt}
+                {dateFormatter(review.createdAt)}
               </p>
             </div>
           </div>
