@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 
-import { PagesResponse, ReviewDetails } from '@/app/_types/review.type'
+import { PagesResponse, ReviewResponse } from '@/app/_types/review.type'
 
 import { useSearchItemQuery } from '@/app/_hook/api/useSearchItemQuery'
 
@@ -62,13 +62,15 @@ export default function ReviewSection() {
           {/** 리뷰 */}
           <div>
             {data?.pages.map((page: PagesResponse, pageIndex: number) =>
-              page.reviews.map((review: ReviewDetails, reviewIndex: number) => (
-                <Review
-                  key={review.reviewId}
-                  review={review}
-                  isFirst={pageIndex === 0 && reviewIndex === 0}
-                />
-              )),
+              page.reviews.map(
+                (review: ReviewResponse, reviewIndex: number) => (
+                  <Review
+                    key={review.reviewSummary.reviewId}
+                    review={review}
+                    isFirst={pageIndex === 0 && reviewIndex === 0}
+                  />
+                ),
+              ),
             )}
             {/** 리뷰 더보기 */}
             <div className="flex h-[80px] items-start justify-center">

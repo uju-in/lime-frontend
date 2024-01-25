@@ -1,24 +1,29 @@
-export interface MemberDetails {
+export interface MemberInfo {
   level: number
   memberId: number
   nickname: string
   profileImage: string
 }
 
-export interface ReviewDetails {
-  cursorId: string
-  memberInfo: MemberDetails
-  reviewId: number
-  rate: number
+export interface ReviewInfo {
   content: string
-  isReviewed: boolean
   createdAt: string
+  imageUrls: string[]
+  rate: number
+  reviewId: number
   updatedAt: string
+}
+
+export interface ReviewResponse {
+  cursorId: string
+  isReviewed: boolean
+  memberInfo: MemberInfo
+  reviewSummary: ReviewInfo
 }
 
 export interface PagesResponse {
   nextCursorId: string
   itemReviewTotalCount: number
   totalCount: number
-  reviews: ReviewDetails[]
+  reviews: ReviewResponse[]
 }

@@ -3,7 +3,7 @@
 import React from 'react'
 import Image from 'next/image'
 
-import { ReviewDetails } from '@/app/_types/review.type'
+import { ReviewResponse } from '@/app/_types/review.type'
 
 import { dateFormatter } from '../_utils/dateFormatter'
 
@@ -11,7 +11,7 @@ export default function Review({
   review,
   isFirst,
 }: {
-  review: ReviewDetails
+  review: ReviewResponse
   isFirst: boolean
 }) {
   console.log(review)
@@ -82,14 +82,14 @@ export default function Review({
               </div>
               <div className="mx-[10px] h-[12px] border-l-[0.5px] border-[#B3B3B3] " />
               <p className="flex items-center text-[10px] font-[500] text-[#747474]">
-                {dateFormatter(review.createdAt)}
+                {dateFormatter(review.reviewSummary.createdAt)}
               </p>
             </div>
           </div>
         </div>
         {/** 본문(후기) */}
         <div className="ml-[48px] mt-[14px] text-[12px] font-[400]">
-          <p>{review.content}</p>
+          <p>{review.reviewSummary.content}</p>
         </div>
         {/** 추천 개수 */}
         <div className="ml-[48px] mt-[8px] flex">
