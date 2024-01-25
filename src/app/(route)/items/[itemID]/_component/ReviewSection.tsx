@@ -3,11 +3,23 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 
+import { PagesResponse, ReviewDetails } from '@/app/_types/review.type'
+
+import { useSearchItemQuery } from '@/app/_hook/api/useSearchItemQuery'
+
 import Review from './Review'
 import ReviewModal from './ReviewModal'
 
 export default function ReviewSection() {
   const [showReviewModal, setShowReviewModal] = useState(false)
+
+  const { data, fetchNextPage } = useSearchItemQuery(160)
+
+  console.log(data)
+
+  const handleLoadMore = () => {
+    fetchNextPage()
+  }
 
   return (
     <article className="mt-[64px]">
@@ -49,13 +61,16 @@ export default function ReviewSection() {
         {/* <div className="mt-[51px] flex justify-center font-[500]">
           이 상품의 첫 번째 리뷰를 작성해 보세요
         </div> */}
-        <Review />
-        <Review />
-        <Review />
+        {data?.pages.map((page: PagesResponse) =>
+          page.reviews.map((review: ReviewDetails) => (
+            <Review key={review.reviewId} review={review} />
+          )),
+        )}
         <div className="flex h-[80px] items-start justify-center">
           <button
             className="flex items-center text-[14px] font-[600] text-[#BDBDBD]"
             type="button"
+            onClick={handleLoadMore}
           >
             <p>리뷰 더보기</p>
             <Image

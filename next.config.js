@@ -7,6 +7,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**.coupangcdn.com',
       },
+      {
+        protocol: 'http',
+        hostname: 'k.kakaocdn.net',
+        pathname: '/dn/**'
+      },
     ],
   }
 }

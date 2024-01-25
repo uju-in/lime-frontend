@@ -1,20 +1,34 @@
+'use client'
+
 import React from 'react'
 import Image from 'next/image'
 
-export default function Review() {
+import { ReviewDetails } from '@/app/_types/review.type'
+
+export default function Review({ review }: { review: ReviewDetails }) {
+  console.log(review)
   return (
     <div className="flex h-[190px] items-center justify-between border-b border-[#D2D2D2] p-[20px]">
       <div className="mr-[20px] flex h-[140px] w-[535px] flex-col">
         {/** 프로필 사진, 닉네임, 날짜, 평점, 레벨 */}
         <div className="flex">
-          <div className="mr-[8px] h-[40px] w-[40px] rounded-full bg-[#D9D9D9]" />
+          <Image
+            width={40}
+            height={40}
+            src={review.memberInfo.profileImage}
+            alt="member profile"
+            className="mr-[8px] h-[40px] w-[40px] rounded-full"
+          />
+          {/* <div className="mr-[8px] h-[40px] w-[40px] rounded-full bg-[#D9D9D9]" /> */}
           <div>
             <div className=" flex items-center">
               <p className="mr-[4.52px] text-[12px] font-[700]">
-                밝은 노란색 치타
+                {review.memberInfo.nickname}
               </p>
               <div className="flex h-[13px] w-[27px] justify-center rounded-[4px] bg-[#000]">
-                <p className="text-[8px] font-[700] text-white">Lv. 10</p>
+                <p className="text-[8px] font-[700] text-white">
+                  {review.memberInfo.level}
+                </p>
               </div>
             </div>
             <div className="mt-[4px] flex">
@@ -57,15 +71,14 @@ export default function Review() {
               </div>
               <div className="mx-[10px] h-[12px] border-l-[0.5px] border-[#B3B3B3] " />
               <p className="flex items-center text-[10px] font-[500] text-[#747474]">
-                2024.01.09
+                {review.createdAt}
               </p>
             </div>
           </div>
         </div>
         {/** 본문(후기) */}
         <div className="ml-[48px] mt-[14px] text-[12px] font-[400]">
-          <p>색이 너무 예뻐요~</p>
-          <p>공기도 잘 넣어졌고 튀기기도 이 가격에 이만하면 만족해요~</p>
+          <p>{review.content}</p>
         </div>
         {/** 추천 개수 */}
         <div className="ml-[48px] mt-[8px] flex items-center">
