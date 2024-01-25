@@ -82,15 +82,15 @@ export default function Review({ review }: { review: ReviewDetails }) {
           <p>{review.content}</p>
         </div>
         {/** 추천 개수 */}
-        <div className="ml-[48px] mt-[8px] flex items-center">
+        <div className="ml-[48px] mt-[8px] flex">
           <Image
             className="mr-[2px] cursor-pointer"
-            width={14}
+            width={12}
             height={14}
             src="/image/icon/icon-like.svg"
             alt="recommend"
           />
-          <p className="text-[12px] font-[600]">7</p>
+          <p className="pt-[1.5px] text-[12px] font-[600]">7</p>
         </div>
       </div>
       {/** 리뷰 이미지 */}
