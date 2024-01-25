@@ -1,6 +1,13 @@
+export interface MemberDetails {
+  level: number
+  memberId: number
+  nickname: string
+  profileImage: string
+}
+
 export interface ReviewDetails {
   cursorId: string
-  memberInfo: any
+  memberInfo: MemberDetails
   reviewId: number
   rate: number
   content: string
