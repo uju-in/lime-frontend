@@ -105,10 +105,15 @@ export default function Review({
       </div>
       {/** 리뷰 이미지 */}
       <div className="relative ">
-        <div className="h-[80px] w-[80px] bg-[#D2D2D2]" />
-        <div className="absolute bottom-0 right-0 z-10 flex h-[22px] w-[22px] items-center justify-center bg-[#000] text-[12px] font-[500] text-[#fff]">
-          3
-        </div>
+        <Image
+          width={80}
+          height={80}
+          src={review.reviewSummary.imageUrls[0]}
+          alt="review image"
+        />
+        <p className="absolute bottom-0 right-0 z-10 flex h-[22px] w-[22px] items-center justify-center bg-[#000] text-[12px] font-[500] text-[#fff]">
+          {review.reviewSummary.imageUrls.length}
+        </p>
       </div>
     </div>
   )
