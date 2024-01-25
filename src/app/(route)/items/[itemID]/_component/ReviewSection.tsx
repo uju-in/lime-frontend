@@ -25,7 +25,7 @@ export default function ReviewSection() {
     <article className="mt-[64px]">
       <div className="flex h-[42px] justify-between border-b-2 border-b-[#000]">
         <p className="text-[18px] font-[600]">
-          리뷰 {data?.pages[0].itemReviewTotalCount}
+          리뷰 ({data?.pages[0]?.itemReviewTotalCount})
         </p>
         <div className="flex items-center font-[600] text-[#3F3F3F]">
           <Image
@@ -46,49 +46,56 @@ export default function ReviewSection() {
         </div>
       </div>
       {/** 리뷰 정렬 */}
-      <div className="mb-[12px] mt-[30px] flex text-[12px] font-[500]">
-        <button
-          className="flex w-[52px] border-r-[0.5px] border-r-[#D4D4D4]"
-          type="button"
-        >
-          베스트순
-        </button>
-        <button className="ml-[10px]" type="button">
-          최신순
-        </button>
-      </div>
-      {/** 리뷰 */}
-      <div>
-        {/** 리뷰가 없을 경우 */}
-        {/* <div className="mt-[51px] flex justify-center font-[500]">
+      {data?.pages[0].itemReviewTotalCount !== 0 ? (
+        <>
+          <div className="mb-[12px] mt-[30px] flex text-[12px] font-[500]">
+            <button
+              className="flex w-[52px] border-r-[0.5px] border-r-[#D4D4D4]"
+              type="button"
+            >
+              베스트순
+            </button>
+            <button className="ml-[10px]" type="button">
+              최신순
+            </button>
+          </div>
+          {/** 리뷰 */}
+          <div>
+            {data?.pages.map((page: PagesResponse, pageIndex: number) =>
+              page.reviews.map((review: ReviewDetails, reviewIndex: number) => (
+                <Review
+                  key={review.reviewId}
+                  review={review}
+                  isFirst={pageIndex === 0 && reviewIndex === 0}
+                />
+              )),
+            )}
+            {/** 리뷰 더보기 */}
+            <div className="flex h-[80px] items-start justify-center">
+              <button
+                className="flex items-center text-[14px] font-[600] text-[#BDBDBD]"
+                type="button"
+                onClick={handleLoadMore}
+              >
+                <p>리뷰 더보기</p>
+                <Image
+                  className="ml-2"
+                  width={14}
+                  height={14}
+                  src="/image/icon/icon-arrow_bottom_BD.svg"
+                  alt="arrow bottom"
+                />
+              </button>
+            </div>
+          </div>
+        </>
+      ) : (
+        // 리뷰가 없을 경우
+        <div className="mt-[51px] flex justify-center font-[500]">
           이 상품의 첫 번째 리뷰를 작성해 보세요
-        </div> */}
-        {data?.pages.map((page: PagesResponse, pageIndex: number) =>
-          page.reviews.map((review: ReviewDetails, reviewIndex: number) => (
-            <Review
-              key={review.reviewId}
-              review={review}
-              isFirst={pageIndex === 0 && reviewIndex === 0}
-            />
-          )),
-        )}
-        <div className="flex h-[80px] items-start justify-center">
-          <button
-            className="flex items-center text-[14px] font-[600] text-[#BDBDBD]"
-            type="button"
-            onClick={handleLoadMore}
-          >
-            <p>리뷰 더보기</p>
-            <Image
-              className="ml-2"
-              width={14}
-              height={14}
-              src="/image/icon/icon-arrow_bottom_BD.svg"
-              alt="arrow bottom"
-            />
-          </button>
         </div>
-      </div>
+      )}
+      {/** 리뷰 작성 모달 */}
       {showReviewModal && (
         <ReviewModal setShowReviewModal={setShowReviewModal} />
       )}
