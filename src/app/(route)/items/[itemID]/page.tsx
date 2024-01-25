@@ -3,8 +3,9 @@ import Image from 'next/image'
 
 import fetchItemDetail from '@/app/_hook/api/useGetItemDetail'
 
+import RQProvider from '@/app/_components/RQProvider'
 import ReviewSection from './_component/ReviewSection'
-import { ActionButtons } from './_component/ActionButtons'
+import ActionButtons from './_component/ActionButtons'
 
 export default async function DetailPage() {
   const data = await fetchItemDetail(160)
@@ -33,7 +34,9 @@ export default async function DetailPage() {
                 src="/image/icon/icon-filled_star.svg"
                 alt="grade"
               />
-              <p className="text-[14px] font-[500] text-[#6F6F6F]">4.5/5</p>
+              <p className="text-[14px] font-[500] text-[#6F6F6F]">
+                {data.itemAvgRate}/5
+              </p>
             </div>
             <div className="mt-4 flex justify-between">
               <p className="text-[26px] font-[700]">
@@ -52,9 +55,15 @@ export default async function DetailPage() {
             </div>
           </div>
           {/** 아이템 담기, 구매하러 가기 버튼 */}
-          <ActionButtons itemUrl={data.itemUrl} />
+          <RQProvider>
+            <ActionButtons itemUrl={data.itemUrl} itemId={data.itemInfo.id} />
+          </RQProvider>
         </div>
       </article>
+      {/** 하단 리뷰 */}
+      {/* <RQProvider>
+        <ReviewSection />
+      </RQProvider> */}
     </section>
   )
 }
