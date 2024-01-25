@@ -24,7 +24,9 @@ export default function ReviewSection() {
   return (
     <article className="mt-[64px]">
       <div className="flex h-[42px] justify-between border-b-2 border-b-[#000]">
-        <p className="text-[18px] font-[600]">리뷰 (12)</p>
+        <p className="text-[18px] font-[600]">
+          리뷰 {data?.pages[0].itemReviewTotalCount}
+        </p>
         <div className="flex items-center font-[600] text-[#3F3F3F]">
           <Image
             width={14}
@@ -61,9 +63,13 @@ export default function ReviewSection() {
         {/* <div className="mt-[51px] flex justify-center font-[500]">
           이 상품의 첫 번째 리뷰를 작성해 보세요
         </div> */}
-        {data?.pages.map((page: PagesResponse) =>
-          page.reviews.map((review: ReviewDetails) => (
-            <Review key={review.reviewId} review={review} />
+        {data?.pages.map((page: PagesResponse, pageIndex: number) =>
+          page.reviews.map((review: ReviewDetails, reviewIndex: number) => (
+            <Review
+              key={review.reviewId}
+              review={review}
+              isFirst={pageIndex === 0 && reviewIndex === 0}
+            />
           )),
         )}
         <div className="flex h-[80px] items-start justify-center">

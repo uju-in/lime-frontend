@@ -7,10 +7,20 @@ import { ReviewDetails } from '@/app/_types/review.type'
 
 import { dateFormatter } from '../_utils/dateFormatter'
 
-export default function Review({ review }: { review: ReviewDetails }) {
+export default function Review({
+  review,
+  isFirst,
+}: {
+  review: ReviewDetails
+  isFirst: boolean
+}) {
   console.log(review)
   return (
-    <div className="flex h-[190px] items-center justify-between border-b border-[#D2D2D2] p-[20px]">
+    <div
+      className={`flex h-[190px] items-center justify-between ${
+        isFirst ? 'border-0' : 'border-t border-[#D2D2D2]'
+      } p-[20px]`}
+    >
       <div className="mr-[20px] flex h-[140px] w-[535px] flex-col">
         {/** 프로필 사진, 닉네임, 날짜, 평점, 레벨 */}
         <div className="flex">
