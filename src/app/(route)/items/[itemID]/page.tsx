@@ -1,9 +1,14 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
 import Image from 'next/image'
 
 import Review from './_component/Review'
+import ReviewModal from './_component/ReviewModal'
 
 export default function DetailPage() {
+  const [showReviewModal, setShowReviewModal] = useState(false)
+
   return (
     <section className="w-full flex-col bg-[#f7f7f7]">
       <article className="flex  w-full justify-center bg-white">
@@ -59,7 +64,13 @@ export default function DetailPage() {
         <div className="w-[800px] bg-white p-6">
           <div className="flex justify-between">
             <p className="text-[20px] font-[600]">리뷰 (12)</p>
-            <div className="flex font-[600] text-[#3F3F3F]">
+            <button
+              type="button"
+              className="flex items-center font-[600] text-[#3F3F3F]"
+              onClick={() => {
+                setShowReviewModal((prev) => !prev)
+              }}
+            >
               <Image
                 className="mr-1"
                 width={14}
@@ -68,7 +79,7 @@ export default function DetailPage() {
                 alt="write"
               />
               <p className="flex items-center">리뷰작성</p>
-            </div>
+            </button>
           </div>
           <div className="mt-10 flex flex h-[100px] justify-between">
             <div className="flex w-[26px] items-center justify-center rounded-[1px] border border-[#CCCCCC]">
@@ -106,6 +117,9 @@ export default function DetailPage() {
           </div>
         </div>
       </article>
+      {showReviewModal && (
+        <ReviewModal setShowReviewModal={setShowReviewModal} />
+      )}
     </section>
   )
 }
