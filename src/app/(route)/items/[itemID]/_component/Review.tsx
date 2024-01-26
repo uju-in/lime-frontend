@@ -7,6 +7,8 @@ import { ReviewResponse } from '@/app/_types/review.type'
 
 import { dateFormatter } from '../_utils/dateFormatter'
 
+import StarRating from './StarRating'
+
 export default function Review({
   review,
   isFirst,
@@ -43,43 +45,8 @@ export default function Review({
               </div>
             </div>
             <div className="mt-[4px] flex">
-              <div className="flex">
-                <Image
-                  className="mr-[2px] cursor-pointer"
-                  width={12}
-                  height={12}
-                  src="/image/icon/icon-filled_star.svg"
-                  alt="grade"
-                />
-                <Image
-                  className="mr-[2px] cursor-pointer"
-                  width={12}
-                  height={12}
-                  src="/image/icon/icon-filled_star.svg"
-                  alt="grade"
-                />
-                <Image
-                  className="mr-[2px] cursor-pointer"
-                  width={12}
-                  height={12}
-                  src="/image/icon/icon-filled_star.svg"
-                  alt="grade"
-                />
-                <Image
-                  className="mr-[2px] cursor-pointer"
-                  width={12}
-                  height={12}
-                  src="/image/icon/icon-filled_star.svg"
-                  alt="grade"
-                />
-                <Image
-                  className="mr-[2px] cursor-pointer"
-                  width={12}
-                  height={12}
-                  src="/image/icon/icon-empty_star.svg"
-                  alt="grade"
-                />
-              </div>
+              {/** 리뷰 별점 */}
+              <StarRating rate={review.reviewSummary.rate} />
               <div className="mx-[10px] h-[12px] border-l-[0.5px] border-[#B3B3B3] " />
               <p className="flex items-center text-[10px] font-[500] text-[#747474]">
                 {dateFormatter(review.reviewSummary.createdAt)}
