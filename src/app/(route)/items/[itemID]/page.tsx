@@ -8,7 +8,7 @@ import ReviewSection from './_component/ReviewSection'
 import ActionButtons from './_component/ActionButtons'
 
 export default async function DetailPage() {
-  const data = await fetchItemDetail(160)
+  const data = await fetchItemDetail(167)
 
   console.log(data)
 
@@ -26,7 +26,7 @@ export default async function DetailPage() {
         <div className="w-[473px]">
           <div className="h-[179px] w-[473px] border-t-[3px] border-[#000]">
             <p className="mt-3 text-[22px] font-[600]">{data.itemInfo.name}</p>
-            <div className="mt-4 flex">
+            <div className="flex">
               <Image
                 className="mr-1"
                 width={14}
@@ -50,7 +50,7 @@ export default async function DetailPage() {
                   src="/image/icon/icon-save.svg"
                   alt="save"
                 />
-                <p>24</p>
+                <p>{data.favoriteCount}</p>
               </div>
             </div>
           </div>
@@ -61,9 +61,9 @@ export default async function DetailPage() {
         </div>
       </article>
       {/** 하단 리뷰 */}
-      {/* <RQProvider>
-        <ReviewSection />
-      </RQProvider> */}
+      <RQProvider>
+        <ReviewSection itemId={data.itemInfo?.id} />
+      </RQProvider>
     </section>
   )
 }
