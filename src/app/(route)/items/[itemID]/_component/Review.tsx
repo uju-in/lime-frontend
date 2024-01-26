@@ -1,7 +1,9 @@
 'use client'
 
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import Image from 'next/image'
+
+import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 
 import { ReviewResponse } from '@/app/_types/review.type'
 
@@ -16,14 +18,41 @@ export default function Review({
   review: ReviewResponse
   isFirst: boolean
 }) {
+  const dropdownRef = useRef(null)
+
+  const [showReviewDetail, setShowReviewDetail] = useState<number | null>(null)
+
+  // 리뷰 상세 보기
+  const handleReviewClick = () => {
+    if (showReviewDetail === review.reviewSummary.reviewId) {
+      setShowReviewDetail(null)
+    } else {
+      setShowReviewDetail(review.reviewSummary.reviewId)
+    }
+  }
+
+  /** 외부 클릭 시 상세 리뷰 닫기 */
+  useOutsideClick(dropdownRef, () => {
+    if (showReviewDetail !== null) {
+      setShowReviewDetail(null)
+    }
+  })
+
   console.log(review)
   return (
-    <div
-      className={`flex h-[190px] items-center justify-between ${
+    <button
+      type="button"
+      ref={dropdownRef}
+      className={`flex w-full items-center justify-between ${
         isFirst ? 'border-0' : 'border-t border-[#D2D2D2]'
+      } ${
+        showReviewDetail === review.reviewSummary.reviewId
+          ? 'mb-[12px] bg-[#F6F6F6]'
+          : 'h-[190px] bg-[#fff]'
       } p-[20px]`}
+      onClick={handleReviewClick}
     >
-      <div className="mr-[20px] flex h-[140px] w-[535px] flex-col">
+      <div className="mr-[20px] flex w-[535px] flex-col p-[20px]">
         {/** 프로필 사진, 닉네임, 날짜, 평점, 레벨 */}
         <div className="flex">
           <Image
@@ -56,7 +85,7 @@ export default function Review({
         </div>
         {/** 본문(후기) */}
         <div className="ml-[48px] mt-[14px] text-[12px] font-[400]">
-          <p>{review.reviewSummary.content}</p>
+          <p className="text-start">{review.reviewSummary.content}</p>
         </div>
         {/** 추천 개수 */}
         <div className="ml-[48px] mt-[8px] flex">
@@ -69,19 +98,36 @@ export default function Review({
           />
           <p className="pt-[1.5px] text-[12px] font-[600]">7</p>
         </div>
+        {/** 리뷰 상세 이미지 */}
+        {showReviewDetail === review.reviewSummary.reviewId && (
+          <div className="mt-[20px]">
+            {review.reviewSummary.imageUrls.map((img: string) => (
+              <Image
+                key={img}
+                width={224}
+                height={320}
+                src={img}
+                alt="detail review image"
+                className="mb-[12px] ml-[48px]"
+              />
+            ))}
+          </div>
+        )}
       </div>
-      {/** 리뷰 이미지 */}
-      <div className="relative ">
-        <Image
-          width={80}
-          height={80}
-          src={review.reviewSummary.imageUrls[0]}
-          alt="review image"
-        />
-        <p className="absolute bottom-0 right-0 z-10 flex h-[22px] w-[22px] items-center justify-center bg-[#000] text-[12px] font-[500] text-[#fff]">
-          {review.reviewSummary.imageUrls.length}
-        </p>
-      </div>
-    </div>
+      {/** 리뷰 썸네일 이미지 */}
+      {showReviewDetail !== review.reviewSummary.reviewId && (
+        <div className="relative">
+          <Image
+            width={80}
+            height={80}
+            src={review.reviewSummary.imageUrls[0]}
+            alt="review image"
+          />
+          <p className="absolute bottom-0 right-0 z-10 flex h-[22px] w-[22px] items-center justify-center bg-[#000] text-[12px] font-[500] text-[#fff]">
+            {review.reviewSummary.imageUrls.length}
+          </p>
+        </div>
+      )}
+    </button>
   )
 }
