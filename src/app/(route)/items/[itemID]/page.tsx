@@ -6,6 +6,7 @@ import fetchItemDetail from '@/app/_hook/api/useGetItemDetail'
 import RQProvider from '@/app/_components/RQProvider'
 import ReviewSection from './_component/ReviewSection'
 import ActionButtons from './_component/ActionButtons'
+
 import { categoryFormatter } from './_utils/categoryFormatter'
 
 export default async function DetailPage() {
@@ -18,7 +19,7 @@ export default async function DetailPage() {
       {/** 아이템 브레드 크럼 */}
       <p className="mb-[8px] flex text-[12px] font-[500] text-[#ADADAD]">
         아이템 &nbsp; &gt; &nbsp;
-        <p>{categoryFormatter(data?.hobbyName)}</p>
+        <p>{categoryFormatter(data.hobbyName)}</p>
         &nbsp; &gt; &nbsp;
         <p>{data?.hobbyName}</p>
       </p>
@@ -69,7 +70,7 @@ export default async function DetailPage() {
       </article>
       {/** 하단 리뷰 */}
       <RQProvider>
-        <ReviewSection itemId={data.itemInfo?.id} />
+        <ReviewSection itemId={data.itemInfo.id} />
       </RQProvider>
     </section>
   )
