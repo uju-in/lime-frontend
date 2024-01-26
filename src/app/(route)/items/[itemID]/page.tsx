@@ -6,6 +6,7 @@ import fetchItemDetail from '@/app/_hook/api/useGetItemDetail'
 import RQProvider from '@/app/_components/RQProvider'
 import ReviewSection from './_component/ReviewSection'
 import ActionButtons from './_component/ActionButtons'
+import { categoryFormatter } from './_utils/categoryFormatter'
 
 export default async function DetailPage() {
   const data = await fetchItemDetail(167)
@@ -14,7 +15,13 @@ export default async function DetailPage() {
 
   return (
     <section className="mx-auto mt-[32px] w-[720px]">
-      {/** 상단 아이템 정보 */}
+      {/** 아이템 브레드 크럼 */}
+      <p className="mb-[8px] flex text-[12px] font-[500] text-[#ADADAD]">
+        아이템 &nbsp; &gt; &nbsp;
+        <p>{categoryFormatter(data?.hobbyName)}</p>
+        &nbsp; &gt; &nbsp;
+        <p>{data?.hobbyName}</p>
+      </p>
       <article className="flex h-[227px] justify-between">
         <Image
           className="rounded-[8px]"
