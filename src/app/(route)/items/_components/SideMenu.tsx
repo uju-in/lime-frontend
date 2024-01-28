@@ -2,21 +2,38 @@
 
 import React from 'react'
 import { useRouter } from 'next/navigation'
+import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
+import { CategoryOption } from '@/app/_constants'
 
 export default function SideMenu() {
   const router = useRouter()
+  const title = useGetSearchParam('title')
+  const category = useGetSearchParam('category')
+
+  const categoryList = CategoryOption.find((item) => {
+    return item.title === title
+  })
 
   return (
     <div className="flex flex-col gap-[20px]">
       {/* Categories */}
-      <div className="text-[25px] font-bold">스포츠</div>
+      <div className="text-[25px] font-bold">{title}</div>
       <ul className="flex flex-col gap-[15px] text-[#575757]">
-        <li className="font-bold text-black">농구</li>
-        <li>야구</li>
-        <li>배드민턴</li>
-        <li>헬스</li>
-        <li>클라이밍</li>
+        {categoryList &&
+          categoryList.list.map((item) => {
+            return (
+              <li
+                key={item}
+                className={`text-black ${
+                  item === category ? 'font-bold' : 'font-normal'
+                }`}
+              >
+                <a href={`/items?title=${title}&category=${item}`}>{item}</a>
+              </li>
+            )
+          })}
       </ul>
+
       {/* Buttons */}
       <div className="my-[50px] flex flex-col gap-[10px]">
         <button
