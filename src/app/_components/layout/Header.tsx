@@ -1,3 +1,4 @@
+import { CategoryOption } from '@/app/_constants'
 import Image from 'next/image'
 import React from 'react'
 
@@ -30,23 +31,30 @@ export default function Header() {
               src="/image/icon/icon-arrow_bottom.svg"
               alt="arrow_bottom"
             />
-            <div className="absolute left-0 top-[40px] flex min-w-[300px] origin-top scale-y-0 transform divide-x rounded-[4px] bg-white p-[18px_30px] text-[15px] text-[#575757] shadow-[0px_0px_7.8px_3px_rgba(0,0,0,0.10)] transition duration-300 ease-in-out group-hover:scale-y-100">
-              <ul className="flex flex-col gap-[13px] pr-[42px]">
-                <li className="font-bold text-black">스포츠</li>
-                <li>농구</li>
-                <li>야구</li>
-                <li>배드민턴</li>
-                <li>헬스</li>
-                <li>클라이밍</li>
-              </ul>
-              <ul className="flex flex-col gap-[13px] pl-[42px]">
-                <li className="font-bold text-black">라이프</li>
-                <li>드로잉</li>
-                <li>음악</li>
-                <li>쿠킹</li>
-                <li>게임</li>
-                <li>데스크테리어</li>
-              </ul>
+            <div className="absolute left-0 top-[40px] z-50 flex min-w-[300px] origin-top scale-y-0 transform divide-x rounded-[4px] bg-white py-[18px] text-[15px] text-[#575757] shadow-[0px_0px_7.8px_3px_rgba(0,0,0,0.10)] transition duration-300 ease-in-out group-hover:scale-y-100">
+              {CategoryOption.map((items) => {
+                const { title, list } = items
+                return (
+                  <ul
+                    key={title}
+                    className="flex flex-col gap-[13px] px-[30px]"
+                  >
+                    <li className="font-bold text-black">{title}</li>
+                    {list.map((item) => {
+                      return (
+                        <li key={item}>
+                          <a
+                            className="hover:text-black"
+                            href={`/items?title=${title}&category=${item}`}
+                          >
+                            {item}
+                          </a>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                )
+              })}
             </div>
           </li>
         </ul>
