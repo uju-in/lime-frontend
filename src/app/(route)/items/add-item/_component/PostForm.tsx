@@ -63,6 +63,9 @@ export default function PostForm() {
         className="h-[40px] w-[720px] rounded-[2px] border border-[#DADADA] p-1 focus:outline-none"
         onChange={handleChange}
       />
+      <p className="mt-[8px] text-[14px] font-[400] text-[#A4A4A4]">
+        *네이버 쇼핑, 쿠팡, 다나와 URL만 입력 가능합니다.
+      </p>
       <div className=" mt-[70px] flex justify-center">
         <button
           className="h-[45px] w-[250px] rounded-[2px] bg-black text-[15px] text-white"
