@@ -3,17 +3,17 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 
-import { PagesResponse, ReviewResponse } from '@/app/_types/review.type'
+import { ReviewResponse } from '@/app/_types/review.type'
 
 import { useSearchItemQuery } from '@/app/_hook/api/useSearchItemQuery'
 
 import Review from './Review'
 import ReviewModal from './ReviewModal'
 
-export default function ReviewSection() {
+export default function ReviewSection({ itemId }: { itemId: number }) {
   const [showReviewModal, setShowReviewModal] = useState(false)
 
-  const { data, fetchNextPage } = useSearchItemQuery(160)
+  const { data, reviewList, fetchNextPage } = useSearchItemQuery(itemId)
 
   console.log(data)
 
@@ -61,17 +61,13 @@ export default function ReviewSection() {
           </div>
           {/** 리뷰 */}
           <div>
-            {data?.pages.map((page: PagesResponse, pageIndex: number) =>
-              page.reviews.map(
-                (review: ReviewResponse, reviewIndex: number) => (
-                  <Review
-                    key={review.reviewSummary.reviewId}
-                    review={review}
-                    isFirst={pageIndex === 0 && reviewIndex === 0}
-                  />
-                ),
-              ),
-            )}
+            {reviewList.map((review: ReviewResponse, reviewIndex: number) => (
+              <Review
+                key={review.reviewSummary.reviewId}
+                review={review}
+                isFirst={1 && reviewIndex === 0}
+              />
+            ))}
             {/** 리뷰 더보기 */}
             <div className="flex h-[80px] items-start justify-center">
               <button
@@ -97,6 +93,7 @@ export default function ReviewSection() {
           이 상품의 첫 번째 리뷰를 작성해 보세요
         </div>
       )}
+
       {/** 리뷰 작성 모달 */}
       {showReviewModal && (
         <ReviewModal setShowReviewModal={setShowReviewModal} />

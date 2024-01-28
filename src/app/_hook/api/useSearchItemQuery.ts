@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useInfiniteQuery, InfiniteData } from '@tanstack/react-query'
 
 import { PagesResponse } from '@/app/_types/review.type'
@@ -26,7 +27,7 @@ async function fetchReviewData(pageParam: string | null, itemId: number) {
 }
 
 export const useSearchItemQuery = (itemId: number) => {
-  return useInfiniteQuery<
+  const { data, fetchNextPage } = useInfiniteQuery<
     PagesResponse,
     Error,
     InfiniteData<PagesResponse>,
@@ -44,4 +45,11 @@ export const useSearchItemQuery = (itemId: number) => {
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
   })
+
+  const reviewList = useMemo(
+    () => (data ? data.pages.flatMap((pageData) => pageData.reviews) : []),
+    [data],
+  )
+
+  return { data, reviewList, fetchNextPage }
 }
