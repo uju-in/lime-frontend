@@ -7,6 +7,16 @@ const nextConfig = {
         hostname: 'shop-phinf.pstatic.net',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'thumbnail10.coupangcdn.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'thumbnail9.coupangcdn.com',
+        port: '',
+      },
     ],
   },
   reactStrictMode: false,
