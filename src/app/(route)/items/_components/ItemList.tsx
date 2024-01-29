@@ -2,23 +2,11 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
+import { ItemType } from '@/app/_types/item.type'
 import useItemListData from '@/app/_hook/api/useItemListData'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import SortBox from './SortBox'
 import { SortOption } from '../_constants'
-
-interface ItemType {
-  cursorId: string
-  itemSummary: {
-    createdAt: string
-    id: number
-    image: string
-    name: string
-    price: number
-    favoriteCount: number
-    reviewCount: number
-  }
-}
 
 export function Item({ item }: { item: ItemType }) {
   const { name, price, id, image, createdAt, favoriteCount, reviewCount } =
