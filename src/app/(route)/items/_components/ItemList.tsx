@@ -24,7 +24,7 @@ export function Item({ item }: { item: ItemType }) {
       <div className="cursor-pointer text-[#515151] hover:underline">
         {name}
       </div>
-      <strong>{price}원</strong>
+      <strong>{price.toLocaleString()}원</strong>
       <div className="flex gap-[20px] text-[13px] text-[#6F6F6F]">
         <div className="flex cursor-pointer">
           <Image
