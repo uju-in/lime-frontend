@@ -21,9 +21,7 @@ export default function Header() {
             <a href="/">투표</a>
           </li>
           <li className="group relative flex gap-[8px]">
-            <a href="/items" className="font-bold">
-              아이템
-            </a>
+            <div className="font-bold">아이템</div>
             <Image
               className="cursor-pointer"
               width={20}
