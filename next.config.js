@@ -9,12 +9,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'thumbnail10.coupangcdn.com',
-        port: '',
-      },
-      {
-        protocol: 'https',
-        hostname: 'thumbnail9.coupangcdn.com',
+        hostname: '*.coupangcdn.com',
         port: '',
       },
     ],
