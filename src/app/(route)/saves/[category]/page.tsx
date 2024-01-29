@@ -23,13 +23,13 @@ export default function page() {
       </div>
       <div className="my-[40px]">
         <div className="mx-auto grid max-w-[790px] grid-cols-[repeat(auto-fill,150px)] justify-center gap-x-[10px] gap-y-[25px]">
+          {/* <Item />
           <Item />
           <Item />
           <Item />
           <Item />
           <Item />
-          <Item />
-          <Item />
+          <Item /> */}
         </div>
       </div>
     </Layout>
