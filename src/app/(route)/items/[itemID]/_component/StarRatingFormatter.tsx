@@ -19,16 +19,18 @@ export default function StarRatingFormatter(props: PropsType) {
 
   return (
     <>
-      {[...Array(TOTAL_STAR)].map((_, i) => (
+      {[...Array(TOTAL_STAR)].map((_, index) => (
         <Image
           // eslint-disable-next-line react/no-array-index-key
-          key={i}
-          src={`/image/icon/icon-${i < rating ? 'filled' : 'empty'}_star.svg`}
+          key={index}
+          src={`/image/icon/icon-${
+            index < rating ? 'filled' : 'empty'
+          }_star.svg`}
           alt="star"
           width={56}
           height={56}
           className="cursor-pointer"
-          onClick={() => handleStarClick(i)}
+          onClick={() => handleStarClick(index)}
           aria-label="rating start"
         />
       ))}
