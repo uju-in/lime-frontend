@@ -24,7 +24,7 @@ const useItemListData = (keyword: string, sortOption: string) => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ['keyword', keyword, sortOption],
+    queryKey: ['itemList', keyword, sortOption],
     queryFn: () => fetchItemList(keyword, sortOption),
   })
 
