@@ -10,19 +10,17 @@ import ActionButtons from './_component/ActionButtons'
 import { categoryFormatter } from './_utils/categoryFormatter'
 
 export default async function DetailPage() {
-  const data = await fetchItemDetail(167)
-
-  console.log(data)
+  const data = await fetchItemDetail(160)
 
   return (
     <section className="mx-auto mt-[32px] w-[720px]">
       {/** 아이템 브레드 크럼 */}
-      <p className="mb-[8px] flex text-[12px] font-[500] text-[#ADADAD]">
+      <div className="mb-[8px] flex text-[12px] font-[500] text-[#ADADAD]">
         아이템 &nbsp; &gt; &nbsp;
         <p>{categoryFormatter(data.hobbyName)}</p>
         &nbsp; &gt; &nbsp;
         <p>{data?.hobbyName}</p>
-      </p>
+      </div>
       <article className="flex h-[227px] justify-between">
         <Image
           className="rounded-[8px]"
