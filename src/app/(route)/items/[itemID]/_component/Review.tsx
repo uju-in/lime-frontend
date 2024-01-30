@@ -18,16 +18,18 @@ export default function Review({
   review: ReviewResponse
   isFirst: boolean
 }) {
+  const { memberInfo, reviewSummary } = review
+
   const dropdownRef = useRef(null)
 
   const [showReviewDetail, setShowReviewDetail] = useState<number | null>(null)
 
   // 리뷰 상세 보기
   const handleReviewClick = () => {
-    if (showReviewDetail === review.reviewSummary.reviewId) {
+    if (showReviewDetail === reviewSummary.reviewId) {
       setShowReviewDetail(null)
     } else {
-      setShowReviewDetail(review.reviewSummary.reviewId)
+      setShowReviewDetail(reviewSummary.reviewId)
     }
   }
 
@@ -38,7 +40,6 @@ export default function Review({
     }
   })
 
-  console.log(review)
   return (
     <button
       type="button"
@@ -46,7 +47,7 @@ export default function Review({
       className={`flex w-full items-center justify-between ${
         isFirst ? 'border-0' : 'border-t border-[#D2D2D2]'
       } ${
-        showReviewDetail === review.reviewSummary.reviewId
+        showReviewDetail === reviewSummary.reviewId
           ? 'mb-[12px] bg-[#F6F6F6]'
           : 'h-[190px] bg-[#fff]'
       } p-[20px]`}
@@ -58,34 +59,34 @@ export default function Review({
           <Image
             width={40}
             height={40}
-            src={review.memberInfo.profileImage}
+            src={memberInfo.profileImage}
             alt="member profile"
             className="mr-[8px] h-[40px] w-[40px] rounded-full"
           />
           <div>
             <div className=" flex items-center">
               <p className="mr-[4.52px] text-[12px] font-[700]">
-                {review.memberInfo.nickname}
+                {memberInfo.nickname}
               </p>
               <div className="flex h-[13px] w-[27px] justify-center rounded-[4px] bg-[#000]">
                 <p className="text-[8px] font-[700] text-white">
-                  Lv. {review.memberInfo.level}
+                  Lv. {memberInfo.level}
                 </p>
               </div>
             </div>
             <div className="mt-[4px] flex">
               {/** 리뷰 별점 */}
-              <StarRating rate={review.reviewSummary.rate} />
+              <StarRating rate={reviewSummary.rate} />
               <div className="mx-[10px] h-[12px] border-l-[0.5px] border-[#B3B3B3] " />
               <p className="flex items-center text-[10px] font-[500] text-[#747474]">
-                {dateFormatter(review.reviewSummary.createdAt)}
+                {dateFormatter(reviewSummary.createdAt)}
               </p>
             </div>
           </div>
         </div>
         {/** 본문(후기) */}
         <div className="ml-[48px] mt-[14px] text-[12px] font-[400]">
-          <p className="text-start">{review.reviewSummary.content}</p>
+          <p className="text-start">{reviewSummary.content}</p>
         </div>
         {/** 추천 개수 */}
         <div className="ml-[48px] mt-[8px] flex">
@@ -99,9 +100,9 @@ export default function Review({
           <p className="pt-[1.5px] text-[12px] font-[600]">7</p>
         </div>
         {/** 리뷰 상세 이미지 */}
-        {showReviewDetail === review.reviewSummary.reviewId && (
+        {showReviewDetail === reviewSummary.reviewId && (
           <div className="mt-[20px]">
-            {review.reviewSummary.imageUrls.map((img: string) => (
+            {reviewSummary.imageUrls.map((img: string) => (
               <Image
                 key={img}
                 width={224}
@@ -115,16 +116,16 @@ export default function Review({
         )}
       </div>
       {/** 리뷰 썸네일 이미지 */}
-      {showReviewDetail !== review.reviewSummary.reviewId && (
+      {showReviewDetail !== reviewSummary.reviewId && (
         <div className="relative">
           <Image
             width={80}
             height={80}
-            src={review.reviewSummary.imageUrls[0]}
+            src={reviewSummary.imageUrls[0]}
             alt="review image"
           />
           <p className="absolute bottom-0 right-0 z-10 flex h-[22px] w-[22px] items-center justify-center bg-[#000] text-[12px] font-[500] text-[#fff]">
-            {review.reviewSummary.imageUrls.length}
+            {reviewSummary.imageUrls.length}
           </p>
         </div>
       )}
