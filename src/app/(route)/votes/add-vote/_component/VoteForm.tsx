@@ -4,8 +4,10 @@ import React, { ChangeEvent, useState } from 'react'
 import Image from 'next/image'
 
 import CategorySelector from '@/app/_components/categorySelector'
+import VoteModal from './VoteModal'
 
 export default function VoteForm() {
+  const [showVoteModal, setShowVoteModal] = useState(false)
   const [voteInfo, setVoteInfo] = useState({
     hobby: '',
     maximumParticipants: 0,
@@ -32,14 +34,14 @@ export default function VoteForm() {
         <Image
           width={20}
           height={20}
-          src="image/icon/icon-circle_minus.svg"
+          src="/image/icon/icon-circle_minus.svg"
           alt="minus button"
         />
         <p>hi</p>
         <Image
           width={20}
           height={20}
-          src="image/icon/icon-circle_plus.svg"
+          src="/image/icon/icon-circle_plus.svg"
           alt="plus button"
         />
       </div>
@@ -56,11 +58,12 @@ export default function VoteForm() {
         <button
           type="button"
           className="flex h-[88px] w-[88px] items-center justify-center rounded-[6.729px] bg-[#EAEAEA]"
+          onClick={() => setShowVoteModal(true)}
         >
           <Image
             width={36}
             height={36}
-            src="image/icon/icon-plus.svg"
+            src="/image/icon/icon-plus.svg"
             alt="upload image"
           />
         </button>
@@ -71,7 +74,7 @@ export default function VoteForm() {
           <Image
             width={36}
             height={36}
-            src="image/icon/icon-plus.svg"
+            src="/image/icon/icon-plus.svg"
             alt="upload image"
           />
         </button>
@@ -95,6 +98,8 @@ export default function VoteForm() {
           생성하기
         </button>
       </div>
+      {/** 리뷰 작성 모달 */}
+      {showVoteModal && <VoteModal setShowVoteModal={setShowVoteModal} />}
     </form>
   )
 }
