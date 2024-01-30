@@ -21,6 +21,7 @@ export interface ReviewInfo {
   rate: number
   reviewId: number
   updatedAt: string
+  likeCount: number
 }
 
 export interface ReviewResponse {

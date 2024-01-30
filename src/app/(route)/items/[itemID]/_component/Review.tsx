@@ -97,7 +97,9 @@ export default function Review({
             src="/image/icon/icon-like.svg"
             alt="recommend"
           />
-          <p className="pt-[1.5px] text-[12px] font-[600]">7</p>
+          <p className="pt-[1.5px] text-[12px] font-[600]">
+            {reviewSummary.likeCount}
+          </p>
         </div>
         {/** 리뷰 상세 이미지 */}
         {showReviewDetail === reviewSummary.reviewId && (
