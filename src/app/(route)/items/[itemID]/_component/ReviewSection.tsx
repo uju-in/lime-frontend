@@ -60,11 +60,11 @@ export default function ReviewSection({ itemInfo }: ItemInfo) {
           </div>
           {/** 리뷰 */}
           <div>
-            {reviewList.map((review: ReviewResponse, reviewIndex: number) => (
+            {reviewList.map((review: ReviewResponse, index: number) => (
               <Review
                 key={review.reviewSummary.reviewId}
                 review={review}
-                isFirst={1 && reviewIndex === 0}
+                isFirst={index === 0}
               />
             ))}
             {/** 리뷰 더보기 */}
