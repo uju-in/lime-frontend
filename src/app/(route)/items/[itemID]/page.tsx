@@ -46,19 +46,19 @@ export default async function DetailPage() {
                 {itemAvgRate}/5
               </p>
             </div>
-            <div className="mt-4 flex justify-between">
+            <div className="mt-4 mt-[42px] flex justify-between">
               <p className="text-[26px] font-[700]">
                 {itemInfo.price.toLocaleString()}원
               </p>
-              <div className="flex items-center font-[500] text-[#6F6F6F]">
+              <div className="flex items-center">
                 <Image
                   className="mr-2"
-                  width={13}
-                  height={13}
+                  width={20}
+                  height={20}
                   src="/image/icon/icon-save.svg"
                   alt="save"
                 />
-                <p>{favoriteCount}</p>
+                <p className="font-[500] text-[#6F6F6F]">{favoriteCount}</p>
               </div>
             </div>
           </div>
