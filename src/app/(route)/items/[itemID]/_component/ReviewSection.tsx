@@ -3,20 +3,19 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 
-import { ReviewResponse } from '@/app/_types/review.type'
+import { ItemInfo, ReviewResponse } from '@/app/_types/review.type'
 
 import { useSearchItemQuery } from '@/app/_hook/api/useSearchItemQuery'
 
 import Review from './Review'
 import ReviewModal from './ReviewModal'
 
-export default function ReviewSection({ itemId }: { itemId: number }) {
+export default function ReviewSection({ itemInfo }: ItemInfo) {
   const [showReviewModal, setShowReviewModal] = useState(false)
 
-  const { data, reviewList, fetchNextPage } = useSearchItemQuery(itemId)
+  const { data, reviewList, fetchNextPage } = useSearchItemQuery(itemInfo.id)
 
-  console.log(data)
-
+  /** 추가 데이터 요청(리뷰 더보기) */
   const handleLoadMore = () => {
     fetchNextPage()
   }
@@ -96,7 +95,10 @@ export default function ReviewSection({ itemId }: { itemId: number }) {
 
       {/** 리뷰 작성 모달 */}
       {showReviewModal && (
-        <ReviewModal setShowReviewModal={setShowReviewModal} />
+        <ReviewModal
+          itemData={itemInfo}
+          setShowReviewModal={setShowReviewModal}
+        />
       )}
     </article>
   )

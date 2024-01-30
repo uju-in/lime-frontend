@@ -10,10 +10,9 @@ import ActionButtons from './_component/ActionButtons'
 import { categoryFormatter } from './_utils/categoryFormatter'
 
 export default async function DetailPage() {
-  const data = await fetchItemDetail(160)
-  console.log(data)
+  const itemData = await fetchItemDetail(161)
 
-  const { itemInfo, hobbyName, itemUrl, itemAvgRate, favoriteCount } = data
+  const { itemInfo, hobbyName, itemUrl, itemAvgRate, favoriteCount } = itemData
 
   return (
     <section className="mx-auto mt-[32px] w-[720px]">
@@ -22,7 +21,7 @@ export default async function DetailPage() {
         아이템 &nbsp; &gt; &nbsp;
         <p>{categoryFormatter(hobbyName)}</p>
         &nbsp; &gt; &nbsp;
-        <p>{data?.hobbyName}</p>
+        <p>{itemData?.hobbyName}</p>
       </div>
       <article className="flex h-[227px] justify-between">
         <Image
@@ -71,7 +70,7 @@ export default async function DetailPage() {
       </article>
       {/** 하단 리뷰 */}
       <RQProvider>
-        <ReviewSection itemId={itemInfo.id} />
+        <ReviewSection itemInfo={itemData.itemInfo} />
       </RQProvider>
     </section>
   )

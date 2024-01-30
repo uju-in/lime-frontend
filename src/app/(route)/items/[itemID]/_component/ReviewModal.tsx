@@ -11,6 +11,12 @@ import { validateForm } from '../_utils/validation'
 
 interface PropsType {
   setShowReviewModal: React.Dispatch<React.SetStateAction<boolean>>
+  itemData: {
+    id: number
+    name: string
+    price: number
+    image: string
+  }
 }
 
 interface ReviewFormState {
@@ -19,8 +25,11 @@ interface ReviewFormState {
   multipartReviewImages: File[]
 }
 
-export default function ReviewModal(props: PropsType) {
-  const { setShowReviewModal } = props
+export default function ReviewModal({
+  setShowReviewModal,
+  itemData,
+}: PropsType) {
+  const { name: itemName, price: itemPrice, image: itemImage } = itemData
 
   const InputRef = useRef<HTMLInputElement>(null)
 
@@ -100,19 +109,27 @@ export default function ReviewModal(props: PropsType) {
           </button>
         </div>
         <div className="mt-[34px] px-[41px]">
+          {/** 아이템 정보 */}
           <div className="mb-[40px] flex gap-[20px] rounded-[8px] bg-[#F4F4F4] p-[20px]">
-            <div className="h-[80px] w-[80px] rounded-[3.736px] bg-[#D2D2D2]" />
+            <Image
+              width={80}
+              height={80}
+              className="rounded-[3.736px]"
+              src={itemImage}
+              alt="item image"
+            />
             <div className="flex flex-col justify-center gap-[18px]">
-              <div className="text-[18px]">
-                영결무람 문라이트 야광 반사 농구공 레인보우
+              <div className="text-[18px]">{itemName}</div>
+              <div className="text-[20px] font-semibold">
+                {itemPrice.toLocaleString()}원
               </div>
-              <div className="text-[20px] font-semibold">29,200원</div>
             </div>
           </div>
+          {/** 리뷰 작성 */}
           <div className="mb-[50px] flex flex-col items-center gap-[20px]">
             <div>상품은 만족하셨나요?</div>
             <div className="flex gap-[8px]">
-              {/** 리뷰 별점 입력 */}
+              {/** 별점 입력 */}
               <StarRatingFormatter
                 rating={review.rating}
                 setRate={(rating) => setReview({ ...review, rating })}
