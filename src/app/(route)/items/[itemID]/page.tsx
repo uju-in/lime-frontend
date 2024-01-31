@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 
+import RQProvider from '@/app/_components/RQProvider'
 import Review from './_component/Review'
 import ReviewModal from './_component/ReviewModal'
 
@@ -118,7 +119,9 @@ export default function DetailPage() {
         </div>
       </article>
       {showReviewModal && (
-        <ReviewModal setShowReviewModal={setShowReviewModal} />
+        <RQProvider>
+          <ReviewModal setShowReviewModal={setShowReviewModal} />
+        </RQProvider>
       )}
     </section>
   )
