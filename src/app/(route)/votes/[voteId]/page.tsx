@@ -25,11 +25,11 @@ export default function pages() {
               </p>
             </div>
             <div className="mt-[4px] flex h-[17px] gap-[4px] text-[12px] font-[500] text-[#747474]">
-              <p>2024.01.09</p>·<p>조회 12</p>
+              <p>2024.01.09</p>
             </div>
           </div>
         </div>
-        <p className="mt-[46px] text-[14px] font-[500]">
+        <p className="mt-[28px] text-[14px] font-[500]">
           농구 시작한지 한달 차인 농린이야! <br />
           농구공 고민중인데 둘 중 뭐가 더 나아?
         </p>
@@ -44,7 +44,7 @@ export default function pages() {
             {/** item1 */}
             <div className="relative">
               <div className="h-[196px] w-[196px] rounded-[8px] bg-[#EAEAEA]" />
-              <div className="absolute bottom-[-4px] h-[150px] w-[196px] rounded-[20px] bg-[#fff] bg-red-500 px-[28.7px] pt-[23.1px]">
+              <div className="absolute bottom-[-4px] h-[150px] w-[196px] rounded-[20px] bg-[#fff] px-[28.7px] pt-[23.1px]">
                 <p className="mb-[15.4px] text-center text-[14px] font-[500]">
                   영결무람 문라이트 야광 반사 농구공 레인보우
                 </p>
@@ -71,7 +71,7 @@ export default function pages() {
             {/** item2 */}
             <div className="relative">
               <div className="h-[196px] w-[196px] rounded-[8px] bg-[#EAEAEA]" />
-              <div className="absolute bottom-[-4px] h-[150px] w-[196px] rounded-[20px] bg-[#fff] bg-red-500 px-[28.7px] pt-[23.1px]">
+              <div className="absolute bottom-[-4px] h-[150px] w-[196px] rounded-[20px] bg-[#fff] px-[28.7px] pt-[23.1px]">
                 <p className="mb-[15.4px] text-center text-[14px] font-[500]">
                   나이키 조던 레거시 2.0 8P 농구공
                 </p>
