@@ -21,7 +21,7 @@ export function Item({ item }: { item: ItemType }) {
         width={150}
         height={150}
       />
-      <div className="cursor-pointer text-[#515151] hover:underline">
+      <div className="line-clamp-2 h-[42px] cursor-pointer text-[#515151] hover:underline">
         {name}
       </div>
       <strong>{price.toLocaleString()}원</strong>
