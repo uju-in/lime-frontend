@@ -79,7 +79,7 @@ export default function ReviewModal({
     formData.append('rating', review.rating.toString())
     formData.append('content', review.content)
 
-    const status = await addReview({ itemId: 160, formData })
+    const status = await addReview({ itemId: 161, formData })
 
     if (status === 200) {
       setShowReviewModal(false)
