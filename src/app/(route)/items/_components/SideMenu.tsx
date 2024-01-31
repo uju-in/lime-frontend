@@ -39,14 +39,13 @@ export default function SideMenu() {
         <button
           type="button"
           className="w-[120px] rounded-full bg-[#9c9c9c] py-[6px] text-white"
-          onClick={() => {
-            router.push('/saves/baseball')
-          }}
+          onClick={() => router.push('/saves/baseball')}
         >
           찜 목록
         </button>
         <button
           type="button"
+          onClick={() => router.push('/items/add-item')}
           className="w-[120px] rounded-full bg-[#9c9c9c] py-[6px] text-white"
         >
           아이템 생성
