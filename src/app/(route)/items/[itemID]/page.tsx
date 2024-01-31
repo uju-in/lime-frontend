@@ -4,8 +4,8 @@ import Image from 'next/image'
 import fetchItemDetail from '@/app/_hook/api/useGetItemDetail'
 
 import RQProvider from '@/app/_components/RQProvider'
-import ReviewSection from './_component/ReviewSection'
 import ActionButtons from './_component/ActionButtons'
+import ReviewSection from './_component/ReviewSection'
 
 import { categoryFormatter } from './_utils/categoryFormatter'
 
