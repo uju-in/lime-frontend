@@ -3,17 +3,23 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 
-import { ItemInfo, ReviewResponse } from '@/app/_types/review.type'
+import { ItemInfo, ReviewResponse, SortOption } from '@/app/_types/review.type'
 
 import { useSearchItemQuery } from '@/app/_hook/api/useSearchItemQuery'
 
 import Review from './Review'
 import ReviewModal from './ReviewModal'
 
+import { sortOptions } from '../_constants'
+
 export default function ReviewSection({ itemInfo }: ItemInfo) {
   const [showReviewModal, setShowReviewModal] = useState(false)
+  const [sortOption, setSortOption] = useState<SortOption>('NEWEST')
 
-  const { data, reviewList, fetchNextPage } = useSearchItemQuery(itemInfo.id)
+  const { data, reviewList, fetchNextPage } = useSearchItemQuery(
+    itemInfo.id,
+    sortOption,
+  )
 
   /** 추가 데이터 요청(리뷰 더보기) */
   const handleLoadMore = () => {
@@ -47,16 +53,25 @@ export default function ReviewSection({ itemInfo }: ItemInfo) {
       {/** 리뷰 정렬 */}
       {data?.pages[0].itemReviewTotalCount !== 0 ? (
         <>
-          <div className="mb-[12px] mt-[30px] flex text-[12px] font-[500]">
-            <button
-              className="flex w-[52px] border-r-[0.5px] border-r-[#D4D4D4]"
-              type="button"
-            >
-              베스트순
-            </button>
-            <button className="ml-[10px]" type="button">
-              최신순
-            </button>
+          <div className="mb-[12px] mt-[30px] flex gap-[10px] text-[12px] font-[500]">
+            {sortOptions.map((option, index) => (
+              <React.Fragment key={option.value}>
+                {index > 0 && (
+                  <div className="h-[10px] w-[0.5px] bg-[#D4D4D4]" />
+                )}
+                <button
+                  type="button"
+                  className={`${
+                    sortOption === option.value
+                      ? 'text-[#000]'
+                      : 'text-[#BCBCBC]'
+                  }`}
+                  onClick={() => setSortOption(option.value)}
+                >
+                  {option.label}
+                </button>
+              </React.Fragment>
+            ))}
           </div>
           {/** 리뷰 */}
           <div>
@@ -70,7 +85,7 @@ export default function ReviewSection({ itemInfo }: ItemInfo) {
             {/** 리뷰 더보기 */}
             <div className="flex h-[80px] items-start justify-center">
               <button
-                className="flex items-center text-[14px] font-[600] text-[#BDBDBD]"
+                className="flex items-center text-[14px] font-[600] text-[#BCBCBC]"
                 type="button"
                 onClick={handleLoadMore}
               >

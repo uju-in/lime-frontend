@@ -37,3 +37,5 @@ export interface PagesResponse {
   totalCount: number
   reviews: ReviewResponse[]
 }
+
+export type SortOption = 'NEWEST' | 'LIKE_COUNT_DESC'

@@ -1,14 +1,24 @@
 import { useMemo } from 'react'
 import { useInfiniteQuery, InfiniteData } from '@tanstack/react-query'
 
-import { PagesResponse } from '@/app/_types/review.type'
+import { PagesResponse, SortOption } from '@/app/_types/review.type'
 
-async function fetchReviewData(pageParam: string | null, itemId: number) {
+interface ReviewQueryParams {
+  pageParam: string | null
+  itemId: number
+  sortOption: SortOption
+}
+
+async function fetchReviewData({
+  pageParam,
+  itemId,
+  sortOption,
+}: ReviewQueryParams) {
   /** 초기 3개 추가 10개 */
   const REVIEW_DATA_SIZE = !pageParam ? 3 : 10
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/${itemId}/reviews?size=${REVIEW_DATA_SIZE}&cursorId=${pageParam}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/${itemId}/reviews?size=${REVIEW_DATA_SIZE}&cursorId=${pageParam}&reviewSortCondition=${sortOption}`,
     {
       method: 'GET',
       headers: {
@@ -26,16 +36,17 @@ async function fetchReviewData(pageParam: string | null, itemId: number) {
   return data
 }
 
-export const useSearchItemQuery = (itemId: number) => {
+export const useSearchItemQuery = (itemId: number, sortOption: SortOption) => {
   const { data, fetchNextPage } = useInfiniteQuery<
     PagesResponse,
     Error,
     InfiniteData<PagesResponse>,
-    string[],
+    [string, number, SortOption],
     string | null
   >({
-    queryKey: ['itemDetail'],
-    queryFn: ({ pageParam = null }) => fetchReviewData(pageParam, itemId),
+    queryKey: ['itemDetail', itemId, sortOption],
+    queryFn: ({ pageParam = null }) =>
+      fetchReviewData({ pageParam, itemId, sortOption }),
     initialPageParam: null,
     getNextPageParam: (lastPage: PagesResponse) => {
       return lastPage.nextCursorId

@@ -10,7 +10,7 @@ import ReviewSection from './_component/ReviewSection'
 import { categoryFormatter } from './_utils/categoryFormatter'
 
 export default async function DetailPage() {
-  const itemData = await fetchItemDetail(161)
+  const itemData = await fetchItemDetail(160)
 
   const { itemInfo, hobbyName, itemUrl, itemAvgRate, favoriteCount } = itemData
 
