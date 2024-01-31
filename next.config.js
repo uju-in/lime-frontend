@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: '*.coupangcdn.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: '*.danawa.com',
+        port: '',
+      },
     ],
   },
   reactStrictMode: false,
