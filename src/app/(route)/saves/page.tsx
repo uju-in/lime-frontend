@@ -10,19 +10,34 @@ export default function page() {
       <section className="h-full px-[150px]">
         <div className="mb-[56px] flex items-center justify-between">
           <h1 className="text-[30px] font-[700]">찜목록</h1>
-          <button
-            className="flex items-center justify-center rounded-[97.6px] bg-[#242424] p-[10px_16px]"
-            type="button"
-          >
-            <p className="text-[14px] font-[600] text-white">폴더 추가하기</p>
-            <Image
-              className="ml-1 cursor-pointer"
-              width={20}
-              height={20}
-              src="/image/icon/icon-white_plus.svg"
-              alt="plus"
-            />
-          </button>
+          <div className="flex gap-[16px]">
+            <button
+              className="flex items-center justify-center gap-[5.25px] rounded-[97.6px] border-[0.5px] border-[#E2E2E2] bg-white p-[10px_17px_10px_10px]"
+              type="button"
+            >
+              <Image
+                className="ml-1 cursor-pointer"
+                width={20}
+                height={20}
+                src="/image/icon/icon-pencil.svg"
+                alt="plus"
+              />
+              <p>목록 편집</p>
+            </button>
+            <button
+              className="flex items-center justify-center gap-[5.25px] rounded-[97.6px] bg-[#242424] p-[10px_17px_10px_10px]"
+              type="button"
+            >
+              <Image
+                className="ml-1 cursor-pointer"
+                width={20}
+                height={20}
+                src="/image/icon/icon-white_plus.svg"
+                alt="plus"
+              />
+              <p className="text-[14px] font-[600] text-white">폴더 추가하기</p>
+            </button>
+          </div>
         </div>
         <div className="mb-[40px] flex">
           <div className="relative mr-5 flex h-[232px] w-[350px]">
