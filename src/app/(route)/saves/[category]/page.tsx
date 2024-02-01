@@ -21,25 +21,26 @@ export default function SavesDetailPage() {
     <Layout>
       <div className="flex items-center justify-center gap-[12px]">
         <h1 className="text-[38px] font-bold">농구</h1>
-        <div className="relative">
+        <div className="relative" ref={dropdownRef}>
           <button
             type="button"
             onClick={() => {
-              setIsDropdownOpen(true)
+              setIsDropdownOpen((prev) => !prev)
             }}
           >
             <Image
               width={32}
               height={32}
-              src="/image/icon/icon-menu.svg"
+              src={
+                isDropdownOpen
+                  ? '/image/icon/icon-menu_active.svg'
+                  : '/image/icon/icon-menu.svg'
+              }
               alt="menu"
             />
           </button>
           {isDropdownOpen && (
-            <div
-              ref={dropdownRef}
-              className="absolute left-0 top-[40px] h-[157px] w-[173px] rounded-[8px] bg-white p-[13px_6px] shadow-[0px_0px_5.85px_2.25px_rgba(0,0,0,0.10)]"
-            >
+            <div className="absolute left-0 top-[40px] h-[157px] w-[173px] rounded-[8px] bg-white p-[13px_6px] shadow-[0px_0px_5.85px_2.25px_rgba(0,0,0,0.10)]">
               <div className="mb-[10px] pl-[7px] text-[12px]">폴더 옵션</div>
               <ul className="text-[14px] font-medium">
                 <li className="cursor-pointer rounded-[4px] p-[8px_7px] hover:bg-[#DFDFDF]">
