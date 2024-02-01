@@ -1,10 +1,15 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
 import Image from 'next/image'
 
 import Layout from '@/app/_components/layout/Layout'
 import { Item } from '../items/_components/ItemList'
+import AddFolderModal from './_component/AddFolderModal'
 
-export default function page() {
+export default function SavesPage() {
+  const [showAddFolderModal, setShowAddFolderModal] = useState(false)
+
   return (
     <Layout>
       <section className="h-full px-[150px]">
@@ -27,6 +32,7 @@ export default function page() {
             <button
               className="flex items-center justify-center gap-[5.25px] rounded-[97.6px] bg-[#242424] p-[10px_17px_10px_10px]"
               type="button"
+              onClick={() => setShowAddFolderModal(true)}
             >
               <Image
                 className="ml-1 cursor-pointer"
@@ -79,6 +85,9 @@ export default function page() {
           <Item />
         </div>
       </section>
+      {showAddFolderModal && (
+        <AddFolderModal setShowAddFolderModal={setShowAddFolderModal} />
+      )}
     </Layout>
   )
 }
