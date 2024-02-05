@@ -26,9 +26,12 @@ export interface ReviewInfo {
 
 export interface ReviewResponse {
   cursorId: string
-  isReviewed: boolean
   memberInfo: MemberInfo
   reviewSummary: ReviewInfo
+  reviewLoginMemberStatus: {
+    isReviewed: boolean
+    isLiked: boolean
+  }
 }
 
 export interface PagesResponse {

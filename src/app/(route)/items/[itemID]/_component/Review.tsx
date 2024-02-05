@@ -10,21 +10,26 @@ import { ReviewResponse } from '@/app/_types/review.type'
 import { dateFormatter } from '../_utils/dateFormatter'
 
 import StarRating from './StarRating'
+import LikeButton from './LikeButton'
+import ReviewModal from './ReviewModal'
 
 export default function Review({
   review,
   isFirst,
+  itemId,
 }: {
   review: ReviewResponse
   isFirst: boolean
+  itemId: number
 }) {
-  const { memberInfo, reviewSummary } = review
-
+  const { memberInfo, reviewSummary, reviewLoginMemberStatus } = review
+  console.log(review)
   const dropdownRef = useRef(null)
 
   const [showReviewDetail, setShowReviewDetail] = useState<number | null>(null)
+  const [showEditMenu, setShowEditMenu] = useState<boolean>(false)
 
-  // 리뷰 상세 보기
+  /** 리뷰 상세 보기 */
   const handleReviewClick = () => {
     if (showReviewDetail === reviewSummary.reviewId) {
       setShowReviewDetail(null)
@@ -33,23 +38,29 @@ export default function Review({
     }
   }
 
-  /** 외부 클릭 시 상세 리뷰 닫기 */
+  /** 리뷰 관리 모달 on/off  */
+  const handleManageClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
+
+    setShowEditMenu(!showEditMenu)
+  }
+
   useOutsideClick(dropdownRef, () => {
     if (showReviewDetail !== null) {
       setShowReviewDetail(null)
+      setShowEditMenu(false)
     }
   })
 
   return (
-    <button
-      type="button"
+    <div
       ref={dropdownRef}
-      className={`flex w-full items-center justify-between ${
+      className={`flex w-full justify-between ${
         isFirst ? 'border-0' : 'border-t border-[#D2D2D2]'
       } ${
         showReviewDetail === reviewSummary.reviewId
           ? 'mb-[12px] bg-[#F6F6F6]'
-          : 'h-[190px] bg-[#fff]'
+          : 'h-[190px] items-center bg-[#fff]'
       } p-[20px]`}
       onClick={handleReviewClick}
     >
@@ -88,19 +99,6 @@ export default function Review({
         <div className="ml-[48px] mt-[14px] text-[12px] font-[400]">
           <p className="text-start">{reviewSummary.content}</p>
         </div>
-        {/** 추천 개수 */}
-        <div className="ml-[48px] mt-[8px] flex">
-          <Image
-            className="mr-[2px] cursor-pointer"
-            width={12}
-            height={14}
-            src="/image/icon/icon-like.svg"
-            alt="recommend"
-          />
-          <p className="pt-[1.5px] text-[12px] font-[600]">
-            {reviewSummary.likeCount}
-          </p>
-        </div>
         {/** 리뷰 상세 이미지 */}
         {showReviewDetail === reviewSummary.reviewId && (
           <div className="mt-[20px]">
@@ -116,7 +114,58 @@ export default function Review({
             ))}
           </div>
         )}
+        {/** 리뷰 좋아요 */}
+        <button
+          type="button"
+          className={`ml-[38px] mt-[8px] flex h-[30px] w-[50px] items-center justify-center rounded-[100px] ${
+            reviewLoginMemberStatus.isLiked && 'bg-[#000] text-[#fff]'
+          } ${showReviewDetail && 'border border-[#D1D1D1]'}`}
+        >
+          <LikeButton
+            reviewId={reviewSummary.reviewId}
+            itemId={itemId}
+            isLiked={reviewLoginMemberStatus.isLiked}
+          />
+          <p className="ml-[2px] text-[14px] font-[600] text-[#6F6F6F]">
+            {reviewSummary.likeCount}
+          </p>
+        </button>
       </div>
+      {/** 리뷰 관리 (수정/삭제) */}
+      {reviewLoginMemberStatus.isReviewed && (
+        <div className="relative">
+          <button type="button" onClick={handleManageClick}>
+            <Image
+              width={18}
+              height={18}
+              src="/image/icon/icon-kebab_menu.svg"
+              alt="kebab menu"
+            />
+          </button>
+          {showEditMenu && (
+            <div className="absolute right-0 mt-2 flex h-[54px] w-[94px] flex-col bg-[#fff] text-[12px] font-[600] text-[#868585]">
+              <div className="flex flex-1 items-center justify-center border-b-[0.5px] border-[#EDEDED]">
+                <p className="mr-[5px]">수정하기</p>
+                <Image
+                  width={16}
+                  height={16}
+                  src="/image/icon/icon-pencil.svg"
+                  alt="edit review"
+                />
+              </div>
+              <div className="flex flex-1 items-center justify-center">
+                <p className="mr-[5px]">삭제하기</p>
+                <Image
+                  width={12}
+                  height={12}
+                  src="/image/icon/icon-trash_can.svg"
+                  alt="delete review"
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      )}
       {/** 리뷰 썸네일 이미지 */}
       {showReviewDetail !== reviewSummary.reviewId && (
         <div className="relative">
@@ -131,6 +180,6 @@ export default function Review({
           </p>
         </div>
       )}
-    </button>
+    </div>
   )
 }
