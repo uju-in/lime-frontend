@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function ReviewItemSkeleton() {
+function ReviewItemSkeleton() {
   return (
     <div className="flex w-[720px] animate-pulse items-center justify-between p-[20px]">
       <div className="ml-[24px] mr-[20px] flex w-[535px] flex-col">
@@ -18,7 +18,7 @@ export function ReviewItemSkeleton() {
   )
 }
 
-export function ReviewSectionSkeletonUI() {
+function ReviewSectionSkeletonUI() {
   return (
     <div className="mt-[64px] animate-pulse">
       <div className="mb-6">
@@ -37,4 +37,4 @@ export function ReviewSectionSkeletonUI() {
   )
 }
 
-export default ReviewSectionSkeletonUI
+export { ReviewItemSkeleton, ReviewSectionSkeletonUI }

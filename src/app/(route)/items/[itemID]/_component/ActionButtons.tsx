@@ -4,13 +4,13 @@ import React from 'react'
 
 import useSaveToWishlist from '@/app/_hook/api/useSaveToWishlist'
 
-export default function ActionButtons({
-  itemUrl,
-  itemId,
-}: {
+interface PropsType {
   itemUrl: string
   itemId: number
-}) {
+}
+
+export default function ActionButtons(props: PropsType) {
+  const { itemUrl, itemId } = props
   const { mutateAsync: saveItem } = useSaveToWishlist()
 
   /** 아이템 등록 */

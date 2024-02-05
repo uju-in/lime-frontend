@@ -13,20 +13,26 @@ import StarRating from './StarRating'
 import LikeButton from './LikeButton'
 import ReviewModal from './ReviewModal'
 
-export default function Review({
-  review,
-  isFirst,
-  itemId,
-}: {
+interface PropsType {
   review: ReviewResponse
   isFirst: boolean
-  itemId: number
-}) {
+  itemInfo: {
+    id: number
+    name: string
+    price: number
+    image: string
+  }
+}
+
+export default function Review(props: PropsType) {
+  const { review, isFirst, itemInfo } = props
   const { memberInfo, reviewSummary, reviewLoginMemberStatus } = review
-  console.log(review)
+  const { id } = itemInfo
+
   const dropdownRef = useRef(null)
 
   const [showReviewDetail, setShowReviewDetail] = useState<number | null>(null)
+  const [showReviewModal, setShowReviewModal] = useState<boolean>(false)
   const [showEditMenu, setShowEditMenu] = useState<boolean>(false)
 
   /** 리뷰 상세 보기 */
@@ -123,7 +129,7 @@ export default function Review({
         >
           <LikeButton
             reviewId={reviewSummary.reviewId}
-            itemId={itemId}
+            itemId={id}
             isLiked={reviewLoginMemberStatus.isLiked}
           />
           <p className="ml-[2px] text-[14px] font-[600] text-[#6F6F6F]">
@@ -132,7 +138,7 @@ export default function Review({
         </button>
       </div>
       {/** 리뷰 관리 (수정/삭제) */}
-      {reviewLoginMemberStatus.isReviewed && (
+      {!reviewLoginMemberStatus.isReviewed && (
         <div className="relative">
           <button type="button" onClick={handleManageClick}>
             <Image
@@ -144,7 +150,13 @@ export default function Review({
           </button>
           {showEditMenu && (
             <div className="absolute right-0 mt-2 flex h-[54px] w-[94px] flex-col bg-[#fff] text-[12px] font-[600] text-[#868585]">
-              <div className="flex flex-1 items-center justify-center border-b-[0.5px] border-[#EDEDED]">
+              <button
+                type="button"
+                className="flex flex-1 items-center justify-center border-b-[0.5px] border-[#EDEDED]"
+                onClick={() => {
+                  setShowReviewModal((prev) => !prev)
+                }}
+              >
                 <p className="mr-[5px]">수정하기</p>
                 <Image
                   width={16}
@@ -152,7 +164,7 @@ export default function Review({
                   src="/image/icon/icon-pencil.svg"
                   alt="edit review"
                 />
-              </div>
+              </button>
               <div className="flex flex-1 items-center justify-center">
                 <p className="mr-[5px]">삭제하기</p>
                 <Image
@@ -179,6 +191,14 @@ export default function Review({
             {reviewSummary.imageUrls.length}
           </p>
         </div>
+      )}
+      {showReviewModal && (
+        <ReviewModal
+          action="edit"
+          itemData={itemInfo}
+          setShowReviewModal={setShowReviewModal}
+          review={review.reviewSummary}
+        />
       )}
     </div>
   )
