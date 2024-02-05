@@ -1,5 +1,7 @@
+'use client'
+
 import { useMemo } from 'react'
-import { useInfiniteQuery, InfiniteData } from '@tanstack/react-query'
+import { InfiniteData, useSuspenseInfiniteQuery } from '@tanstack/react-query'
 
 import { PagesResponse, SortOption } from '@/app/_types/review.type'
 
@@ -14,7 +16,7 @@ async function fetchReviewData({
   itemId,
   sortOption,
 }: ReviewQueryParams) {
-  /** 초기 3개 추가 10개 */
+  /** 기본 3개 - 추가 10개 */
   const REVIEW_DATA_SIZE = !pageParam ? 3 : 10
 
   const res = await fetch(
@@ -24,6 +26,7 @@ async function fetchReviewData({
       headers: {
         'Content-Type': 'application/json',
       },
+      cache: 'no-store',
     },
   )
 
@@ -37,7 +40,7 @@ async function fetchReviewData({
 }
 
 export const useSearchItemQuery = (itemId: number, sortOption: SortOption) => {
-  const { data, fetchNextPage } = useInfiniteQuery<
+  const { data, fetchNextPage, isFetchingNextPage } = useSuspenseInfiniteQuery<
     PagesResponse,
     Error,
     InfiniteData<PagesResponse>,
@@ -51,10 +54,7 @@ export const useSearchItemQuery = (itemId: number, sortOption: SortOption) => {
     getNextPageParam: (lastPage: PagesResponse) => {
       return lastPage.nextCursorId
     },
-    retry: 0,
-    refetchOnMount: false,
-    refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60,
   })
 
   const reviewList = useMemo(
@@ -62,5 +62,5 @@ export const useSearchItemQuery = (itemId: number, sortOption: SortOption) => {
     [data],
   )
 
-  return { data, reviewList, fetchNextPage }
+  return { data, reviewList, fetchNextPage, isFetchingNextPage }
 }
