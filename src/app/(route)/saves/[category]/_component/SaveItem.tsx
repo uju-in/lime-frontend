@@ -1,10 +1,28 @@
-import React from 'react'
 import Image from 'next/image'
 
-export function Item() {
+interface Props {
+  isChecked: boolean
+  onClick: () => void
+}
+
+export default function SaveItem({ isChecked, onClick }: Props) {
   return (
-    <div className="flex w-[184px] flex-col gap-[7px] text-[14px]">
-      <div className="h-[184px] cursor-pointer rounded-[8px] bg-[#D2D2D2]" />
+    <div className="relative flex w-[184px] flex-col gap-[7px] text-[14px]">
+      {/* TODO: API 연동 후 eslint 제거 예정 */}
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+      <div
+        className="h-[184px] cursor-pointer rounded-[8px] bg-[#D2D2D2]"
+        onClick={onClick}
+      />
+      {isChecked && (
+        <Image
+          className="absolute left-[11px] top-[11px] rounded-[4px] bg-black p-[3px]"
+          width={19}
+          height={19}
+          src="/image/icon/icon-check.svg"
+          alt="check"
+        />
+      )}
       <div className="cursor-pointer text-[#515151] hover:underline">
         영결무람 문라이트 야광 반사 농구공 레인보우
       </div>
@@ -29,20 +47,6 @@ export function Item() {
           <div>12</div>
         </div>
       </div>
-    </div>
-  )
-}
-
-export default function ItemList() {
-  return (
-    <div className="grid grid-cols-[repeat(auto-fill,150px)] gap-x-[10px] gap-y-[25px]">
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
     </div>
   )
 }

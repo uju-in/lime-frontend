@@ -1,4 +1,4 @@
-import SaveFolderHeader from './SaveFolderHeader'
 import SaveFolderItemList from './SaveItemList'
+import MoveFolderModal from './MoveFolderModal'
 
-export { SaveFolderHeader, SaveFolderItemList }
+export { SaveFolderItemList, MoveFolderModal }
