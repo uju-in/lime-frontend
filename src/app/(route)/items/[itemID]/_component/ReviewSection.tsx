@@ -9,6 +9,7 @@ import { useSearchItemQuery } from '@/app/_hook/api/useSearchItemQuery'
 
 import Review from './Review'
 import ReviewModal from './ReviewModal'
+import { ReviewItemSkeleton } from './ReviewSkeletonUI'
 
 import { sortOptions } from '../_constants'
 
@@ -16,10 +17,8 @@ export default function ReviewSection({ itemInfo }: ItemInfo) {
   const [showReviewModal, setShowReviewModal] = useState(false)
   const [sortOption, setSortOption] = useState<SortOption>('NEWEST')
 
-  const { data, reviewList, fetchNextPage } = useSearchItemQuery(
-    itemInfo.id,
-    sortOption,
-  )
+  const { data, reviewList, fetchNextPage, isFetchingNextPage } =
+    useSearchItemQuery(itemInfo.id, sortOption)
 
   /** 추가 데이터 요청(리뷰 더보기) */
   const handleLoadMore = () => {
@@ -50,6 +49,7 @@ export default function ReviewSection({ itemInfo }: ItemInfo) {
           </button>
         </div>
       </div>
+
       {/** 리뷰 정렬 */}
       {data?.pages[0].itemReviewTotalCount !== 0 ? (
         <>
@@ -79,25 +79,30 @@ export default function ReviewSection({ itemInfo }: ItemInfo) {
               <Review
                 key={review.reviewSummary.reviewId}
                 review={review}
+                itemId={itemInfo.id}
                 isFirst={index === 0}
               />
             ))}
             {/** 리뷰 더보기 */}
             <div className="flex h-[80px] items-start justify-center">
-              <button
-                className="flex items-center text-[14px] font-[600] text-[#BCBCBC]"
-                type="button"
-                onClick={handleLoadMore}
-              >
-                <p>리뷰 더보기</p>
-                <Image
-                  className="ml-2"
-                  width={14}
-                  height={14}
-                  src="/image/icon/icon-arrow_bottom_BD.svg"
-                  alt="arrow bottom"
-                />
-              </button>
+              {isFetchingNextPage ? (
+                <ReviewItemSkeleton />
+              ) : (
+                <button
+                  className="flex items-center text-[14px] font-[600] text-[#BCBCBC]"
+                  type="button"
+                  onClick={handleLoadMore}
+                >
+                  <p>리뷰 더보기</p>
+                  <Image
+                    className="ml-2"
+                    width={14}
+                    height={14}
+                    src="/image/icon/icon-arrow_bottom_BD.svg"
+                    alt="arrow bottom"
+                  />
+                </button>
+              )}
             </div>
           </div>
         </>
@@ -107,7 +112,6 @@ export default function ReviewSection({ itemInfo }: ItemInfo) {
           이 상품의 첫 번째 리뷰를 작성해 보세요
         </div>
       )}
-
       {/** 리뷰 작성 모달 */}
       {showReviewModal && (
         <ReviewModal

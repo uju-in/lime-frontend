@@ -1,16 +1,16 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import Image from 'next/image'
 
 import fetchItemDetail from '@/app/_hook/api/useGetItemDetail'
 
-import RQProvider from '@/app/_components/RQProvider'
-import ActionButtons from './_component/ActionButtons'
-import ReviewSection from './_component/ReviewSection'
-
 import { categoryFormatter } from './_utils/categoryFormatter'
 
+import ActionButtons from './_component/ActionButtons'
+import { ReviewSectionSkeletonUI } from './_component/ReviewSkeletonUI'
+import ReviewSection from './_component/ReviewSection'
+
 export default async function DetailPage() {
-  const itemData = await fetchItemDetail(161)
+  const itemData = await fetchItemDetail(160)
 
   const { itemInfo, hobbyName, itemUrl, itemAvgRate, favoriteCount } = itemData
 
@@ -63,15 +63,13 @@ export default async function DetailPage() {
             </div>
           </div>
           {/** 아이템 담기, 구매하러 가기 버튼 */}
-          <RQProvider>
-            <ActionButtons itemUrl={itemUrl} itemId={itemInfo.id} />
-          </RQProvider>
+          <ActionButtons itemUrl={itemUrl} itemId={itemInfo.id} />
         </div>
       </article>
       {/** 하단 리뷰 */}
-      <RQProvider>
+      <Suspense fallback={<ReviewSectionSkeletonUI />}>
         <ReviewSection itemInfo={itemData.itemInfo} />
-      </RQProvider>
+      </Suspense>
     </section>
   )
 }
