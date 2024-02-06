@@ -41,7 +41,6 @@ export default function SavesPage() {
   const [showAddFolderModal, setShowAddFolderModal] = useState(false)
   const [showMoveFolderModal, setShowMoveFolderModal] = useState(false)
 
-  const [isEditMode, setIsEditMode] = useState(false) // 목록 편집 모드
   const [mode, setMode] = useState<SavePageMode>(SavePageMode.DEFAULT)
 
   const [checkedList, setCheckedList] = useState<number[]>([])
@@ -50,7 +49,7 @@ export default function SavesPage() {
     <Layout>
       <section className="mx-auto h-full max-w-[1200px]">
         {/* Header */}
-        {isEditMode ? (
+        {mode === SavePageMode.EDIT_LIST ? (
           <div className="relative mb-[56px]">
             <h1 className="text-center text-[30px] font-bold">목록 편집</h1>
             <section className="absolute top-[50px] flex w-full items-center justify-between">
@@ -70,7 +69,7 @@ export default function SavesPage() {
               <button
                 className="flex items-center justify-center gap-[5.25px] rounded-[97.6px] border-[0.5px] border-[#E2E2E2] bg-white p-[10px_17px_10px_10px]"
                 type="button"
-                onClick={() => setIsEditMode(true)}
+                onClick={() => setMode(SavePageMode.EDIT_LIST)}
               >
                 <Image
                   className="ml-1 cursor-pointer"
@@ -103,20 +102,29 @@ export default function SavesPage() {
 
         {/* Folder Items */}
         <div className="mb-[40px] grid grid-cols-[repeat(auto-fill,387px)] gap-[17px]">
-          <SaveFolderItem folderName="농린이템" disabled={isEditMode} />
-          <SaveFolderItem folderName="드로잉 준비물" disabled={isEditMode} />
-          <SaveFolderItem folderName="배드민턴 라켓" disabled={isEditMode} />
+          <SaveFolderItem
+            folderName="농린이템"
+            disabled={mode === SavePageMode.EDIT_LIST}
+          />
+          <SaveFolderItem
+            folderName="드로잉 준비물"
+            disabled={mode === SavePageMode.EDIT_LIST}
+          />
+          <SaveFolderItem
+            folderName="배드민턴 라켓"
+            disabled={mode === SavePageMode.EDIT_LIST}
+          />
         </div>
 
         {/* Single Items */}
         <SaveItemList
-          mode={isEditMode ? SavePageMode.EDIT_LIST : SavePageMode.DEFAULT}
+          mode={mode}
           checkedList={checkedList}
           setCheckedList={setCheckedList}
         />
 
         {/* Footer */}
-        {isEditMode && (
+        {mode === SavePageMode.EDIT_LIST && (
           <section className="flex justify-center gap-6 py-[30px]">
             <button type="button" onClick={() => setShowMoveFolderModal(true)}>
               <Image
