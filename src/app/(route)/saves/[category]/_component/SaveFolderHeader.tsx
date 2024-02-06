@@ -1,12 +1,7 @@
 import React, { ReactNode, useRef, useState } from 'react'
 import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 import Image from 'next/image'
-
-export const enum SavePageMode {
-  DEFAULT = 0,
-  CHANGE_NAME = 1,
-  EDIT_LIST = 2,
-}
+import { SavePageMode } from '@/app/_types/save.type'
 
 const originFolderName = '농구' // TODO
 

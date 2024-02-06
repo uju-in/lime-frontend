@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { SavePageMode } from './SaveFolderHeader'
+import { SavePageMode } from '@/app/_types/save.type'
 import SaveItem from './SaveItem'
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
   setCheckedList: React.Dispatch<React.SetStateAction<number[]>>
 }
 
-export default function SaveFolderItemList({
+export default function SaveItemList({
   mode,
   checkedList,
   setCheckedList,

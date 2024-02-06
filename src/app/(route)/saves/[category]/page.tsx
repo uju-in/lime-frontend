@@ -3,9 +3,11 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import Layout from '@/app/_components/layout/Layout'
-import SaveFolderHeader, { SavePageMode } from './_component/SaveFolderHeader'
-import { MoveFolderModal, SaveFolderItemList } from './_component'
+import { SavePageMode } from '@/app/_types/save.type'
+import SaveFolderHeader from './_component/SaveFolderHeader'
 import AddFolderModal from '../_component/AddFolderModal'
+import SaveItemList from './_component/SaveItemList'
+import MoveFolderModal from '../_component/MoveFolderModal'
 
 export default function SavesDetailPage() {
   const [showMoveFolderModal, setShowMoveFolderModal] = useState(false)
@@ -31,7 +33,7 @@ export default function SavesDetailPage() {
         </section>
 
         {/* Contents */}
-        <SaveFolderItemList
+        <SaveItemList
           mode={mode}
           checkedList={checkedList}
           setCheckedList={setCheckedList}

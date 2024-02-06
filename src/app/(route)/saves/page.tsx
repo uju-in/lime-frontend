@@ -4,10 +4,10 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 
 import Layout from '@/app/_components/layout/Layout'
-import { Item } from '../items/_components/ItemList'
+import { SavePageMode } from '@/app/_types/save.type'
 import AddFolderModal from './_component/AddFolderModal'
-import { MoveFolderModal, SaveFolderItemList } from './[category]/_component'
-import { SavePageMode } from './[category]/_component/SaveFolderHeader'
+import { SaveItemList } from './[category]/_component'
+import MoveFolderModal from './_component/MoveFolderModal'
 
 function SaveFolderItem({
   folderName,
@@ -108,7 +108,7 @@ export default function SavesPage() {
         </div>
 
         {/* Single Items */}
-        <SaveFolderItemList
+        <SaveItemList
           mode={isEditMode ? SavePageMode.EDIT_LIST : SavePageMode.DEFAULT}
           checkedList={checkedList}
           setCheckedList={setCheckedList}
