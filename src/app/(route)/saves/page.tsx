@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Layout from '@/app/_components/layout/Layout'
 import { SavePageMode } from '@/app/_types/save.type'
 import AddFolderModal from './_component/AddFolderModal'
-import { SaveItemList } from './[category]/_component'
+import { SaveItemList } from './[folderName]/_component'
 import MoveFolderModal from './_component/MoveFolderModal'
 
 function SaveFolderItem({
@@ -42,6 +42,7 @@ export default function SavesPage() {
   const [showMoveFolderModal, setShowMoveFolderModal] = useState(false)
 
   const [isEditMode, setIsEditMode] = useState(false) // 목록 편집 모드
+  const [mode, setMode] = useState<SavePageMode>(SavePageMode.DEFAULT)
 
   const [checkedList, setCheckedList] = useState<number[]>([])
 
