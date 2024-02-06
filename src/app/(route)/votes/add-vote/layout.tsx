@@ -1,3 +1,4 @@
+import RQProvider from '@/app/_components/RQProvider'
 import Layout from '@/app/_components/layout/Layout'
 
 export default function AddVoteLayout({
@@ -7,7 +8,9 @@ export default function AddVoteLayout({
 }) {
   return (
     <Layout>
-      <main className="flex justify-center bg-[#F7F7F7]">{children}</main>
+      <RQProvider>
+        <main className="flex justify-center bg-[#F7F7F7]">{children}</main>
+      </RQProvider>
     </Layout>
   )
 }
