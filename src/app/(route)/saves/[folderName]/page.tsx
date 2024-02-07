@@ -4,10 +4,10 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import Layout from '@/app/_components/layout/Layout'
 import { SavePageMode } from '@/app/_types/save.type'
-import SaveFolderHeader from './_component/SaveFolderHeader'
 import AddFolderModal from '../_component/AddFolderModal'
 import SaveItemList from './_component/SaveItemList'
 import MoveFolderModal from '../_component/MoveFolderModal'
+import { SaveFolderHeader } from './_component'
 
 export default function SavesDetailPage() {
   const [showMoveFolderModal, setShowMoveFolderModal] = useState(false)
