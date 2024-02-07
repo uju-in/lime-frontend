@@ -1,6 +1,6 @@
-import { useMutation } from '@tanstack/react-query'
+import { revalidatePath, revalidateTag } from 'next/cache'
 
-async function postSaveToWishlist(itemIds: number[]) {
+export async function postSaveToWishlist(itemIds: number[]) {
   const accessToken = localStorage.getItem('accessToken')
 
   const res = await fetch(
@@ -16,21 +16,13 @@ async function postSaveToWishlist(itemIds: number[]) {
     },
   )
 
-  const data = await res.json()
+  revalidateTag('itemDetail')
+
+  revalidatePath(`/items/${itemIds[0]}`)
 
   if (!res.ok) {
-    throw data.message
-  }
-}
+    const data = await res.json()
 
-export default function useSaveToWishlist() {
-  return useMutation<void, Error, number[]>({
-    mutationFn: postSaveToWishlist,
-    onSuccess: () => {
-      alert('아이템을 찜 목록에 추가했습니다!')
-    },
-    onError: (error) => {
-      alert(error)
-    },
-  })
+    throw Error(data.message)
+  }
 }

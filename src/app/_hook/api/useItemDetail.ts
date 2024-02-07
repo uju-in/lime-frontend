@@ -1,4 +1,4 @@
-export default async function fetchItemDetail(itemId: number) {
+export async function fetchItemDetail(itemId: number) {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/${itemId}`,
     {
@@ -6,6 +6,7 @@ export default async function fetchItemDetail(itemId: number) {
       headers: {
         'Content-Type': 'application/json',
       },
+      next: { tags: ['itemDetail'] },
     },
   )
 
