@@ -77,6 +77,15 @@ export default function SavesPage() {
                 alt="bin"
               />
             </button>
+            <button type="button" onClick={() => setMode(SavePageMode.DEFAULT)}>
+              <Image
+                className="rounded-full bg-white p-[14px] shadow-[0px_0px_4.758px_rgba(0,0,0,0.10)]"
+                width={61}
+                height={61}
+                src="/image/icon/icon-cancel.svg"
+                alt="cancel"
+              />
+            </button>
           </section>
         )}
       </section>
