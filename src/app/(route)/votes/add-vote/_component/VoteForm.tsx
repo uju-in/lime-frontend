@@ -10,7 +10,7 @@ export default function VoteForm() {
   const [showVoteModal, setShowVoteModal] = useState(false)
   const [voteInfo, setVoteInfo] = useState({
     hobby: '',
-    maximumParticipants: 0,
+    maximumParticipants: 100,
     content: '',
     item1Id: null,
     item2Id: null,
@@ -27,24 +27,21 @@ export default function VoteForm() {
 
   return (
     <form>
-      <p className="mt-[61px] text-[18px] font-[600]">
-        투표 인원을 설정해 주세요
-      </p>
-      <div className="mt-[23.5px] flex gap-[16px]">
-        <Image
-          width={20}
-          height={20}
-          src="/image/icon/icon-circle_minus.svg"
-          alt="minus button"
-        />
-        <p>hi</p>
-        <Image
-          width={20}
-          height={20}
-          src="/image/icon/icon-circle_plus.svg"
-          alt="plus button"
-        />
+      <div className="mt-[61px] flex gap-[8px] text-[18px] font-[600]">
+        <strong>투표 인원을 설정해 주세요</strong>
+        <p className="text-[#A4A4A4]">(선택)</p>
       </div>
+      <input
+        name="maximumParticipants"
+        className="mt-[20px] h-[48px] w-full border border-[#BDBDBD] py-[14px] pl-[12px]"
+        placeholder="숫자만 입력해 주세요."
+      />
+      <p className="mt-[8px] text-[14px] font-[400] text-[#A4A4A4]">
+        * 투표 인원은 최대 1000명까지 가능합니다.
+      </p>
+      <p className="mt-[4px] text-[14px] font-[400] text-[#A4A4A4]">
+        * 입력하지 않을 시 기본 투표 인원은 100명입니다.
+      </p>
       <p className="mt-[60px] text-[18px] font-[600]">
         투표할 취미를 선택해 주세요.
       </p>
@@ -70,6 +67,7 @@ export default function VoteForm() {
         <button
           type="button"
           className="flex h-[88px] w-[88px] items-center justify-center rounded-[6.729px] bg-[#EAEAEA]"
+          onClick={() => setShowVoteModal(true)}
         >
           <Image
             width={36}
