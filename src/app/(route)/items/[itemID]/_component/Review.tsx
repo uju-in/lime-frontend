@@ -7,11 +7,12 @@ import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 
 import { ReviewResponse } from '@/app/_types/review.type'
 
+import useReviewLikeAction from '@/app/_hook/api/useReviewLikeAction'
 import { dateFormatter } from '../_utils/dateFormatter'
 
 import StarRating from './StarRating'
-import LikeButton from './LikeButton'
 import ReviewModal from './ReviewModal'
+import EditButtons from './EditButtons'
 
 interface PropsType {
   review: ReviewResponse
@@ -27,9 +28,10 @@ interface PropsType {
 export default function Review(props: PropsType) {
   const { review, isFirst, itemInfo } = props
   const { memberInfo, reviewSummary, reviewLoginMemberStatus } = review
-  const { id } = itemInfo
 
   const dropdownRef = useRef(null)
+
+  const { mutateAsync: likeAction } = useReviewLikeAction()
 
   const [showReviewDetail, setShowReviewDetail] = useState<number | null>(null)
   const [showReviewModal, setShowReviewModal] = useState<boolean>(false)
@@ -44,11 +46,22 @@ export default function Review(props: PropsType) {
     }
   }
 
-  /** 리뷰 관리 모달 on/off  */
+  /** 리뷰 관리 메뉴 on/off  */
   const handleManageClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
 
     setShowEditMenu(!showEditMenu)
+  }
+
+  /** 리뷰 좋아요 */
+  const handleLikeClick = async (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation()
+
+    await likeAction({
+      itemId: itemInfo.id,
+      reviewId: reviewSummary.reviewId,
+      isLiked: reviewLoginMemberStatus.isLiked,
+    })
   }
 
   useOutsideClick(dropdownRef, () => {
@@ -67,7 +80,7 @@ export default function Review(props: PropsType) {
         showReviewDetail === reviewSummary.reviewId
           ? 'mb-[12px] bg-[#F6F6F6]'
           : 'h-[190px] items-center bg-[#fff]'
-      } p-[20px]`}
+      } p-[20px] hover:bg-[#f6f6f6]`}
       onClick={handleReviewClick}
     >
       <div className="mr-[20px] flex w-[535px] flex-col p-[20px]">
@@ -124,21 +137,30 @@ export default function Review(props: PropsType) {
         <button
           type="button"
           className={`ml-[38px] mt-[8px] flex h-[30px] w-[50px] items-center justify-center rounded-[100px] ${
-            reviewLoginMemberStatus.isLiked && 'bg-[#000] text-[#fff]'
+            reviewLoginMemberStatus.isLiked
+              ? 'bg-[#000] text-[#fff]'
+              : 'text-[#6F6F6F]'
           } ${showReviewDetail && 'border border-[#D1D1D1]'}`}
+          onClick={handleLikeClick}
         >
-          <LikeButton
-            reviewId={reviewSummary.reviewId}
-            itemId={id}
-            isLiked={reviewLoginMemberStatus.isLiked}
+          <Image
+            src={`${
+              reviewLoginMemberStatus.isLiked
+                ? '/image/icon/icon-like_border_white.svg'
+                : '/image/icon/icon-like.svg'
+            }`}
+            alt="recommend"
+            width={14}
+            height={14}
+            className="cursor-pointer"
           />
-          <p className="ml-[2px] text-[14px] font-[600] text-[#6F6F6F]">
+          <p className="ml-[4px] text-[14px] font-[600]">
             {reviewSummary.likeCount}
           </p>
         </button>
       </div>
       {/** 리뷰 관리 (수정/삭제) */}
-      {!reviewLoginMemberStatus.isReviewed && (
+      {reviewLoginMemberStatus.isReviewed && showReviewDetail && (
         <div className="relative">
           <button type="button" onClick={handleManageClick}>
             <Image
@@ -149,32 +171,11 @@ export default function Review(props: PropsType) {
             />
           </button>
           {showEditMenu && (
-            <div className="absolute right-0 mt-2 flex h-[54px] w-[94px] flex-col bg-[#fff] text-[12px] font-[600] text-[#868585]">
-              <button
-                type="button"
-                className="flex flex-1 items-center justify-center border-b-[0.5px] border-[#EDEDED]"
-                onClick={() => {
-                  setShowReviewModal((prev) => !prev)
-                }}
-              >
-                <p className="mr-[5px]">수정하기</p>
-                <Image
-                  width={16}
-                  height={16}
-                  src="/image/icon/icon-pencil.svg"
-                  alt="edit review"
-                />
-              </button>
-              <div className="flex flex-1 items-center justify-center">
-                <p className="mr-[5px]">삭제하기</p>
-                <Image
-                  width={12}
-                  height={12}
-                  src="/image/icon/icon-trash_can.svg"
-                  alt="delete review"
-                />
-              </div>
-            </div>
+            <EditButtons
+              setShowReviewModal={setShowReviewModal}
+              reviewId={reviewSummary.reviewId}
+              itemId={itemInfo.id}
+            />
           )}
         </div>
       )}
