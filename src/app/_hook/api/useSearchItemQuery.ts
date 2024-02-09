@@ -1,7 +1,9 @@
 import { useMemo } from 'react'
-import { InfiniteData, useSuspenseInfiniteQuery } from '@tanstack/react-query'
+import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query'
 
 import { PagesResponse, SortOption } from '@/app/_types/review.type'
+
+import { getCookie } from '@/app/_utils/cookie'
 
 interface ReviewQueryParams {
   pageParam: string | null
@@ -14,7 +16,7 @@ async function fetchReviewData({
   itemId,
   sortOption,
 }: ReviewQueryParams) {
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = await getCookie('accessToken')
 
   /** 기본 3개 - 추가 10개 */
   const REVIEW_DATA_SIZE = !pageParam ? 3 : 10
@@ -42,7 +44,7 @@ async function fetchReviewData({
 
 export const useSearchItemQuery = (itemId: number, sortOption: SortOption) => {
   const { data, fetchNextPage, isFetchingNextPage, hasNextPage } =
-    useSuspenseInfiniteQuery<
+    useInfiniteQuery<
       PagesResponse,
       Error,
       InfiniteData<PagesResponse>,

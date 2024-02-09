@@ -1,7 +1,11 @@
+'use server'
+
 import { revalidatePath, revalidateTag } from 'next/cache'
 
+import { getCookie } from '@/app/_utils/cookie'
+
 export async function postSaveToWishlist(itemIds: number[]) {
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = await getCookie('accessToken')
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/myitems

@@ -1,5 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
+import { getCookie } from '@/app/_utils/cookie'
+
 interface ReviewLikeRequest {
   itemId: number
   reviewId: number
@@ -11,7 +13,7 @@ async function postReviewLikeAction({
   reviewId,
   isLiked,
 }: ReviewLikeRequest) {
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = await getCookie('accessToken')
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/${itemId}/reviews/${reviewId}/like`,
@@ -22,8 +24,6 @@ async function postReviewLikeAction({
       },
     },
   )
-
-  console.log(res)
 
   if (!res.ok) {
     const data = await res.json()
@@ -41,7 +41,7 @@ export default function useReviewLikeAction() {
     onSuccess: () => {
       alert('성공!')
 
-      queryClient.invalidateQueries({ queryKey: ['itemDetail'] })
+      queryClient.invalidateQueries({ queryKey: ['review'] })
     },
     onError: (error) => {
       alert(error)

@@ -1,12 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
+import { getCookie } from '@/app/_utils/cookie'
+
 interface DeleteReviewRequest {
   itemId: number
   reviewId: number
 }
 
 async function postAddReview({ itemId, reviewId }: DeleteReviewRequest) {
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = await getCookie('accessToken')
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/${itemId}/reviews/${reviewId}`,
