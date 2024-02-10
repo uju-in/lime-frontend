@@ -17,7 +17,7 @@ export default function ReviewSection({ itemInfo }: ItemInfo) {
   const [showReviewModal, setShowReviewModal] = useState(false)
   const [sortOption, setSortOption] = useState<SortOption>('NEWEST')
 
-  const { data, reviewList, fetchNextPage, isFetchingNextPage } =
+  const { data, reviewList, fetchNextPage, isFetchingNextPage, hasNextPage } =
     useSearchItemQuery(itemInfo.id, sortOption)
 
   /** 추가 데이터 요청(리뷰 더보기) */
@@ -28,10 +28,10 @@ export default function ReviewSection({ itemInfo }: ItemInfo) {
   return (
     <article className="mt-[64px]">
       <div className="flex h-[42px] justify-between border-b-2 border-b-[#000]">
-        <p className="text-[18px] font-[600]">
+        <strong className="text-[18px] font-[600]">
           리뷰 ({data?.pages[0]?.itemReviewTotalCount})
-        </p>
-        <div className="flex items-center font-[600] text-[#3F3F3F]">
+        </strong>
+        <span className="flex items-center font-[600] text-[#3F3F3F]">
           <Image
             width={14}
             height={14}
@@ -47,9 +47,8 @@ export default function ReviewSection({ itemInfo }: ItemInfo) {
           >
             리뷰 작성
           </button>
-        </div>
+        </span>
       </div>
-
       {/** 리뷰 정렬 */}
       {data?.pages[0].itemReviewTotalCount !== 0 ? (
         <>
@@ -79,7 +78,7 @@ export default function ReviewSection({ itemInfo }: ItemInfo) {
               <Review
                 key={review.reviewSummary.reviewId}
                 review={review}
-                itemId={itemInfo.id}
+                itemInfo={itemInfo}
                 isFirst={index === 0}
               />
             ))}
@@ -88,20 +87,22 @@ export default function ReviewSection({ itemInfo }: ItemInfo) {
               {isFetchingNextPage ? (
                 <ReviewItemSkeleton />
               ) : (
-                <button
-                  className="flex items-center text-[14px] font-[600] text-[#BCBCBC]"
-                  type="button"
-                  onClick={handleLoadMore}
-                >
-                  <p>리뷰 더보기</p>
-                  <Image
-                    className="ml-2"
-                    width={14}
-                    height={14}
-                    src="/image/icon/icon-arrow_bottom_BD.svg"
-                    alt="arrow bottom"
-                  />
-                </button>
+                hasNextPage && (
+                  <button
+                    className="flex items-center text-[14px] font-[600] text-[#BCBCBC]"
+                    type="button"
+                    onClick={handleLoadMore}
+                  >
+                    <p>리뷰 더보기</p>
+                    <Image
+                      className="ml-2"
+                      width={14}
+                      height={14}
+                      src="/image/icon/icon-arrow_bottom_BD.svg"
+                      alt="arrow bottom"
+                    />
+                  </button>
+                )
               )}
             </div>
           </div>
@@ -115,6 +116,7 @@ export default function ReviewSection({ itemInfo }: ItemInfo) {
       {/** 리뷰 작성 모달 */}
       {showReviewModal && (
         <ReviewModal
+          action="create"
           itemData={itemInfo}
           setShowReviewModal={setShowReviewModal}
         />
