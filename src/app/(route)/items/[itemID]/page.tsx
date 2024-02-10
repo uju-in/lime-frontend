@@ -7,15 +7,14 @@ import { categoryFormatter } from './_utils/categoryFormatter'
 import ActionButtons from './_component/ActionButtons'
 import { ReviewSectionSkeletonUI } from './_component/ReviewSkeletonUI'
 import ReviewSection from './_component/ReviewSection'
-import NoSSRRendering from './_component/NoSSRRendering'
 
 export default async function DetailPage() {
-  const itemData = await fetchItemDetail(160)
+  const itemData = await fetchItemDetail(202)
 
   const { itemInfo, hobbyName, itemUrl, itemAvgRate, favoriteCount } = itemData
 
   return (
-    <section className="mx-auto mt-[32px] w-[720px]" suppressHydrationWarning>
+    <section className="mx-auto mt-[32px] w-[720px]">
       {/** 아이템 브레드 크럼 */}
       <div className="breadcrumb mb-[8px] flex gap-[0_8px] text-[12px] font-[500] text-[#ADADAD]">
         <span>아이템</span>
@@ -32,10 +31,12 @@ export default async function DetailPage() {
           src={itemInfo.image}
           alt="grade"
         />
-        <div className="w-[473px]">
-          <div className="h-[179px] w-[473px] border-t-[3px] border-[#000]">
-            <p className="mt-[16px] text-[22px] font-[700]">{itemInfo.name}</p>
-            <div className="mt-[8px] flex">
+        <div className="flex w-[473px] flex-col justify-between">
+          <div className="flex h-[165px] w-[473px] flex-col justify-between border-t-[3px] border-[#000]">
+            <strong className="mt-[10px] text-[22px] font-[700]">
+              {itemInfo.name}
+            </strong>
+            <div className="mb-[20px] flex">
               <Image
                 className="mr-1"
                 width={14}
@@ -47,7 +48,7 @@ export default async function DetailPage() {
                 {itemAvgRate}/5
               </span>
             </div>
-            <div className="mt-[43px] flex justify-between">
+            <div className=" flex justify-between">
               <strong className="text-[26px] font-[700]">
                 {itemInfo.price.toLocaleString()}원
               </strong>
@@ -67,11 +68,9 @@ export default async function DetailPage() {
           <ActionButtons itemUrl={itemUrl} itemId={itemInfo.id} />
         </div>
       </article>
-      <Suspense fallback={<ReviewSectionSkeletonUI />}>
-        <NoSSRRendering>
-          <ReviewSection itemInfo={itemInfo} />
-        </NoSSRRendering>
-      </Suspense>
+      {/* <Suspense fallback={<ReviewSectionSkeletonUI />}> */}
+      <ReviewSection itemInfo={itemInfo} />
+      {/* </Suspense> */}
     </section>
   )
 }
