@@ -1,12 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
+import { getCookie } from '@/app/_utils/cookie'
+
 interface AddReviewRequest {
   itemId: number
   formData: FormData
 }
 
 async function postAddReview({ itemId, formData }: AddReviewRequest) {
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = await getCookie('accessToken')
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/${itemId}/reviews`,
@@ -36,7 +38,7 @@ export default function useAddReview() {
     onSuccess: () => {
       alert('리뷰 등록 성공!')
 
-      queryClient.invalidateQueries({ queryKey: ['itemDetail'] })
+      queryClient.invalidateQueries({ queryKey: ['review'] })
     },
     onError: (error) => {
       alert(error)
