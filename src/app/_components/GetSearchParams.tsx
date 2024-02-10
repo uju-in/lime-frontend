@@ -11,7 +11,6 @@ export function GetSearchParams() {
   useEffect(() => {
     if (token) {
       setCookie('accessToken', token)
-      localStorage.setItem('accessToken', token)
     }
   }, [token])
 
