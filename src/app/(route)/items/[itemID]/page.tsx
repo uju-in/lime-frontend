@@ -70,7 +70,7 @@ export default async function DetailPage() {
       </article>
       {/* <Suspense fallback={<ReviewSectionSkeletonUI />}> */}
       <ReviewSection itemInfo={itemInfo} />
-      {/* </Suspense> */}
+      {/* </Suspense> */}6fa3156f3be9be758460d86a471a0
     </section>
   )
 }
