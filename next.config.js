@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: '**',
         pathname: '/dn/**'
       },
+      {
+        protocol: 'https',
+        hostname: '**',
+        pathname: '/**'
+      },
     ],
   }
 }
