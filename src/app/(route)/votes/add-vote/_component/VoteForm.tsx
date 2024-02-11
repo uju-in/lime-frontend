@@ -6,9 +6,18 @@ import Image from 'next/image'
 import CategorySelector from '@/app/_components/categorySelector'
 import VoteModal from './VoteModal'
 
+interface VoteInfoType {
+  hobby: string
+  maximumParticipants: number
+  content: string
+  item1Id: number | null
+  item2Id: number | null
+}
+
 export default function VoteForm() {
   const [showVoteModal, setShowVoteModal] = useState(false)
-  const [voteInfo, setVoteInfo] = useState({
+  const [itemId, setItemId] = useState<string | null>(null)
+  const [voteInfo, setVoteInfo] = useState<VoteInfoType>({
     hobby: '',
     maximumParticipants: 100,
     content: '',
@@ -25,10 +34,23 @@ export default function VoteForm() {
     }))
   }
 
+  const handleOpenModal = (type: 'item1' | 'item2') => {
+    setItemId(type)
+    setShowVoteModal(true)
+  }
+
+  const handleSelectItemId = (selectItemId: number) => {
+    if (itemId === 'item1') {
+      setVoteInfo((prevState) => ({ ...prevState, item1Id: selectItemId }))
+    } else if (itemId === 'item2') {
+      setVoteInfo((prevState) => ({ ...prevState, item2Id: selectItemId }))
+    }
+  }
+
   return (
     <form>
       <div className="mt-[61px] flex gap-[8px] text-[18px] font-[600]">
-        <strong>투표 인원을 설정해 주세요</strong>
+        <h1>투표 인원을 설정해 주세요</h1>
         <p className="text-[#A4A4A4]">(선택)</p>
       </div>
       <input
@@ -55,7 +77,7 @@ export default function VoteForm() {
         <button
           type="button"
           className="flex h-[88px] w-[88px] items-center justify-center rounded-[6.729px] bg-[#EAEAEA]"
-          onClick={() => setShowVoteModal(true)}
+          onClick={() => handleOpenModal('item1')}
         >
           <Image
             width={36}
@@ -67,7 +89,7 @@ export default function VoteForm() {
         <button
           type="button"
           className="flex h-[88px] w-[88px] items-center justify-center rounded-[6.729px] bg-[#EAEAEA]"
-          onClick={() => setShowVoteModal(true)}
+          onClick={() => handleOpenModal('item2')}
         >
           <Image
             width={36}
@@ -96,8 +118,12 @@ export default function VoteForm() {
           생성하기
         </button>
       </div>
-      {/** 리뷰 작성 모달 */}
-      {showVoteModal && <VoteModal setShowVoteModal={setShowVoteModal} />}
+      {showVoteModal && (
+        <VoteModal
+          setShowVoteModal={setShowVoteModal}
+          selectItemId={handleSelectItemId}
+        />
+      )}
     </form>
   )
 }

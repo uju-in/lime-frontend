@@ -1,14 +1,44 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
 import Modal from '@/app/_components/modal'
 
+import { useSaveListData } from '@/app/_hook/api/useSaveListData'
+
+import { SaveItemType } from '@/app/_types/saveItem.type'
+
+import ItemCard from './ItemCard'
+
 interface PropsType {
   setShowVoteModal: React.Dispatch<React.SetStateAction<boolean>>
+  selectItemId: (selectItemId: number) => void
 }
 
 export default function VoteModal(props: PropsType) {
-  const { setShowVoteModal } = props
+  const { setShowVoteModal, selectItemId: onSelectItemId } = props
+
+  const router = useRouter()
+
+  const [isSelectItem, setIsSelectItem] = useState<boolean>(false)
+  const [currentSelectItem, setCurrentIsSelectItem] = useState<number | null>(
+    null,
+  )
+  const [isSelected, setIsSelected] = useState<boolean>(false)
+
+  const { data, isLoading, isError } = useSaveListData()
+
+  if (isLoading) return <div>Loading..</div>
+  if (isError) return <div>Error !</div>
+
+  const { totalCount, favoriteInfos } = data ?? {}
+
+  /** 폴더 목록 저장 */
+  const folderList = data?.favoriteInfos.filter(
+    (item) => item.type === 'FOLDER',
+  )
 
   return (
     <Modal isScrollActive={false}>
@@ -34,50 +64,75 @@ export default function VoteModal(props: PropsType) {
           <div className="flex h-[410px] w-[760px] rounded-[8px] border  border-[#DADADA]">
             {/** folder choice */}
             <div className="flex-1 overflow-y-scroll">
-              {/** card */}
-              <div className="flex items-center border border-t-[#D2D2D2] py-[12px] pl-[18px]">
-                <div className="h-[52px] w-[52px] rounded-[4px] bg-[#DADADA]" />
-                <strong className="font=[500] ml-[16px]">농린이템</strong>
-              </div>
+              {folderList?.map((folder) => (
+                <button
+                  key={folder.favoriteId}
+                  type="button"
+                  className="flex w-full items-center border border-x-0 border-t-0 border-b-[#D2D2D2] py-[12px] pl-[18px]"
+                >
+                  <Image
+                    width={52}
+                    height={52}
+                    src="/image/icon/icon-close.svg"
+                    alt="folder image"
+                    className="rounded-[4px]"
+                  />
+                  <strong className="font=[500] ml-[16px]">농린이템</strong>
+                </button>
+              ))}
             </div>
-            {/** item choice */}
-            <div className="flex-1 overflow-y-scroll pl-[16px]">
-              {/** item card */}
-              {/* <p className="py-[13px]">아이템 8개</p>
-                <div className="grid grid-cols-3 gap-[12px]">
-                  <div className="flex h-[186px] w-[107px] flex-col justify-between">
-                  <div className="h-[107px] w-[107px] bg-[#D2D2D2]" />
-                  <div className="h-[70px] text-[10px]">
-                    <p className="font-[500]">
-                      프로모릭스 픽앤롤 농구공 7호+가방+단방향 볼펌프
-                      랜덤발송세트
-                    </p>
-                    <strong className="mt-[8px] font-[700]">29,200원</strong>
+            {/** 아이템 선택 */}
+            <div className="flex-1 overflow-y-auto pl-[16px]">
+              {totalCount !== 0 ? (
+                <>
+                  <p className="my-[13px] text-[12px]">{`아이템 ${totalCount}개`}</p>
+                  <div className="grid grid-cols-3 gap-x-[12px] gap-y-[20px]">
+                    {favoriteInfos
+                      ?.filter((item) => item.type === 'ITEM')
+                      .map((item) => (
+                        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                        <div
+                          key={item.favoriteId}
+                          className={`${
+                            isSelected ? 'bg-#868686' : 'bg-[#fff]'
+                          }`}
+                          onClick={() => setIsSelected(!isSelectItem)}
+                        >
+                          <ItemCard
+                            itemInfo={item}
+                            setCurrentIsSelectItem={setCurrentIsSelectItem}
+                          />
+                        </div>
+                      ))}
                   </div>
-                </div> 
-              </div> */}
-              {/** not save item */}
-              <div className="flex h-full flex-col items-center justify-center">
-                <strong className="mb-[12px] text-[20px] font-[600]">
-                  찜한 아이템이 없어요
-                </strong>
-                <p className="text-[14px] font-[500]">
-                  마음에 드는 아이템을 담아보세요
-                </p>
-              </div>
+                </>
+              ) : (
+                <div className="flex h-full flex-col items-center justify-center">
+                  <strong className="mb-[12px] text-[20px] font-[600]">
+                    찜한 아이템이 없어요
+                  </strong>
+                  <p className="text-[14px] font-[500]">
+                    마음에 드는 아이템을 담아보세요
+                  </p>
+                </div>
+              )}
             </div>
           </div>
           <div className="mt-[43px] flex items-center justify-between">
-            <button type="button" className="flex items-center">
+            <button
+              type="button"
+              className="flex items-center"
+              onClick={() => router.push('/items')}
+            >
               <Image
                 width={15}
                 height={15}
                 src="/image/icon/icon-plus.svg"
                 alt="plus item"
               />
-              <div className="ml-[6px]">
-                <p className="relative font-[600]">아이템 담으러 가기</p>
-              </div>
+              <span className="relative ml-[6px] font-[600]">
+                아이템 담으러 가기
+              </span>
             </button>
             {/** 아이템 담으러가기 상단 안내 팝업 메시지 */}
             <div className="absolute bottom-[60px] left-[45px] flex flex-col items-center">
