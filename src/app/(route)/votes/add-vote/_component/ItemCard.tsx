@@ -5,23 +5,30 @@ import Image from 'next/image'
 
 import { MemberItemMetadata, SaveItemType } from '@/app/_types/saveItem.type'
 
-interface ItemCardProps {
+interface PropsType {
   itemInfo: SaveItemType
-  setCurrentIsSelectItem: (currentItemId: number) => void
+  setCurrentSelectedItem: (currentItemId: number) => void
+  isSelected: boolean
+  setIsSelected: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function ItemCard({
-  itemInfo,
-  setCurrentIsSelectItem,
-}: ItemCardProps) {
-  const { originalName, metadata } = itemInfo
+export default function ItemCard(props: PropsType) {
+  const { itemInfo, isSelected, setCurrentSelectedItem, setIsSelected } = props
+  const { originalName, metadata, favoriteId } = itemInfo
   const { memberItemMetadata } = metadata as MemberItemMetadata
 
+  const handleSelectItem = () => {
+    setCurrentSelectedItem(memberItemMetadata.itemId)
+    setIsSelected(false)
+  }
+
   return (
-    <button
-      type="button"
-      className="flex w-[107px] flex-col justify-between"
-      onClick={() => setCurrentIsSelectItem(memberItemMetadata.itemId)}
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div
+      className={`${
+        isSelected ? 'bg-[#E5E5E5]' : 'bg-[#fff]'
+      } flex w-[107px] cursor-pointer flex-col  justify-between text-start`}
+      onClick={handleSelectItem}
     >
       <Image
         width={107}
@@ -35,6 +42,6 @@ export default function ItemCard({
           {memberItemMetadata.price.toLocaleString()}원
         </strong>
       </div>
-    </button>
+    </div>
   )
 }

@@ -47,6 +47,9 @@ export default function VoteForm() {
     }
   }
 
+  console.log(voteInfo.item1Id)
+  console.log(voteInfo.item2Id)
+
   return (
     <form>
       <div className="mt-[61px] flex gap-[8px] text-[18px] font-[600]">
