@@ -6,15 +6,13 @@ interface BaseItemType {
 }
 
 export interface MemberItemMetadata {
-  memberItemMetadata: {
-    itemId: number
-    hobby: string
-    itemUrl: string
-    imageUrl: string
-    price: number
-    favoriteCount: number
-    reviewCount: number
-  }
+  itemId: number
+  hobby: string
+  itemUrl: string
+  imageUrl: string
+  price: number
+  favoriteCount: number
+  reviewCount: number
 }
 
 interface MemberItemFolderMetadata {
@@ -25,15 +23,13 @@ export interface MetadataType {
   memberItemMetadata: MemberItemMetadata
 }
 
-export type ItemMetadata = MemberItemMetadata
-
 interface FolderMetadata {
   memberItemFolderMetadata: MemberItemFolderMetadata
 }
 
 export type Item = BaseItemType & {
   type: 'ITEM'
-  metadata: ItemMetadata
+  metadata: MetadataType
 }
 
 export type Folder = BaseItemType & {
