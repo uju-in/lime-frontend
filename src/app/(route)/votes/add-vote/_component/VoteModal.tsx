@@ -18,7 +18,7 @@ import FavoriteList from './FavoriteItemList'
 
 interface PropsType {
   setShowVoteModal: React.Dispatch<React.SetStateAction<boolean>>
-  selectItem: (selectItemId: MemberItemMetadata) => void
+  selectItem: (selectItem: MemberItemMetadata) => void
 }
 
 export default function VoteModal(props: PropsType) {
@@ -105,6 +105,7 @@ export default function VoteModal(props: PropsType) {
                 )}
               </div>
             </div>
+            {/** 아이템 담으러가기 */}
             <div className="mt-[43px] flex items-center justify-between">
               <button
                 type="button"
@@ -121,7 +122,6 @@ export default function VoteModal(props: PropsType) {
                   아이템 담으러 가기
                 </span>
               </button>
-              {/** 아이템 담으러가기 상단 안내 팝업 메시지 */}
               <div className="absolute bottom-[60px] left-[45px] flex flex-col items-center">
                 <div className=" h-[27px] w-[152px] rounded-[4px] bg-[#000] px-[17px] py-[7px] text-[10px] font-[600] text-[#fff]">
                   취미에 맞는 아이템이 없다면?

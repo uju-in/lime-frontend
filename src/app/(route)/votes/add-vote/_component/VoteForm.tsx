@@ -52,8 +52,8 @@ export default function VoteForm() {
     setShowVoteModal(true)
   }
 
-  const handleSelectItem = (selectItemId: MemberItemMetadata) => {
-    const { itemId, imageUrl, hobby } = selectItemId
+  const handleSelectItem = (selectItem: MemberItemMetadata) => {
+    const { itemId, imageUrl, hobby } = selectItem
 
     if (itemType === 'item1') {
       setVoteInfo((prevState) => ({
