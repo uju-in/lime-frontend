@@ -26,16 +26,20 @@ export default function FavoriteItem(props: PropsType) {
   console.log(memberItemMetadata)
 
   const handleSelectItem = () => {
-    setCurrentSelectedItem(memberItemMetadata)
-    setIsSelected(false)
+    setIsSelected(!isSelected)
+
+    if (!isSelected) {
+      setCurrentSelectedItem(memberItemMetadata)
+    } else {
+      setCurrentSelectedItem(null)
+    }
   }
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       className={`${
-        isSelected ? 'bg-[#DADADA]' : 'bg-[#fff]'
-      } flex w-[107px] cursor-pointer flex-col  justify-between text-start`}
+        isSelected ? 'bg-[#e0e0e0]' : 'bg-[#fff]'
+      } w-[107px] cursor-pointer text-start`}
       onClick={handleSelectItem}
     >
       <Image

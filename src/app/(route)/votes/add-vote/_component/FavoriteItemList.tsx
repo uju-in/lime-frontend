@@ -41,6 +41,7 @@ export default function FavoriteList(props: PropsType) {
               favoriteInfo={item}
               setCurrentSelectedItem={setCurrentSelectedItem}
               isSelected={
+                isSelected &&
                 currentSelectedItem?.itemId === memberItemMetadata.itemId
               }
               setIsSelected={setIsSelected}
