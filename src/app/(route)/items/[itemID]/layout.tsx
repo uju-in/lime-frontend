@@ -1,3 +1,4 @@
+import RQProvider from '@/app/_components/RQProvider'
 import Layout from '@/app/_components/layout/Layout'
 
 export default function DetailItemLayout({
@@ -7,7 +8,7 @@ export default function DetailItemLayout({
 }) {
   return (
     <Layout>
-      <div>{children}</div>
+      <RQProvider>{children} </RQProvider>
     </Layout>
   )
 }

@@ -1,3 +1,5 @@
+'use client'
+
 import { ReactNode } from 'react'
 
 type ModalProps = {
@@ -10,6 +12,7 @@ function Modal({ isScrollActive = false, children }: ModalProps) {
     <div
       id="ModalContainer"
       className="fixed bottom-0 left-0 right-0 top-0 z-[500] h-screen min-h-screen w-full bg-[rgba(0,0,0,0.7)]"
+      onClick={(e) => e.stopPropagation()}
     >
       <div
         id="ModalInner"
