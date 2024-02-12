@@ -36,7 +36,7 @@ export type Item = BaseItemType & {
   metadata: ItemMetadata
 }
 
-type Folder = BaseItemType & {
+export type Folder = BaseItemType & {
   type: 'FOLDER'
   metadata: FolderMetadata
 }
@@ -44,6 +44,6 @@ type Folder = BaseItemType & {
 export type SaveItemType = Item | Folder
 
 export interface SaveItemListType {
-  totalCount: number
   favoriteInfos: SaveItemType[]
+  totalCount: number
 }

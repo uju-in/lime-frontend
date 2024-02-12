@@ -25,15 +25,19 @@ async function fetchSaveList() {
     throw new Error(data.message)
   }
   console.log(data)
+
   return data
 }
 
 export const useSaveListData = () => {
-  const { data, isLoading, isError } = useQuery<SaveItemListType, Error>({
+  const { data, isLoading, isError, isSuccess } = useQuery<
+    SaveItemListType,
+    Error
+  >({
     queryKey: ['save'],
     queryFn: () => fetchSaveList(),
     staleTime: 1000 * 60,
   })
 
-  return { data, isLoading, isError }
+  return { data, isLoading, isError, isSuccess }
 }
