@@ -8,29 +8,29 @@ import Modal from '@/app/_components/modal'
 
 import { useSaveListData } from '@/app/_hook/api/useSaveListData'
 
-import { SaveItemListType } from '@/app/_types/saveItem.type'
+import {
+  MemberItemMetadata,
+  SaveItemListType,
+} from '@/app/_types/saveItem.type'
 
-import ItemCard from './ItemCard'
 import FolderList from './FolderList'
+import FavoriteList from './FavoriteItemList'
 
 interface PropsType {
   setShowVoteModal: React.Dispatch<React.SetStateAction<boolean>>
-  selectItemId: (selectItemId: number) => void
+  selectItem: (selectItemId: MemberItemMetadata) => void
 }
 
 export default function VoteModal(props: PropsType) {
-  const { setShowVoteModal, selectItemId: onSelectItemId } = props
+  const { setShowVoteModal, selectItem: onSelectItem } = props
 
   const router = useRouter()
 
-  /** 아이템 id 선택 (미확정) */
-  const [currentSelectedItem, setCurrentSelectedItem] = useState<number | null>(
-    null,
-  )
+  /** 아이템 선택 (미확정) */
+  const [currentSelectedItem, setCurrentSelectedItem] =
+    useState<MemberItemMetadata | null>(null)
   /** 폴더(id) 선택 */
   const [folderId, setFolderId] = useState<number | null>(null)
-  /** 아이템 선택 여부 */
-  const [isSelected, setIsSelected] = useState<boolean>(false)
 
   const { data, isLoading, isError, isSuccess } = useSaveListData()
 
@@ -42,9 +42,11 @@ export default function VoteModal(props: PropsType) {
   const handleSelectItem = () => {
     if (!currentSelectedItem) {
       alert('아이템을 선택해 주세요.')
+
+      return
     }
 
-    onSelectItemId(currentSelectedItem as number)
+    onSelectItem(currentSelectedItem)
     setShowVoteModal(false)
   }
 
@@ -84,27 +86,12 @@ export default function VoteModal(props: PropsType) {
                 {totalCount !== 0 ? (
                   <>
                     <p className="my-[13px] text-[12px]">{`아이템 ${totalCount}개`}</p>
-                    <div className="grid grid-cols-3 gap-x-[10px] gap-y-[20px]">
-                      {/* {favoriteInfos
-                      ?.filter((item) => item.type === 'ITEM')
-                      .map((item) => {
-                        const { metadata } = item
-                        const { memberItemMetadata } =
-                          metadata as MemberItemMetadata
-
-                        return (
-                          <ItemCard
-                            key={item.favoriteId}
-                            itemInfo={item}
-                            setCurrentSelectedItem={setCurrentSelectedItem}
-                            isSelected={
-                              currentSelectedItem === memberItemMetadata.itemId
-                            }
-                            setIsSelected={setIsSelected}
-                          />
-                        )
-                      })} */}
-                    </div>
+                    <FavoriteList
+                      favoriteInfos={favoriteInfos}
+                      folderId={folderId}
+                      currentSelectedItem={currentSelectedItem}
+                      setCurrentSelectedItem={setCurrentSelectedItem}
+                    />
                   </>
                 ) : (
                   <div className="flex h-full flex-col items-center justify-center">

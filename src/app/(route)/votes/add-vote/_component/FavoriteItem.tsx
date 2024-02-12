@@ -3,22 +3,30 @@
 import React from 'react'
 import Image from 'next/image'
 
-import { MemberItemMetadata, SaveItemType } from '@/app/_types/saveItem.type'
+import {
+  MemberItemMetadata,
+  MetadataType,
+  SaveItemType,
+} from '@/app/_types/saveItem.type'
 
 interface PropsType {
-  itemInfo: SaveItemType
-  setCurrentSelectedItem: (currentItemId: number) => void
+  favoriteInfo: SaveItemType
+  setCurrentSelectedItem: React.Dispatch<
+    React.SetStateAction<MemberItemMetadata | null>
+  >
   isSelected: boolean
   setIsSelected: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function ItemCard(props: PropsType) {
-  const { itemInfo, isSelected, setCurrentSelectedItem, setIsSelected } = props
-  const { originalName, metadata, favoriteId } = itemInfo
-  const { memberItemMetadata } = metadata as MemberItemMetadata
+export default function FavoriteItem(props: PropsType) {
+  const { favoriteInfo, isSelected, setCurrentSelectedItem, setIsSelected } =
+    props
+  const { originalName, metadata } = favoriteInfo
+  const { memberItemMetadata } = metadata as MetadataType
+  console.log(memberItemMetadata)
 
   const handleSelectItem = () => {
-    setCurrentSelectedItem(memberItemMetadata.itemId)
+    setCurrentSelectedItem(memberItemMetadata)
     setIsSelected(false)
   }
 
@@ -26,7 +34,7 @@ export default function ItemCard(props: PropsType) {
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       className={`${
-        isSelected ? 'bg-[#E5E5E5]' : 'bg-[#fff]'
+        isSelected ? 'bg-[#DADADA]' : 'bg-[#fff]'
       } flex w-[107px] cursor-pointer flex-col  justify-between text-start`}
       onClick={handleSelectItem}
     >

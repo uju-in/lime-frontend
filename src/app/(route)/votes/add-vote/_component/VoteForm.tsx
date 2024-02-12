@@ -4,6 +4,7 @@ import React, { ChangeEvent, useState } from 'react'
 import Image from 'next/image'
 
 import CategorySelector from '@/app/_components/categorySelector'
+import { MemberItemMetadata } from '@/app/_types/saveItem.type'
 import VoteModal from './VoteModal'
 
 interface VoteInfoType {
@@ -16,7 +17,7 @@ interface VoteInfoType {
 
 export default function VoteForm() {
   const [showVoteModal, setShowVoteModal] = useState(false)
-  const [itemId, setItemId] = useState<string | null>(null)
+  const [itemType, setItemType] = useState<string | null>(null)
   const [voteInfo, setVoteInfo] = useState<VoteInfoType>({
     hobby: '',
     maximumParticipants: 100,
@@ -24,6 +25,15 @@ export default function VoteForm() {
     item1Id: null,
     item2Id: null,
   })
+
+  /**
+   * itemImageUrl1,2 - 선택한 아이템 이미지 URL
+   * itemTitle1,2 - 선택한 아이템 이름
+   */
+  const [itemImageUrl1, setItemImageUrl1] = useState<string | null>(null)
+  const [itemImageUrl2, setItemImageUrl2] = useState<string | null>(null)
+  const [itemTitle1, setItemTitle1] = useState<string | null>(null)
+  const [itemTitle2, setItemTitle2] = useState<string | null>(null)
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -35,20 +45,29 @@ export default function VoteForm() {
   }
 
   const handleOpenModal = (type: 'item1' | 'item2') => {
-    setItemId(type)
+    setItemType(type)
     setShowVoteModal(true)
   }
 
-  const handleSelectItemId = (selectItemId: number) => {
-    if (itemId === 'item1') {
-      setVoteInfo((prevState) => ({ ...prevState, item1Id: selectItemId }))
-    } else if (itemId === 'item2') {
-      setVoteInfo((prevState) => ({ ...prevState, item2Id: selectItemId }))
+  const handleSelectItem = (selectItemId: MemberItemMetadata) => {
+    const { itemId, imageUrl, hobby } = selectItemId
+
+    if (itemType === 'item1') {
+      setVoteInfo((prevState) => ({
+        ...prevState,
+        item1Id: itemId,
+      }))
+      setItemImageUrl1(imageUrl)
+      setItemTitle1(hobby)
+    } else if (itemType === 'item2') {
+      setVoteInfo((prevState) => ({
+        ...prevState,
+        item2Id: itemId,
+      }))
+      setItemImageUrl2(imageUrl)
+      setItemTitle2(hobby)
     }
   }
-
-  console.log(voteInfo.item1Id)
-  console.log(voteInfo.item2Id)
 
   return (
     <form>
@@ -83,9 +102,9 @@ export default function VoteForm() {
           onClick={() => handleOpenModal('item1')}
         >
           <Image
-            width={36}
-            height={36}
-            src="/image/icon/icon-plus.svg"
+            width={itemImageUrl1 ? 88 : 33}
+            height={itemImageUrl1 ? 88 : 33}
+            src={itemImageUrl1 ?? '/image/icon/icon-plus.svg'}
             alt="upload image"
           />
         </button>
@@ -95,9 +114,9 @@ export default function VoteForm() {
           onClick={() => handleOpenModal('item2')}
         >
           <Image
-            width={36}
-            height={36}
-            src="/image/icon/icon-plus.svg"
+            width={itemImageUrl2 ? 88 : 33}
+            height={itemImageUrl2 ? 88 : 33}
+            src={itemImageUrl2 ?? '/image/icon/icon-plus.svg'}
             alt="upload image"
           />
         </button>
@@ -124,7 +143,7 @@ export default function VoteForm() {
       {showVoteModal && (
         <VoteModal
           setShowVoteModal={setShowVoteModal}
-          selectItemId={handleSelectItemId}
+          selectItem={handleSelectItem}
         />
       )}
     </form>
