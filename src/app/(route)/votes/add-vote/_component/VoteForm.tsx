@@ -7,6 +7,8 @@ import CategorySelector from '@/app/_components/categorySelector'
 import { MemberItemMetadata } from '@/app/_types/saveItem.type'
 import VoteModal from './VoteModal'
 
+import { truncateString } from '../_utils/truncateString'
+
 interface VoteInfoType {
   hobby: string
   maximumParticipants: number
@@ -32,8 +34,8 @@ export default function VoteForm() {
    */
   const [itemImageUrl1, setItemImageUrl1] = useState<string | null>(null)
   const [itemImageUrl2, setItemImageUrl2] = useState<string | null>(null)
-  const [itemTitle1, setItemTitle1] = useState<string | null>(null)
-  const [itemTitle2, setItemTitle2] = useState<string | null>(null)
+  const [itemTitle1, setItemTitle1] = useState<string>('')
+  const [itemTitle2, setItemTitle2] = useState<string>('')
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -96,32 +98,42 @@ export default function VoteForm() {
         투표할 아이템을 두 개 선택해 주세요.
       </p>
       <div className="mt-[20px] flex gap-[16px]">
-        <button
-          type="button"
-          className="flex h-[88px] w-[88px] items-center justify-center rounded-[6.729px] bg-[#EAEAEA]"
-          onClick={() => handleOpenModal('item1')}
-        >
-          <Image
-            width={itemImageUrl1 ? 88 : 33}
-            height={itemImageUrl1 ? 88 : 33}
-            src={itemImageUrl1 ?? '/image/icon/icon-plus.svg'}
-            alt="upload image"
-          />
-        </button>
-        <button
-          type="button"
-          className="flex h-[88px] w-[88px] items-center justify-center rounded-[6.729px] bg-[#EAEAEA]"
-          onClick={() => handleOpenModal('item2')}
-        >
-          <Image
-            width={itemImageUrl2 ? 88 : 33}
-            height={itemImageUrl2 ? 88 : 33}
-            src={itemImageUrl2 ?? '/image/icon/icon-plus.svg'}
-            alt="upload image"
-          />
-        </button>
+        <div className="w-[88px]">
+          <button
+            type="button"
+            className="mb-[4px] flex h-[88px] w-[88px] items-center justify-center rounded-[6.729px] bg-[#EAEAEA]"
+            onClick={() => handleOpenModal('item1')}
+          >
+            <Image
+              width={itemImageUrl1 ? 88 : 33}
+              height={itemImageUrl1 ? 88 : 33}
+              src={itemImageUrl1 ?? '/image/icon/icon-plus.svg'}
+              alt="upload image"
+            />
+          </button>
+          <span className="text-[12px] text-[#515151]">
+            {truncateString(itemTitle1, 18)}
+          </span>
+        </div>
+        <div className="h-[160px] w-[88px]">
+          <button
+            type="button"
+            className="mb-[4px] flex h-[88px] w-[88px] items-center justify-center rounded-[6.729px] bg-[#EAEAEA]"
+            onClick={() => handleOpenModal('item2')}
+          >
+            <Image
+              width={itemImageUrl2 ? 88 : 33}
+              height={itemImageUrl2 ? 88 : 33}
+              src={itemImageUrl2 ?? '/image/icon/icon-plus.svg'}
+              alt="upload image"
+            />
+          </button>
+          <span className="text-[12px] text-[#515151]">
+            {truncateString(itemTitle2, 18)}
+          </span>
+        </div>
       </div>
-      <p className="mb-[20px] mt-[60px] text-[18px] font-[600]">
+      <p className="mb-[20px] mt-[40px] text-[18px] font-[600]">
         투표 내용을 작성해 주세요.
       </p>
       <textarea
