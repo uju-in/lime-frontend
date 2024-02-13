@@ -13,13 +13,13 @@ export function Item({ item }: { item: ItemType }) {
     item.itemSummary
 
   return (
-    <div className="flex w-[184px] flex-col gap-[7px] text-[14px]">
+    <div className="flex w-[150px] flex-col gap-[7px] text-[14px]">
       <Image
         className="cursor-pointer rounded-[8px]"
         src={image}
         alt="item-image"
-        width={184}
-        height={184}
+        width={150}
+        height={150}
       />
       <div className="line-clamp-2 h-[42px] cursor-pointer text-[#515151] hover:underline">
         {name}
