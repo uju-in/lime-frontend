@@ -1,5 +1,6 @@
 'use client'
 
+import { ItemType } from '@/app/_types/item.type'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 
@@ -46,7 +47,7 @@ const useItemListData = ({ keyword, sortOption }: Props) => {
       items,
     }: {
       nextCursorId: string
-      items: any[]
+      items: ItemType[]
     }) => {
       return nextCursorId
     },
