@@ -1,4 +1,4 @@
-/* 이미지 별점 선택 검증 */
+/* 아이템 등록 - 이미지 별점 선택 검증 */
 export const validateForm = ({
   rating,
   multipartReviewImages,
@@ -14,6 +14,23 @@ export const validateForm = ({
 
   if (multipartReviewImages.length === 0) {
     alert('리뷰 사진을 첨부해 주세요.')
+
+    return false
+  }
+
+  return true
+}
+
+/* 이미지 갯수 검증 */
+export const validateImage = ({
+  existingImages,
+  multipartReviewImages,
+}: {
+  existingImages: string[]
+  multipartReviewImages: File[]
+}) => {
+  if (existingImages.length + multipartReviewImages.length === 0) {
+    alert('이미지를 등록해 주세요.')
 
     return false
   }

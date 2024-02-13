@@ -3,74 +3,123 @@
 import React, { ChangeEvent, useRef, useState } from 'react'
 import Image from 'next/image'
 
-import Modal from '@/app/_components/modal'
-import useAddReview from '@/app/_hook/api/useAddReview'
-import StarRatingFormatter from './StarRatingFormatter'
+import { ReviewInfo } from '@/app/_types/review.type'
 
-import { validateForm } from '../_utils/validation'
+import useAddReview from '@/app/_hook/api/useAddReview'
+import useEditReview from '@/app/_hook/api/useEditReview'
+
+import Modal from '@/app/_components/modal'
+import StarRatingFormatter from './StarRatingFormatter'
+import ReviewImagesDisplay from './ReviewImagesDisplay'
+
+import { validateForm, validateImage } from '../_utils/validation'
 
 interface PropsType {
   setShowReviewModal: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-interface ReviewFormState {
-  rating: number
-  content: string
-  multipartReviewImages: File[]
+  itemData: {
+    id: number
+    name: string
+    price: number
+    image: string
+  }
+  action: 'create' | 'edit'
+  review?: ReviewInfo
 }
 
 export default function ReviewModal(props: PropsType) {
-  const { setShowReviewModal } = props
+  const { setShowReviewModal, itemData, action, review } = props
+
+  const {
+    name: itemName,
+    price: itemPrice,
+    image: itemImage,
+    id: itemId,
+  } = itemData
 
   const InputRef = useRef<HTMLInputElement>(null)
 
-  const [review, setReview] = useState<ReviewFormState>({
-    rating: 0,
-    content: '',
-    multipartReviewImages: [],
-  })
+  const [rating, setRating] = useState<number>(review?.rate || 0)
+  const [content, setContent] = useState<string>(review?.content || '')
+  const [multipartReviewImages, setMultipartReviewImages] = useState<File[]>([])
+  const [existingImages, setExistingImages] = useState<string[]>(
+    review?.imageUrls || [],
+  )
+  const [reviewItemUrlsToRemove, setReviewItemUrlsToRemove] = useState<
+    string[]
+  >([])
 
   const { mutateAsync: addReview } = useAddReview()
+  const { mutateAsync: editReview } = useEditReview()
 
-  /** 별점, 본문, 이미지 업로드 관련 */
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const target = e.target as HTMLInputElement
-    const { name, value, files, type } = target
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const filesArray = Array.from(e.target.files)
 
-    if (type === 'file' && files) {
-      const filesList = Array.from(files) as File[]
-
-      setReview((prevState) => ({
-        ...prevState,
-        multipartReviewImages: filesList,
-      }))
-    } else {
-      setReview((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }))
+      setMultipartReviewImages((prev) => [...prev, ...filesArray])
     }
   }
 
-  /** 리뷰 등록 */
+  /*
+   * 이미지 제거
+      기존(reviewItemUrlsToRemove)/신규(multipartReviewImages)
+  */
+  const handleImageDelete = (
+    imageIndex: number,
+    isExisting: boolean,
+    imageUrl: string,
+  ) => {
+    if (isExisting) {
+      setExistingImages((prev) =>
+        prev.filter((_, index) => index !== imageIndex),
+      )
+      setReviewItemUrlsToRemove((prev) => [...prev, imageUrl])
+    } else {
+      URL.revokeObjectURL(imageUrl)
+
+      setMultipartReviewImages((prev) =>
+        prev.filter((_, index) => index !== imageIndex),
+      )
+    }
+  }
+
+  /** 리뷰 등록/수정 */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (!validateForm(review)) {
+    if (
+      action === 'create' &&
+      !validateForm({ multipartReviewImages, rating })
+    ) {
+      return
+    }
+
+    if (
+      action === 'edit' &&
+      !validateImage({ multipartReviewImages, existingImages })
+    ) {
       return
     }
 
     const formData = new FormData()
 
-    review.multipartReviewImages.forEach((file) => {
+    multipartReviewImages.forEach((file) => {
       formData.append('multipartReviewImages', file)
     })
-    formData.append('rating', review.rating.toString())
-    formData.append('content', review.content)
+    formData.append('rating', rating.toString())
+    formData.append('content', content)
 
-    const status = await addReview({ itemId: 160, formData })
+    if (action === 'edit') {
+      reviewItemUrlsToRemove.forEach((imageUrl) => {
+        formData.append('reviewItemUrlsToRemove', imageUrl)
+      })
+    }
+
+    const reviewId = review?.reviewId as number
+
+    const status =
+      action === 'create'
+        ? await addReview({ itemId, formData })
+        : await editReview({ itemId, reviewId, formData })
 
     if (status === 200) {
       setShowReviewModal(false)
@@ -82,7 +131,7 @@ export default function ReviewModal(props: PropsType) {
       <form className="p-[13px_0_45px]" onSubmit={handleSubmit}>
         <div className="flex justify-between border-b px-[23px] py-[18px]">
           <div className="w-[36px]" />
-          <div className="w-full text-center text-[24px]">리뷰작성</div>
+          <p className="w-full text-center text-[24px]">리뷰작성</p>
           <button
             type="button"
             aria-label="close"
@@ -100,33 +149,39 @@ export default function ReviewModal(props: PropsType) {
           </button>
         </div>
         <div className="mt-[34px] px-[41px]">
+          {/** 아이템 정보 */}
           <div className="mb-[40px] flex gap-[20px] rounded-[8px] bg-[#F4F4F4] p-[20px]">
-            <div className="h-[80px] w-[80px] rounded-[3.736px] bg-[#D2D2D2]" />
+            <Image
+              width={80}
+              height={80}
+              className="rounded-[3.736px]"
+              src={itemImage}
+              alt="item image"
+            />
             <div className="flex flex-col justify-center gap-[18px]">
-              <div className="text-[18px]">
-                영결무람 문라이트 야광 반사 농구공 레인보우
-              </div>
-              <div className="text-[20px] font-semibold">29,200원</div>
+              <div className="text-[18px]">{itemName}</div>
+              <strong className="text-[20px] font-semibold">
+                {itemPrice.toLocaleString()}원
+              </strong>
             </div>
           </div>
+          {/** 리뷰 작성 */}
           <div className="mb-[50px] flex flex-col items-center gap-[20px]">
-            <div>상품은 만족하셨나요?</div>
+            <p>상품은 만족하셨나요?</p>
             <div className="flex gap-[8px]">
-              {/** 리뷰 별점 입력 */}
-              <StarRatingFormatter
-                rating={review.rating}
-                setRate={(rating) => setReview({ ...review, rating })}
-              />
+              {/** 별점 입력 */}
+              <StarRatingFormatter rating={rating} setRate={setRating} />
             </div>
           </div>
           <div className="flex flex-col items-center gap-[20px]">
-            <div>리뷰글을 작성해주세요.</div>
+            <p>리뷰글을 작성해주세요.</p>
             <textarea
               name="content"
               placeholder="최소 10자 이상 작성해주세요."
               className="h-[152px] w-[508px] max-w-full resize-none border border-[#DADADA] bg-[#F4F4F4] p-[14px_12px] text-[14px] outline-none"
-              onChange={handleChange}
+              onChange={(e) => setContent(e.target.value)}
               minLength={10}
+              value={content}
               required
             />
             <button
@@ -140,13 +195,21 @@ export default function ReviewModal(props: PropsType) {
             >
               사진 첨부하기
             </button>
+            {/** 이미지 목록 */}
+            {action === 'edit' && (
+              <ReviewImagesDisplay
+                existingImages={existingImages}
+                newImages={multipartReviewImages}
+                onImageDelete={handleImageDelete}
+              />
+            )}
             <input
               name="multipartReviewImages"
               type="file"
               multiple
               ref={InputRef}
               className="hidden"
-              onChange={handleChange}
+              onChange={handleFileChange}
             />
           </div>
           <div className="mt-[50px] flex w-full gap-[20px] text-[16px] font-semibold">

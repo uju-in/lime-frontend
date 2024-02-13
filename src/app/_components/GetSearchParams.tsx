@@ -3,15 +3,16 @@
 import React, { useEffect } from 'react'
 
 import useGetSearchParam from '../_hook/common/useGetSearchParams'
+import { setCookie } from '../_utils/cookie'
 
 export function GetSearchParams() {
-  const accessToken = useGetSearchParam('accessToken')
+  const token = useGetSearchParam('accessToken')
 
   useEffect(() => {
-    if (accessToken) {
-      localStorage.setItem('accessToken', accessToken)
+    if (token) {
+      setCookie('accessToken', token)
     }
-  }, [])
+  }, [token])
 
-  return <div>GetSearchParams</div>
+  return <div>쿠키 저장 임시 로직</div>
 }

@@ -1,4 +1,3 @@
-import RQProvider from '@/app/_components/RQProvider'
 import Layout from '@/app/_components/layout/Layout'
 
 export default function DetailItemLayout({
@@ -8,7 +7,7 @@ export default function DetailItemLayout({
 }) {
   return (
     <Layout>
-      <RQProvider>{children} </RQProvider>
+      <main className="flex h-dvh justify-center">{children}</main>
     </Layout>
   )
 }
