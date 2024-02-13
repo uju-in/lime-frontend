@@ -1,10 +1,11 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { ItemType } from '@/app/_types/item.type'
 import useItemListData from '@/app/_hook/api/useItemListData'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
+import { useInView } from 'react-intersection-observer'
 import SortBox from './SortBox'
 import { SortOption } from '../_constants'
 
@@ -52,15 +53,29 @@ export function Item({ item }: { item: ItemType }) {
 export default function ItemList() {
   const [sortOption, setSortOption] = useState(SortOption[2])
   const keyword = useGetSearchParam('category') || '농구'
-  const { itemList, isLoading, isError } = useItemListData(
+  const {
+    data,
+    itemList,
+    isLoading,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useItemListData({
     keyword,
-    sortOption.value,
-  )
+    sortOption: sortOption.value,
+  })
+
+  const { ref, inView } = useInView()
+
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage()
+    }
+  }, [inView, fetchNextPage])
 
   if (isLoading) return <div>Loading..</div>
   if (isError) return null
-
-  const { items } = itemList
 
   return (
     <>
@@ -68,10 +83,11 @@ export default function ItemList() {
         <SortBox sortOption={sortOption} setSortOption={setSortOption} />
       </div>
       <div className="grid grid-cols-[repeat(auto-fill,150px)] gap-x-[10px] gap-y-[25px]">
-        {items.map((item: ItemType) => {
+        {itemList.map((item: ItemType) => {
           return <Item item={item} key={item.cursorId} />
         })}
       </div>
+      {isFetchingNextPage ? <div>Loading..</div> : <div ref={ref} />}
     </>
   )
 }

@@ -1,11 +1,16 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { useMemo } from 'react'
 
-// TODO: cursorId, size
-const fetchItemList = async (keyword: string, sortOption: string) => {
+export const fetchItemList = async (
+  keyword: string,
+  sortOption: string,
+  pageParam: string | null,
+) => {
+  const SIZE = 18
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/search?keyword=${keyword}&cursorId=null&size=20&itemSortCondition=${sortOption}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/search?keyword=${keyword}&cursorId=${pageParam}&size=${SIZE}&itemSortCondition=${sortOption}`,
     {
       method: 'GET',
       headers: {
@@ -18,20 +23,52 @@ const fetchItemList = async (keyword: string, sortOption: string) => {
   return data
 }
 
-const useItemListData = (keyword: string, sortOption: string) => {
+interface Props {
+  keyword: string
+  sortOption: string
+}
+
+const useItemListData = ({ keyword, sortOption }: Props) => {
   const {
-    data: itemList,
+    data,
     isLoading,
     isError,
-  } = useQuery({
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
     queryKey: ['itemList', keyword, sortOption],
-    queryFn: () => fetchItemList(keyword, sortOption),
+    queryFn: ({ pageParam = null }) =>
+      fetchItemList(keyword, sortOption, pageParam),
+    initialPageParam: null,
+    getNextPageParam: ({
+      nextCursorId,
+      items,
+    }: {
+      nextCursorId: string
+      items: any[]
+    }) => {
+      return nextCursorId
+    },
+    staleTime: 1000 * 60,
+    // retry: 0,
+    // refetchOnMount: false,
+    // refetchOnReconnect: false,
+    // refetchOnWindowFocus: false,
   })
 
+  const itemList = useMemo(() => {
+    return data ? data.pages.flatMap((pageData) => pageData.items) : []
+  }, [data])
+
   return {
+    data,
     itemList,
     isLoading,
     isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
   }
 }
 
