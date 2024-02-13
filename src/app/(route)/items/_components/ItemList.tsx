@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { ItemType } from '@/app/_types/item.type'
 import useItemListData from '@/app/_hook/api/useItemListData'
@@ -12,17 +13,26 @@ import { SortOption } from '../_constants'
 export function Item({ item }: { item: ItemType }) {
   const { name, price, id, image, createdAt, favoriteCount, reviewCount } =
     item.itemSummary
+  const router = useRouter()
+
+  const handleItemClick = () => {
+    router.push(`/items/${id}`)
+  }
 
   return (
     <div className="flex w-[150px] flex-col gap-[7px] text-[14px]">
       <Image
+        onClick={handleItemClick}
         className="cursor-pointer rounded-[8px]"
         src={image}
         alt="item-image"
         width={150}
         height={150}
       />
-      <div className="line-clamp-2 h-[42px] cursor-pointer text-[#515151] hover:underline">
+      <div
+        onClick={handleItemClick}
+        className="line-clamp-2 h-[42px] cursor-pointer text-[#515151] hover:underline"
+      >
         {name}
       </div>
       <strong>{price.toLocaleString()}원</strong>
