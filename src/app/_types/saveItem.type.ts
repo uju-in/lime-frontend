@@ -5,7 +5,7 @@ interface BaseItemType {
   favoriteId: number
 }
 
-export interface MemberItemMetadata {
+export interface FavoriteItemMetadata {
   itemId: number
   hobby: string
   itemUrl: string
@@ -15,16 +15,21 @@ export interface MemberItemMetadata {
   reviewCount: number
 }
 
-interface MemberItemFolderMetadata {
-  imageUrls: string[]
+export interface CurrentFavoriteItemMetadata extends FavoriteItemMetadata {
+  originalName: string
 }
 
 export interface MetadataType {
-  memberItemMetadata: MemberItemMetadata
+  favoriteItemMetadata: FavoriteItemMetadata
 }
 
 interface FolderMetadata {
-  memberItemFolderMetadata: MemberItemFolderMetadata
+  imageUrls: string[]
+  itemCount: number
+}
+
+interface FolderMetadataType {
+  folderMetadata: FolderMetadata
 }
 
 export type Item = BaseItemType & {
@@ -34,7 +39,7 @@ export type Item = BaseItemType & {
 
 export type Folder = BaseItemType & {
   type: 'FOLDER'
-  metadata: FolderMetadata
+  metadata: FolderMetadataType
 }
 
 export type SaveItemType = Item | Folder

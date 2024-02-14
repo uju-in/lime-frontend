@@ -4,7 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 
 import {
-  MemberItemMetadata,
+  CurrentFavoriteItemMetadata,
   MetadataType,
   SaveItemType,
 } from '@/app/_types/saveItem.type'
@@ -12,7 +12,7 @@ import {
 interface PropsType {
   favoriteInfo: SaveItemType
   setCurrentSelectedItem: React.Dispatch<
-    React.SetStateAction<MemberItemMetadata | null>
+    React.SetStateAction<CurrentFavoriteItemMetadata | null>
   >
   isSelected: boolean
   setIsSelected: React.Dispatch<React.SetStateAction<boolean>>
@@ -22,14 +22,17 @@ export default function FavoriteItem(props: PropsType) {
   const { favoriteInfo, isSelected, setCurrentSelectedItem, setIsSelected } =
     props
   const { originalName, metadata } = favoriteInfo
-  const { memberItemMetadata } = metadata as MetadataType
-  console.log(memberItemMetadata)
+  const { favoriteItemMetadata } = metadata as MetadataType
+  console.log(favoriteItemMetadata)
 
   const handleSelectItem = () => {
     setIsSelected(!isSelected)
 
     if (!isSelected) {
-      setCurrentSelectedItem(memberItemMetadata)
+      setCurrentSelectedItem({
+        ...favoriteItemMetadata,
+        originalName,
+      })
     } else {
       setCurrentSelectedItem(null)
     }
@@ -45,13 +48,13 @@ export default function FavoriteItem(props: PropsType) {
       <Image
         width={107}
         height={107}
-        src={memberItemMetadata.imageUrl}
+        src={favoriteItemMetadata.imageUrl}
         alt="item image"
       />
       <div className="h-[70px] text-[10px] font-[500]">
         <p>{originalName}</p>
         <strong className="font-[700]">
-          {memberItemMetadata.price.toLocaleString()}원
+          {favoriteItemMetadata.price.toLocaleString()}원
         </strong>
       </div>
     </div>

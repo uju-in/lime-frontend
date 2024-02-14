@@ -9,7 +9,7 @@ import Modal from '@/app/_components/modal'
 import { useSaveListData } from '@/app/_hook/api/useSaveListData'
 
 import {
-  MemberItemMetadata,
+  CurrentFavoriteItemMetadata,
   SaveItemListType,
 } from '@/app/_types/saveItem.type'
 
@@ -18,7 +18,7 @@ import FavoriteList from './FavoriteItemList'
 
 interface PropsType {
   setShowVoteModal: React.Dispatch<React.SetStateAction<boolean>>
-  selectItem: (selectItem: MemberItemMetadata) => void
+  selectItem: (selectItem: CurrentFavoriteItemMetadata) => void
 }
 
 export default function VoteModal(props: PropsType) {
@@ -28,7 +28,7 @@ export default function VoteModal(props: PropsType) {
 
   /** 아이템 선택 (미확정) */
   const [currentSelectedItem, setCurrentSelectedItem] =
-    useState<MemberItemMetadata | null>(null)
+    useState<CurrentFavoriteItemMetadata | null>(null)
   /** 폴더(id) 선택 */
   const [folderId, setFolderId] = useState<number | null>(null)
 

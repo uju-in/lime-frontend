@@ -9,7 +9,10 @@ import useAddVote from '@/app/_hook/api/useAddVote'
 import { VoteInfoType } from '@/app/_types/addVote.type'
 
 import CategorySelector from '@/app/_components/categorySelector'
-import { MemberItemMetadata } from '@/app/_types/saveItem.type'
+import {
+  CurrentFavoriteItemMetadata,
+  FavoriteItemMetadata,
+} from '@/app/_types/saveItem.type'
 import VoteModal from './VoteModal'
 
 import { truncateString } from '../../_utils/truncateString'
@@ -52,8 +55,8 @@ export default function VoteForm() {
     setShowVoteModal(true)
   }
 
-  const handleSelectItem = (selectItem: MemberItemMetadata) => {
-    const { itemId, imageUrl, hobby } = selectItem
+  const handleSelectItem = (selectItem: CurrentFavoriteItemMetadata) => {
+    const { itemId, imageUrl, hobby, originalName } = selectItem
 
     if (itemType === 'item1') {
       setVoteInfo((prevState) => ({
@@ -61,14 +64,14 @@ export default function VoteForm() {
         item1Id: itemId,
       }))
       setItemImageUrl1(imageUrl)
-      setItemTitle1(hobby)
+      setItemTitle1(originalName)
     } else if (itemType === 'item2') {
       setVoteInfo((prevState) => ({
         ...prevState,
         item2Id: itemId,
       }))
       setItemImageUrl2(imageUrl)
-      setItemTitle2(hobby)
+      setItemTitle2(originalName)
     }
   }
 
@@ -118,7 +121,7 @@ export default function VoteForm() {
             <Image
               width={itemImageUrl1 ? 88 : 33}
               height={itemImageUrl1 ? 88 : 33}
-              src={itemImageUrl1 ?? '/image/icon/icon-plus.svg'}
+              src={itemImageUrl1 || '/image/icon/icon-plus.svg'}
               alt="upload image"
             />
           </button>
@@ -135,7 +138,7 @@ export default function VoteForm() {
             <Image
               width={itemImageUrl2 ? 88 : 33}
               height={itemImageUrl2 ? 88 : 33}
-              src={itemImageUrl2 ?? '/image/icon/icon-plus.svg'}
+              src={itemImageUrl2 || '/image/icon/icon-plus.svg'}
               alt="upload image"
             />
           </button>

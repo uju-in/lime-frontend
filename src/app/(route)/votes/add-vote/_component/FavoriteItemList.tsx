@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import {
-  MemberItemMetadata,
+  CurrentFavoriteItemMetadata,
   MetadataType,
   SaveItemType,
 } from '@/app/_types/saveItem.type'
@@ -11,9 +11,9 @@ import ItemCard from './FavoriteItem'
 interface PropsType {
   favoriteInfos: SaveItemType[]
   folderId: number | null
-  currentSelectedItem: MemberItemMetadata | null
+  currentSelectedItem: CurrentFavoriteItemMetadata | null
   setCurrentSelectedItem: React.Dispatch<
-    React.SetStateAction<MemberItemMetadata | null>
+    React.SetStateAction<CurrentFavoriteItemMetadata | null>
   >
 }
 
@@ -33,7 +33,7 @@ export default function FavoriteList(props: PropsType) {
         ?.filter((item) => item.type === 'ITEM' && item.favoriteId === folderId)
         .map((item) => {
           const { metadata } = item
-          const { memberItemMetadata } = metadata as MetadataType
+          const { favoriteItemMetadata } = metadata as MetadataType
 
           return (
             <ItemCard
@@ -42,7 +42,7 @@ export default function FavoriteList(props: PropsType) {
               setCurrentSelectedItem={setCurrentSelectedItem}
               isSelected={
                 isSelected &&
-                currentSelectedItem?.itemId === memberItemMetadata.itemId
+                currentSelectedItem?.itemId === favoriteItemMetadata.itemId
               }
               setIsSelected={setIsSelected}
             />
