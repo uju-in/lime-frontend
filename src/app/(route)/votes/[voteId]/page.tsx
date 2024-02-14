@@ -8,7 +8,8 @@ export default async function pages() {
   const voteData = await fetchVoteDetail(2)
 
   const { item1Info, item2Info, voteInfo, selectedItemId } = voteData
-  const { content, startTime, endTime, participants } = voteInfo
+  const { content, startTime, endTime, maxParticipants, participants } =
+    voteInfo
 
   return (
     <section className=" min-h-[900px] w-[720px]">
@@ -21,7 +22,7 @@ export default async function pages() {
         <div className="mt-[18px] flex">
           <span className="flex h-[17px] gap-[4px] text-[12px] font-[500] text-[#747474]">{`${dateFormatter(
             startTime,
-          )} · 투표인원 ${participants}명`}</span>
+          )} · 투표인원 ${maxParticipants}명`}</span>
         </div>
         <p className="mt-[26px] h-[62px] text-[14px] font-[500]">{content}</p>
         <p className="mt-[15px] text-[10px] font-[500] text-[#9C9C9C]">
