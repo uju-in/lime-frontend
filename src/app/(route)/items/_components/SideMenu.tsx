@@ -2,34 +2,53 @@
 
 import React from 'react'
 import { useRouter } from 'next/navigation'
+import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
+import { CategoryOption } from '@/app/_constants'
+import Link from 'next/link'
 
 export default function SideMenu() {
   const router = useRouter()
+  const title = useGetSearchParam('title')
+  const category = useGetSearchParam('category')
+
+  const categoryList = CategoryOption.find((item) => {
+    return item.title === title
+  })
 
   return (
     <div className="flex flex-col gap-[20px]">
       {/* Categories */}
-      <div className="text-[25px] font-bold">스포츠</div>
+      <div className="text-[25px] font-bold">{title}</div>
       <ul className="flex flex-col gap-[15px] text-[#575757]">
-        <li className="font-bold text-black">농구</li>
-        <li>야구</li>
-        <li>배드민턴</li>
-        <li>헬스</li>
-        <li>클라이밍</li>
+        {categoryList &&
+          categoryList.list.map((item) => {
+            return (
+              <li
+                key={item}
+                className={`text-black ${
+                  item === category ? 'font-bold' : 'font-normal'
+                }`}
+              >
+                <Link href={`/items?title=${title}&category=${item}`}>
+                  {item}
+                </Link>
+              </li>
+            )
+          })}
       </ul>
+
       {/* Buttons */}
       <div className="my-[50px] flex flex-col gap-[10px]">
         <button
           type="button"
           className="w-[120px] rounded-full bg-[#9c9c9c] py-[6px] text-white"
-          onClick={() => {
-            router.push('/saves/baseball')
-          }}
+          onClick={() => router.push('/saves/baseball')}
         >
           찜 목록
         </button>
         <button
           type="button"
+          onClick={() => router.push('/items/add-item')}
           className="w-[120px] rounded-full bg-[#9c9c9c] py-[6px] text-white"
         >
           아이템 생성
