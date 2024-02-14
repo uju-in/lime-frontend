@@ -7,6 +7,7 @@ export interface ItemInfoType {
 
 export interface VoteInfoType {
   id: number
+  hobby: string
   content: string
   startTime: string
   endTime: string
