@@ -12,7 +12,7 @@ import CategorySelector from '@/app/_components/categorySelector'
 import { MemberItemMetadata } from '@/app/_types/saveItem.type'
 import VoteModal from './VoteModal'
 
-import { truncateString } from '../_utils/truncateString'
+import { truncateString } from '../../_utils/truncateString'
 
 export default function VoteForm() {
   const router = useRouter()
