@@ -79,7 +79,9 @@ export default function VoteInfo(props: PropsType) {
             type="button"
             className={`${
               itemId ? 'bg-[#000]' : 'bg-[#757575]'
-            } h-[48px] w-[136px] rounded-[100px] px-[16px] px-[40px] py-[10px] font-[600] text-[#fff]`}
+            } h-[48px] w-[136px] rounded-[100px] ${
+              selectedItemId ? 'px-[22px]' : 'px-[40px]'
+            } font-[600] text-[#fff]`}
             onClick={selectedItemId ? handleReVote : handleVote}
           >
             {selectedItemId ? '다시 투표하기' : '투표하기'}
