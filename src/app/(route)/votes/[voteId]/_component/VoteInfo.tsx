@@ -7,6 +7,7 @@ import { voteItem } from '@/app/_hook/api/useParticipationVote'
 
 import { ItemInfoType, VoteInfoType } from '@/app/_types/detailVote.type'
 
+import { reVote } from '@/app/_hook/api/useReParticipation'
 import { truncateString } from '../../_utils/truncateString'
 
 import DetailViewButton from './DetailViewButton'
@@ -33,7 +34,8 @@ export default function VoteInfo(props: PropsType) {
     }
   }
 
-  const handleVoteItem = async () => {
+  /** 투표 참여 */
+  const handleVote = async () => {
     if (!itemId) {
       alert('아이템을 투표해 주세요!')
 
@@ -47,7 +49,10 @@ export default function VoteInfo(props: PropsType) {
     }
   }
 
-  console.log(itemId)
+  /** 재투표(투표 취소) */
+  const handleReVote = async () => {
+    await reVote({ voteId })
+  }
 
   return (
     <article className="mt-[12px] flex h-[567px] items-center rounded-[8px] border border-[#E6E6E6] px-[106px]">
@@ -116,9 +121,9 @@ export default function VoteInfo(props: PropsType) {
             className={`${
               itemId ? 'bg-[#000]' : 'bg-[#757575]'
             } h-[48px] w-[136px] rounded-[100px] px-[20px] px-[40px] font-[600] text-[#fff]`}
-            onClick={handleVoteItem}
+            onClick={selectedItemId ? handleReVote : handleVote}
           >
-            {selectedItemId ? '투표하기' : '다시 투표하기'}
+            {selectedItemId ? '다시 투표하기' : '투표하기'}
           </button>
         </div>
       </div>

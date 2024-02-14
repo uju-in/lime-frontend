@@ -9,7 +9,7 @@ import VoteInfo from './_component/VoteInfo'
 export default async function pages() {
   const voteData = await fetchVoteDetail(2)
 
-  const { item1Info, item2Info, voteInfo, isOwner } = voteData
+  const { item1Info, item2Info, voteInfo, isOwner, selectedItemId } = voteData
   const { id, content, startTime, endTime, maxParticipants, participants } =
     voteInfo
 
@@ -40,6 +40,7 @@ export default async function pages() {
         item1Info={item1Info}
         item2Info={item2Info}
         voteInfo={voteInfo}
+        selectedItemId={selectedItemId}
       />
     </section>
   )

@@ -23,4 +23,5 @@ export interface VoteDetailType {
   item2Info: ItemInfoType
   voteInfo: VoteInfoType
   isOwner: boolean
+  selectedItemId: number
 }
