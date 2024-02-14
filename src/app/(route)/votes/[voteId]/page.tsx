@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { fetchVoteDetail } from '@/app/_hook/api/useVoteDetail'
 
 import { dateFormatter } from '@/app/_utils/dateFormatter'
@@ -9,11 +7,8 @@ import VoteInfo from './_component/VoteInfo'
 export default async function pages() {
   const voteData = await fetchVoteDetail(2)
 
-  const { item1Info, item2Info, voteInfo, isOwner, selectedItemId } = voteData
-  const { id, content, startTime, endTime, maxParticipants, participants } =
-    voteInfo
-
-  console.log(voteData)
+  const { item1Info, item2Info, voteInfo, selectedItemId } = voteData
+  const { content, startTime, endTime, participants } = voteInfo
 
   return (
     <section className=" min-h-[900px] w-[720px]">
@@ -23,7 +18,6 @@ export default async function pages() {
             {voteInfo.hobby}
           </div>
         </div>
-        {/** 유저 프로필 */}
         <div className="mt-[18px] flex">
           <span className="flex h-[17px] gap-[4px] text-[12px] font-[500] text-[#747474]">{`${dateFormatter(
             startTime,
