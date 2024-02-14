@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image'
-import { SaveItemType } from '@/app/_types/saveItem.type'
+import { FolderMetadataType, SaveItemType } from '@/app/_types/saveItem.type'
 
 interface PropsType {
   folder: SaveItemType
@@ -13,7 +13,8 @@ interface PropsType {
 
 export default function Folder(props: PropsType) {
   const { folder, isFolderSelected, setIsFolderSelected, setFolderId } = props
-  const { originalName, favoriteId } = folder
+  const { originalName, favoriteId, metadata } = folder
+  const { folderMetadata } = metadata as FolderMetadataType
 
   const handleSelectFolder = () => {
     setFolderId(favoriteId)
@@ -33,7 +34,7 @@ export default function Folder(props: PropsType) {
       <Image
         width={52}
         height={52}
-        src="/image/icon/icon-close.svg"
+        src={folderMetadata.imageUrls[0] || '/image/icon/icon-close.svg'}
         alt="folder image"
         className="rounded-[4px]"
       />

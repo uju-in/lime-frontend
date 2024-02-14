@@ -28,7 +28,7 @@ interface FolderMetadata {
   itemCount: number
 }
 
-interface FolderMetadataType {
+export interface FolderMetadataType {
   folderMetadata: FolderMetadata
 }
 
