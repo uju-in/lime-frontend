@@ -12,7 +12,7 @@ interface VoteItemRequest {
 export async function voteItem({
   itemId,
   voteId,
-}: VoteItemRequest): Promise<string> {
+}: VoteItemRequest): Promise<number> {
   const accessToken = await getCookie('accessToken')
 
   const res = await fetch(
@@ -35,8 +35,8 @@ export async function voteItem({
   if (!res.ok) {
     const data = await res.json()
 
-    return data.message
+    throw Error(data.message)
   }
 
-  return 'success'
+  return res.status
 }

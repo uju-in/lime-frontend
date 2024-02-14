@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 
-import { voteItem } from '@/app/_hook/api/useVoteItem'
+import { voteItem } from '@/app/_hook/api/useParticipationVote'
 
 import { ItemInfoType, VoteInfoType } from '@/app/_types/detailVote.type'
 
@@ -16,22 +16,20 @@ interface PropsType {
   item1Info: ItemInfoType
   item2Info: ItemInfoType
   voteInfo: VoteInfoType
+  selectedItemId: number | null
 }
 
 export default function VoteInfo(props: PropsType) {
-  const { item1Info, item2Info, voteInfo } = props
+  const { item1Info, item2Info, voteInfo, selectedItemId } = props
   const { id: voteId, item1Votes, item2Votes } = voteInfo
 
   const [itemId, setItemId] = useState<number | null>(null)
-  const [isSelectItem, setIsSelectItem] = useState<boolean>(false)
 
   const handleSelectItem = (selectItemId: number) => {
-    setIsSelectItem(!isSelectItem)
-
-    if (isSelectItem) {
-      setItemId(selectItemId)
-    } else {
+    if (itemId === selectItemId) {
       setItemId(null)
+    } else {
+      setItemId(selectItemId)
     }
   }
 
@@ -44,10 +42,12 @@ export default function VoteInfo(props: PropsType) {
 
     const status = await voteItem({ itemId, voteId })
 
-    if (status !== 'suceess') {
-      alert(status)
+    if (status === 200) {
+      setItemId(null)
     }
   }
+
+  console.log(itemId)
 
   return (
     <article className="mt-[12px] flex h-[567px] items-center rounded-[8px] border border-[#E6E6E6] px-[106px]">
@@ -56,8 +56,8 @@ export default function VoteInfo(props: PropsType) {
           {/** item1 */}
           <div
             className={`${
-              item1Info.id === itemId ? 'border-[3px] border-[#000]' : ''
-            } relative`}
+              item1Info.id === itemId && 'border-[3px] border-[#000]'
+            } relative `}
             onClick={() => handleSelectItem(item1Info.id)}
           >
             <Image
@@ -82,7 +82,7 @@ export default function VoteInfo(props: PropsType) {
           {/** item2 */}
           <div
             className={`${
-              item2Info.id === itemId ? 'border-[3px] border-[#000]' : ''
+              item2Info.id === itemId && 'border-[3px] border-[#000]'
             } relative `}
             onClick={() => handleSelectItem(item2Info.id)}
           >
@@ -107,14 +107,18 @@ export default function VoteInfo(props: PropsType) {
           </div>
         </div>
         {/** 투표 게이지 */}
-        <ProgressBar item1Votes={item1Votes} item2Votes={item2Votes} />
+        {selectedItemId && (
+          <ProgressBar item1Votes={item1Votes} item2Votes={item2Votes} />
+        )}
         <div className="mt-[36px] flex justify-center">
           <button
             type="button"
-            className="h-[48px] w-[136px] rounded-[100px] bg-[#757575] px-[40px] font-[600] text-[#fff]"
+            className={`${
+              itemId ? 'bg-[#000]' : 'bg-[#757575]'
+            } h-[48px] w-[136px] rounded-[100px] px-[20px] px-[40px] font-[600] text-[#fff]`}
             onClick={handleVoteItem}
           >
-            투표하기
+            {selectedItemId ? '투표하기' : '다시 투표하기'}
           </button>
         </div>
       </div>
