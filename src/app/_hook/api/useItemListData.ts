@@ -44,7 +44,6 @@ const useItemListData = ({ keyword, sortOption }: Props) => {
     initialPageParam: null,
     getNextPageParam: ({
       nextCursorId,
-      items,
     }: {
       nextCursorId: string
       items: ItemType[]
@@ -52,10 +51,6 @@ const useItemListData = ({ keyword, sortOption }: Props) => {
       return nextCursorId
     },
     staleTime: 1000 * 60,
-    // retry: 0,
-    // refetchOnMount: false,
-    // refetchOnReconnect: false,
-    // refetchOnWindowFocus: false,
   })
 
   const itemList = useMemo(() => {
