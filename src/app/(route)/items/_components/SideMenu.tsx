@@ -4,6 +4,7 @@ import React from 'react'
 import { useRouter } from 'next/navigation'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import { CategoryOption } from '@/app/_constants'
+import Link from 'next/link'
 
 export default function SideMenu() {
   const router = useRouter()
@@ -28,7 +29,9 @@ export default function SideMenu() {
                   item === category ? 'font-bold' : 'font-normal'
                 }`}
               >
-                <a href={`/items?title=${title}&category=${item}`}>{item}</a>
+                <Link href={`/items?title=${title}&category=${item}`}>
+                  {item}
+                </Link>
               </li>
             )
           })}
