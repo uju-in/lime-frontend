@@ -20,15 +20,17 @@ export default async function pages() {
           </div>
         </div>
         <div className="mt-[18px] flex">
-          <span className="flex h-[17px] gap-[4px] text-[12px] font-[500] text-[#747474]">{`${dateFormatter(
-            startTime,
-          )} · 투표인원 ${maxParticipants}명`}</span>
+          <span className="flex h-[17px] gap-[4px] text-[12px] font-[500] text-[#747474]">
+            {dateFormatter(startTime)} · 투표인원 {maxParticipants}명
+          </span>
         </div>
         <p className="mt-[26px] h-[62px] text-[14px] font-[500]">{content}</p>
         <p className="mt-[15px] text-[10px] font-[500] text-[#9C9C9C]">
-          {`${dateFormatter(endTime)} 투표 마감`}
+          {dateFormatter(endTime)} 투표 마감
         </p>
-        <p className="text-[10px] font-[500] text-[#9C9C9C]">{`${participants}명 참여중`}</p>
+        <p className="text-[10px] font-[500] text-[#9C9C9C]">
+          {participants}명 참여중
+        </p>
       </article>
       {/** 아이템 투표 */}
       <VoteInfo

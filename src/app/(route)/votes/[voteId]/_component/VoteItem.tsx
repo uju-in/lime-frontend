@@ -25,7 +25,7 @@ export default function VoteItem(props: PropsType) {
       <Image width={196} height={196} src={image} alt="item1 image" />
       <div className="absolute bottom-[1px] h-[175px] w-[196px] rounded-[20px] bg-[#fff] px-[28px] pt-[15px] text-center">
         <p className="mb-[15.4px] h-[65px] text-center text-[14px] font-[500]">
-          <strong>{truncateString(`${name}`, 35)}</strong>
+          <strong>{truncateString(name, 35)}</strong>
         </p>
         <strong className="text-[14px] font-[700]">
           {price.toLocaleString()}원
