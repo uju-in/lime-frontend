@@ -4,7 +4,7 @@ import VoteInfo from './_component/VoteInfo'
 import ManagementButton from './_component/ManagementButton'
 
 export default async function pages() {
-  const voteData = await fetchVoteDetail(2)
+  const voteData = await fetchVoteDetail(11)
 
   const { item1Info, item2Info, voteInfo, selectedItemId, isOwner } = voteData
   const { content, startTime, endTime, maxParticipants, participants } =

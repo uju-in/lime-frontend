@@ -1,7 +1,3 @@
-'use server'
-
-import { revalidatePath, revalidateTag } from 'next/cache'
-
 import { getCookie } from '@/app/_utils/cookie'
 
 export async function deleteVote(voteId: number): Promise<number> {
@@ -17,10 +13,6 @@ export async function deleteVote(voteId: number): Promise<number> {
       },
     },
   )
-
-  revalidateTag('voteDetail')
-
-  revalidatePath(`/votes/${voteId}`)
 
   if (!res.ok) {
     const data = await res.json()
