@@ -17,7 +17,7 @@ export default async function pages() {
           <div className="h-[24px] w-[51px] rounded-[8px] bg-[#F2F2F2] px-[6px] py-[4px]">
             {voteInfo.hobby}
           </div>
-          {isOwner && <ManagementButton />}
+          {isOwner && <ManagementButton voteId={voteInfo.id} />}
         </div>
         <div className="mt-[18px] flex">
           <span className="flex h-[17px] gap-[4px] text-[12px] font-[500] text-[#747474]">

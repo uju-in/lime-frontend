@@ -1,10 +1,31 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import { deleteVote } from '@/app/_hook/api/useDeleteVote'
+import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 
-export default function ManagementButton() {
+export default function ManagementButton({ voteId }: { voteId: number }) {
+  const router = useRouter()
+
+  const dropdownRef = useRef(null)
+
   const [showSnackBar, setShowSnackBar] = useState<boolean>(false)
+
+  useOutsideClick(dropdownRef, () => {
+    if (showSnackBar) {
+      setShowSnackBar(false)
+    }
+  })
+
+  const handleDeleteVote = async () => {
+    const status = await deleteVote(voteId)
+
+    if (status === 200) {
+      router.push('/votes')
+    }
+  }
 
   return (
     <div className="relative">
@@ -17,10 +38,14 @@ export default function ManagementButton() {
         onClick={() => setShowSnackBar((prev) => !prev)}
       />
       {showSnackBar && (
-        <div className="absolute right-[6px] top-[30px] h-[34px] w-[96px] rounded-[4px] border border-black">
+        <div
+          className="absolute right-[6px] top-[30px] h-[34px] w-[96px] rounded-[4px] border border-black"
+          ref={dropdownRef}
+        >
           <button
             type="button"
             className="flex h-full w-full items-center justify-center gap-[10px]"
+            onClick={handleDeleteVote}
           >
             <span className="text-[12px] font-[600] text-[#535353]">
               삭제하기
