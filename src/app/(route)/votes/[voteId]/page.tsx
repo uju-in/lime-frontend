@@ -1,23 +1,23 @@
 import { fetchVoteDetail } from '@/app/_hook/api/useVoteDetail'
-
 import { dateFormatter } from '@/app/_utils/dateFormatter'
-
 import VoteInfo from './_component/VoteInfo'
+import ManagementButton from './_component/ManagementButton'
 
 export default async function pages() {
   const voteData = await fetchVoteDetail(2)
 
-  const { item1Info, item2Info, voteInfo, selectedItemId } = voteData
+  const { item1Info, item2Info, voteInfo, selectedItemId, isOwner } = voteData
   const { content, startTime, endTime, maxParticipants, participants } =
     voteInfo
 
   return (
     <section className=" min-h-[900px] w-[720px]">
       <article className="mt-[21px] h-[264px] rounded-[8px] border border-[#E6E6E6] px-[40px] py-[30px]">
-        <div className="flex gap-[6px] text-center text-[12px] font-[500]">
-          <div className="h-[24px] w-[51px] rounded-[8px] bg-[#F2F2F2] px-[6px] py-[4px] ">
+        <div className="flex justify-between gap-[6px] text-center text-[12px] font-[500]">
+          <div className="h-[24px] w-[51px] rounded-[8px] bg-[#F2F2F2] px-[6px] py-[4px]">
             {voteInfo.hobby}
           </div>
+          {isOwner && <ManagementButton />}
         </div>
         <div className="mt-[18px] flex">
           <span className="flex h-[17px] gap-[4px] text-[12px] font-[500] text-[#747474]">
