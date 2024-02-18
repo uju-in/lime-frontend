@@ -1,5 +1,6 @@
 'use client'
 
+import { cn } from '@/app/_utils/twMerge'
 import { ReactNode } from 'react'
 
 type ModalProps = {
@@ -16,9 +17,13 @@ function Modal({ isScrollActive = false, children }: ModalProps) {
     >
       <div
         id="ModalInner"
-        className={`absolute left-[50%] top-[50%] max-h-[90vh] max-w-[90vw] -translate-x-1/2 -translate-y-1/2 rounded-[8px] bg-white ${
-          isScrollActive ? 'overflow-scroll' : 'overflow-hidden'
-        }`}
+        className={cn(
+          'absolute left-[50%] top-[50%] max-h-[90vh] max-w-[90vw] -translate-x-1/2 -translate-y-1/2 rounded-[8px] bg-white',
+          {
+            'overflow-scroll': isScrollActive,
+            'overflow-hidden': !isScrollActive,
+          },
+        )}
       >
         {children}
       </div>

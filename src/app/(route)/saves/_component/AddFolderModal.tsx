@@ -1,4 +1,5 @@
 import Modal from '@/app/_components/modal'
+import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import React, { useState } from 'react'
 
@@ -36,7 +37,10 @@ export default function AddFolderModal({ setShowAddFolderModal }: Props) {
             />
             <button
               type="button"
-              className={`rounded-[100px] p-[13px_23px] text-white ${folderName.length > 0 ? 'bg-black' : 'bg-[#B1B1B1]'}`}
+              className={cn('rounded-[100px] p-[13px_23px] text-white', {
+                'bg-black': folderName.length > 0,
+                'bg-[#B1B1B1]': folderName.length <= 0,
+              })}
             >
               만들기
             </button>
