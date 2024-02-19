@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 import Image from 'next/image'
 
 import { fetchItemDetail } from '@/app/_hook/api/useItemDetail'
-import { categoryFormatter } from './_utils/categoryFormatter'
+import { categoryFormatter } from '../../../_utils/categoryFormatter'
 
 import ActionButtons from './_component/ActionButtons'
 import { ReviewSectionSkeletonUI } from './_component/ReviewSkeletonUI'
