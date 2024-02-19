@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import { voteItem } from '@/app/_hook/api/useParticipationVote'
 
@@ -24,13 +24,16 @@ export default function VoteInfo(props: PropsType) {
 
   const [itemId, setItemId] = useState<number | null>(null)
 
-  const handleSelectItem = (selectItemId: number) => {
-    if (itemId === selectItemId) {
-      setItemId(null)
-    } else {
-      setItemId(selectItemId)
-    }
-  }
+  const handleSelectItem = useCallback(
+    (selectItemId: number) => {
+      if (itemId === selectItemId) {
+        setItemId(null)
+      } else {
+        setItemId(selectItemId)
+      }
+    },
+    [itemId, setItemId, selectedItemId],
+  )
 
   /** 투표 참여 */
   const handleVote = async () => {
