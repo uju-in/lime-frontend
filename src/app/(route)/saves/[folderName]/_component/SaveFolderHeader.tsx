@@ -2,6 +2,7 @@ import React, { ReactNode, useRef, useState } from 'react'
 import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 import Image from 'next/image'
 import { SavePageMode } from '@/app/_types/save.type'
+import { cn } from '@/app/_utils/twMerge'
 
 const originFolderName = '농구' // TODO
 
@@ -118,7 +119,13 @@ export namespace SaveFolderHeader {
           <button
             type="button"
             disabled={newFolderName.length === 0}
-            className={`w-[90px] rounded-full border-[0.5px] border-[#e2e2e2] py-[7.5px] text-white ${newFolderName.length > 0 ? 'bg-black' : 'bg-[#b1b1b1]'}`}
+            className={cn(
+              'w-[90px] rounded-full border-[0.5px] border-[#e2e2e2] py-[7.5px] text-white',
+              {
+                'bg-black': newFolderName.length > 0,
+                'bg-[#b1b1b1]': newFolderName.length <= 0,
+              },
+            )}
           >
             수정하기
           </button>

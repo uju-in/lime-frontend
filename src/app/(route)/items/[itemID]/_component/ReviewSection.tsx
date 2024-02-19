@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { ItemInfo, ReviewResponse, SortOption } from '@/app/_types/review.type'
 
 import { useSearchItemQuery } from '@/app/_hook/api/useSearchItemQuery'
+import { cn } from '@/app/_utils/twMerge'
 
 import Review from './Review'
 import ReviewModal from './ReviewModal'
@@ -60,11 +61,10 @@ export default function ReviewSection({ itemInfo }: ItemInfo) {
                 )}
                 <button
                   type="button"
-                  className={`${
-                    sortOption === option.value
-                      ? 'text-[#000]'
-                      : 'text-[#BCBCBC]'
-                  }`}
+                  className={cn({
+                    'text-[#000]': sortOption === option.value,
+                    'text-[#100d0d]': sortOption !== option.value,
+                  })}
                   onClick={() => setSortOption(option.value)}
                 >
                   {option.label}

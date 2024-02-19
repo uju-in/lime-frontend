@@ -5,6 +5,7 @@ import Image from 'next/image'
 
 import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 
+import { cn } from '@/app/_utils/twMerge'
 import { CareerOption } from '@/app/_types/signUp.types'
 
 import { careerOptions } from '../_constants/careerOptions'
@@ -40,9 +41,10 @@ export default function CareerSelector({ setCareer }: CareerSelectorProps) {
         className="flex h-[48px] w-[436px] items-center justify-between rounded-[4px] border border-[#BDBDBD] px-4"
       >
         <p
-          className={`text-[14px] font-[500] ${
-            careerLabel === '경력 기간 선택' ? 'text-[#BDBDBD]' : 'text-[#000]'
-          }`}
+          className={cn('text-[14px] font-[500]', {
+            'text-[#BDBDBD]': careerLabel === '경력 기간 선택',
+            'text-[#000]': careerLabel !== '경력 기간 선택',
+          })}
         >
           {careerLabel}
         </p>

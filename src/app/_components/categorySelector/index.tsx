@@ -1,5 +1,6 @@
 'use client'
 
+import { cn } from '@/app/_utils/twMerge'
 import React, { useState } from 'react'
 
 interface Categories {
@@ -37,33 +38,38 @@ export default function CategorySelector({
           <React.Fragment key={categoryGroup}>
             <p className="mt-8 text-[14px] font-[400]">{categoryGroup}</p>
             <div className="flex flex-wrap">
-              {items.map((item) => (
-                <label
-                  key={item}
-                  className={`my-3 mr-3 inline-block flex h-[32px] cursor-pointer items-center rounded-[40px] border px-5 text-[12px] font-[500] font-medium ${
-                    selected.item === item &&
-                    selected.category === categoryGroup
-                      ? 'border-black'
-                      : 'border-[#BDBDBD] text-[#BDBDBD]'
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="hobby"
-                    value={item}
-                    checked={
-                      selected.item === item &&
-                      selected.category === categoryGroup
-                    }
-                    onChange={() =>
-                      handleRadioChange(categoryGroup as keyof Categories, item)
-                    }
-                    className="sr-only"
-                    required
-                  />
-                  {item}
-                </label>
-              ))}
+              {items.map((item) => {
+                const checked =
+                  selected.item === item && selected.category === categoryGroup
+                return (
+                  <label
+                    key={item}
+                    className={cn(
+                      'my-3 mr-3 flex h-[32px] cursor-pointer items-center rounded-[40px] border px-5 text-[12px] font-medium',
+                      {
+                        'border-black': checked,
+                        'border-[#BDBDBD] text-[#BDBDBD]': !checked,
+                      },
+                    )}
+                  >
+                    <input
+                      type="radio"
+                      name="hobby"
+                      value={item}
+                      checked={checked}
+                      onChange={() =>
+                        handleRadioChange(
+                          categoryGroup as keyof Categories,
+                          item,
+                        )
+                      }
+                      className="sr-only"
+                      required
+                    />
+                    {item}
+                  </label>
+                )
+              })}
             </div>
           </React.Fragment>
         )

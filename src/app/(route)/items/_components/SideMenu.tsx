@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import { CategoryOption } from '@/app/_constants'
 import Link from 'next/link'
+import { cn } from '@/app/_utils/twMerge'
 
 export default function SideMenu() {
   const router = useRouter()
@@ -25,9 +26,10 @@ export default function SideMenu() {
             return (
               <li
                 key={item}
-                className={`text-black ${
-                  item === category ? 'font-bold' : 'font-normal'
-                }`}
+                className={cn('text-black', {
+                  'font-bold': item === category,
+                  'font-normal': item !== category,
+                })}
               >
                 <Link href={`/items?title=${title}&category=${item}`}>
                   {item}

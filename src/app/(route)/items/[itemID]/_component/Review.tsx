@@ -6,6 +6,7 @@ import Image from 'next/image'
 import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 
 import { ReviewResponse } from '@/app/_types/review.type'
+import { cn } from '@/app/_utils/twMerge'
 
 import useReviewLikeAction from '@/app/_hook/api/useReviewLikeAction'
 import { dateFormatter } from '../_utils/dateFormatter'
@@ -74,13 +75,13 @@ export default function Review(props: PropsType) {
   return (
     <div
       ref={dropdownRef}
-      className={`flex w-full justify-between ${
-        isFirst ? 'border-0' : 'border-t border-[#D2D2D2]'
-      } ${
-        showReviewDetail === reviewSummary.reviewId
-          ? 'mb-[12px] bg-[#F6F6F6]'
-          : 'h-[190px] items-center bg-[#fff]'
-      } p-[20px] hover:bg-[#f6f6f6]`}
+      className={cn('flex w-full justify-between p-[20px] hover:bg-[#f6f6f6]', {
+        'border-0': isFirst,
+        'border-t border-[#D2D2D2]': !isFirst,
+        'mb-[12px] bg-[#F6F6F6]': showReviewDetail === reviewSummary.reviewId,
+        'h-[190px] items-center bg-[#fff]':
+          showReviewDetail !== reviewSummary.reviewId,
+      })}
       onClick={handleReviewClick}
     >
       <div className="mr-[20px] flex w-[535px] flex-col p-[20px]">
@@ -136,19 +137,22 @@ export default function Review(props: PropsType) {
         {/** 리뷰 좋아요 */}
         <button
           type="button"
-          className={`ml-[38px] mt-[8px] flex h-[30px] w-[50px] items-center justify-center rounded-[100px] ${
-            reviewLoginMemberStatus.isLiked
-              ? 'bg-[#000] text-[#fff]'
-              : 'text-[#6F6F6F]'
-          } ${showReviewDetail && 'border border-[#D1D1D1]'}`}
+          className={cn(
+            'ml-[38px] mt-[8px] flex h-[30px] w-[50px] items-center justify-center rounded-[100px]',
+            {
+              'bg-[#000] text-[#fff]': reviewLoginMemberStatus.isLiked,
+              'text-[#6F6F6F]': !reviewLoginMemberStatus.isLiked,
+              'border border-[#D1D1D1]': showReviewDetail,
+            },
+          )}
           onClick={handleLikeClick}
         >
           <Image
-            src={`${
+            src={
               reviewLoginMemberStatus.isLiked
                 ? '/image/icon/icon-like_border_white.svg'
                 : '/image/icon/icon-like.svg'
-            }`}
+            }
             alt="recommend"
             width={14}
             height={14}
