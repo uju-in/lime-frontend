@@ -112,6 +112,8 @@ export default function ReviewModal(props: PropsType) {
       reviewItemUrlsToRemove.forEach((imageUrl) => {
         formData.append('reviewItemUrlsToRemove', imageUrl)
       })
+    } else {
+      formData.append('itemId', itemId.toString())
     }
 
     const reviewId = review?.reviewId as number
@@ -127,7 +129,7 @@ export default function ReviewModal(props: PropsType) {
   }
 
   return (
-    <Modal>
+    <Modal isScrollActive>
       <form className="p-[13px_0_45px]" onSubmit={handleSubmit}>
         <div className="flex justify-between border-b px-[23px] py-[18px]">
           <div className="w-[36px]" />

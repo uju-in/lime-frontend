@@ -21,9 +21,9 @@ async function postReviewData({ reviewId, formData }: EditReviewRequest) {
     },
   )
 
-  const data = await res.json()
-
   if (!res.ok) {
+    const data = await res.json()
+
     throw data.message
   }
 
