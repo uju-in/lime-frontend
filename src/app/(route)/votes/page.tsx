@@ -1,56 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
+import MenuButtons from './_component/MenuButtons'
 
 export default function page() {
   return (
     <main className="mx-auto w-[794px]">
       <section className="mt-[52px]">
-        <div className="flex gap-[15px] text-[20px] font-[700]">
-          <button
-            type="button"
-            className="h-[42.5px] w-[86.5px] rounded-[83.333px] bg-[#000] px-[16px] text-[#fff]"
-          >
-            스포츠
-          </button>
-          <button
-            type="button"
-            className="h-[42.5px] w-[86.5px] rounded-[83.333px] px-[16px] py-[8px] text-[#AAA]"
-          >
-            라이프
-          </button>
-        </div>
-        <div className="mt-[20px] flex gap-[15px]">
-          <button
-            type="button"
-            className="h-[39px] w-[60px] border-[3px] border-x-0 border-t-0 border-b-[#000] font-[600]"
-          >
-            농구
-          </button>
-          <button
-            type="button"
-            className="h-[39px] w-[60px] font-[500] text-[#6F6F6F]"
-          >
-            야구
-          </button>
-          <button
-            type="button"
-            className="h-[39px] w-[60px] font-[500] text-[#6F6F6F]"
-          >
-            배드민턴
-          </button>
-          <button
-            type="button"
-            className="h-[39px] w-[60px] font-[500] text-[#6F6F6F]"
-          >
-            헬스
-          </button>
-          <button
-            type="button"
-            className="h-[39px] w-[60px] font-[500] text-[#6F6F6F]"
-          >
-            클라이밍
-          </button>
-        </div>
+        <MenuButtons />
         <p className="mt-[69.5px]">
           <strong className="text-[26px] font-[700]">투표 랭킹</strong>
         </p>
