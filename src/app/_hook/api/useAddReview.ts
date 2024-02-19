@@ -10,16 +10,13 @@ interface AddReviewRequest {
 async function postAddReview({ itemId, formData }: AddReviewRequest) {
   const accessToken = await getCookie('accessToken')
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/${itemId}/reviews`,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: formData,
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
     },
-  )
+    body: formData,
+  })
 
   const data = await res.json()
 

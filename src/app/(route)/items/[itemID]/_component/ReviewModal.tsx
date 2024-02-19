@@ -119,7 +119,7 @@ export default function ReviewModal(props: PropsType) {
     const status =
       action === 'create'
         ? await addReview({ itemId, formData })
-        : await editReview({ itemId, reviewId, formData })
+        : await editReview({ reviewId, formData })
 
     if (status === 200) {
       setShowReviewModal(false)

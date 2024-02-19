@@ -3,20 +3,15 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getCookie } from '@/app/_utils/cookie'
 
 interface EditReviewRequest {
-  itemId: number
   reviewId: number
   formData: FormData
 }
 
-async function postReviewData({
-  itemId,
-  reviewId,
-  formData,
-}: EditReviewRequest) {
+async function postReviewData({ reviewId, formData }: EditReviewRequest) {
   const accessToken = await getCookie('accessToken')
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/${itemId}/reviews/${reviewId}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews/${reviewId}`,
     {
       method: 'PUT',
       headers: {
@@ -39,8 +34,8 @@ export default function useEditReview() {
   const queryClient = useQueryClient()
 
   return useMutation<number, Error, EditReviewRequest>({
-    mutationFn: ({ itemId, reviewId, formData }) =>
-      postReviewData({ itemId, reviewId, formData }),
+    mutationFn: ({ reviewId, formData }) =>
+      postReviewData({ reviewId, formData }),
     onSuccess: () => {
       alert('리뷰 수정 성공!')
 
