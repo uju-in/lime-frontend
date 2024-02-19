@@ -1,9 +1,10 @@
 import { useMutation } from '@tanstack/react-query'
 
 import { ItemState } from '@/app/_types/addItem.type'
+import { getCookie } from '@/app/_utils/cookie'
 
 async function postAddItem(params: ItemState) {
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = await getCookie('accessToken')
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/enroll`,
