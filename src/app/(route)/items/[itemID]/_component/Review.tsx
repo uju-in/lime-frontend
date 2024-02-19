@@ -9,7 +9,7 @@ import { ReviewResponse } from '@/app/_types/review.type'
 import { cn } from '@/app/_utils/twMerge'
 
 import useReviewLikeAction from '@/app/_hook/api/useReviewLikeAction'
-import { dateFormatter } from '../_utils/dateFormatter'
+import { dateFormatter } from '../../../../_utils/dateFormatter'
 
 import StarRating from './StarRating'
 import ReviewModal from './ReviewModal'
