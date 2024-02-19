@@ -2,8 +2,8 @@
 
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-
 import { ItemInfoType } from '@/app/_types/detailVote.type'
+import { cn } from '@/app/_utils/twMerge'
 import { truncateString } from '../../_utils/truncateString'
 
 interface PropsType {
@@ -19,7 +19,9 @@ export default function VoteItem(props: PropsType) {
 
   return (
     <div
-      className={`${id === itemId && 'border-[3px] border-[#000]'} relative `}
+      className={cn('relative', {
+        'border-[3px] border-[#000]': id === itemId,
+      })}
       onClick={() => onSelectItem(id)}
     >
       <Image width={196} height={196} src={image} alt="item1 image" />
