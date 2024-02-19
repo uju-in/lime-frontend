@@ -1,8 +1,8 @@
 import { fetchVoteDetail } from '@/app/_hook/api/useVoteDetail'
 import { dateFormatter } from '@/app/_utils/dateFormatter'
-import VoteInfo from './_component/VoteInfo'
 import ManagementButton from './_component/ManagementButton'
 import { categoryFormatter } from '../../../_utils/categoryFormatter'
+import VoteInfo from './_component/VoteInfo'
 
 export default async function pages() {
   const voteData = await fetchVoteDetail(11)

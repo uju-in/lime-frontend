@@ -1,13 +1,9 @@
 'use client'
 
 import React, { useCallback, useState } from 'react'
-
 import { voteItem } from '@/app/_hook/api/useParticipationVote'
-
 import { ItemInfoType, VoteInfoType } from '@/app/_types/detailVote.type'
-
 import { reVote } from '@/app/_hook/api/useReParticipation'
-
 import ProgressBar from './ProgressBar'
 import VoteItem from './VoteItem'
 
