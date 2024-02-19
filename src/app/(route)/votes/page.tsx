@@ -1,8 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
 import MenuButtons from './_component/MenuButtons'
+import RankingList from './_component/RankingList'
 
-export default function page() {
+export default function page({ searchParams }: any) {
   return (
     <main className="mx-auto w-[794px]">
       <section className="mt-[52px]">
@@ -11,31 +12,7 @@ export default function page() {
           <strong className="text-[26px] font-[700]">투표 랭킹</strong>
         </p>
         {/** 투표 랭킹 */}
-        <div className="mt-[22px] flex gap-[33.5px]">
-          {/** 투표 랭킹 Item */}
-          <div className="text-center">
-            <div className="flex h-[104px] w-[104px] items-center justify-center rounded-full border">
-              <div className="flex h-[93px] w-[93px] rounded-full border">
-                <div className="flex-1 rounded-l-full bg-[#D9D9D9]" />
-                <div className="flex-1 rounded-r-full bg-[#B6B6B6]" />
-              </div>
-            </div>
-            <p className="mt-[11.4px] text-[14.2px] font-[500] text-[#5D5D5D]">
-              6명 참여중
-            </p>
-          </div>
-          <div className="text-center">
-            <div className="flex h-[104px] w-[104px] items-center justify-center rounded-full border">
-              <div className="flex h-[93px] w-[93px] rounded-full border">
-                <div className="flex-1 rounded-l-full bg-[#D9D9D9]" />
-                <div className="flex-1 rounded-r-full bg-[#B6B6B6]" />
-              </div>
-            </div>
-            <p className="mt-[11.4px] text-[14.2px] font-[500] text-[#5D5D5D]">
-              6명 참여중
-            </p>
-          </div>
-        </div>
+        <RankingList categoryParams={searchParams.category} />
       </section>
       <section>
         {/** 정렬 버튼 */}
