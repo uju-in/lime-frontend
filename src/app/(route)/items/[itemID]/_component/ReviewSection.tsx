@@ -14,12 +14,18 @@ import { ReviewItemSkeleton } from './ReviewSkeletonUI'
 
 import { sortOptions } from '../_constants'
 
-export default function ReviewSection({ itemInfo }: ItemInfo) {
+interface PropsType {
+  accessToken: string
+  itemInfo: ItemInfo
+}
+
+export default function ReviewSection(props: PropsType) {
+  const { accessToken, itemInfo } = props
   const [showReviewModal, setShowReviewModal] = useState(false)
   const [sortOption, setSortOption] = useState<SortOption>('NEWEST')
 
   const { data, reviewList, fetchNextPage, isFetchingNextPage, hasNextPage } =
-    useSearchItemQuery(itemInfo.id, sortOption)
+    useSearchItemQuery(itemInfo.id, sortOption, accessToken)
 
   /** 추가 데이터 요청(리뷰 더보기) */
   const handleLoadMore = () => {
