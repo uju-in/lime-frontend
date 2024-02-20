@@ -4,12 +4,9 @@ import { CategoryOption } from '@/app/_constants'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import { cn } from '@/app/_utils/twMerge'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { defaultCategory } from '../_utils/defaultCategory'
 
 export default function MenuButtons() {
-  const router = useRouter()
-
   const title = useGetSearchParam('title') || '스포츠'
   const category = useGetSearchParam('category') || '농구'
 
