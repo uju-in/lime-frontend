@@ -3,6 +3,7 @@
 import { revalidatePath, revalidateTag } from 'next/cache'
 
 import { getCookie } from '@/app/_utils/cookie'
+import { itemKeys } from '.'
 
 export async function postSaveToWishlist(itemIds: number[]) {
   const accessToken = await getCookie('accessToken')
@@ -20,7 +21,7 @@ export async function postSaveToWishlist(itemIds: number[]) {
     },
   )
 
-  revalidateTag('itemDetail')
+  revalidateTag(itemKeys.detail)
 
   revalidatePath(`/items/${itemIds[0]}`)
 

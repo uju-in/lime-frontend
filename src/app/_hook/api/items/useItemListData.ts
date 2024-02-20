@@ -3,6 +3,7 @@
 import { ItemType } from '@/app/_types/item.type'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
+import { itemKeys } from '.'
 
 export const fetchItemList = async (
   keyword: string,
@@ -38,7 +39,7 @@ const useItemListData = ({ keyword, sortOption }: Props) => {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ['itemList', keyword, sortOption],
+    queryKey: itemKeys.itemList(keyword, sortOption),
     queryFn: ({ pageParam = null }) =>
       fetchItemList(keyword, sortOption, pageParam),
     initialPageParam: null,
