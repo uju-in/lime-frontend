@@ -1,13 +1,12 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 
 import Layout from '@/app/_components/layout/Layout'
 import RQProvider from '@/app/_components/RQProvider'
 import { SavePageMode } from '@/app/_types/save.type'
 import AddFolderModal from './_component/AddFolderModal'
-import { SaveItemList } from './[folderName]/_component'
 import MoveFolderModal from './_component/MoveFolderModal'
 import { SaveHeader } from './_component/SaveHeader'
 import SaveList from './_component/SaveList'
@@ -18,6 +17,10 @@ export default function SavesPage() {
 
   const [mode, setMode] = useState<SavePageMode>(SavePageMode.DEFAULT)
   const [checkedList, setCheckedList] = useState<number[]>([])
+
+  useEffect(() => {
+    if (mode !== SavePageMode.EDIT_LIST) setCheckedList([])
+  }, [mode])
 
   return (
     <Layout>
@@ -34,15 +37,12 @@ export default function SavesPage() {
         )}
 
         <RQProvider>
-          <SaveList mode={mode} />
+          <SaveList
+            mode={mode}
+            checkedList={checkedList}
+            setCheckedList={setCheckedList}
+          />
         </RQProvider>
-
-        {/* Single Items */}
-        {/* <SaveItemList
-          mode={mode}
-          checkedList={checkedList}
-          setCheckedList={setCheckedList}
-        /> */}
 
         {/* Footer */}
         {mode === SavePageMode.EDIT_LIST && (

@@ -17,7 +17,7 @@ export default function SaveItemList({
 }: Props) {
   return (
     <div className="relative grid grid-cols-[repeat(auto-fill,184px)] justify-center gap-x-[19px] gap-y-[25px]">
-      {[...Array(10)].map((_, index) => (
+      {/* {[...Array(10)].map((_, index) => (
         <SaveItem
           // TODO: API 연동 후 eslint 제거 예정
           // eslint-disable-next-line react/no-array-index-key
@@ -30,7 +30,7 @@ export default function SaveItemList({
             else setCheckedList((prev) => prev.filter((item) => item !== index))
           }}
         />
-      ))}
+      ))} */}
     </div>
   )
 }
