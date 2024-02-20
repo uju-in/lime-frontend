@@ -5,47 +5,23 @@ import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import { SortOption } from '../_constants'
+import SortButtons from './SortButtons'
 
 export default function VoteList() {
   const hobby = useGetSearchParam('category') || '농구'
 
-  const [sortOption, setSortOption] = useState<string>('recent')
+  const [sortOption, setSortOption] = useState(SortOption[0])
 
   const { voteList, fetchNextPage, isFetchingNextPage, hasNextPage } =
-    useVoteListData(hobby, sortOption)
-  console.log(voteList)
+    useVoteListData(hobby, sortOption.value)
 
   return (
     <section>
       {/** Sort Buttons */}
       <div className="mt-[43.14px] flex justify-end">
-        <div className="relative">
-          <button
-            type="button"
-            className="h-[14px relative flex w-[71px] items-center justify-end gap-[2px] text-[12px]"
-          >
-            <span>최신순</span>
-            <Image
-              width={14}
-              height={14}
-              src="/image/icon/icon-arrow_bottom.svg"
-              alt="arrow button"
-            />
-          </button>
-          <div className="absolute left-[-14px] top-[24px] flex h-[92px] w-[88px] flex-col items-start justify-center gap-[10px] rounded-[4px] border-[1.5px] border-[#EDEDED] bg-white px-[17px] py-[11px] text-[11px]">
-            <button type="button" className="font-[600]">
-              최신순
-            </button>
-            <button type="button" className="font-[500] text-[#868585]">
-              인기순
-            </button>
-            <button type="button" className="font-[500] text-[#868585]">
-              마감순
-            </button>
-          </div>
-        </div>
+        <SortButtons sortOption={sortOption} setSortOption={setSortOption} />
       </div>
-
       {/** Votes */}
       <article className="mt-[43.5px]">
         <div className="grid grid-cols-2 gap-[20px]">
@@ -87,7 +63,7 @@ export default function VoteList() {
             </Link>
           ))}
         </div>
-        {/** 더보기 버튼 */}
+        {/** More Item Request */}
         <div className="mt-[16.8px] flex h-[65px] items-start justify-center">
           {isFetchingNextPage ? (
             <div>More Loading. . . </div>
