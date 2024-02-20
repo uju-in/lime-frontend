@@ -63,7 +63,7 @@ export default function VoteList() {
           ))}
         </div>
         {/** More Item Request */}
-        <div className="mt-[16.8px] flex h-[65px] items-start justify-center">
+        <div className="flex h-[105px] items-start items-center justify-center">
           {isFetchingNextPage ? (
             <div>More Loading. . . </div>
           ) : (
