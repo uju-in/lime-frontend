@@ -3,13 +3,15 @@
 import { useVoteListData } from '@/app/_hook/api/useVoteListData'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { SortOption } from '../_constants'
 import SortButtons from './SortButtons'
 
 export default function VoteList() {
   const hobby = useGetSearchParam('category') || '농구'
+
+  const router = useRouter()
 
   const [sortOption, setSortOption] = useState(SortOption[0])
 
@@ -26,40 +28,42 @@ export default function VoteList() {
       <article className="mt-[43.5px]">
         <div className="grid grid-cols-2 gap-[20px]">
           {voteList.map((item) => (
-            <Link href={`/votes/${item.voteInfo.id}`} key={item.cursorId}>
-              <div className="h-[408px] w-[387px] rounded-[8px] border border-[#E6E6E6] px-[24px] pt-[24px]">
-                <div>
-                  <div className="flex h-[208px] w-[340px]">
-                    <Image
-                      width={170}
-                      height={104}
-                      src={item.item1Info.image}
-                      alt="vote item1"
-                    />
-                    <Image
-                      width={170}
-                      height={104}
-                      src={item.item2Info.image}
-                      alt="vote item2"
-                    />
-                  </div>
-                  <p className="mt-[18px] h-[45px] text-[14px] font-[500]">
-                    {item.voteInfo.content}
-                  </p>
-                  <p className="mt-[9px] text-[10px] font-[500] text-[#9C9C9C]">
-                    {item.voteInfo.participants}명 참여중
-                  </p>
-                  <div className="flex justify-center">
-                    <button
-                      type="button"
-                      className="mt-[18px] h-[48px] w-[136ox] rounded-[8px] bg-[#757575] px-[26px] font-[600] text-[#fff]"
-                    >
-                      투표하러 가기
-                    </button>
-                  </div>
+            <div
+              key={item.cursorId}
+              className="h-[408px] w-[387px] rounded-[8px] border border-[#E6E6E6] px-[24px] pt-[24px]"
+            >
+              <div>
+                <div className="flex h-[208px] w-[340px]">
+                  <Image
+                    width={170}
+                    height={104}
+                    src={item.item1Info.image}
+                    alt="vote item1"
+                  />
+                  <Image
+                    width={170}
+                    height={104}
+                    src={item.item2Info.image}
+                    alt="vote item2"
+                  />
+                </div>
+                <p className="mt-[18px] h-[45px] text-[14px] font-[500]">
+                  {item.voteInfo.content}
+                </p>
+                <p className="mt-[9px] text-[10px] font-[500] text-[#9C9C9C]">
+                  {item.voteInfo.participants}명 참여중
+                </p>
+                <div className="flex justify-center">
+                  <button
+                    type="button"
+                    className="mt-[18px] h-[48px] w-[136ox] rounded-[8px] bg-[#757575] px-[26px] font-[600] text-[#fff]"
+                    onClick={() => router.push(`/votes/${item.voteInfo.id}`)}
+                  >
+                    투표하러 가기
+                  </button>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
         {/** More Item Request */}
