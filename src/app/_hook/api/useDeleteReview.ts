@@ -2,16 +2,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { getCookie } from '@/app/_utils/cookie'
 
-interface DeleteReviewRequest {
-  itemId: number
-  reviewId: number
-}
-
-async function postAddReview({ itemId, reviewId }: DeleteReviewRequest) {
+async function deleteReview(reviewId: number) {
   const accessToken = await getCookie('accessToken')
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/${itemId}/reviews/${reviewId}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews/${reviewId}`,
     {
       method: 'DELETE',
       headers: {
@@ -30,8 +25,8 @@ async function postAddReview({ itemId, reviewId }: DeleteReviewRequest) {
 export default function useDeleteReview() {
   const queryClient = useQueryClient()
 
-  return useMutation<void, Error, DeleteReviewRequest>({
-    mutationFn: ({ itemId, reviewId }) => postAddReview({ itemId, reviewId }),
+  return useMutation<void, Error, number>({
+    mutationFn: (reviewId) => deleteReview(reviewId),
     onSuccess: () => {
       alert('리뷰 삭제 성공!')
 

@@ -2,14 +2,23 @@ import React, { Suspense } from 'react'
 import Image from 'next/image'
 
 import { fetchItemDetail } from '@/app/_hook/api/useItemDetail'
+import { getCookie } from '@/app/_utils/cookie'
 import { categoryFormatter } from '../../../_utils/categoryFormatter'
 
 import ActionButtons from './_component/ActionButtons'
 import { ReviewSectionSkeletonUI } from './_component/ReviewSkeletonUI'
 import ReviewSection from './_component/ReviewSection'
 
-export default async function DetailPage() {
-  const itemData = await fetchItemDetail(202)
+type Props = {
+  params: { itemId: number }
+}
+
+export default async function DetailPage({ params }: Props) {
+  const { itemId } = params
+
+  const itemData = await fetchItemDetail(itemId)
+
+  const accessToken = getCookie('accessToken')
 
   const { itemInfo, hobbyName, itemUrl, itemAvgRate, favoriteCount } = itemData
 
@@ -68,9 +77,9 @@ export default async function DetailPage() {
           <ActionButtons itemUrl={itemUrl} itemId={itemInfo.id} />
         </div>
       </article>
-      {/* <Suspense fallback={<ReviewSectionSkeletonUI />}> */}
-      <ReviewSection itemInfo={itemInfo} />
-      {/* </Suspense> */}6fa3156f3be9be758460d86a471a0
+      <Suspense fallback={<ReviewSectionSkeletonUI />}>
+        <ReviewSection itemInfo={itemInfo} accessToken={accessToken} />
+      </Suspense>
     </section>
   )
 }

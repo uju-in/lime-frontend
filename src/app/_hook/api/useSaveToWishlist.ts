@@ -8,7 +8,7 @@ export async function postSaveToWishlist(itemIds: number[]) {
   const accessToken = await getCookie('accessToken')
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/myitems
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/favorites/items
         `,
     {
       method: 'POST',

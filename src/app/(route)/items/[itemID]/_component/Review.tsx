@@ -59,7 +59,6 @@ export default function Review(props: PropsType) {
     e.stopPropagation()
 
     await likeAction({
-      itemId: itemInfo.id,
       reviewId: reviewSummary.reviewId,
       isLiked: reviewLoginMemberStatus.isLiked,
     })
@@ -178,7 +177,6 @@ export default function Review(props: PropsType) {
             <EditButtons
               setShowReviewModal={setShowReviewModal}
               reviewId={reviewSummary.reviewId}
-              itemId={itemInfo.id}
             />
           )}
         </div>
