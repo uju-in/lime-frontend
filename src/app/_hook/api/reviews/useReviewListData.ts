@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import { InfiniteData, useSuspenseInfiniteQuery } from '@tanstack/react-query'
-
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query'
 import { PagesResponse, SortOption } from '@/app/_types/review.type'
+import { reviewKeys } from '.'
 
 interface ReviewQueryParams {
   pageParam: string | null
@@ -46,14 +46,8 @@ export const useSearchItemQuery = (
   accessToken: string,
 ) => {
   const { data, fetchNextPage, isFetchingNextPage, hasNextPage } =
-    useSuspenseInfiniteQuery<
-      PagesResponse,
-      Error,
-      InfiniteData<PagesResponse>,
-      [string, number, SortOption],
-      string | null
-    >({
-      queryKey: ['review', itemId, sortOption],
+    useSuspenseInfiniteQuery({
+      queryKey: reviewKeys.reviewList(itemId, sortOption),
       queryFn: ({ pageParam = null }) =>
         fetchReviewData({ pageParam, itemId, sortOption, accessToken }),
       initialPageParam: null,
