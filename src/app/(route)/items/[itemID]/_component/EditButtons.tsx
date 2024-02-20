@@ -7,16 +7,15 @@ import useDeleteReview from '@/app/_hook/api/useDeleteReview'
 interface PropsType {
   setShowReviewModal: React.Dispatch<React.SetStateAction<boolean>>
   reviewId: number
-  itemId: number
 }
 
-function EditButtons(props: PropsType) {
-  const { setShowReviewModal, reviewId, itemId } = props
+export default function EditButtons(props: PropsType) {
+  const { setShowReviewModal, reviewId } = props
 
   const { mutateAsync: deleteReview } = useDeleteReview()
 
   const handleDeleteReview = async () => {
-    await deleteReview({ itemId, reviewId })
+    await deleteReview(reviewId)
   }
 
   return (
@@ -52,5 +51,3 @@ function EditButtons(props: PropsType) {
     </div>
   )
 }
-
-export default EditButtons

@@ -20,8 +20,8 @@ function Modal({ isScrollActive = false, children }: ModalProps) {
         className={cn(
           'absolute left-[50%] top-[50%] max-h-[90vh] max-w-[90vw] -translate-x-1/2 -translate-y-1/2 rounded-[8px] bg-white',
           {
-            'overflow-scroll': isScrollActive,
-            'overflow-hidden': !isScrollActive,
+            'overflow-y-scroll': isScrollActive,
+            'overflow-x-hidden': !isScrollActive,
           },
         )}
       >

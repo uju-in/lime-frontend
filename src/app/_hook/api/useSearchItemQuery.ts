@@ -1,28 +1,26 @@
 import { useMemo } from 'react'
-import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query'
+import { InfiniteData, useSuspenseInfiniteQuery } from '@tanstack/react-query'
 
 import { PagesResponse, SortOption } from '@/app/_types/review.type'
-
-import { getCookie } from '@/app/_utils/cookie'
 
 interface ReviewQueryParams {
   pageParam: string | null
   itemId: number
   sortOption: SortOption
+  accessToken: string
 }
 
 async function fetchReviewData({
   pageParam,
   itemId,
   sortOption,
+  accessToken,
 }: ReviewQueryParams) {
-  const accessToken = await getCookie('accessToken')
-
   /** 기본 3개 - 추가 10개 */
   const REVIEW_DATA_SIZE = !pageParam ? 3 : 10
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/${itemId}/reviews?size=${REVIEW_DATA_SIZE}&cursorId=${pageParam}&reviewSortCondition=${sortOption}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews?itemId=${itemId}&size=${REVIEW_DATA_SIZE}&cursorId=${pageParam}&reviewSortCondition=${sortOption}`,
     {
       method: 'GET',
       headers: {
@@ -42,9 +40,13 @@ async function fetchReviewData({
   return data
 }
 
-export const useSearchItemQuery = (itemId: number, sortOption: SortOption) => {
+export const useSearchItemQuery = (
+  itemId: number,
+  sortOption: SortOption,
+  accessToken: string,
+) => {
   const { data, fetchNextPage, isFetchingNextPage, hasNextPage } =
-    useInfiniteQuery<
+    useSuspenseInfiniteQuery<
       PagesResponse,
       Error,
       InfiniteData<PagesResponse>,
@@ -53,7 +55,7 @@ export const useSearchItemQuery = (itemId: number, sortOption: SortOption) => {
     >({
       queryKey: ['review', itemId, sortOption],
       queryFn: ({ pageParam = null }) =>
-        fetchReviewData({ pageParam, itemId, sortOption }),
+        fetchReviewData({ pageParam, itemId, sortOption, accessToken }),
       initialPageParam: null,
       getNextPageParam: (lastPage: PagesResponse) => {
         return lastPage.nextCursorId
