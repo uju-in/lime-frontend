@@ -10,6 +10,7 @@ import {
 import React from 'react'
 import SaveFolderGroupItem from './SaveFolderGroupItem'
 import { SaveItem } from '../[folderName]/_component'
+import ActionButtons from '../../items/[itemID]/_component/ActionButtons'
 
 interface Props {
   mode: SavePageMode
@@ -45,7 +46,7 @@ export default function SaveList({ mode, checkedList, setCheckedList }: Props) {
           )
         })}
       </div>
-      <div className="mb-[40px] grid grid-cols-[repeat(auto-fill,387px)] gap-[17px]">
+      <div className="mb-[40px] grid grid-cols-[repeat(auto-fill,184px)] gap-[17px]">
         {itemList.map((item: SaveItemType) => {
           const { favoriteId, originalName, metadata } = item
           const { favoriteCount, reviewCount, price, imageUrl, itemId } =
