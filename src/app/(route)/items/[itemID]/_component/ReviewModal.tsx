@@ -5,8 +5,8 @@ import Image from 'next/image'
 
 import { ReviewInfo } from '@/app/_types/review.type'
 
-import useAddReview from '@/app/_hook/api/useAddReview'
-import useEditReview from '@/app/_hook/api/useEditReview'
+import useAddReview from '@/app/_hook/api/reviews/useAddReview'
+import useEditReview from '@/app/_hook/api/reviews/useEditReview'
 
 import Modal from '@/app/_components/modal'
 import StarRatingFormatter from './StarRatingFormatter'

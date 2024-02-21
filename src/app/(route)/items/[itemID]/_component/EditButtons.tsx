@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image'
-import useDeleteReview from '@/app/_hook/api/useDeleteReview'
+import useDeleteReview from '@/app/_hook/api/reviews/useDeleteReview'
 
 interface PropsType {
   setShowReviewModal: React.Dispatch<React.SetStateAction<boolean>>
