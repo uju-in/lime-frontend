@@ -16,7 +16,6 @@ const gray64Img =
 
 export default function SaveFolderGroupItem(props: Props) {
   const { folderName, id, disabled, imageUrls, itemCount } = props
-  console.log('🚀 ~ SaveFolderGroupItem ~ itemCount:', itemCount)
 
   return (
     <Link
