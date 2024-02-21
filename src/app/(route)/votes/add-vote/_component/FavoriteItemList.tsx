@@ -9,6 +9,7 @@ import {
 } from '@/app/_types/saveItem.type'
 import { useFavoritesList } from '@/app/_hook/api/useFavoritesList'
 import { cn } from '@/app/_utils/twMerge'
+import { useCallback } from 'react'
 
 interface PropsType {
   folderId: number | null
@@ -23,25 +24,24 @@ export default function FavoriteList(props: PropsType) {
 
   const { itemList, isError, isSuccess } = useFavoritesList('item', folderId)
 
+  const handleSelectItem = useCallback(
+    (favoriteItemMetadata: FavoriteItemMetadata, originalName: string) => {
+      const isSelected =
+        favoriteItemMetadata.itemId === currentSelectedItem?.itemId
+
+      if (!isSelected) {
+        setCurrentSelectedItem({
+          ...favoriteItemMetadata,
+          originalName,
+        })
+      } else {
+        setCurrentSelectedItem(null)
+      }
+    },
+    [currentSelectedItem, setCurrentSelectedItem],
+  )
   if (isError) {
     return <div>Error . . .</div>
-  }
-
-  const handleSelectItem = (
-    favoriteItemMetadata: FavoriteItemMetadata,
-    originalName: string,
-  ) => {
-    const isSelected =
-      favoriteItemMetadata.itemId === currentSelectedItem?.itemId
-
-    if (!isSelected) {
-      setCurrentSelectedItem({
-        ...favoriteItemMetadata,
-        originalName,
-      })
-    } else {
-      setCurrentSelectedItem(null)
-    }
   }
 
   if (isSuccess) {

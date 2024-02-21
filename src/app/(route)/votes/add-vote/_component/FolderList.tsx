@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { FolderMetadataType, SaveItemType } from '@/app/_types/saveItem.type'
 import { cn } from '@/app/_utils/twMerge'
+import { useCallback } from 'react'
 
 interface PropsType {
   favoriteInfos: SaveItemType[]
@@ -16,15 +17,18 @@ export default function FolderList(props: PropsType) {
   const { favoriteInfos, selectedFolder, setSelectedFolder } = props
 
   /** select folderId, itemCount */
-  const handleSelectFolder = (favoriteId: number, itemCount: number) => {
-    const isSelected = favoriteId === selectedFolder.folderId
+  const handleSelectFolder = useCallback(
+    (favoriteId: number, itemCount: number) => {
+      const isSelected = favoriteId === selectedFolder.folderId
 
-    if (!isSelected) {
-      setSelectedFolder({ folderId: favoriteId, itemCount })
-    } else {
-      setSelectedFolder({ folderId: null, itemCount: null })
-    }
-  }
+      if (!isSelected) {
+        setSelectedFolder({ folderId: favoriteId, itemCount })
+      } else {
+        setSelectedFolder({ folderId: null, itemCount: null })
+      }
+    },
+    [selectedFolder, setSelectedFolder],
+  )
 
   return (
     <div className="flex-1 overflow-y-scroll">

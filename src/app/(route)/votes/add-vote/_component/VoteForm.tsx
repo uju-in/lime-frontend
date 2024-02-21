@@ -1,6 +1,6 @@
 'use client'
 
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
@@ -28,8 +28,8 @@ export default function VoteForm() {
   })
 
   /**
-   * itemImageUrl1,2 - 선택한 아이템 이미지 URL
-   * itemTitle1,2 - 선택한 아이템 이름
+   * itemImageUrl1,2 - Selected Item Image URL
+   * itemTitle1,2 - Selected Item Title
    */
   const [itemImageUrl1, setItemImageUrl1] = useState<string | null>(null)
   const [itemImageUrl2, setItemImageUrl2] = useState<string | null>(null)
@@ -52,25 +52,28 @@ export default function VoteForm() {
     setShowVoteModal(true)
   }
 
-  const handleSelectItem = (selectItem: CurrentFavoriteItemMetadata) => {
-    const { itemId, imageUrl, originalName } = selectItem
+  const handleSelectItem = useCallback(
+    (selectItem: CurrentFavoriteItemMetadata) => {
+      const { itemId, imageUrl, originalName } = selectItem
 
-    if (itemType === 'item1') {
-      setVoteInfo((prevState) => ({
-        ...prevState,
-        item1Id: itemId,
-      }))
-      setItemImageUrl1(imageUrl)
-      setItemTitle1(originalName)
-    } else if (itemType === 'item2') {
-      setVoteInfo((prevState) => ({
-        ...prevState,
-        item2Id: itemId,
-      }))
-      setItemImageUrl2(imageUrl)
-      setItemTitle2(originalName)
-    }
-  }
+      if (itemType === 'item1') {
+        setVoteInfo((prevState) => ({
+          ...prevState,
+          item1Id: itemId,
+        }))
+        setItemImageUrl1(imageUrl)
+        setItemTitle1(originalName)
+      } else if (itemType === 'item2') {
+        setVoteInfo((prevState) => ({
+          ...prevState,
+          item2Id: itemId,
+        }))
+        setItemImageUrl2(imageUrl)
+        setItemTitle2(originalName)
+      }
+    },
+    [itemType],
+  )
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
