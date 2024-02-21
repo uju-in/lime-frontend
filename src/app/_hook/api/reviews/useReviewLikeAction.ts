@@ -37,7 +37,7 @@ export default function useReviewLikeAction() {
     onSuccess: () => {
       alert('성공!')
 
-      queryClient.invalidateQueries({ queryKey: reviewKeys.reviewList() })
+      queryClient.invalidateQueries({ queryKey: reviewKeys.list() })
     },
     onError: (error) => {
       alert(error)

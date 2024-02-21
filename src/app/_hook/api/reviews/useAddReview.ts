@@ -36,7 +36,7 @@ export default function useAddReview() {
     onSuccess: () => {
       alert('리뷰 등록 성공!')
 
-      queryClient.invalidateQueries({ queryKey: reviewKeys.reviewList() })
+      queryClient.invalidateQueries({ queryKey: reviewKeys.list() })
     },
     onError: (error) => {
       alert(error)

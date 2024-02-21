@@ -1,4 +1,4 @@
 export const reviewKeys = {
-  all: 'review' as const,
-  reviewList: () => [reviewKeys.all, 'list'] as const,
+  all: ['review'] as const,
+  list: () => [...reviewKeys.all, 'list'] as const,
 }

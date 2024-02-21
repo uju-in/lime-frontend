@@ -40,7 +40,7 @@ export default function useEditReview() {
     onSuccess: () => {
       alert('리뷰 수정 성공!')
 
-      queryClient.invalidateQueries({ queryKey: reviewKeys.reviewList() })
+      queryClient.invalidateQueries({ queryKey: reviewKeys.list() })
     },
     onError: (error) => {
       alert(error)

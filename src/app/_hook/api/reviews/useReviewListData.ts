@@ -47,7 +47,7 @@ export const useSearchItemQuery = (
 ) => {
   const { data, fetchNextPage, isFetchingNextPage, hasNextPage } =
     useSuspenseInfiniteQuery({
-      queryKey: [...reviewKeys.reviewList(), itemId, sortOption],
+      queryKey: [...reviewKeys.list(), itemId, sortOption],
       queryFn: ({ pageParam = null }) =>
         fetchReviewData({ pageParam, itemId, sortOption, accessToken }),
       initialPageParam: null,

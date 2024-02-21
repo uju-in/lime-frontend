@@ -31,7 +31,7 @@ export default function useDeleteReview() {
     onSuccess: () => {
       alert('리뷰 삭제 성공!')
 
-      queryClient.invalidateQueries({ queryKey: reviewKeys.reviewList() })
+      queryClient.invalidateQueries({ queryKey: reviewKeys.list() })
     },
     onError: (error) => {
       alert(error)
