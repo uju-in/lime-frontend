@@ -21,7 +21,7 @@ export async function postSaveToWishlist(itemIds: number[]) {
     },
   )
 
-  revalidateTag(itemKeys.detail)
+  revalidateTag(itemKeys.detail())
 
   revalidatePath(`/items/${itemIds[0]}`)
 

@@ -1,7 +1,8 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { ItemState } from '@/app/_types/addItem.type'
 import { getCookie } from '@/app/_utils/cookie'
+import { itemKeys } from '.'
 
 async function postAddItem(params: ItemState) {
   const accessToken = await getCookie('accessToken')
@@ -28,10 +29,14 @@ async function postAddItem(params: ItemState) {
 }
 
 export default function useAddItem() {
+  const queryClient = useQueryClient()
+
   return useMutation<number, unknown, ItemState>({
     mutationFn: postAddItem,
     onSuccess: () => {
       alert('아이템 등록 성공!')
+
+      queryClient.invalidateQueries({ queryKey: itemKeys.list() })
     },
     onError: (error) => {
       alert(error)

@@ -8,7 +8,7 @@ export async function fetchItemDetail(itemId: number) {
       headers: {
         'Content-Type': 'application/json',
       },
-      next: { tags: [itemKeys.detail] },
+      next: { tags: [itemKeys.detail()] },
     },
   )
 
