@@ -24,11 +24,11 @@ export default function SaveList({ mode, checkedList, setCheckedList }: Props) {
   if (isError) return null
 
   const folderList = data.favoriteInfos.filter(
-    (item: any) => item.type === 'FOLDER',
+    (item: SaveFolderType) => item.type === 'FOLDER',
   )
 
   const itemList = data.favoriteInfos.filter(
-    (item: any) => item.type === 'ITEM',
+    (item: SaveItemType) => item.type === 'ITEM',
   )
 
   return (
