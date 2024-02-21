@@ -1,36 +1,59 @@
 'use client'
 
-import React, { useState } from 'react'
-
-import { SaveItemType } from '@/app/_types/saveItem.type'
-
-import Folder from './Folder'
+import Image from 'next/image'
+import { FolderMetadataType, SaveItemType } from '@/app/_types/saveItem.type'
 
 interface PropsType {
   favoriteInfos: SaveItemType[]
-  folderId: number | null
-  setFolderId: React.Dispatch<React.SetStateAction<number | null>>
+  selectedFolder: { folderId: number | null; itemCount: number | null }
+  setSelectedFolder: React.Dispatch<
+    React.SetStateAction<{ folderId: number | null; itemCount: number | null }>
+  >
 }
 
 export default function FolderList(props: PropsType) {
-  const { favoriteInfos, setFolderId, folderId } = props
+  const { favoriteInfos, selectedFolder, setSelectedFolder } = props
 
-  /** 폴더 선택 여부 */
-  const [isFolderSelected, setIsFolderSelected] = useState<boolean>(false)
+  /** select folderId, itemCount */
+  const handleSelectFolder = (favoriteId: number, itemCount: number) => {
+    const isSelected = favoriteId === selectedFolder.folderId
+
+    if (!isSelected) {
+      setSelectedFolder({ folderId: favoriteId, itemCount })
+    } else {
+      setSelectedFolder({ folderId: null, itemCount: null })
+    }
+  }
 
   return (
     <div className="flex-1 overflow-y-scroll">
-      {favoriteInfos
-        ?.filter((item) => item.type === 'FOLDER')
-        ?.map((folder) => (
-          <Folder
-            key={folder.favoriteId}
-            folder={folder}
-            isFolderSelected={folder.favoriteId === folderId}
-            setIsFolderSelected={setIsFolderSelected}
-            setFolderId={setFolderId}
-          />
-        ))}
+      {favoriteInfos.map((item) => {
+        const { metadata, favoriteId, originalName } = item
+        const { folderMetadata } = metadata as FolderMetadataType
+
+        return (
+          <div
+            key={favoriteId}
+            className={`${
+              selectedFolder.folderId === favoriteId
+                ? 'bg-[#E5E5E5]'
+                : 'bg-[#fff]'
+            } flex w-full items-center border border-x-0 border-t-0 border-b-[#DADADA] py-[12px] pl-[18px]`}
+            onClick={() =>
+              handleSelectFolder(favoriteId, folderMetadata.itemCount)
+            }
+          >
+            <Image
+              width={52}
+              height={52}
+              src={folderMetadata.imageUrls[0] || `/image/icon/icon-close.svg`}
+              alt="folder image"
+              className="rounded-[4px]"
+            />
+            <strong className="font=[500] ml-[16px]">{originalName}</strong>
+          </div>
+        )
+      })}
     </div>
   )
 }
