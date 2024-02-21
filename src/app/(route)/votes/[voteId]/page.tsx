@@ -1,4 +1,4 @@
-import { fetchVoteDetail } from '@/app/_hook/api/useVoteDetail'
+import { fetchVoteDetail } from '@/app/_hook/api/votes/useVoteDetail'
 import { dateFormatter } from '@/app/_utils/dateFormatter'
 import ManagementButton from './_component/ManagementButton'
 import { categoryFormatter } from '../../../_utils/categoryFormatter'
