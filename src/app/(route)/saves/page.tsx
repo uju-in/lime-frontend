@@ -86,7 +86,9 @@ export default function SavesPage() {
         />
       )}
       {showAddFolderModal && (
-        <AddFolderModal setShowAddFolderModal={setShowAddFolderModal} />
+        <RQProvider>
+          <AddFolderModal setShowAddFolderModal={setShowAddFolderModal} />
+        </RQProvider>
       )}
     </Layout>
   )
