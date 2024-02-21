@@ -1,6 +1,6 @@
 import { cn } from '@/app/_utils/twMerge'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import Link from 'next/link'
 import React from 'react'
 
 interface Props {
@@ -16,10 +16,15 @@ const gray64Img =
 
 export default function SaveFolderGroupItem(props: Props) {
   const { folderName, id, disabled, imageUrls, itemCount } = props
+  const router = useRouter()
 
   return (
-    <Link
-      href={`/saves/${id}`}
+    <button
+      type="button"
+      onClick={() => {
+        router.push(`/saves/${id}`)
+      }}
+      disabled={disabled}
       className={cn(
         'relative mr-5 flex h-[240px] w-[387px] overflow-hidden rounded-[9px] bg-[#D2D2D2]',
         {
@@ -55,10 +60,10 @@ export default function SaveFolderGroupItem(props: Props) {
         <div className="absolute left-0 top-0 z-20 h-full w-full bg-white opacity-80" />
       )}
       <div className="absolute left-0 top-0 z-10 h-[193px] w-full rounded-t-[9px] bg-gradient-folder pl-4 pt-4">
-        <p className="text-[20px] font-[700] text-white drop-shadow-[0.774px_0.774px_2.012px_rgba(0,0,0,0.30)]">
+        <p className="text-left text-[20px] font-[700] text-white drop-shadow-[0.774px_0.774px_2.012px_rgba(0,0,0,0.30)]">
           {folderName}
         </p>
       </div>
-    </Link>
+    </button>
   )
 }
