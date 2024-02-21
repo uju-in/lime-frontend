@@ -9,10 +9,7 @@ import useAddVote from '@/app/_hook/api/useAddVote'
 import { VoteInfoType } from '@/app/_types/addVote.type'
 
 import CategorySelector from '@/app/_components/categorySelector'
-import {
-  CurrentFavoriteItemMetadata,
-  FavoriteItemMetadata,
-} from '@/app/_types/saveItem.type'
+import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import VoteModal from './VoteModal'
 
 import { truncateString } from '../../_utils/truncateString'
@@ -56,7 +53,7 @@ export default function VoteForm() {
   }
 
   const handleSelectItem = (selectItem: CurrentFavoriteItemMetadata) => {
-    const { itemId, imageUrl, hobby, originalName } = selectItem
+    const { itemId, imageUrl, originalName } = selectItem
 
     if (itemType === 'item1') {
       setVoteInfo((prevState) => ({

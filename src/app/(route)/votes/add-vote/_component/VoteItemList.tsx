@@ -28,10 +28,7 @@ export default function VoteItemList(props: PropsType) {
   const fetchFolderList = async () => {
     const { favoriteInfos } = await fetchFavoriteList({ type: 'folder' })
     setFolderInfo(favoriteInfos)
-    console.log(favoriteInfos)
   }
-
-  console.log(selectedFolder)
 
   useEffect(() => {
     fetchFolderList()
