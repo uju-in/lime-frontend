@@ -4,43 +4,48 @@ import { getCookie } from '@/app/_utils/cookie'
 
 interface RequestInfo {
   type: 'folder' | 'item'
-  folderId?: number
+  folderId?: number | null
 }
 
 export async function fetchFavoriteList({ type, folderId }: RequestInfo) {
   const accessToken = await getCookie('accessToken')
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/favorites?favoriteTypeCondition=${type}
-        `,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
+  let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/favorites?favoriteTypeCondition=${type}`
+
+  if (type === 'item' && folderId) {
+    url += `&folderId=${folderId}`
+  }
+
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
     },
-  )
+  })
 
   const data = await res.json()
 
   if (!res.ok) {
     throw new Error(data.message)
   }
-  console.log(data)
 
   return data
 }
 
 export const useFavoritesList = (
   type: 'folder' | 'item',
-  folderId?: number,
+  folderId?: number | null,
 ) => {
-  const { data, isLoading, isError, isSuccess } = useQuery({
-    queryKey: ['save', type, folderId],
+  const {
+    data: itemList,
+    isError,
+    isSuccess,
+  } = useQuery({
+    queryKey: ['save', folderId],
     queryFn: () => fetchFavoriteList({ type, folderId }),
     staleTime: 1000 * 60,
   })
 
-  return { data, isLoading, isError, isSuccess }
+  return { itemList, isError, isSuccess }
 }

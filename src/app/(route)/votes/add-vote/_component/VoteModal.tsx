@@ -17,7 +17,7 @@ export default function VoteModal(props: PropsType) {
 
   const router = useRouter()
 
-  /** 아이템 선택 (미확정) */
+  /** Select item (not confirmed) */
   const [currentSelectedItem, setCurrentSelectedItem] =
     useState<CurrentFavoriteItemMetadata | null>(null)
 
@@ -53,7 +53,10 @@ export default function VoteModal(props: PropsType) {
           </button>
         </div>
         <article className="px-[46px]">
-          <VoteItemList />
+          <VoteItemList
+            currentSelectedItem={currentSelectedItem}
+            setCurrentSelectedItem={setCurrentSelectedItem}
+          />
           {/** Go to ItemList */}
           <div className="mt-[43px] flex items-center justify-between">
             <button

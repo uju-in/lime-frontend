@@ -1,17 +1,15 @@
 'use client'
 
-import React, { useState } from 'react'
-
+import Image from 'next/image'
 import {
   CurrentFavoriteItemMetadata,
+  FavoriteItemMetadata,
   MetadataType,
   SaveItemType,
 } from '@/app/_types/saveItem.type'
-
-import ItemCard from './FavoriteItem'
+import { useFavoritesList } from '@/app/_hook/api/useFavoritesList'
 
 interface PropsType {
-  favoriteInfos: SaveItemType[]
   folderId: number | null
   currentSelectedItem: CurrentFavoriteItemMetadata | null
   setCurrentSelectedItem: React.Dispatch<
@@ -20,36 +18,66 @@ interface PropsType {
 }
 
 export default function FavoriteList(props: PropsType) {
-  const {
-    favoriteInfos,
-    folderId,
-    currentSelectedItem,
-    setCurrentSelectedItem,
-  } = props
-  /** 아이템 선택 여부 */
-  const [isSelected, setIsSelected] = useState<boolean>(false)
+  const { folderId, currentSelectedItem, setCurrentSelectedItem } = props
 
-  return (
-    <div className="grid grid-cols-3 gap-x-[10px] gap-y-[20px]">
-      {favoriteInfos
-        ?.filter((item) => item.type === 'ITEM' && item.favoriteId === folderId)
-        .map((item) => {
-          const { metadata } = item
+  const { itemList, isError, isSuccess } = useFavoritesList('item', folderId)
+
+  if (isError) {
+    return <div>Error . . .</div>
+  }
+
+  const handleSelectItem = (
+    favoriteItemMetadata: FavoriteItemMetadata,
+    originalName: string,
+  ) => {
+    const isSelected =
+      favoriteItemMetadata.itemId === currentSelectedItem?.itemId
+
+    if (!isSelected) {
+      setCurrentSelectedItem({
+        ...favoriteItemMetadata,
+        originalName,
+      })
+    } else {
+      setCurrentSelectedItem(null)
+    }
+  }
+
+  if (isSuccess) {
+    return (
+      <div className="grid grid-cols-3 gap-x-[10px] gap-y-[20px]">
+        {itemList.favoriteInfos.map((item: SaveItemType) => {
+          const { metadata, originalName } = item
           const { favoriteItemMetadata } = metadata as MetadataType
 
           return (
-            <ItemCard
+            <div
               key={item.favoriteId}
-              favoriteInfo={item}
-              setCurrentSelectedItem={setCurrentSelectedItem}
-              isSelected={
-                isSelected &&
+              className={`${
                 currentSelectedItem?.itemId === favoriteItemMetadata.itemId
+                  ? 'bg-[#e0e0e0]'
+                  : 'bg-[#fff]'
+              } w-[107px] cursor-pointer text-start`}
+              onClick={() =>
+                handleSelectItem(favoriteItemMetadata, originalName)
               }
-              setIsSelected={setIsSelected}
-            />
+            >
+              <Image
+                width={107}
+                height={107}
+                src={favoriteItemMetadata.imageUrl}
+                alt="item image"
+              />
+              <div className="h-[70px] text-[10px] font-[500]">
+                <p>{originalName}</p>
+                <strong className="font-[700]">
+                  {favoriteItemMetadata.price.toLocaleString()}원
+                </strong>
+              </div>
+            </div>
           )
         })}
-    </div>
-  )
+      </div>
+    )
+  }
 }

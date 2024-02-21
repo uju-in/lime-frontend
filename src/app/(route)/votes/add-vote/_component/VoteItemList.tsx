@@ -2,10 +2,23 @@
 
 import { fetchFavoriteList } from '@/app/_hook/api/useFavoritesList'
 import { useEffect, useState } from 'react'
-import { SaveItemType } from '@/app/_types/saveItem.type'
+import {
+  CurrentFavoriteItemMetadata,
+  SaveItemType,
+} from '@/app/_types/saveItem.type'
 import FolderList from './FolderList'
+import FavoriteList from './FavoriteItemList'
 
-export default function VoteItemList() {
+interface PropsType {
+  setCurrentSelectedItem: React.Dispatch<
+    React.SetStateAction<CurrentFavoriteItemMetadata | null>
+  >
+  currentSelectedItem: CurrentFavoriteItemMetadata | null
+}
+
+export default function VoteItemList(props: PropsType) {
+  const { setCurrentSelectedItem, currentSelectedItem } = props
+
   const [folderInfo, setFolderInfo] = useState<SaveItemType[]>([])
   const [selectedFolder, setSelectedFolder] = useState<{
     folderId: number | null
@@ -35,14 +48,13 @@ export default function VoteItemList() {
         {selectedFolder.itemCount !== 0 ? (
           <>
             <p className="my-[13px] text-[12px]">
-              아이템 ${selectedFolder.itemCount}개
+              아이템 {selectedFolder.itemCount}개
             </p>
-            {/* <FavoriteList
-              favoriteInfos={favoriteInfos}
-              folderId={folderId}
+            <FavoriteList
+              folderId={selectedFolder.folderId}
               currentSelectedItem={currentSelectedItem}
               setCurrentSelectedItem={setCurrentSelectedItem}
-            /> */}
+            />
           </>
         ) : (
           <div className="flex h-full flex-col items-center justify-center">
