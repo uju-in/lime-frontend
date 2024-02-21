@@ -2,13 +2,16 @@ import { useQuery } from '@tanstack/react-query'
 
 import { getCookie } from '@/app/_utils/cookie'
 
-import { SaveItemListType } from '@/app/_types/saveItem.type'
+interface RequestInfo {
+  type: 'folder' | 'item'
+  folderId?: number
+}
 
-async function fetchSaveList() {
+export async function fetchFavoriteList({ type, folderId }: RequestInfo) {
   const accessToken = await getCookie('accessToken')
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/favorites
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/favorites?favoriteTypeCondition=${type}
         `,
     {
       method: 'GET',
@@ -29,13 +32,13 @@ async function fetchSaveList() {
   return data
 }
 
-export const useSaveListData = () => {
-  const { data, isLoading, isError, isSuccess } = useQuery<
-    SaveItemListType,
-    Error
-  >({
-    queryKey: ['save'],
-    queryFn: () => fetchSaveList(),
+export const useFavoritesList = (
+  type: 'folder' | 'item',
+  folderId?: number,
+) => {
+  const { data, isLoading, isError, isSuccess } = useQuery({
+    queryKey: ['save', type, folderId],
+    queryFn: () => fetchFavoriteList({ type, folderId }),
     staleTime: 1000 * 60,
   })
 
