@@ -3,6 +3,7 @@
 import { revalidatePath, revalidateTag } from 'next/cache'
 
 import { getCookie } from '@/app/_utils/cookie'
+import { voteKeys } from '.'
 
 interface VoteItemRequest {
   itemId: number | null
@@ -28,7 +29,7 @@ export async function voteItem({
     },
   )
 
-  revalidateTag('voteDetail')
+  revalidateTag(voteKeys.detail())
 
   revalidatePath(`/votes/${voteId}`)
 

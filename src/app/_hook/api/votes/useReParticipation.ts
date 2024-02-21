@@ -3,6 +3,7 @@
 import { revalidatePath, revalidateTag } from 'next/cache'
 
 import { getCookie } from '@/app/_utils/cookie'
+import { voteKeys } from '.'
 
 export async function reVote({ voteId }: { voteId: number }): Promise<void> {
   const accessToken = await getCookie('accessToken')
@@ -19,7 +20,7 @@ export async function reVote({ voteId }: { voteId: number }): Promise<void> {
     },
   )
 
-  revalidateTag('voteDetail')
+  revalidateTag(voteKeys.detail())
 
   revalidatePath(`/votes/${voteId}`)
 
