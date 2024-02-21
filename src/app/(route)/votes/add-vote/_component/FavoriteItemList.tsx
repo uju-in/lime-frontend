@@ -8,6 +8,7 @@ import {
   SaveItemType,
 } from '@/app/_types/saveItem.type'
 import { useFavoritesList } from '@/app/_hook/api/useFavoritesList'
+import { cn } from '@/app/_utils/twMerge'
 
 interface PropsType {
   folderId: number | null
@@ -53,11 +54,12 @@ export default function FavoriteList(props: PropsType) {
           return (
             <div
               key={item.favoriteId}
-              className={`${
-                currentSelectedItem?.itemId === favoriteItemMetadata.itemId
-                  ? 'bg-[#e0e0e0]'
-                  : 'bg-[#fff]'
-              } w-[107px] cursor-pointer text-start`}
+              className={cn('w-[107px] cursor-pointer text-start ', {
+                'bg-[#e0e0e0]':
+                  currentSelectedItem?.itemId === favoriteItemMetadata.itemId,
+                'bg-[#fff]':
+                  currentSelectedItem?.itemId !== favoriteItemMetadata.itemId,
+              })}
               onClick={() =>
                 handleSelectItem(favoriteItemMetadata, originalName)
               }

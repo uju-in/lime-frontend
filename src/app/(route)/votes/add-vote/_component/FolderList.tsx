@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { FolderMetadataType, SaveItemType } from '@/app/_types/saveItem.type'
+import { cn } from '@/app/_utils/twMerge'
 
 interface PropsType {
   favoriteInfos: SaveItemType[]
@@ -34,11 +35,13 @@ export default function FolderList(props: PropsType) {
         return (
           <div
             key={favoriteId}
-            className={`${
-              selectedFolder.folderId === favoriteId
-                ? 'bg-[#E5E5E5]'
-                : 'bg-[#fff]'
-            } flex w-full items-center border border-x-0 border-t-0 border-b-[#DADADA] py-[12px] pl-[18px]`}
+            className={cn(
+              'flex w-full items-center border border-x-0 border-t-0 border-b-[#DADADA] py-[12px] pl-[18px]',
+              {
+                'bg-[#E5E5E5]': selectedFolder.folderId === favoriteId,
+                'bg-[#fff]': selectedFolder.folderId !== favoriteId,
+              },
+            )}
             onClick={() =>
               handleSelectFolder(favoriteId, folderMetadata.itemCount)
             }
