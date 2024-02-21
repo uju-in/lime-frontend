@@ -33,6 +33,7 @@ export default function SaveList({ mode, checkedList, setCheckedList }: Props) {
 
   return (
     <>
+      {/* 폴더 */}
       <div className="mb-[40px] grid grid-cols-[repeat(auto-fill,387px)] gap-[17px]">
         {folderList.map((item: SaveFolderType) => {
           return (
@@ -41,16 +42,19 @@ export default function SaveList({ mode, checkedList, setCheckedList }: Props) {
               id={item.favoriteId}
               folderName={item.originalName}
               imageUrls={item.metadata.folderMetadata.imageUrls}
+              itemCount={item.metadata.folderMetadata.itemCount}
               disabled={mode === SavePageMode.EDIT_LIST}
             />
           )
         })}
       </div>
+
+      {/* 단일 아이템 */}
       <div className="mb-[40px] grid grid-cols-[repeat(auto-fill,184px)] gap-[17px]">
         {itemList.map((item: SaveItemType) => {
           const { favoriteId, originalName, metadata } = item
           const { favoriteCount, reviewCount, price, imageUrl, itemId } =
-            item.metadata.favoriteItemMetadata
+            metadata.favoriteItemMetadata
 
           return (
             <SaveItem
