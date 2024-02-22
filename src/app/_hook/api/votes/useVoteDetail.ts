@@ -1,6 +1,6 @@
 import { VoteDetailType } from '@/app/_types/detailVote.type'
 import { getCookie } from '@/app/_utils/cookie'
-import { voteKeys } from '.'
+import { voteTags } from '.'
 
 export async function fetchVoteDetail(voteId: number): Promise<VoteDetailType> {
   const accessToken = getCookie('accessToken')
@@ -13,7 +13,7 @@ export async function fetchVoteDetail(voteId: number): Promise<VoteDetailType> {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`,
       },
-      next: { tags: [voteKeys.detail()] },
+      next: { tags: [voteTags.voteDetail] },
     },
   )
 

@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-
 import { getCookie } from '@/app/_utils/cookie'
 import { reviewKeys } from '.'
 
@@ -36,7 +35,9 @@ export default function useAddReview() {
     onSuccess: () => {
       alert('리뷰 등록 성공!')
 
-      queryClient.invalidateQueries({ queryKey: reviewKeys.list() })
+      queryClient.invalidateQueries({
+        queryKey: reviewKeys.reviewList._def,
+      })
     },
     onError: (error) => {
       alert(error)

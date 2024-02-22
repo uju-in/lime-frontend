@@ -10,7 +10,7 @@ interface ReviewQueryParams {
   accessToken: string
 }
 
-async function fetchReviewData({
+async function fetchReviewList({
   pageParam,
   itemId,
   sortOption,
@@ -47,9 +47,9 @@ export const useSearchItemQuery = (
 ) => {
   const { data, fetchNextPage, isFetchingNextPage, hasNextPage } =
     useSuspenseInfiniteQuery({
-      queryKey: [...reviewKeys.list(), itemId, sortOption],
+      queryKey: reviewKeys.reviewList(itemId, sortOption).queryKey,
       queryFn: ({ pageParam = null }) =>
-        fetchReviewData({ pageParam, itemId, sortOption, accessToken }),
+        fetchReviewList({ pageParam, itemId, sortOption, accessToken }),
       initialPageParam: null,
       getNextPageParam: (lastPage: PagesResponse) => {
         return lastPage.nextCursorId
