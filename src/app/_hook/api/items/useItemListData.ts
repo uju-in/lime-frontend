@@ -39,7 +39,7 @@ const useItemListData = ({ keyword, sortOption }: Props) => {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: [...itemKeys.list(), keyword, sortOption],
+    queryKey: [itemKeys.itemList(keyword, sortOption).queryKey],
     queryFn: ({ pageParam = null }) =>
       fetchItemList(keyword, sortOption, pageParam),
     initialPageParam: null,

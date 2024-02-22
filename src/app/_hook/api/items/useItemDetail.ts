@@ -1,4 +1,4 @@
-import { itemKeys } from '.'
+import { itemTags } from '.'
 
 export async function fetchItemDetail(itemId: number) {
   const res = await fetch(
@@ -8,7 +8,7 @@ export async function fetchItemDetail(itemId: number) {
       headers: {
         'Content-Type': 'application/json',
       },
-      next: { tags: [itemKeys.detail()] },
+      next: { tags: [itemTags.itemDetail] },
     },
   )
 

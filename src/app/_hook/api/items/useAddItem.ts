@@ -36,7 +36,7 @@ export default function useAddItem() {
     onSuccess: () => {
       alert('아이템 등록 성공!')
 
-      queryClient.invalidateQueries({ queryKey: itemKeys.list() })
+      queryClient.invalidateQueries({ queryKey: itemKeys.itemList._def })
     },
     onError: (error) => {
       alert(error)
