@@ -3,6 +3,8 @@ import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 import Image from 'next/image'
 import { SavePageMode } from '@/app/_types/save.type'
 import { cn } from '@/app/_utils/twMerge'
+import { useRouter } from 'next/navigation'
+import useDeleteSave from '@/app/_hook/api/useDeleteSave'
 
 const originFolderName = '농구' // TODO
 
@@ -13,11 +15,16 @@ export namespace SaveFolderHeader {
   // Default 상태
   export function Default({
     setMode,
+    folderId,
   }: {
     setMode: React.Dispatch<React.SetStateAction<SavePageMode>>
+    folderId: number
   }) {
     const dropdownRef = useRef(null)
     const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
+    const router = useRouter()
+
+    const { mutateAsync: deleteFolder } = useDeleteSave()
 
     /** 외부 클릭 시 dropdown 닫기 */
     useOutsideClick(dropdownRef, () => {
@@ -25,6 +32,11 @@ export namespace SaveFolderHeader {
         setIsDropdownOpen(false)
       }
     })
+
+    const handleDeleteFolder = async () => {
+      const req = { favoriteItemIds: [], folderIds: [folderId] }
+      await deleteFolder(req)
+    }
 
     return (
       <>
@@ -77,7 +89,8 @@ export namespace SaveFolderHeader {
                         `'${originFolderName}' 폴더를 삭제하시겠습니까?`,
                       )
                     ) {
-                      console.log('삭제')
+                      handleDeleteFolder()
+                      router.replace('/saves')
                     }
                   }}
                   className="cursor-pointer rounded-[4px] p-[8px_7px] hover:bg-[#DFDFDF]"

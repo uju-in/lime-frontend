@@ -9,7 +9,7 @@ import {
 
 import React from 'react'
 import SaveFolderGroupItem from './SaveFolderGroupItem'
-import { SaveItem } from '../[folderName]/_component'
+import { SaveItem } from '../[folderId]/_component'
 import ActionButtons from '../../items/[itemID]/_component/ActionButtons'
 
 interface Props {

@@ -4,33 +4,46 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import Layout from '@/app/_components/layout/Layout'
 import { SavePageMode } from '@/app/_types/save.type'
+import RQProvider from '@/app/_components/RQProvider'
+
 import AddFolderModal from '../_component/AddFolderModal'
 import SaveItemList from './_component/SaveItemList'
 import MoveFolderModal from '../_component/MoveFolderModal'
 import { SaveFolderHeader } from './_component'
 
-export default function SavesDetailPage() {
+type Props = {
+  params: { folderId: number }
+}
+
+export default function SavesDetailPage({ params }: Props) {
   const [showMoveFolderModal, setShowMoveFolderModal] = useState(false)
   const [showAddFolderModal, setShowAddFolderModal] = useState(false)
 
   const [mode, setMode] = useState<SavePageMode>(SavePageMode.DEFAULT)
   const [checkedList, setCheckedList] = useState<number[]>([])
 
+  const { folderId } = params
+
   return (
     <Layout>
       <div className="mx-auto max-w-[1200px]">
         {/* Header */}
-        <section className="relative mb-[100px] flex items-center justify-center gap-[12px]">
-          {mode === SavePageMode.DEFAULT && (
-            <SaveFolderHeader.Default setMode={setMode} />
-          )}
-          {mode === SavePageMode.CHANGE_NAME && (
-            <SaveFolderHeader.ChangeName setMode={setMode} />
-          )}
-          {mode === SavePageMode.EDIT_LIST && (
-            <SaveFolderHeader.EditList checkedList={checkedList} />
-          )}
-        </section>
+        <RQProvider>
+          <section className="relative mb-[100px] flex items-center justify-center gap-[12px]">
+            {mode === SavePageMode.DEFAULT && (
+              <SaveFolderHeader.Default
+                setMode={setMode}
+                folderId={Number(folderId)}
+              />
+            )}
+            {mode === SavePageMode.CHANGE_NAME && (
+              <SaveFolderHeader.ChangeName setMode={setMode} />
+            )}
+            {mode === SavePageMode.EDIT_LIST && (
+              <SaveFolderHeader.EditList checkedList={checkedList} />
+            )}
+          </section>
+        </RQProvider>
 
         {/* Contents */}
         <SaveItemList
