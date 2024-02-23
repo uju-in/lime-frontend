@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { getCookie } from '@/app/_utils/cookie'
+import { voteKeys } from '.'
 
 interface RequestInfo {
   type: 'folder' | 'item'
@@ -42,7 +43,7 @@ export const useFavoritesList = (
     isError,
     isSuccess,
   } = useQuery({
-    queryKey: ['save', folderId],
+    queryKey: voteKeys.favorites(folderId as number).queryKey,
     queryFn: () => fetchFavoriteList({ type, folderId }),
     staleTime: 1000 * 60,
   })
