@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import Image from 'next/image'
 
-import { fetchItemDetail } from '@/app/_hook/api/useItemDetail'
+import { fetchItemDetail } from '@/app/_hook/api/items/useItemDetail'
 import { getCookie } from '@/app/_utils/cookie'
 import { categoryFormatter } from '../../../_utils/categoryFormatter'
 

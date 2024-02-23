@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-
 import { getCookie } from '@/app/_utils/cookie'
+import { reviewKeys } from '.'
 
 interface ReviewLikeRequest {
   reviewId: number
@@ -36,7 +36,7 @@ export default function useReviewLikeAction() {
     onSuccess: () => {
       alert('성공!')
 
-      queryClient.invalidateQueries({ queryKey: ['review'] })
+      queryClient.invalidateQueries({ queryKey: reviewKeys.reviewList._def })
     },
     onError: (error) => {
       alert(error)

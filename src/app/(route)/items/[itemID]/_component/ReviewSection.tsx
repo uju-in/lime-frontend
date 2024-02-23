@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 import { ItemInfo, ReviewResponse, SortOption } from '@/app/_types/review.type'
 
-import { useSearchItemQuery } from '@/app/_hook/api/useSearchItemQuery'
+import { useSearchItemQuery } from '@/app/_hook/api/reviews/useReviewListData'
 import { cn } from '@/app/_utils/twMerge'
 
 import Review from './Review'

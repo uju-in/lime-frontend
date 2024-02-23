@@ -8,7 +8,7 @@ import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 import { ReviewResponse } from '@/app/_types/review.type'
 import { cn } from '@/app/_utils/twMerge'
 
-import useReviewLikeAction from '@/app/_hook/api/useReviewLikeAction'
+import useReviewLikeAction from '@/app/_hook/api/reviews/useReviewLikeAction'
 import { dateFormatter } from '../../../../_utils/dateFormatter'
 
 import StarRating from './StarRating'

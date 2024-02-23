@@ -2,10 +2,7 @@
 
 import React, { ChangeEvent, useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-
 import { SignUpState } from '@/app/_types/signUp.types'
-
-import { useNicknameValidation, useSignUp } from '@/app/_hook/api'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 
 import {
@@ -14,6 +11,8 @@ import {
 } from '@/app/(route)/join/_utils/validation'
 
 import CategorySelector from '@/app/_components/categorySelector'
+import useNicknameValidation from '@/app/_hook/api/auth/useNicknameValidation'
+import useSignUp from '@/app/_hook/api/auth/useSignUp'
 import CareerSelector from './CareerSelector'
 
 export default function UserInfoField() {

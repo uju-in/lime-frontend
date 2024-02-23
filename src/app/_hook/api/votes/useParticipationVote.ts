@@ -3,23 +3,33 @@
 import { revalidatePath, revalidateTag } from 'next/cache'
 
 import { getCookie } from '@/app/_utils/cookie'
+import { voteTags } from '.'
 
-export async function reVote({ voteId }: { voteId: number }): Promise<void> {
+interface VoteItemRequest {
+  itemId: number | null
+  voteId: number
+}
+
+export async function voteItem({
+  itemId,
+  voteId,
+}: VoteItemRequest): Promise<number> {
   const accessToken = await getCookie('accessToken')
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/votes/${voteId}/cancel
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/votes/${voteId}/participation
         `,
     {
-      method: 'DELETE',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`,
       },
+      body: JSON.stringify({ itemId }),
     },
   )
 
-  revalidateTag('voteDetail')
+  revalidateTag(voteTags.voteDetail)
 
   revalidatePath(`/votes/${voteId}`)
 
@@ -28,4 +38,6 @@ export async function reVote({ voteId }: { voteId: number }): Promise<void> {
 
     throw Error(data.message)
   }
+
+  return res.status
 }
