@@ -1,6 +1,6 @@
 'use client'
 
-import { useVoteRanking } from '@/app/_hook/api/useVoteRanking'
+import { useVoteRanking } from '@/app/_hook/api/votes/useVoteRanking'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import Image from 'next/image'
 import Link from 'next/link'
