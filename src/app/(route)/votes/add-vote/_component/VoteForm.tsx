@@ -3,15 +3,11 @@
 import React, { ChangeEvent, useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-
 import useAddVote from '@/app/_hook/api/votes/useAddVote'
-
 import { VoteInfoType } from '@/app/_types/addVote.type'
-
 import CategorySelector from '@/app/_components/categorySelector'
 import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import VoteModal from './VoteModal'
-
 import { truncateString } from '../../_utils/truncateString'
 
 export default function VoteForm() {

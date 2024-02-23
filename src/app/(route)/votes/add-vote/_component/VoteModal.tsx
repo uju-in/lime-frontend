@@ -85,7 +85,12 @@ export default function VoteModal(props: PropsType) {
               className="h-[40px] w-[110px] rounded-[100px] bg-[#000] px-[27px] text-center font-[600] text-[#fff]"
               onClick={handleSelectItem}
             >
-              선택완료
+              <Image
+                width={24}
+                height={24}
+                src="/image/icon/icon-close.svg"
+                alt="close"
+              />
             </button>
           </div>
         </article>
