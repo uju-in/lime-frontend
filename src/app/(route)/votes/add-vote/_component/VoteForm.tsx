@@ -2,13 +2,12 @@
 
 import React, { ChangeEvent, useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 import useAddVote from '@/app/_hook/api/votes/useAddVote'
 import { VoteInfoType } from '@/app/_types/addVote.type'
 import CategorySelector from '@/app/_components/categorySelector'
 import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import VoteModal from './VoteModal'
-import { truncateString } from '../../_utils/truncateString'
+import ItemSelector from './ItemSelector'
 
 export default function VoteForm() {
   const router = useRouter()
@@ -107,41 +106,19 @@ export default function VoteForm() {
       <p className="mt-[60px] text-[18px] font-[600]">
         투표할 아이템을 두 개 선택해 주세요.
       </p>
-      <div className="mt-[20px] flex gap-[16px]">
-        <div className="w-[88px]">
-          <button
-            type="button"
-            className="mb-[4px] flex h-[88px] w-[88px] items-center justify-center rounded-[6.729px] bg-[#EAEAEA]"
-            onClick={() => handleOpenModal('item1')}
-          >
-            <Image
-              width={itemImageUrl1 ? 88 : 33}
-              height={itemImageUrl1 ? 88 : 33}
-              src={itemImageUrl1 || '/image/icon/icon-plus.svg'}
-              alt="upload image"
-            />
-          </button>
-          <span className="text-[12px] text-[#515151]">
-            {truncateString(itemTitle1, 18)}
-          </span>
-        </div>
-        <div className="h-[160px] w-[88px]">
-          <button
-            type="button"
-            className="mb-[4px] flex h-[88px] w-[88px] items-center justify-center rounded-[6.729px] bg-[#EAEAEA]"
-            onClick={() => handleOpenModal('item2')}
-          >
-            <Image
-              width={itemImageUrl2 ? 88 : 33}
-              height={itemImageUrl2 ? 88 : 33}
-              src={itemImageUrl2 || '/image/icon/icon-plus.svg'}
-              alt="upload image"
-            />
-          </button>
-          <span className="text-[12px] text-[#515151]">
-            {truncateString(itemTitle2, 18)}
-          </span>
-        </div>
+      <div className="mt-[20px] flex h-[160px] gap-[16px] ">
+        <ItemSelector
+          onOpenModal={handleOpenModal}
+          itemType="item1"
+          itemImageUrl={itemImageUrl1 || ''} // itemImageUrl1이 null일 수 있으므로 빈 문자열 처리
+          itemTitle={itemTitle1}
+        />
+        <ItemSelector
+          onOpenModal={handleOpenModal}
+          itemType="item2"
+          itemImageUrl={itemImageUrl2 || ''} // itemImageUrl2이 null일 수 있으므로 빈 문자열 처리
+          itemTitle={itemTitle2}
+        />
       </div>
       <p className="mb-[20px] mt-[40px] text-[18px] font-[600]">
         투표 내용을 작성해 주세요.
