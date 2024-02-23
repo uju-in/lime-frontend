@@ -43,7 +43,11 @@ export default function SortButtons(props: PropsType) {
         <Image
           width={14}
           height={14}
-          src="/image/icon/icon-arrow_bottom.svg"
+          src={
+            showSortMenu
+              ? '/image/icon/icon-arrow_top.svg'
+              : '/image/icon/icon-arrow_bottom.svg'
+          }
           alt="arrow button"
         />
       </button>
