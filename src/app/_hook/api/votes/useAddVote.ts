@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import { getCookie } from '@/app/_utils/cookie'
 
 import { VoteInfoType } from '@/app/_types/addVote.type'
+import { voteKeys } from '.'
 
 async function postAddItem(params: VoteInfoType) {
   const accessToken = await getCookie('accessToken')
@@ -31,8 +32,7 @@ export default function useAddVote() {
     onSuccess: () => {
       alert('투표 등록 성공!')
 
-      /** 투표 쿼리 키 지정 후 변경 필요 */
-      // queryClient.invalidateQueries({ queryKey: [contactsKey.users] });
+      queryClient.invalidateQueries({ queryKey: voteKeys.voteList._def })
     },
     onError: (error) => {
       alert(error)
