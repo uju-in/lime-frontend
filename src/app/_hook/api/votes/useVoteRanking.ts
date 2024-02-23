@@ -1,5 +1,6 @@
 import { RankingInfo } from '@/app/_types/vote.type'
 import { useSuspenseQuery } from '@tanstack/react-query'
+import { voteKeys } from '.'
 
 async function fetchVoteRanking(hobby: string): Promise<RankingInfo> {
   const res = await fetch(
@@ -23,13 +24,8 @@ async function fetchVoteRanking(hobby: string): Promise<RankingInfo> {
 }
 
 export const useVoteRanking = (hobby: string) => {
-  const { data, isError } = useSuspenseQuery<
-    RankingInfo,
-    Error,
-    RankingInfo,
-    string[]
-  >({
-    queryKey: ['voteRanking', hobby],
+  const { data, isError } = useSuspenseQuery({
+    queryKey: voteKeys.voteRanking(hobby).queryKey,
     queryFn: () => fetchVoteRanking(hobby),
     staleTime: 1000 * 60,
   })
