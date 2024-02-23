@@ -1,6 +1,6 @@
 'use client'
 
-import { useVoteListData } from '@/app/_hook/api/useVoteListData'
+import { useVoteListData } from '@/app/_hook/api/votes/useVoteListData'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import Image from 'next/image'
 import { useState } from 'react'
