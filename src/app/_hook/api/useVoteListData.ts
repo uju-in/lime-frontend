@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { InfiniteData, useSuspenseInfiniteQuery } from '@tanstack/react-query'
 import { PagesResponse } from '@/app/_types/vote.type'
+import { voteKeys } from './votes'
 
 interface VoteQueryParams {
   pageParam: string | null
@@ -37,14 +38,8 @@ async function fetchReviewData({
 
 export const useVoteListData = (hobby: string, sortOption: string) => {
   const { data, fetchNextPage, isFetchingNextPage, hasNextPage } =
-    useSuspenseInfiniteQuery<
-      PagesResponse,
-      Error,
-      InfiniteData<PagesResponse>,
-      string[],
-      string | null
-    >({
-      queryKey: ['votes', hobby, sortOption],
+    useSuspenseInfiniteQuery({
+      queryKey: voteKeys.voteList(hobby, sortOption).queryKey,
       queryFn: ({ pageParam = null }) =>
         fetchReviewData({ pageParam, sortOption, hobby }),
       initialPageParam: null,

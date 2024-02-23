@@ -1,7 +1,7 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory'
 
 export const voteKeys = createQueryKeys('votes', {
-  detail: (voteId: number) => [voteId],
+  voteList: (hobby: string, sortOption: string) => [hobby, sortOption],
 })
 
 export const voteTags = {
