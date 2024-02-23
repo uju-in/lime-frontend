@@ -40,6 +40,7 @@ export default function FavoriteList(props: PropsType) {
     },
     [currentSelectedItem, setCurrentSelectedItem],
   )
+
   if (isError) {
     return <div>Error . . .</div>
   }
