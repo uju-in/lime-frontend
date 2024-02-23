@@ -4,7 +4,7 @@ import React, { ChangeEvent, useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
-import useAddVote from '@/app/_hook/api/useAddVote'
+import useAddVote from '@/app/_hook/api/votes/useAddVote'
 
 import { VoteInfoType } from '@/app/_types/addVote.type'
 

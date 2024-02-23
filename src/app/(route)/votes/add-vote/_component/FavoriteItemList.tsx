@@ -7,7 +7,7 @@ import {
   MetadataType,
   SaveItemType,
 } from '@/app/_types/saveItem.type'
-import { useFavoritesList } from '@/app/_hook/api/useFavoritesList'
+import { useFavoritesList } from '@/app/_hook/api/votes/useFavoritesList'
 import { cn } from '@/app/_utils/twMerge'
 import { useCallback } from 'react'
 

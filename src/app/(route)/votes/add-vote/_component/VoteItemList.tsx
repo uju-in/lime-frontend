@@ -1,6 +1,6 @@
 'use client'
 
-import { fetchFavoriteList } from '@/app/_hook/api/useFavoritesList'
+import { fetchFavoriteList } from '@/app/_hook/api/votes/useFavoritesList'
 import { useEffect, useState } from 'react'
 import {
   CurrentFavoriteItemMetadata,
