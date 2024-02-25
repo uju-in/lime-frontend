@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import { postSaveToWishlist } from '@/app/_hook/api/useSaveToWishlist'
+import { postSaveToWishlist } from '@/app/_hook/api/items/useSaveToWishlist'
 
 interface PropsType {
   itemUrl: string

@@ -114,6 +114,11 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@lukemorales/query-key-factory@^1.3.3":
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/@lukemorales/query-key-factory/-/query-key-factory-1.3.3.tgz#17630426825070493a725e6d747570f709dd961f"
+  integrity sha512-oB4q2lupWLqDN0eLCsKMdXMbB3dwAGuSQBA2U6StxwDmbmt6yw/x5yqNb28bUWzR1tlZR5PgFDRw7g0ee9qpmg==
+
 "@next/env@14.0.4":
   version "14.0.4"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-14.0.4.tgz#d5cda0c4a862d70ae760e58c0cd96a8899a2e49a"

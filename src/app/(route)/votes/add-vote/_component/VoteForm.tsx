@@ -1,20 +1,37 @@
 'use client'
 
-import React, { ChangeEvent, useState } from 'react'
-import Image from 'next/image'
-
+import React, { ChangeEvent, useCallback, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import useAddVote from '@/app/_hook/api/votes/useAddVote'
+import { VoteInfoType } from '@/app/_types/addVote.type'
 import CategorySelector from '@/app/_components/categorySelector'
+import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import VoteModal from './VoteModal'
+import ItemSelector from './ItemSelector'
 
 export default function VoteForm() {
+  const router = useRouter()
+
   const [showVoteModal, setShowVoteModal] = useState(false)
-  const [voteInfo, setVoteInfo] = useState({
+  const [itemType, setItemType] = useState<string | null>(null)
+  const [voteInfo, setVoteInfo] = useState<VoteInfoType>({
     hobby: '',
     maximumParticipants: 100,
     content: '',
     item1Id: null,
     item2Id: null,
   })
+
+  /**
+   * itemImageUrl1,2 - Selected Item Image URL
+   * itemTitle1,2 - Selected Item Title
+   */
+  const [itemImageUrl1, setItemImageUrl1] = useState<string | null>(null)
+  const [itemImageUrl2, setItemImageUrl2] = useState<string | null>(null)
+  const [itemTitle1, setItemTitle1] = useState<string>('')
+  const [itemTitle2, setItemTitle2] = useState<string>('')
+
+  const { mutateAsync: addVote } = useAddVote()
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -25,10 +42,48 @@ export default function VoteForm() {
     }))
   }
 
+  const handleOpenModal = (type: 'item1' | 'item2') => {
+    setItemType(type)
+    setShowVoteModal(true)
+  }
+
+  const handleSelectItem = useCallback(
+    (selectItem: CurrentFavoriteItemMetadata) => {
+      const { itemId, imageUrl, originalName } = selectItem
+
+      if (itemType === 'item1') {
+        setVoteInfo((prevState) => ({
+          ...prevState,
+          item1Id: itemId,
+        }))
+        setItemImageUrl1(imageUrl)
+        setItemTitle1(originalName)
+      } else if (itemType === 'item2') {
+        setVoteInfo((prevState) => ({
+          ...prevState,
+          item2Id: itemId,
+        }))
+        setItemImageUrl2(imageUrl)
+        setItemTitle2(originalName)
+      }
+    },
+    [itemType],
+  )
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const status = await addVote(voteInfo)
+
+    if (status === 200) {
+      router.push('/votes')
+    }
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="mt-[61px] flex gap-[8px] text-[18px] font-[600]">
-        <strong>투표 인원을 설정해 주세요</strong>
+        <h1>투표 인원을 설정해 주세요</h1>
         <p className="text-[#A4A4A4]">(선택)</p>
       </div>
       <input
@@ -51,33 +106,21 @@ export default function VoteForm() {
       <p className="mt-[60px] text-[18px] font-[600]">
         투표할 아이템을 두 개 선택해 주세요.
       </p>
-      <div className="mt-[20px] flex gap-[16px]">
-        <button
-          type="button"
-          className="flex h-[88px] w-[88px] items-center justify-center rounded-[6.729px] bg-[#EAEAEA]"
-          onClick={() => setShowVoteModal(true)}
-        >
-          <Image
-            width={36}
-            height={36}
-            src="/image/icon/icon-plus.svg"
-            alt="upload image"
-          />
-        </button>
-        <button
-          type="button"
-          className="flex h-[88px] w-[88px] items-center justify-center rounded-[6.729px] bg-[#EAEAEA]"
-          onClick={() => setShowVoteModal(true)}
-        >
-          <Image
-            width={36}
-            height={36}
-            src="/image/icon/icon-plus.svg"
-            alt="upload image"
-          />
-        </button>
+      <div className="mt-[20px] flex h-[160px] gap-[16px] ">
+        <ItemSelector
+          onOpenModal={handleOpenModal}
+          itemType="item1"
+          itemImageUrl={itemImageUrl1 || ''} // itemImageUrl1이 null일 수 있으므로 빈 문자열 처리
+          itemTitle={itemTitle1}
+        />
+        <ItemSelector
+          onOpenModal={handleOpenModal}
+          itemType="item2"
+          itemImageUrl={itemImageUrl2 || ''} // itemImageUrl2이 null일 수 있으므로 빈 문자열 처리
+          itemTitle={itemTitle2}
+        />
       </div>
-      <p className="mb-[20px] mt-[60px] text-[18px] font-[600]">
+      <p className="mb-[20px] mt-[40px] text-[18px] font-[600]">
         투표 내용을 작성해 주세요.
       </p>
       <textarea
@@ -96,8 +139,12 @@ export default function VoteForm() {
           생성하기
         </button>
       </div>
-      {/** 리뷰 작성 모달 */}
-      {showVoteModal && <VoteModal setShowVoteModal={setShowVoteModal} />}
+      {showVoteModal && (
+        <VoteModal
+          setShowVoteModal={setShowVoteModal}
+          selectItem={handleSelectItem}
+        />
+      )}
     </form>
   )
 }

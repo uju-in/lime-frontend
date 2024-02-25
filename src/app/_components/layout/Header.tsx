@@ -1,5 +1,6 @@
 import { CategoryOption } from '@/app/_constants'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 export default function Header() {
@@ -16,10 +17,9 @@ export default function Header() {
             {/* TODO: href 변경 */}
             <a href="/">피드</a>
           </li>
-          <li className="font-bold">
-            {/* TODO: href 변경 */}
-            <a href="/">투표</a>
-          </li>
+          <Link href="/votes">
+            <li className="font-bold">투표</li>
+          </Link>
           <li className="group relative flex gap-[8px]">
             <div className="font-bold">아이템</div>
             <Image

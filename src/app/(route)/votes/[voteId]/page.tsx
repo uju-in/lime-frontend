@@ -1,11 +1,17 @@
-import { fetchVoteDetail } from '@/app/_hook/api/useVoteDetail'
+import { fetchVoteDetail } from '@/app/_hook/api/votes/useVoteDetail'
 import { dateFormatter } from '@/app/_utils/dateFormatter'
 import ManagementButton from './_component/ManagementButton'
 import { categoryFormatter } from '../../../_utils/categoryFormatter'
 import VoteInfo from './_component/VoteInfo'
 
-export default async function pages() {
-  const voteData = await fetchVoteDetail(11)
+type Props = {
+  params: { voteId: number }
+}
+
+export default async function pages({ params }: Props) {
+  const { voteId } = params
+
+  const voteData = await fetchVoteDetail(voteId)
 
   const { item1Info, item2Info, voteInfo, selectedItemId, isOwner } = voteData
   const { content, startTime, endTime, maxParticipants, participants } =

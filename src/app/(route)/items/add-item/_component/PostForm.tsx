@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 
 import { ItemState } from '@/app/_types/addItem.type'
 
-import useAddItem from '@/app/_hook/api/useAddItem'
+import useAddItem from '@/app/_hook/api/items/useAddItem'
 
 import { validateUrl } from '../_utils/validation'
 
