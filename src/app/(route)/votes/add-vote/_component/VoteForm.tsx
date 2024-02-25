@@ -110,13 +110,13 @@ export default function VoteForm() {
         <ItemSelector
           onOpenModal={handleOpenModal}
           itemType="item1"
-          itemImageUrl={itemImageUrl1 || ''} // itemImageUrl1이 null일 수 있으므로 빈 문자열 처리
+          itemImageUrl={itemImageUrl1 || ''}
           itemTitle={itemTitle1}
         />
         <ItemSelector
           onOpenModal={handleOpenModal}
           itemType="item2"
-          itemImageUrl={itemImageUrl2 || ''} // itemImageUrl2이 null일 수 있으므로 빈 문자열 처리
+          itemImageUrl={itemImageUrl2 || ''}
           itemTitle={itemTitle2}
         />
       </div>
