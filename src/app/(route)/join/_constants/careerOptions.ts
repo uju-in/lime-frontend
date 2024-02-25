@@ -1,0 +1,25 @@
+import { CareerOption } from '@/app/_types/signUp.types'
+
+export const careerOptions: CareerOption[] = [
+  { label: '1년차 미만', value: 0 },
+  { label: '1년차', value: 1 },
+  { label: '2년차', value: 2 },
+  { label: '3년차', value: 3 },
+  { label: '4년차', value: 4 },
+  { label: '5년차', value: 5 },
+  { label: '6년차', value: 6 },
+  { label: '7년차', value: 7 },
+  { label: '8년차', value: 8 },
+  { label: '9년차', value: 9 },
+  { label: '10년차', value: 10 },
+  { label: '11년차', value: 11 },
+  { label: '12년차', value: 12 },
+  { label: '13년차', value: 13 },
+  { label: '14년차', value: 14 },
+  { label: '15년차', value: 15 },
+  { label: '16년차', value: 16 },
+  { label: '17년차', value: 17 },
+  { label: '18년차', value: 18 },
+  { label: '19년차', value: 19 },
+  { label: '20년차 이상', value: 21 },
+]
