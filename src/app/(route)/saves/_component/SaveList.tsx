@@ -1,6 +1,6 @@
 'use client'
 
-import useSaveList from '@/app/_hook/api/useSavesList'
+import useSaveList from '@/app/_hook/api/saves/useSavesList'
 import {
   SaveFolderType,
   SaveItemType,

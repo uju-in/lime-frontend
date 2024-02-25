@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { SavePageMode } from '@/app/_types/save.type'
 import { cn } from '@/app/_utils/twMerge'
 import { useRouter } from 'next/navigation'
-import useDeleteSave from '@/app/_hook/api/useDeleteSave'
+import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
 
 const originFolderName = '농구' // TODO
 
