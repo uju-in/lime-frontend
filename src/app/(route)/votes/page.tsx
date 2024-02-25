@@ -11,9 +11,9 @@ export default function page() {
         <p className="mt-[69.5px]">
           <strong className="text-[26px] font-[700]">투표 랭킹</strong>
         </p>
-        <Suspense fallback={<div>Loading. . . </div>}>
+        {/* <Suspense fallback={<div>Loading. . . </div>}>
           <RankingList />
-        </Suspense>
+        </Suspense> */}
       </section>
       <Suspense fallback={<div>Loading. . . </div>}>
         <VoteList />
