@@ -1,10 +1,11 @@
-import React, { ReactNode, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 import Image from 'next/image'
 import { SavePageMode } from '@/app/_types/save.type'
 import { cn } from '@/app/_utils/twMerge'
 import { useRouter } from 'next/navigation'
 import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
+import { useChangeSaveFolderName } from '@/app/_hook/api/saves/useChangeSaveFolderName'
 
 const originFolderName = '농구' // TODO
 
@@ -108,10 +109,17 @@ export namespace SaveFolderHeader {
   // 폴더 이름 변경
   export function ChangeName({
     setMode,
+    folderId,
   }: {
     setMode: React.Dispatch<React.SetStateAction<SavePageMode>>
+    folderId: number
   }) {
     const [newFolderName, setNewFolderName] = useState('')
+    const { mutateAsync: changeName } = useChangeSaveFolderName()
+
+    const handleChangeName = useCallback(() => {
+      changeName({ folderId, folderName: newFolderName })
+    }, [changeName, folderId, newFolderName])
 
     return (
       <>
@@ -132,6 +140,7 @@ export namespace SaveFolderHeader {
           <button
             type="button"
             disabled={newFolderName.length === 0}
+            onClick={handleChangeName}
             className={cn(
               'w-[90px] rounded-full border-[0.5px] border-[#e2e2e2] py-[7.5px] text-white',
               {
