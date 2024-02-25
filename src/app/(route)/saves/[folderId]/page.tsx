@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useState } from 'react'
 import Image from 'next/image'
 import Layout from '@/app/_components/layout/Layout'
@@ -15,14 +13,13 @@ type Props = {
   params: { folderId: number }
 }
 
-export default function SavesDetailPage({ params }: Props) {
+export default async function SavesDetailPage({ params }: Props) {
+  const { folderId } = params
   const [showMoveFolderModal, setShowMoveFolderModal] = useState(false)
   const [showAddFolderModal, setShowAddFolderModal] = useState(false)
 
   const [mode, setMode] = useState<SavePageMode>(SavePageMode.DEFAULT)
   const [checkedList, setCheckedList] = useState<number[]>([])
-
-  const { folderId } = params
 
   return (
     <Layout>
