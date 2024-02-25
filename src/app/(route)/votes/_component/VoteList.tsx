@@ -27,7 +27,7 @@ export default function VoteList() {
       {/** Votes */}
       <article className="mt-[43.5px]">
         <div className="grid grid-cols-2 gap-[20px]">
-          {voteList.map((item) => (
+          {voteList?.map((item) => (
             <div
               key={item.cursorId}
               className="h-[408px] w-[387px] rounded-[8px] border border-[#E6E6E6] px-[24px] pt-[24px]"

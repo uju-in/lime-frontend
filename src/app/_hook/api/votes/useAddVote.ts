@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { getCookie } from '@/app/_utils/cookie'
 
@@ -27,6 +27,8 @@ async function postAddItem(params: VoteInfoType) {
 }
 
 export default function useAddVote() {
+  const queryClient = useQueryClient()
+
   return useMutation<number, Error, VoteInfoType>({
     mutationFn: postAddItem,
     onSuccess: () => {

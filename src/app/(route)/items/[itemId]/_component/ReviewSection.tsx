@@ -80,7 +80,7 @@ export default function ReviewSection(props: PropsType) {
           </div>
           {/** 리뷰 */}
           <div>
-            {reviewList.map((review: ReviewResponse, index: number) => (
+            {reviewList?.map((review: ReviewResponse, index: number) => (
               <Review
                 key={review.reviewSummary.reviewId}
                 review={review}
