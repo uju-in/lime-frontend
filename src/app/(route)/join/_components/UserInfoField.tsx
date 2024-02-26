@@ -12,6 +12,7 @@ import CategorySelector from '@/app/_components/categorySelector'
 import useNicknameValidation from '@/app/_hook/api/auth/useNicknameValidation'
 import useSignUp from '@/app/_hook/api/auth/useSignUp'
 import { setCookie } from '@/app/_utils/cookie'
+import { cn } from '@/app/_utils/twMerge'
 import CareerSelector from './CareerSelector'
 
 export default function UserInfoField() {
@@ -94,16 +95,27 @@ export default function UserInfoField() {
             name="nickname"
             minLength={1}
             maxLength={25}
+            disabled={!isDuplicated}
             onChange={handleChange}
-            placeholder="닉네임을 입력해 주세요."
-            className="mr-[16px] h-[48px] w-[324px] rounded-[4px] border border-[#BDBDBD] px-[12px] outline-0"
+            placeholder="닉네임을 입력해 주세요. (최대 25자)"
+            className={cn(
+              'mr-[16px] h-[48px] w-[324px] rounded-[4px] border border-[#BDBDBD] px-[12px] outline-0',
+              {
+                'bg-[#DADADA]': !isDuplicated,
+                'bg-white': isDuplicated,
+              },
+            )}
           />
           <button
-            className="h-[48px] w-[96px] cursor-pointer rounded-[4px] bg-black font-[600] text-white"
+            className="h-[48px] w-[96px] rounded-[4px] bg-black font-[600] text-white"
             type="button"
-            onClick={handleValidationNickname}
+            onClick={
+              isDuplicated
+                ? handleValidationNickname
+                : () => setIsDuplicated(true)
+            }
           >
-            중복확인
+            {isDuplicated ? '중복확인' : '변경'}
           </button>
         </div>
       </div>
@@ -114,9 +126,10 @@ export default function UserInfoField() {
         <textarea
           id="content"
           name="content"
-          placeholder="자기소개를 입력해 주세요."
-          onChange={handleChange}
+          maxLength={300}
+          placeholder="자기소개를 입력해 주세요. (최대 300자)"
           className="mt-[16px] h-[140px] w-[436px] resize-none rounded-[4px] border border-[#BDBDBD] px-[12px] pt-[14px] outline-0"
+          onChange={handleChange}
           required
         />
       </div>
