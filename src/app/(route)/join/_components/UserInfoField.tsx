@@ -1,24 +1,23 @@
 'use client'
 
-import React, { ChangeEvent, useState, useEffect } from 'react'
+import { ChangeEvent, useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { SignUpState } from '@/app/_types/signUp.types'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
-
 import {
   validateForm,
   validateNickname,
 } from '@/app/(route)/join/_utils/validation'
-
 import CategorySelector from '@/app/_components/categorySelector'
 import useNicknameValidation from '@/app/_hook/api/auth/useNicknameValidation'
 import useSignUp from '@/app/_hook/api/auth/useSignUp'
+import { setCookie } from '@/app/_utils/cookie'
 import CareerSelector from './CareerSelector'
 
 export default function UserInfoField() {
   const router = useRouter()
 
-  const accessToken = useGetSearchParam('accessToken')
+  const token = useGetSearchParam('accessToken')
 
   const { mutateAsync: verifyUniqueNickname } = useNicknameValidation()
   const { mutateAsync: signUp } = useSignUp()
@@ -32,12 +31,11 @@ export default function UserInfoField() {
     hobby: '',
   })
 
-  /* query string 토큰 저장 */
   useEffect(() => {
-    if (accessToken) {
-      localStorage.setItem('accessToken', accessToken)
+    if (token) {
+      setCookie('accessToken', token)
     }
-  }, [])
+  }, [token])
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
