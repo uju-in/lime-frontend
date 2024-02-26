@@ -37,7 +37,7 @@ export default function useDeleteSave() {
     mutationFn: ({ favoriteItemIds, folderIds }) =>
       deleteSave(favoriteItemIds, folderIds),
     onSuccess: () => {
-      alert('찜 폴더 삭제 성공')
+      alert('삭제 성공')
 
       queryClient.invalidateQueries({ queryKey: saveKeys._def })
     },
