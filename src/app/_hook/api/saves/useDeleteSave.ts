@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { getCookie } from '@/app/_utils/cookie'
+import { saveKeys } from '.'
 
 async function deleteSave(favoriteItemIds: number[], folderIds: number[]) {
   const accessToken = await getCookie('accessToken')
@@ -38,7 +39,7 @@ export default function useDeleteSave() {
     onSuccess: () => {
       alert('찜 폴더 삭제 성공')
 
-      queryClient.invalidateQueries({ queryKey: ['savesList'] })
+      queryClient.invalidateQueries({ queryKey: saveKeys._def })
     },
     onError: (error) => {
       alert(error)

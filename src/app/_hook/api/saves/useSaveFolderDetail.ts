@@ -1,5 +1,6 @@
 import { getCookie } from '@/app/_utils/cookie'
 import { useQuery } from '@tanstack/react-query'
+import { saveKeys } from '.'
 
 const getSaveFolderDetail = async (folderId: number) => {
   const accessToken = await getCookie('accessToken')
@@ -21,7 +22,7 @@ const getSaveFolderDetail = async (folderId: number) => {
 
 export default function useSaveFolderDetail(folderId: number) {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['saveDetail'],
+    queryKey: saveKeys.detail._def,
     queryFn: () => getSaveFolderDetail(folderId),
   })
 

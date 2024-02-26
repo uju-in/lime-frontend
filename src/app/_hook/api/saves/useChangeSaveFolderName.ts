@@ -1,5 +1,6 @@
 import { getCookie } from '@/app/_utils/cookie'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { saveKeys } from '.'
 
 interface ChangeSaveFolderRequest {
   folderId: number
@@ -42,7 +43,7 @@ export const useChangeSaveFolderName = () => {
     onSuccess: () => {
       alert('이름 수정 완료')
 
-      queryClient.invalidateQueries({ queryKey: ['savesList'] })
+      queryClient.invalidateQueries({ queryKey: saveKeys._def })
     },
     onError: (err) => {
       alert(err)

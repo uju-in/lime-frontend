@@ -1,5 +1,6 @@
 import { getCookie } from '@/app/_utils/cookie'
 import { useQuery } from '@tanstack/react-query'
+import { saveKeys } from '.'
 
 const getSavesList = async () => {
   const accessToken = await getCookie('accessToken')
@@ -21,7 +22,7 @@ const getSavesList = async () => {
 
 export default function useSaveList() {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['savesList'],
+    queryKey: saveKeys._def,
     queryFn: () => getSavesList(),
   })
 

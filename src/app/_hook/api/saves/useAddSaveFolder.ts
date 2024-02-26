@@ -1,5 +1,6 @@
 import { getCookie } from '@/app/_utils/cookie'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { saveKeys } from '.'
 
 const addSaveFolder = async (folderName: string) => {
   const accessToken = await getCookie('accessToken')
@@ -31,7 +32,7 @@ export default function useAddSaveFolder() {
     onSuccess: () => {
       alert('폴더 추가 완료')
 
-      queryClient.invalidateQueries({ queryKey: ['savesList'] })
+      queryClient.invalidateQueries({ queryKey: saveKeys._def })
     },
     onError: (error) => {
       alert(error)
