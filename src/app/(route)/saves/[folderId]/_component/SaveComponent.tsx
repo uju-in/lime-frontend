@@ -1,8 +1,9 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import Image from 'next/image'
 import { SavePageMode } from '@/app/_types/save.type'
+import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
 
 import { SaveFolderHeader, SaveItemList } from '.'
 
@@ -17,6 +18,20 @@ export default function SaveComponent({
 }: Props) {
   const [mode, setMode] = useState<SavePageMode>(SavePageMode.DEFAULT)
   const [checkedList, setCheckedList] = useState<number[]>([])
+
+  const { mutateAsync: deleteItems } = useDeleteSave()
+
+  /* 아이템 삭제 */
+  const handleDeleteItems = useCallback(() => {
+    if (checkedList.length === 0) {
+      window.alert('삭제할 아이템을 선택해주세요.')
+      return
+    }
+    if (window.confirm('삭제하시겠습니까?')) {
+      const req = { favoriteItemIds: checkedList, folderIds: [] }
+      deleteItems(req)
+    }
+  }, [checkedList, deleteItems])
 
   return (
     <div className="mx-auto max-w-[1200px]">
@@ -52,7 +67,7 @@ export default function SaveComponent({
               alt="folder"
             />
           </button>
-          <button type="button">
+          <button type="button" onClick={handleDeleteItems}>
             <Image
               className="rounded-full bg-white p-[14px] shadow-[0px_0px_4.758px_rgba(0,0,0,0.10)]"
               width={61}
