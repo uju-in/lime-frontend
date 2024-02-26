@@ -6,6 +6,14 @@ const validateNickname = (nickname: string) => {
     return false
   }
 
+  const regex = /^[가-힣a-zA-Z0-9]+$/
+
+  if (!regex.test(nickname)) {
+    alert('영문, 숫자, 한글만 조합해 주세요.')
+
+    return false
+  }
+
   return true
 }
 

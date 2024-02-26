@@ -13,11 +13,13 @@ async function postNicknameValidation(nickname: string) {
     },
   )
 
+  const data = await res.json()
+
   if (!res.ok) {
-    throw new Error('에러!!')
+    throw data.message
   }
 
-  const { isDuplicated } = await res.json()
+  const { isDuplicated } = data
 
   return isDuplicated
 }
@@ -32,8 +34,8 @@ export default function useNicknameValidation() {
         alert('사용 가능한 닉네임입니다.')
       }
     },
-    onError: () => {
-      alert('닉네임 체크 중 에러 발생')
+    onError: (error) => {
+      alert(error)
     },
   })
 }
