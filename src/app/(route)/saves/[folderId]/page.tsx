@@ -6,7 +6,7 @@ import RQProvider from '@/app/_components/RQProvider'
 
 import AddFolderModal from '../_component/AddFolderModal'
 import MoveFolderModal from '../_component/MoveFolderModal'
-import SaveComponent from './_component/SaveComponent'
+import SaveFolderComponent from './_component/SaveFolderComponent'
 
 type Props = {
   params: { folderId: number }
@@ -20,7 +20,7 @@ export default function SavesDetailPage({ params }: Props) {
   return (
     <Layout>
       <RQProvider>
-        <SaveComponent
+        <SaveFolderComponent
           folderId={Number(folderId)}
           setShowMoveFolderModal={setShowMoveFolderModal}
         />

@@ -7,8 +7,6 @@ import { useRouter } from 'next/navigation'
 import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
 import { useChangeSaveFolderName } from '@/app/_hook/api/saves/useChangeSaveFolderName'
 
-const originFolderName = '농구' // TODO
-
 /**
  * 찜 폴더 내부 페이지 Header
  */
@@ -17,9 +15,11 @@ export namespace SaveFolderHeader {
   export function Default({
     setMode,
     folderId,
+    originFolderName,
   }: {
     setMode: React.Dispatch<React.SetStateAction<SavePageMode>>
     folderId: number
+    originFolderName: string
   }) {
     const dropdownRef = useRef(null)
     const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
@@ -110,9 +110,11 @@ export namespace SaveFolderHeader {
   export function ChangeName({
     setMode,
     folderId,
+    originFolderName,
   }: {
     setMode: React.Dispatch<React.SetStateAction<SavePageMode>>
     folderId: number
+    originFolderName: string
   }) {
     const [newFolderName, setNewFolderName] = useState('')
     const { mutateAsync: changeName } = useChangeSaveFolderName()
@@ -157,7 +159,13 @@ export namespace SaveFolderHeader {
   }
 
   // 목록 편집
-  export function EditList({ checkedList }: { checkedList: number[] }) {
+  export function EditList({
+    checkedList,
+    originFolderName,
+  }: {
+    checkedList: number[]
+    originFolderName: string
+  }) {
     return (
       <div className="relative w-full">
         <h1 className="text-center text-[38px] font-bold">

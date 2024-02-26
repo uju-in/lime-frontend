@@ -4,6 +4,7 @@ import React, { useCallback, useState } from 'react'
 import Image from 'next/image'
 import { SavePageMode } from '@/app/_types/save.type'
 import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
+import useSaveList from '@/app/_hook/api/saves/useSavesList'
 
 import { SaveFolderHeader, SaveItemList } from '.'
 
@@ -12,7 +13,7 @@ interface Props {
   setShowMoveFolderModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function SaveComponent({
+export default function SaveFolderComponent({
   folderId,
   setShowMoveFolderModal,
 }: Props) {
@@ -33,18 +34,34 @@ export default function SaveComponent({
     }
   }, [checkedList, deleteItems])
 
+  const { saveInfo, isLoading, isError } = useSaveList('item', folderId)
+
+  if (isLoading) return <div>...loading</div>
+  if (isError) return null
+
   return (
     <div className="mx-auto max-w-[1200px]">
       {/* Header */}
       <section className="relative mb-[100px] flex items-center justify-center gap-[12px]">
         {mode === SavePageMode.DEFAULT && (
-          <SaveFolderHeader.Default setMode={setMode} folderId={folderId} />
+          <SaveFolderHeader.Default
+            setMode={setMode}
+            folderId={folderId}
+            originFolderName={saveInfo.originFolderName}
+          />
         )}
         {mode === SavePageMode.CHANGE_NAME && (
-          <SaveFolderHeader.ChangeName setMode={setMode} folderId={folderId} />
+          <SaveFolderHeader.ChangeName
+            setMode={setMode}
+            folderId={folderId}
+            originFolderName={saveInfo.originFolderName}
+          />
         )}
         {mode === SavePageMode.EDIT_LIST && (
-          <SaveFolderHeader.EditList checkedList={checkedList} />
+          <SaveFolderHeader.EditList
+            checkedList={checkedList}
+            originFolderName={saveInfo.originFolderName}
+          />
         )}
       </section>
 
