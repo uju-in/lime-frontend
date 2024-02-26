@@ -18,15 +18,15 @@ interface Props {
 }
 
 export default function SaveList({ mode, checkedList, setCheckedList }: Props) {
-  const { data, isLoading, isError } = useSaveList()
+  const { saveInfo, isLoading, isError } = useSaveList('all')
   if (isLoading) return <div>...loading</div>
   if (isError) return null
 
-  const folderList = data.favoriteInfos.filter(
+  const folderList = saveInfo.favoriteInfos.filter(
     (item: SaveFolderType) => item.type === 'FOLDER',
   )
 
-  const itemList = data.favoriteInfos.filter(
+  const itemList = saveInfo.favoriteInfos.filter(
     (item: SaveItemType) => item.type === 'ITEM',
   )
 
