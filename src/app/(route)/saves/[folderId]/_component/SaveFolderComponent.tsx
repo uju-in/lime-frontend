@@ -7,17 +7,21 @@ import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
 import useSaveList from '@/app/_hook/api/saves/useSavesList'
 
 import { SaveFolderHeader, SaveItemList } from '.'
+import MoveFolderModal from '../../_component/MoveFolderModal'
+import AddFolderModal from '../../_component/AddFolderModal'
 
 interface Props {
   folderId: number
   folderName: string
-  setShowMoveFolderModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function SaveFolderComponent(props: Props) {
-  const { folderId, folderName, setShowMoveFolderModal } = props
+  const { folderId, folderName } = props
   const [mode, setMode] = useState<SavePageMode>(SavePageMode.DEFAULT)
   const [checkedList, setCheckedList] = useState<number[]>([])
+
+  const [showMoveFolderModal, setShowMoveFolderModal] = useState(false)
+  const [showAddFolderModal, setShowAddFolderModal] = useState(false)
 
   const { mutateAsync: deleteItems } = useDeleteSave()
 
@@ -116,6 +120,17 @@ export default function SaveFolderComponent(props: Props) {
             />
           </button>
         </section>
+      )}
+      {/* // ----- 모달 ----- // */}
+      {showMoveFolderModal && (
+        <MoveFolderModal
+          checkedList={checkedList}
+          setShowMoveFolderModal={setShowMoveFolderModal}
+          setShowAddFolderModal={setShowAddFolderModal}
+        />
+      )}
+      {showAddFolderModal && (
+        <AddFolderModal setShowAddFolderModal={setShowAddFolderModal} />
       )}
     </div>
   )

@@ -8,6 +8,7 @@ import {
 } from '@/app/_types/save.type'
 
 import React from 'react'
+import { useRouter } from 'next/navigation'
 import SaveFolderGroupItem from './SaveFolderGroupItem'
 import { SaveItem } from '../[folderId]/_component'
 
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export default function SaveList({ mode, checkedList, setCheckedList }: Props) {
+  const router = useRouter()
   const { saveInfo, isLoading, isError } = useSaveList('all')
   if (isLoading) return <div>...loading</div>
   if (isError) return null
@@ -55,6 +57,10 @@ export default function SaveList({ mode, checkedList, setCheckedList }: Props) {
           const { favoriteCount, reviewCount, price, imageUrl, itemId } =
             metadata.favoriteItemMetadata
 
+          const handleItemClick = () => {
+            router.push(`/items/${itemId}`)
+          }
+
           return (
             <SaveItem
               key={favoriteId}
@@ -63,12 +69,16 @@ export default function SaveList({ mode, checkedList, setCheckedList }: Props) {
               price={price}
               favoriteCount={favoriteCount}
               reviewCount={reviewCount}
-              isChecked={checkedList.includes(itemId)}
+              isChecked={checkedList.includes(favoriteId)}
               onClick={() => {
-                if (mode !== SavePageMode.EDIT_LIST) return
-                if (!checkedList.includes(itemId))
-                  setCheckedList((prev) => prev.concat(itemId))
-                else setCheckedList((prev) => prev.filter((c) => c !== itemId))
+                if (mode !== SavePageMode.EDIT_LIST) {
+                  handleItemClick()
+                  return
+                }
+                if (!checkedList.includes(favoriteId))
+                  setCheckedList((prev) => prev.concat(favoriteId))
+                else
+                  setCheckedList((prev) => prev.filter((c) => c !== favoriteId))
               }}
             />
           )

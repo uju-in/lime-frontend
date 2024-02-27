@@ -39,15 +39,16 @@ export default function SaveItemList({
             imageUrl={imageUrl}
             favoriteCount={favoriteCount}
             reviewCount={reviewCount}
-            isChecked={checkedList.includes(itemId)}
+            isChecked={checkedList.includes(favoriteId)}
             onClick={() => {
               if (mode !== SavePageMode.EDIT_LIST) {
                 handleItemClick()
                 return
               }
-              if (!checkedList.includes(itemId))
-                setCheckedList((prev) => prev.concat(itemId))
-              else setCheckedList((prev) => prev.filter((c) => c !== itemId))
+              if (!checkedList.includes(favoriteId))
+                setCheckedList((prev) => prev.concat(favoriteId))
+              else
+                setCheckedList((prev) => prev.filter((c) => c !== favoriteId))
             }}
           />
         )

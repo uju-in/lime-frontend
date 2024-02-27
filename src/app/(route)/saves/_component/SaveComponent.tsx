@@ -7,14 +7,12 @@ import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
 
 import { SaveHeader } from './SaveHeader'
 import SaveList from './SaveList'
+import MoveFolderModal from './MoveFolderModal'
+import AddFolderModal from './AddFolderModal'
 
-interface Props {
-  setShowAddFolderModal: React.Dispatch<React.SetStateAction<boolean>>
-  setShowMoveFolderModal: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-export default function SaveComponent(props: Props) {
-  const { setShowAddFolderModal, setShowMoveFolderModal } = props
+export default function SaveComponent() {
+  const [showAddFolderModal, setShowAddFolderModal] = useState(false)
+  const [showMoveFolderModal, setShowMoveFolderModal] = useState(false)
 
   const [checkedList, setCheckedList] = useState<number[]>([])
   const [mode, setMode] = useState<SavePageMode>(SavePageMode.DEFAULT)
@@ -37,6 +35,15 @@ export default function SaveComponent(props: Props) {
     }
   }, [checkedList, deleteItems])
 
+  /* 아이템 이동 */
+  const handleModeItems = useCallback(() => {
+    if (checkedList.length === 0) {
+      window.alert('이동할 아이템을 선택해주세요.')
+      return
+    }
+    setShowMoveFolderModal(true)
+  }, [checkedList, setShowMoveFolderModal])
+
   return (
     <section className="mx-auto h-full max-w-[1200px]">
       {/* Header */}
@@ -57,7 +64,7 @@ export default function SaveComponent(props: Props) {
       {/* Footer */}
       {mode === SavePageMode.EDIT_LIST && (
         <section className="flex justify-center gap-6 py-[30px]">
-          <button type="button" onClick={() => setShowMoveFolderModal(true)}>
+          <button type="button" onClick={handleModeItems}>
             <Image
               className="rounded-full bg-white p-[14px] shadow-[0px_0px_4.758px_rgba(0,0,0,0.10)]"
               width={61}
@@ -85,6 +92,17 @@ export default function SaveComponent(props: Props) {
             />
           </button>
         </section>
+      )}
+      {/* ------ 모달 ------ */}
+      {showMoveFolderModal && (
+        <MoveFolderModal
+          checkedList={checkedList}
+          setShowMoveFolderModal={setShowMoveFolderModal}
+          setShowAddFolderModal={setShowAddFolderModal}
+        />
+      )}
+      {showAddFolderModal && (
+        <AddFolderModal setShowAddFolderModal={setShowAddFolderModal} />
       )}
     </section>
   )

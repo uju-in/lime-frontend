@@ -7,30 +7,22 @@ import { SaveFolderType } from '@/app/_types/save.type'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import React, { useCallback, useState } from 'react'
-
-interface Props {
-  checkedList: number[]
-  setShowMoveFolderModal: React.Dispatch<React.SetStateAction<boolean>>
-  setShowAddFolderModal: React.Dispatch<React.SetStateAction<boolean>>
-}
+import { Props } from './MoveFolderModal'
 
 // 폴더 이동 모달
-export default function MoveFolderModal(props: Props) {
-  const { checkedList, setShowMoveFolderModal, setShowAddFolderModal } = props
+
+export default function MoveFolderModal({
+  setShowMoveFolderModal,
+  setShowAddFolderModal,
+}: Props) {
   const [selectFolderId, setSelectFolderId] = useState<number | null>(null)
   const { saveInfo, isLoading, isError } = useSaveList('folder')
   const { mutateAsync: moveItems } = useMoveSaveItems()
 
-  const handleMoveItems = useCallback(async () => {
-    if (!selectFolderId) return
-
-    const req: MoveSaveItemsRequest = {
-      folderId: selectFolderId,
-      favoriteItemIds: checkedList,
-    }
-    await moveItems(req)
-    setShowMoveFolderModal(false)
-  }, [selectFolderId, moveItems, checkedList, setShowMoveFolderModal])
+  const handleMoveItems = useCallback(() => {
+    const req: MoveSaveItemsRequest = {}
+    moveItems()
+  }, [])
 
   if (isLoading) return <div>...loading</div>
   if (isError) return null

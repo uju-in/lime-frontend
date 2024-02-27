@@ -2,7 +2,7 @@ import { getCookie } from '@/app/_utils/cookie'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { saveKeys } from '.'
 
-interface MoveSaveItemsRequest {
+export interface MoveSaveItemsRequest {
   folderId: number
   favoriteItemIds: number[]
 }
