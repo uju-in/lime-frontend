@@ -52,7 +52,13 @@ export namespace SaveHeader {
   }
 
   // 목록 편집 클릭 시 Header
-  export function EditList({ checkedList }: { checkedList: number[] }) {
+  export function EditList({
+    checkedList,
+    handleAllSelect,
+  }: {
+    checkedList: number[]
+    handleAllSelect: () => void
+  }) {
     return (
       <div className="relative mb-[56px]">
         <h1 className="text-center text-[30px] font-bold">목록 편집</h1>
@@ -60,6 +66,7 @@ export namespace SaveHeader {
           <div className="text-[14px]">{`아이템 ${checkedList.length}개 선택됨`}</div>
           <button
             type="button"
+            onClick={handleAllSelect}
             className="rounded-full bg-[#b1b1b1] p-[9px_19px] text-white"
           >
             모두 선택

@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
-import { SavePageMode } from '@/app/_types/save.type'
+import { SaveItemType, SavePageMode } from '@/app/_types/save.type'
 import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
 import useSaveList from '@/app/_hook/api/saves/useSavesList'
 
@@ -25,9 +25,17 @@ export default function SaveFolderComponent(props: Props) {
 
   const { mutateAsync: deleteItems } = useDeleteSave()
 
+  const { saveInfo, isLoading, isError } = useSaveList('item', folderId)
+
   useEffect(() => {
     if (mode !== SavePageMode.EDIT_LIST) setCheckedList([])
   }, [mode, setCheckedList])
+
+  /* 모두 선택 */
+  const handleAllSelect = () => {
+    const itemList = saveInfo.favoriteInfos as SaveItemType[]
+    setCheckedList(itemList.map((item) => item.favoriteId))
+  }
 
   /* 아이템 삭제 */
   const handleDeleteItems = useCallback(() => {
@@ -49,8 +57,6 @@ export default function SaveFolderComponent(props: Props) {
     }
     setShowMoveFolderModal(true)
   }, [checkedList, setShowMoveFolderModal])
-
-  const { saveInfo, isLoading, isError } = useSaveList('item', folderId)
 
   if (isLoading) return <div>...loading</div>
   if (isError) return null
@@ -75,6 +81,7 @@ export default function SaveFolderComponent(props: Props) {
         )}
         {mode === SavePageMode.EDIT_LIST && (
           <SaveFolderHeader.EditList
+            handleAllSelect={handleAllSelect}
             checkedList={checkedList}
             originFolderName={folderName}
           />

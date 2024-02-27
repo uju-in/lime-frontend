@@ -167,9 +167,11 @@ export namespace SaveFolderHeader {
   export function EditList({
     checkedList,
     originFolderName,
+    handleAllSelect,
   }: {
     checkedList: number[]
     originFolderName: string
+    handleAllSelect: () => void
   }) {
     return (
       <div className="relative w-full">
@@ -180,6 +182,7 @@ export namespace SaveFolderHeader {
           <div className="text-[14px]">{`아이템 ${checkedList.length}개 선택됨`}</div>
           <button
             type="button"
+            onClick={handleAllSelect}
             className="rounded-full bg-[#b1b1b1] p-[9px_19px] text-white"
           >
             모두 선택

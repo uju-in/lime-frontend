@@ -14,23 +14,20 @@ import { SaveItem } from '../[folderId]/_component'
 
 interface Props {
   mode: SavePageMode
+  itemList: SaveItemType[]
+  folderList: SaveFolderType[]
   checkedList: number[]
   setCheckedList: React.Dispatch<React.SetStateAction<number[]>>
 }
 
-export default function SaveList({ mode, checkedList, setCheckedList }: Props) {
+export default function SaveList({
+  mode,
+  itemList,
+  folderList,
+  checkedList,
+  setCheckedList,
+}: Props) {
   const router = useRouter()
-  const { saveInfo, isLoading, isError } = useSaveList('all')
-  if (isLoading) return <div>...loading</div>
-  if (isError) return null
-
-  const folderList = saveInfo.favoriteInfos.filter(
-    (item: SaveFolderType) => item.type === 'FOLDER',
-  )
-
-  const itemList = saveInfo.favoriteInfos.filter(
-    (item: SaveItemType) => item.type === 'ITEM',
-  )
 
   return (
     <>

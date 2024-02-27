@@ -2,8 +2,13 @@
 
 import React, { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
-import { SavePageMode } from '@/app/_types/save.type'
+import {
+  SaveFolderType,
+  SaveItemType,
+  SavePageMode,
+} from '@/app/_types/save.type'
 import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
+import useSaveList from '@/app/_hook/api/saves/useSavesList'
 
 import { SaveHeader } from './SaveHeader'
 import SaveList from './SaveList'
@@ -18,6 +23,8 @@ export default function SaveComponent() {
   const [mode, setMode] = useState<SavePageMode>(SavePageMode.DEFAULT)
 
   const { mutateAsync: deleteItems } = useDeleteSave()
+
+  const { saveInfo, isLoading, isError } = useSaveList('all')
 
   useEffect(() => {
     if (mode !== SavePageMode.EDIT_LIST) setCheckedList([])
@@ -44,6 +51,22 @@ export default function SaveComponent() {
     setShowMoveFolderModal(true)
   }, [checkedList, setShowMoveFolderModal])
 
+  if (isLoading) return <div>...loading</div>
+  if (isError) return null
+
+  const folderList: SaveFolderType[] = saveInfo.favoriteInfos.filter(
+    (item: SaveFolderType) => item.type === 'FOLDER',
+  )
+
+  const itemList: SaveItemType[] = saveInfo.favoriteInfos.filter(
+    (item: SaveItemType) => item.type === 'ITEM',
+  )
+
+  /* 모두 선택 */
+  const handleAllSelect = () => {
+    setCheckedList(itemList.map((item: SaveItemType) => item.favoriteId))
+  }
+
   return (
     <section className="mx-auto h-full max-w-[1200px]">
       {/* Header */}
@@ -54,10 +77,15 @@ export default function SaveComponent() {
         />
       )}
       {mode === SavePageMode.EDIT_LIST && (
-        <SaveHeader.EditList checkedList={checkedList} />
+        <SaveHeader.EditList
+          handleAllSelect={handleAllSelect}
+          checkedList={checkedList}
+        />
       )}
       <SaveList
         mode={mode}
+        folderList={folderList}
+        itemList={itemList}
         checkedList={checkedList}
         setCheckedList={setCheckedList}
       />
