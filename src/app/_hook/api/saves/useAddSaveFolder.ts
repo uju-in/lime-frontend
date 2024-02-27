@@ -32,7 +32,7 @@ export default function useAddSaveFolder() {
     onSuccess: () => {
       alert('폴더 추가 완료')
 
-      queryClient.invalidateQueries({ queryKey: saveKeys._def })
+      queryClient.invalidateQueries({ queryKey: saveKeys.saveList._def })
     },
     onError: (error) => {
       alert(error)

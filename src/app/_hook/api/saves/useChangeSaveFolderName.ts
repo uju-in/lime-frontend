@@ -43,7 +43,7 @@ export const useChangeSaveFolderName = () => {
     onSuccess: () => {
       alert('이름 수정 완료')
 
-      queryClient.invalidateQueries({ queryKey: saveKeys._def })
+      queryClient.invalidateQueries({ queryKey: saveKeys.saveList._def })
     },
     onError: (err) => {
       alert(err)

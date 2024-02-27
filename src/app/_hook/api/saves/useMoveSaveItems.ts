@@ -43,7 +43,7 @@ export default function useMoveSaveItems() {
     onSuccess: () => {
       alert('아이템 이동 완료')
 
-      queryClient.invalidateQueries({ queryKey: saveKeys._def })
+      queryClient.invalidateQueries({ queryKey: saveKeys.saveList._def })
     },
     onError: (err) => {
       alert(err)

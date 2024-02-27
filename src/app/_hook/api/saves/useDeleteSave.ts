@@ -39,7 +39,7 @@ export default function useDeleteSave() {
     onSuccess: () => {
       alert('삭제 성공')
 
-      queryClient.invalidateQueries({ queryKey: saveKeys._def })
+      queryClient.invalidateQueries({ queryKey: saveKeys.saveList._def })
     },
     onError: (error) => {
       alert(error)

@@ -36,7 +36,7 @@ export default function useSaveList(
   folderId?: number,
 ) {
   const { data, isLoading, isError } = useQuery({
-    queryKey: saveKeys._def,
+    queryKey: saveKeys.saveList(folderId || 0, type).queryKey,
     queryFn: () => getSavesList({ type, folderId }),
   })
 
