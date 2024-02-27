@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { SavePageMode } from '@/app/_types/save.type'
 import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
@@ -20,6 +20,10 @@ export default function SaveFolderComponent(props: Props) {
   const [checkedList, setCheckedList] = useState<number[]>([])
 
   const { mutateAsync: deleteItems } = useDeleteSave()
+
+  useEffect(() => {
+    if (mode !== SavePageMode.EDIT_LIST) setCheckedList([])
+  }, [mode, setCheckedList])
 
   /* 아이템 삭제 */
   const handleDeleteItems = useCallback(() => {
