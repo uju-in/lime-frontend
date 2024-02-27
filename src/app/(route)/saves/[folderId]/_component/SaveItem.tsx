@@ -40,7 +40,10 @@ export default function SaveItem(props: Props) {
           alt="check"
         />
       )}
-      <p className="cursor-pointer text-[#515151] hover:underline">
+      <p
+        onClick={onClick}
+        className="cursor-pointer text-[#515151] hover:underline"
+      >
         {originalName}
       </p>
       <strong>{price.toLocaleString()}원</strong>

@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { SaveItemType, SavePageMode } from '@/app/_types/save.type'
+import { useRouter } from 'next/navigation'
 import SaveItem from './SaveItem'
 
 interface Props {
@@ -17,12 +18,18 @@ export default function SaveItemList({
   checkedList,
   setCheckedList,
 }: Props) {
+  const router = useRouter()
+
   return (
     <div className="relative grid grid-cols-[repeat(auto-fill,184px)] justify-center gap-x-[19px] gap-y-[25px]">
       {itemList.map((item) => {
         const { originalName, metadata, favoriteId } = item
         const { price, imageUrl, favoriteCount, reviewCount, itemId } =
           metadata.favoriteItemMetadata
+
+        const handleItemClick = () => {
+          router.push(`/items/${itemId}`)
+        }
 
         return (
           <SaveItem
@@ -34,7 +41,10 @@ export default function SaveItemList({
             reviewCount={reviewCount}
             isChecked={checkedList.includes(itemId)}
             onClick={() => {
-              if (mode !== SavePageMode.EDIT_LIST) return
+              if (mode !== SavePageMode.EDIT_LIST) {
+                handleItemClick()
+                return
+              }
               if (!checkedList.includes(itemId))
                 setCheckedList((prev) => prev.concat(itemId))
               else setCheckedList((prev) => prev.filter((c) => c !== itemId))
