@@ -26,10 +26,6 @@ export default function SaveComponent() {
 
   const { saveInfo, isLoading, isError } = useSaveList('all')
 
-  useEffect(() => {
-    if (mode !== SavePageMode.EDIT_LIST) setCheckedList([])
-  }, [mode, setCheckedList])
-
   /* 아이템 삭제 */
   const handleDeleteItems = useCallback(() => {
     if (checkedList.length === 0) {
@@ -110,7 +106,13 @@ export default function SaveComponent() {
               alt="bin"
             />
           </button>
-          <button type="button" onClick={() => setMode(SavePageMode.DEFAULT)}>
+          <button
+            type="button"
+            onClick={() => {
+              setMode(SavePageMode.DEFAULT)
+              setCheckedList([])
+            }}
+          >
             <Image
               className="rounded-full bg-white p-[14px] shadow-[0px_0px_4.758px_rgba(0,0,0,0.10)]"
               width={61}

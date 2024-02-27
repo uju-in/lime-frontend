@@ -27,10 +27,6 @@ export default function SaveFolderComponent(props: Props) {
 
   const { saveInfo, isLoading, isError } = useSaveList('item', folderId)
 
-  useEffect(() => {
-    if (mode !== SavePageMode.EDIT_LIST) setCheckedList([])
-  }, [mode, setCheckedList])
-
   /* 모두 선택 */
   const handleAllSelect = () => {
     const itemList = saveInfo.favoriteInfos as SaveItemType[]
@@ -117,7 +113,13 @@ export default function SaveFolderComponent(props: Props) {
               alt="bin"
             />
           </button>
-          <button type="button" onClick={() => setMode(SavePageMode.DEFAULT)}>
+          <button
+            type="button"
+            onClick={() => {
+              setMode(SavePageMode.DEFAULT)
+              setCheckedList([])
+            }}
+          >
             <Image
               className="rounded-full bg-white p-[14px] shadow-[0px_0px_4.758px_rgba(0,0,0,0.10)]"
               width={61}
