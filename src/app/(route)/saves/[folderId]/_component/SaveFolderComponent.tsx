@@ -124,6 +124,7 @@ export default function SaveFolderComponent(props: Props) {
       {/* // ----- 모달 ----- // */}
       {showMoveFolderModal && (
         <MoveFolderModal
+          currentFolderId={folderId}
           checkedList={checkedList}
           setShowMoveFolderModal={setShowMoveFolderModal}
           setShowAddFolderModal={setShowAddFolderModal}

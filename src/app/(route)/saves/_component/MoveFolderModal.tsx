@@ -9,6 +9,7 @@ import Image from 'next/image'
 import React, { useCallback, useState } from 'react'
 
 interface Props {
+  currentFolderId: number
   checkedList: number[]
   setShowMoveFolderModal: React.Dispatch<React.SetStateAction<boolean>>
   setShowAddFolderModal: React.Dispatch<React.SetStateAction<boolean>>
@@ -16,18 +17,30 @@ interface Props {
 
 // 폴더 이동 모달
 export default function MoveFolderModal(props: Props) {
-  const { checkedList, setShowMoveFolderModal, setShowAddFolderModal } = props
+  const {
+    currentFolderId,
+    checkedList,
+    setShowMoveFolderModal,
+    setShowAddFolderModal,
+  } = props
   const [selectFolderId, setSelectFolderId] = useState<number | null>(null)
   const { saveInfo, isLoading, isError } = useSaveList('folder')
   const { mutateAsync: moveItems } = useMoveSaveItems()
 
   const handleMoveItems = useCallback(async () => {
     if (!selectFolderId) return
+    if (currentFolderId === selectFolderId) {
+      alert('현재 위치한 폴더입니다.')
+      return
+    }
 
     const req: MoveSaveItemsRequest = {
-      folderId: selectFolderId,
       favoriteItemIds: checkedList,
     }
+    if (selectFolderId > 0) {
+      req.folderId = selectFolderId
+    }
+
     await moveItems(req)
     setShowMoveFolderModal(false)
   }, [selectFolderId, moveItems, checkedList, setShowMoveFolderModal])
@@ -90,6 +103,22 @@ export default function MoveFolderModal(props: Props) {
               </div>
             )
           })}
+          <div
+            onClick={() => {
+              if (selectFolderId === -1) setSelectFolderId(null)
+              else setSelectFolderId(-1)
+            }}
+            className={cn(
+              'flex cursor-pointer items-center gap-[16px] p-[12px_18px]',
+              {
+                'bg-[#F1F1F1]': selectFolderId === -1,
+                'bg-white': selectFolderId !== -1,
+              },
+            )}
+          >
+            <div className="h-[52px] w-[52px] rounded-[4px] bg-[#dadada] bg-contain bg-center bg-no-repeat" />
+            <div>Default</div>
+          </div>
         </section>
 
         {/* 하단 버튼 */}

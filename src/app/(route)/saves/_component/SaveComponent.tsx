@@ -96,6 +96,7 @@ export default function SaveComponent() {
       {/* ------ 모달 ------ */}
       {showMoveFolderModal && (
         <MoveFolderModal
+          currentFolderId={-1}
           checkedList={checkedList}
           setShowMoveFolderModal={setShowMoveFolderModal}
           setShowAddFolderModal={setShowAddFolderModal}

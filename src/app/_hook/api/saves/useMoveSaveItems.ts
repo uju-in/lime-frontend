@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { saveKeys } from '.'
 
 export interface MoveSaveItemsRequest {
-  folderId: number
+  folderId?: number
   favoriteItemIds: number[]
 }
 
