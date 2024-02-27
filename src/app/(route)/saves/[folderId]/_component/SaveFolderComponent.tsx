@@ -37,6 +37,15 @@ export default function SaveFolderComponent(props: Props) {
     }
   }, [checkedList, deleteItems])
 
+  /* 아이템 이동 */
+  const handleModeItems = useCallback(() => {
+    if (checkedList.length === 0) {
+      window.alert('이동할 아이템을 선택해주세요.')
+      return
+    }
+    setShowMoveFolderModal(true)
+  }, [checkedList, setShowMoveFolderModal])
+
   const { saveInfo, isLoading, isError } = useSaveList('item', folderId)
 
   if (isLoading) return <div>...loading</div>
@@ -79,7 +88,7 @@ export default function SaveFolderComponent(props: Props) {
       {/* Footer */}
       {mode === SavePageMode.EDIT_LIST && (
         <section className="flex justify-center gap-6 py-[30px]">
-          <button type="button" onClick={() => setShowMoveFolderModal(true)}>
+          <button type="button" onClick={handleModeItems}>
             <Image
               className="rounded-full bg-white p-[14px] shadow-[0px_0px_4.758px_rgba(0,0,0,0.10)]"
               width={61}
