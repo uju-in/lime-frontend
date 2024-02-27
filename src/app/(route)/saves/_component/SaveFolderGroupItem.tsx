@@ -22,7 +22,7 @@ export default function SaveFolderGroupItem(props: Props) {
     <button
       type="button"
       onClick={() => {
-        router.push(`/saves/${id}`)
+        router.push(`/saves/${id}?name=${folderName}`)
       }}
       disabled={disabled}
       className={cn(

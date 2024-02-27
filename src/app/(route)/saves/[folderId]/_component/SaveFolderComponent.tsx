@@ -10,13 +10,12 @@ import { SaveFolderHeader, SaveItemList } from '.'
 
 interface Props {
   folderId: number
+  folderName: string
   setShowMoveFolderModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function SaveFolderComponent({
-  folderId,
-  setShowMoveFolderModal,
-}: Props) {
+export default function SaveFolderComponent(props: Props) {
+  const { folderId, folderName, setShowMoveFolderModal } = props
   const [mode, setMode] = useState<SavePageMode>(SavePageMode.DEFAULT)
   const [checkedList, setCheckedList] = useState<number[]>([])
 
@@ -47,20 +46,20 @@ export default function SaveFolderComponent({
           <SaveFolderHeader.Default
             setMode={setMode}
             folderId={folderId}
-            originFolderName={saveInfo.originFolderName}
+            originFolderName={folderName}
           />
         )}
         {mode === SavePageMode.CHANGE_NAME && (
           <SaveFolderHeader.ChangeName
             setMode={setMode}
             folderId={folderId}
-            originFolderName={saveInfo.originFolderName}
+            originFolderName={folderName}
           />
         )}
         {mode === SavePageMode.EDIT_LIST && (
           <SaveFolderHeader.EditList
             checkedList={checkedList}
-            originFolderName={saveInfo.originFolderName}
+            originFolderName={folderName}
           />
         )}
       </section>
@@ -68,6 +67,7 @@ export default function SaveFolderComponent({
       {/* Contents */}
       <SaveItemList
         mode={mode}
+        itemList={saveInfo.favoriteInfos}
         checkedList={checkedList}
         setCheckedList={setCheckedList}
       />

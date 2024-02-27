@@ -65,9 +65,7 @@ export default function SaveList({ mode, checkedList, setCheckedList }: Props) {
               reviewCount={reviewCount}
               isChecked={checkedList.includes(itemId)}
               onClick={() => {
-                if (mode !== SavePageMode.EDIT_LIST) {
-                  return
-                }
+                if (mode !== SavePageMode.EDIT_LIST) return
                 if (!checkedList.includes(itemId))
                   setCheckedList((prev) => prev.concat(itemId))
                 else setCheckedList((prev) => prev.filter((c) => c !== itemId))

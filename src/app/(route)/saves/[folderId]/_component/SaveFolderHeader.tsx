@@ -42,7 +42,7 @@ export namespace SaveFolderHeader {
     return (
       <>
         <h1 className="text-[38px] font-bold">{originFolderName}</h1>
-        <div className="relative" ref={dropdownRef}>
+        <div className="relative flex items-center" ref={dropdownRef}>
           <button
             type="button"
             onClick={() => {
@@ -118,14 +118,19 @@ export namespace SaveFolderHeader {
   }) {
     const [newFolderName, setNewFolderName] = useState('')
     const { mutateAsync: changeName } = useChangeSaveFolderName()
+    const router = useRouter()
 
-    const handleChangeName = useCallback(() => {
-      changeName({ folderId, folderName: newFolderName })
-    }, [changeName, folderId, newFolderName])
+    const handleChangeName = useCallback(async () => {
+      await changeName({ folderId, folderName: newFolderName })
+      router.replace(`/saves/${folderId}?name=${newFolderName}`)
+      setMode(SavePageMode.DEFAULT)
+    }, [changeName, folderId, newFolderName, router, setMode])
 
     return (
       <>
         <input
+          // eslint-disable-next-line jsx-a11y/no-autofocus
+          autoFocus
           placeholder={originFolderName}
           value={newFolderName}
           onChange={(e) => setNewFolderName(e.target.value)}
