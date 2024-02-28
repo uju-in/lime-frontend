@@ -70,7 +70,11 @@ export default function UserInfoField() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const isValid = validateForm({ isDuplicated, career: profile.career })
+    const isValid = validateForm({
+      isDuplicated,
+      career: profile.career,
+      content: profile.content,
+    })
 
     if (!isValid) {
       return
