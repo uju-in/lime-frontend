@@ -4,6 +4,7 @@ import useMoveSaveItems, {
 } from '@/app/_hook/api/saves/useMoveSaveItems'
 import useSaveList from '@/app/_hook/api/saves/useSavesList'
 import { SaveFolderType } from '@/app/_types/save.type'
+import renderToast from '@/app/_utils/toast'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import React, { useCallback, useState } from 'react'
@@ -30,7 +31,7 @@ export default function MoveFolderModal(props: Props) {
   const handleMoveItems = useCallback(async () => {
     if (!selectFolderId) return
     if (currentFolderId === selectFolderId) {
-      alert('현재 위치한 폴더입니다.')
+      renderToast({ type: 'error', message: '현재 위치한 폴더입니다.' })
       return
     }
 

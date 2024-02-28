@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { getCookie } from '@/app/_utils/cookie'
+import renderToast from '@/app/_utils/toast'
 import { saveKeys } from '.'
 
 async function deleteSave(favoriteItemIds: number[], folderIds: number[]) {
@@ -39,12 +40,12 @@ export default function useDeleteSave() {
     mutationFn: ({ favoriteItemIds, folderIds }) =>
       deleteSave(favoriteItemIds, folderIds),
     onSuccess: () => {
-      alert('삭제 성공')
+      renderToast({ type: 'success', message: '삭제되었습니다.' })
 
       queryClient.invalidateQueries({ queryKey: saveKeys.saveList._def })
     },
     onError: (error) => {
-      alert(error)
+      renderToast({ type: 'error', message: String(error) })
     },
   })
 }

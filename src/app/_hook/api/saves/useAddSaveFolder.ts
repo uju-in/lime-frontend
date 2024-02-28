@@ -1,5 +1,6 @@
 import { getCookie } from '@/app/_utils/cookie'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import renderToast from '@/app/_utils/toast'
 import { saveKeys } from '.'
 
 const addSaveFolder = async (folderName: string) => {
@@ -30,12 +31,12 @@ export default function useAddSaveFolder() {
   return useMutation<void, Error, string>({
     mutationFn: (folderName) => addSaveFolder(folderName),
     onSuccess: () => {
-      alert('폴더 추가 완료')
+      renderToast({ type: 'success', message: '폴더가 추가되었습니다.' })
 
       queryClient.invalidateQueries({ queryKey: saveKeys.saveList._def })
     },
     onError: (error) => {
-      alert(error)
+      renderToast({ type: 'error', message: String(error) })
     },
   })
 }

@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { SaveItemType, SavePageMode } from '@/app/_types/save.type'
 import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
 import useSaveList from '@/app/_hook/api/saves/useSavesList'
+import renderToast from '@/app/_utils/toast'
 
 import { SaveFolderHeader, SaveItemList } from '.'
 import MoveFolderModal from '../../_component/MoveFolderModal'
@@ -36,7 +37,7 @@ export default function SaveFolderComponent(props: Props) {
   /* 아이템 삭제 */
   const handleDeleteItems = useCallback(() => {
     if (checkedList.length === 0) {
-      window.alert('삭제할 아이템을 선택해주세요.')
+      renderToast({ type: 'error', message: '삭제할 아이템을 선택해주세요.' })
       return
     }
     if (window.confirm('삭제하시겠습니까?')) {
@@ -48,7 +49,7 @@ export default function SaveFolderComponent(props: Props) {
   /* 아이템 이동 */
   const handleModeItems = useCallback(() => {
     if (checkedList.length === 0) {
-      window.alert('이동할 아이템을 선택해주세요.')
+      renderToast({ type: 'error', message: '이동할 아이템을 선택해주세요.' })
       return
     }
     setShowMoveFolderModal(true)

@@ -1,5 +1,6 @@
 import { getCookie } from '@/app/_utils/cookie'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import renderToast from '@/app/_utils/toast'
 import { saveKeys } from '.'
 
 export interface MoveSaveItemsRequest {
@@ -41,12 +42,12 @@ export default function useMoveSaveItems() {
     mutationFn: ({ folderId, favoriteItemIds }) =>
       postMoveSaveItems({ folderId, favoriteItemIds }),
     onSuccess: () => {
-      alert('아이템 이동 완료')
+      renderToast({ type: 'success', message: '이동되었습니다.' })
 
       queryClient.invalidateQueries({ queryKey: saveKeys.saveList._def })
     },
-    onError: (err) => {
-      alert(err)
+    onError: (error) => {
+      renderToast({ type: 'error', message: String(error) })
     },
   })
 }
