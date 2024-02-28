@@ -18,7 +18,7 @@ export namespace SaveHeader {
       <div className="mb-[56px] flex items-center justify-between">
         <h1 className="text-[30px] font-[700]">찜목록</h1>
         <div className="flex gap-[16px]">
-          <button
+          {/* <button
             className="flex items-center justify-center gap-[5.25px] rounded-[97.6px] border-[0.5px] border-[#E2E2E2] bg-white p-[10px_17px_10px_10px]"
             type="button"
             onClick={() => setMode(SavePageMode.EDIT_LIST)}
@@ -31,7 +31,7 @@ export namespace SaveHeader {
               alt="plus"
             />
             <p>목록 편집</p>
-          </button>
+          </button> */}
           <button
             className="flex items-center justify-center gap-[5.25px] rounded-[97.6px] bg-[#242424] p-[10px_17px_10px_10px]"
             type="button"
