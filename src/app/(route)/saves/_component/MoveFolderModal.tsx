@@ -104,22 +104,6 @@ export default function MoveFolderModal(props: Props) {
               </div>
             )
           })}
-          <div
-            onClick={() => {
-              if (selectFolderId === -1) setSelectFolderId(null)
-              else setSelectFolderId(-1)
-            }}
-            className={cn(
-              'flex cursor-pointer items-center gap-[16px] p-[12px_18px]',
-              {
-                'bg-[#F1F1F1]': selectFolderId === -1,
-                'bg-white': selectFolderId !== -1,
-              },
-            )}
-          >
-            <div className="h-[52px] w-[52px] rounded-[4px] bg-[#dadada] bg-contain bg-center bg-no-repeat" />
-            <div>Default</div>
-          </div>
         </section>
 
         {/* 하단 버튼 */}
