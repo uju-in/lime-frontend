@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import Image from 'next/image'
 import { SaveItemType, SavePageMode } from '@/app/_types/save.type'
 import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
