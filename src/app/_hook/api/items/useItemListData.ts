@@ -6,13 +6,13 @@ import { useMemo } from 'react'
 import { itemKeys } from '.'
 
 export const fetchItemList = async (
-  keyword: string,
+  hobbyName: string,
   sortOption: string,
   pageParam: string | null,
 ) => {
   const SIZE = 18
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/search?keyword=${keyword}&cursorId=${pageParam}&size=${SIZE}&itemSortCondition=${sortOption}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/search?hobbyName=${hobbyName}&cursorId=${pageParam}&size=${SIZE}&itemSortCondition=${sortOption}`,
     {
       method: 'GET',
       headers: {
@@ -26,11 +26,11 @@ export const fetchItemList = async (
 }
 
 interface Props {
-  keyword: string
+  hobbyName: string
   sortOption: string
 }
 
-const useItemListData = ({ keyword, sortOption }: Props) => {
+const useItemListData = ({ hobbyName, sortOption }: Props) => {
   const {
     data,
     isLoading,
@@ -39,9 +39,9 @@ const useItemListData = ({ keyword, sortOption }: Props) => {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: itemKeys.itemList(keyword, sortOption).queryKey,
+    queryKey: itemKeys.itemList(hobbyName, sortOption).queryKey,
     queryFn: ({ pageParam = null }) =>
-      fetchItemList(keyword, sortOption, pageParam),
+      fetchItemList(hobbyName, sortOption, pageParam),
     initialPageParam: null,
     getNextPageParam: ({
       nextCursorId,

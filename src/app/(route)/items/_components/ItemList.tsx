@@ -62,7 +62,7 @@ export function Item({ item }: { item: ItemType }) {
 
 export default function ItemList() {
   const [sortOption, setSortOption] = useState(SortOption[2])
-  const keyword = useGetSearchParam('category') || '농구'
+  const hobbyName = useGetSearchParam('category') || '농구'
   const {
     data,
     itemList,
@@ -72,7 +72,7 @@ export default function ItemList() {
     hasNextPage,
     isFetchingNextPage,
   } = useItemListData({
-    keyword,
+    hobbyName,
     sortOption: sortOption.value,
   })
 
