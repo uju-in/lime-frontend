@@ -33,7 +33,7 @@ const validateForm = ({
     return false
   }
 
-  if (!career) {
+  if (career === null) {
     alert('취미 경력을 선택해 주세요.')
 
     return false
