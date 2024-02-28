@@ -1,13 +1,12 @@
 'use client'
 
-import useSaveList from '@/app/_hook/api/saves/useSavesList'
 import {
   SaveFolderType,
   SaveItemType,
   SavePageMode,
 } from '@/app/_types/save.type'
 
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useRouter } from 'next/navigation'
 import SaveFolderGroupItem from './SaveFolderGroupItem'
 import { SaveItem } from '../[folderId]/_component'
