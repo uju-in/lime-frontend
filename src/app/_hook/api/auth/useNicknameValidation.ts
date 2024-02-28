@@ -1,3 +1,4 @@
+import renderToast from '@/app/_utils/toast'
 import { useMutation } from '@tanstack/react-query'
 
 async function postNicknameValidation(nickname: string) {
@@ -29,13 +30,22 @@ export default function useNicknameValidation() {
     mutationFn: postNicknameValidation,
     onSuccess: (isDuplicated) => {
       if (isDuplicated) {
-        alert('중복된 닉네임입니다.')
+        renderToast({
+          type: 'error',
+          message: '중복된 닉네임입니다.',
+        })
       } else {
-        alert('사용 가능한 닉네임입니다.')
+        renderToast({
+          type: 'success',
+          message: '사용 가능한 닉네임입니다.',
+        })
       }
     },
     onError: (error) => {
-      alert(error)
+      renderToast({
+        type: 'error',
+        message: error as string,
+      })
     },
   })
 }

@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 
 import { SignUpState } from '@/app/_types/signUp.types'
 import { getCookie } from '@/app/_utils/cookie'
+import renderToast from '@/app/_utils/toast'
 
 async function postSignUp(params: SignUpState) {
   const accessToken = await getCookie('accessToken')
@@ -31,10 +32,16 @@ export default function useSignUp() {
   return useMutation<number, unknown, SignUpState>({
     mutationFn: postSignUp,
     onSuccess: () => {
-      alert('회원가입 성공!')
+      renderToast({
+        type: 'success',
+        message: '회원가입 성공!',
+      })
     },
     onError: (error) => {
-      alert(error)
+      renderToast({
+        type: 'error',
+        message: error as string,
+      })
     },
   })
 }

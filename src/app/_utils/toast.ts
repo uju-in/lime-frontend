@@ -7,6 +7,7 @@ interface IToast {
 }
 
 const renderToast = ({ type, message, duration = 3500 }: IToast) => {
+  console.log('1')
   switch (type) {
     case 'error':
       return toast.error(message, {
