@@ -9,19 +9,17 @@ import SaveFolderComponent from './_component/SaveFolderComponent'
 
 type Props = {
   params: { folderId: number }
+  searchParams: { name: string }
 }
 
-export default function SavesDetailPage({ params }: Props) {
+export default function SavesDetailPage({ params, searchParams }: Props) {
   const { folderId } = params
-  const folderName = useGetSearchParam('name')
+  const { name } = searchParams
 
   return (
     <Layout>
       <RQProvider>
-        <SaveFolderComponent
-          folderId={Number(folderId)}
-          folderName={folderName || ''}
-        />
+        <SaveFolderComponent folderId={Number(folderId)} folderName={name} />
       </RQProvider>
     </Layout>
   )
