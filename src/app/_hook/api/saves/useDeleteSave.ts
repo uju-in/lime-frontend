@@ -6,10 +6,12 @@ import { saveKeys } from '.'
 async function deleteSave(favoriteItemIds: number[], folderIds: number[]) {
   const accessToken = await getCookie('accessToken')
   const formData = new FormData()
-  if (favoriteItemIds.length > 0)
+  if (favoriteItemIds.length > 0) {
     formData.append('favoriteItemIds', favoriteItemIds.join(','))
-  if (folderIds.length > 0) formData.append('folderIds', folderIds.join(','))
-
+  }
+  if (folderIds.length > 0) {
+    formData.append('folderIds', folderIds.join(','))
+  }
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/favorites`, {
     method: 'DELETE',
     headers: {

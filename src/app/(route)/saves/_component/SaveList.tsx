@@ -59,9 +59,11 @@ export default function SaveList({
               router.push(`/items/${itemId}`)
               return
             }
-            if (!checkedList.includes(favoriteId))
+            if (!checkedList.includes(favoriteId)) {
               setCheckedList((prev) => prev.concat(favoriteId))
-            else setCheckedList((prev) => prev.filter((c) => c !== favoriteId))
+            } else {
+              setCheckedList((prev) => prev.filter((c) => c !== favoriteId))
+            }
           }
 
           return (
