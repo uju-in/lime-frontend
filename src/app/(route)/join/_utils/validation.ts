@@ -1,7 +1,12 @@
+import renderToast from '@/app/_utils/toast'
+
 /* 닉네임 입력 검증 */
 const validateNickname = (nickname: string) => {
   if (!nickname.trim()) {
-    alert('닉네임 입력해 주세요.')
+    renderToast({
+      type: 'error',
+      message: '닉네임 입력해 주세요.',
+    })
 
     return false
   }
@@ -9,7 +14,10 @@ const validateNickname = (nickname: string) => {
   const regex = /^[가-힣a-zA-Z0-9]+$/
 
   if (!regex.test(nickname)) {
-    alert('영문, 숫자, 한글만 조합해 주세요.')
+    renderToast({
+      type: 'error',
+      message: '영문, 숫자, 한글만 조합해 주세요.',
+    })
 
     return false
   }
@@ -28,19 +36,28 @@ const validateForm = ({
   content: string
 }) => {
   if (isDuplicated) {
-    alert('닉네임 중복 확인을 진행해 주세요.')
+    renderToast({
+      type: 'error',
+      message: '닉네임 중복 확인을 진행해 주세요.',
+    })
 
     return false
   }
 
   if (career === null) {
-    alert('취미 경력을 선택해 주세요.')
+    renderToast({
+      type: 'error',
+      message: '취미 경력을 선택해 주세요.',
+    })
 
     return false
   }
 
   if (!content.trim()) {
-    alert('자기소개를 입력해 주세요.')
+    renderToast({
+      type: 'error',
+      message: '자기소개를 입력해 주세요.',
+    })
 
     return false
   }
