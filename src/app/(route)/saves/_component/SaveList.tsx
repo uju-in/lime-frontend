@@ -7,7 +7,7 @@ import {
   SavePageMode,
 } from '@/app/_types/save.type'
 
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import SaveFolderGroupItem from './SaveFolderGroupItem'
 import { SaveItem } from '../[folderId]/_component'
@@ -55,7 +55,13 @@ export default function SaveList({
             metadata.favoriteItemMetadata
 
           const handleItemClick = () => {
-            router.push(`/items/${itemId}`)
+            if (mode !== SavePageMode.EDIT_LIST) {
+              router.push(`/items/${itemId}`)
+              return
+            }
+            if (!checkedList.includes(favoriteId))
+              setCheckedList((prev) => prev.concat(favoriteId))
+            else setCheckedList((prev) => prev.filter((c) => c !== favoriteId))
           }
 
           return (
@@ -67,16 +73,7 @@ export default function SaveList({
               favoriteCount={favoriteCount}
               reviewCount={reviewCount}
               isChecked={checkedList.includes(favoriteId)}
-              onClick={() => {
-                if (mode !== SavePageMode.EDIT_LIST) {
-                  handleItemClick()
-                  return
-                }
-                if (!checkedList.includes(favoriteId))
-                  setCheckedList((prev) => prev.concat(favoriteId))
-                else
-                  setCheckedList((prev) => prev.filter((c) => c !== favoriteId))
-              }}
+              onClick={handleItemClick}
             />
           )
         })}

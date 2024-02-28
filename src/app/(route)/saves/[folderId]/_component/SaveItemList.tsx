@@ -28,7 +28,13 @@ export default function SaveItemList({
           metadata.favoriteItemMetadata
 
         const handleItemClick = () => {
-          router.push(`/items/${itemId}`)
+          if (mode !== SavePageMode.EDIT_LIST) {
+            router.push(`/items/${itemId}`)
+            return
+          }
+          if (!checkedList.includes(favoriteId))
+            setCheckedList((prev) => prev.concat(favoriteId))
+          else setCheckedList((prev) => prev.filter((c) => c !== favoriteId))
         }
 
         return (
@@ -40,16 +46,7 @@ export default function SaveItemList({
             favoriteCount={favoriteCount}
             reviewCount={reviewCount}
             isChecked={checkedList.includes(favoriteId)}
-            onClick={() => {
-              if (mode !== SavePageMode.EDIT_LIST) {
-                handleItemClick()
-                return
-              }
-              if (!checkedList.includes(favoriteId))
-                setCheckedList((prev) => prev.concat(favoriteId))
-              else
-                setCheckedList((prev) => prev.filter((c) => c !== favoriteId))
-            }}
+            onClick={handleItemClick}
           />
         )
       })}
