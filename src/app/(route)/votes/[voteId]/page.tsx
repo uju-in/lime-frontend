@@ -1,5 +1,5 @@
 import { fetchVoteDetail } from '@/app/_hook/api/votes/useVoteDetail'
-import { dateFormatter } from '@/app/_utils/dateFormatter'
+import { dateFormatter, detailDateFormatter } from '@/app/_utils/dateFormatter'
 import ManagementButton from './_component/ManagementButton'
 import { categoryFormatter } from '../../../_utils/categoryFormatter'
 import VoteInfo from './_component/VoteInfo'
@@ -38,7 +38,7 @@ export default async function pages({ params }: Props) {
         </div>
         <p className="mt-[26px] h-[62px] text-[14px] font-[500]">{content}</p>
         <p className="mt-[15px] text-[10px] font-[500] text-[#9C9C9C]">
-          {dateFormatter(endTime)} 투표 마감
+          {detailDateFormatter(endTime)} 투표 마감
         </p>
         <p className="text-[10px] font-[500] text-[#9C9C9C]">
           {participants}명 참여중
