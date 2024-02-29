@@ -1,10 +1,11 @@
-import React, { ReactNode, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 import Image from 'next/image'
 import { SavePageMode } from '@/app/_types/save.type'
 import { cn } from '@/app/_utils/twMerge'
-
-const originFolderName = '농구' // TODO
+import { useRouter } from 'next/navigation'
+import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
+import { useChangeSaveFolderName } from '@/app/_hook/api/saves/useChangeSaveFolderName'
 
 /**
  * 찜 폴더 내부 페이지 Header
@@ -13,11 +14,18 @@ export namespace SaveFolderHeader {
   // Default 상태
   export function Default({
     setMode,
+    folderId,
+    originFolderName,
   }: {
     setMode: React.Dispatch<React.SetStateAction<SavePageMode>>
+    folderId: number
+    originFolderName: string
   }) {
     const dropdownRef = useRef(null)
     const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
+    const router = useRouter()
+
+    const { mutateAsync: deleteFolder } = useDeleteSave()
 
     /** 외부 클릭 시 dropdown 닫기 */
     useOutsideClick(dropdownRef, () => {
@@ -26,10 +34,15 @@ export namespace SaveFolderHeader {
       }
     })
 
+    const handleDeleteFolder = async () => {
+      const req = { favoriteItemIds: [], folderIds: [folderId] }
+      await deleteFolder(req)
+    }
+
     return (
       <>
         <h1 className="text-[38px] font-bold">{originFolderName}</h1>
-        <div className="relative" ref={dropdownRef}>
+        <div className="relative flex items-center" ref={dropdownRef}>
           <button
             type="button"
             onClick={() => {
@@ -77,7 +90,8 @@ export namespace SaveFolderHeader {
                         `'${originFolderName}' 폴더를 삭제하시겠습니까?`,
                       )
                     ) {
-                      console.log('삭제')
+                      handleDeleteFolder()
+                      router.replace('/saves')
                     }
                   }}
                   className="cursor-pointer rounded-[4px] p-[8px_7px] hover:bg-[#DFDFDF]"
@@ -95,14 +109,28 @@ export namespace SaveFolderHeader {
   // 폴더 이름 변경
   export function ChangeName({
     setMode,
+    folderId,
+    originFolderName,
   }: {
     setMode: React.Dispatch<React.SetStateAction<SavePageMode>>
+    folderId: number
+    originFolderName: string
   }) {
     const [newFolderName, setNewFolderName] = useState('')
+    const { mutateAsync: changeName } = useChangeSaveFolderName()
+    const router = useRouter()
+
+    const handleChangeName = useCallback(async () => {
+      await changeName({ folderId, folderName: newFolderName })
+      router.replace(`/saves/${folderId}?name=${newFolderName}`)
+      setMode(SavePageMode.DEFAULT)
+    }, [changeName, folderId, newFolderName, router, setMode])
 
     return (
       <>
         <input
+          // eslint-disable-next-line jsx-a11y/no-autofocus
+          autoFocus
           placeholder={originFolderName}
           value={newFolderName}
           onChange={(e) => setNewFolderName(e.target.value)}
@@ -119,6 +147,7 @@ export namespace SaveFolderHeader {
           <button
             type="button"
             disabled={newFolderName.length === 0}
+            onClick={handleChangeName}
             className={cn(
               'w-[90px] rounded-full border-[0.5px] border-[#e2e2e2] py-[7.5px] text-white',
               {
@@ -135,7 +164,15 @@ export namespace SaveFolderHeader {
   }
 
   // 목록 편집
-  export function EditList({ checkedList }: { checkedList: number[] }) {
+  export function EditList({
+    checkedList,
+    originFolderName,
+    handleAllSelect,
+  }: {
+    checkedList: number[]
+    originFolderName: string
+    handleAllSelect: () => void
+  }) {
     return (
       <div className="relative w-full">
         <h1 className="text-center text-[38px] font-bold">
@@ -145,6 +182,7 @@ export namespace SaveFolderHeader {
           <div className="text-[14px]">{`아이템 ${checkedList.length}개 선택됨`}</div>
           <button
             type="button"
+            onClick={handleAllSelect}
             className="rounded-full bg-[#b1b1b1] p-[9px_19px] text-white"
           >
             모두 선택

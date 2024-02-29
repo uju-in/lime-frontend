@@ -1,7 +1,8 @@
 import Modal from '@/app/_components/modal'
+import useAddSaveFolder from '@/app/_hook/api/saves/useAddSaveFolder'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 interface Props {
   setShowAddFolderModal: React.Dispatch<React.SetStateAction<boolean>>
@@ -10,6 +11,12 @@ interface Props {
 // 폴더 생성 모달
 export default function AddFolderModal({ setShowAddFolderModal }: Props) {
   const [folderName, setFolderName] = useState('')
+  const { mutateAsync: addFolder } = useAddSaveFolder()
+
+  const handleAddFolder = useCallback(async () => {
+    await addFolder(folderName)
+    setShowAddFolderModal(false)
+  }, [folderName, setShowAddFolderModal, addFolder])
 
   return (
     <Modal>
@@ -41,6 +48,7 @@ export default function AddFolderModal({ setShowAddFolderModal }: Props) {
                 'bg-black': folderName.length > 0,
                 'bg-[#B1B1B1]': folderName.length <= 0,
               })}
+              onClick={handleAddFolder}
             >
               만들기
             </button>
