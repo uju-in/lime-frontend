@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useCallback, useState } from 'react'
-import { voteItem } from '@/app/_hook/api/votes/useParticipationVote'
+import { useParticipationVote } from '@/app/_hook/api/votes/useParticipationVote'
 import { ItemInfoType, VoteInfoType } from '@/app/_types/detailVote.type'
-import { reVote } from '@/app/_hook/api/votes/useReParticipation'
+import { useReParticipation } from '@/app/_hook/api/votes/useReParticipation'
 import ProgressBar from './ProgressBar'
 import VoteItem from './VoteItem'
 
@@ -19,6 +19,9 @@ export default function VoteInfo(props: PropsType) {
   const { id: voteId, item1Votes, item2Votes, isVoting } = voteInfo
 
   const [itemId, setItemId] = useState<number | null>(null)
+
+  const { mutateAsync: voteItem } = useParticipationVote()
+  const { mutateAsync: reVote } = useReParticipation()
 
   const handleSelectItem = useCallback(
     (selectItemId: number) => {
@@ -48,7 +51,7 @@ export default function VoteInfo(props: PropsType) {
 
   /** 재투표(투표 취소) */
   const handleReVote = async () => {
-    await reVote({ voteId })
+    await reVote(voteId)
   }
 
   return (

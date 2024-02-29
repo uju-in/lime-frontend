@@ -1,19 +1,15 @@
-'use server'
-
 import { revalidatePath, revalidateTag } from 'next/cache'
-
 import { getCookie } from '@/app/_utils/cookie'
-import { voteTags } from '.'
+import renderToast from '@/app/_utils/toast'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { voteKeys } from '.'
 
 interface VoteItemRequest {
   itemId: number | null
   voteId: number
 }
 
-export async function voteItem({
-  itemId,
-  voteId,
-}: VoteItemRequest): Promise<number> {
+async function voteItem({ itemId, voteId }: VoteItemRequest): Promise<number> {
   const accessToken = await getCookie('accessToken')
 
   const res = await fetch(
@@ -29,10 +25,6 @@ export async function voteItem({
     },
   )
 
-  revalidateTag(voteTags.voteDetail)
-
-  revalidatePath(`/votes/${voteId}`)
-
   if (!res.ok) {
     const data = await res.json()
 
@@ -40,4 +32,28 @@ export async function voteItem({
   }
 
   return res.status
+}
+
+export const useParticipationVote = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation<number, Error, VoteItemRequest>({
+    mutationFn: ({ itemId, voteId }) => voteItem({ itemId, voteId }),
+    onSuccess: () => {
+      renderToast({
+        type: 'success',
+        message: '투표 취소 성공!',
+      })
+
+      queryClient.invalidateQueries({
+        queryKey: voteKeys.detail._def,
+      })
+    },
+    onError: (error) => {
+      renderToast({
+        type: 'error',
+        message: String(error),
+      })
+    },
+  })
 }
