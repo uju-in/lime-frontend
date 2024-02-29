@@ -70,10 +70,9 @@ export default function VoteInfo(props: PropsType) {
           />
         </div>
         {/** 투표 게이지 */}
-        {selectedItemId ||
-          (!isVoting && (
-            <ProgressBar item1Votes={item1Votes} item2Votes={item2Votes} />
-          ))}
+        {(selectedItemId || !isVoting) && (
+          <ProgressBar item1Votes={item1Votes} item2Votes={item2Votes} />
+        )}
         <div className="mt-[36px] flex justify-center">
           {isVoting && (
             <button
@@ -85,7 +84,7 @@ export default function VoteInfo(props: PropsType) {
               } font-[600] text-[#fff]`}
               onClick={selectedItemId ? handleReVote : handleVote}
             >
-              {selectedItemId ? '다시 투표하기' : '투표하기'}
+              {selectedItemId ? '투표 취소하기' : '투표하기'}
             </button>
           )}
         </div>
