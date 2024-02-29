@@ -53,9 +53,7 @@ export default function UserInfoField() {
   const handleValidationNickname = async () => {
     const isValid = validateNickname(profile.nickname)
 
-    if (!isValid) {
-      return
-    }
+    if (!isValid) return
 
     const data = await verifyUniqueNickname(profile.nickname)
 
@@ -76,9 +74,7 @@ export default function UserInfoField() {
       content: profile.content,
     })
 
-    if (!isValid) {
-      return
-    }
+    if (!isValid) return
 
     const data = await signUp(profile)
 
