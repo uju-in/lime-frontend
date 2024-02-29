@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getCookie } from '@/app/_utils/cookie'
 
 import { VoteInfoType } from '@/app/_types/addVote.type'
+import renderToast from '@/app/_utils/toast'
 import { voteKeys } from '.'
 
 async function postAddItem(params: VoteInfoType) {
@@ -32,12 +33,18 @@ export default function useAddVote() {
   return useMutation<number, Error, VoteInfoType>({
     mutationFn: postAddItem,
     onSuccess: () => {
-      alert('투표 등록 성공!')
+      renderToast({
+        type: 'success',
+        message: '투표 등록 성공!',
+      })
 
       queryClient.invalidateQueries({ queryKey: voteKeys.voteList._def })
     },
     onError: (error) => {
-      alert(error)
+      renderToast({
+        type: 'error',
+        message: String(error),
+      })
     },
   })
 }
