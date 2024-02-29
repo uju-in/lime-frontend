@@ -1,6 +1,9 @@
 import { getCookie } from '@/app/_utils/cookie'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import renderToast from '@/app/_utils/toast'
+import { voteKeys } from '.'
 
-export async function deleteVote(voteId: number): Promise<number> {
+async function deleteVote(voteId: number): Promise<number> {
   const accessToken = await getCookie('accessToken')
 
   const res = await fetch(
@@ -21,4 +24,28 @@ export async function deleteVote(voteId: number): Promise<number> {
   }
 
   return res.status
+}
+
+export const useDeleteVote = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation<number, Error, number>({
+    mutationFn: (voidId) => deleteVote(voidId),
+    onSuccess: () => {
+      renderToast({
+        type: 'success',
+        message: '투표 삭제 성공!',
+      })
+
+      queryClient.invalidateQueries({
+        queryKey: voteKeys.voteList._def,
+      })
+    },
+    onError: (error) => {
+      renderToast({
+        type: 'error',
+        message: String(error),
+      })
+    },
+  })
 }
