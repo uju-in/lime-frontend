@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { truncateString } from '../_utils/truncateString'
+import { truncateString } from '../../_utils/truncateString'
 
 interface PropsType {
   onOpenModal: (itemType: 'item1' | 'item2') => void
