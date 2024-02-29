@@ -35,7 +35,7 @@ export default function VoteItem(props: PropsType) {
         <div className="mt-[21.39px] flex justify-center">
           <button
             type="button"
-            className="flex h-[24px] w-[80px] items-center justify-center rounded-[100px] border-[0.385px] border-[#000] px-[11.8px]"
+            className="flex h-[24px] w-[80px] items-center justify-center rounded-[100px] border-[0.385px] border-[#000]"
             onClick={() => router.push(`/items/${id}`)}
           >
             <span className="mr-[1.54px] text-[10px] font-[500]">
