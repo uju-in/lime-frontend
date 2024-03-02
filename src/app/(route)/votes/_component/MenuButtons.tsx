@@ -19,7 +19,7 @@ export default function MenuButtons() {
   })
 
   return (
-    <div className="flex justify-between">
+    <div className="mt-[52px] flex justify-between">
       <div>
         <ul className="flex gap-[15px] text-[20px] font-[700]">
           {CategoryOption.map((item) => (
