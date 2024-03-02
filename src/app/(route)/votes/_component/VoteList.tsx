@@ -5,6 +5,7 @@ import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { cn } from '@/app/_utils/twMerge'
 import { SortOption } from '../_constants'
 import SortButtons from './SortButtons'
 
@@ -81,12 +82,21 @@ export default function VoteList() {
                     <div className="flex justify-center">
                       <button
                         type="button"
-                        className="mt-[18px] h-[48px] w-[136ox] rounded-[8px] bg-[#757575] px-[26px] font-[600] text-[#fff]"
+                        className={cn(
+                          'mt-[18px] h-[48px] w-[136ox] rounded-[8px]  px-[26px] font-[600] text-[#fff]',
+
+                          {
+                            'bg-[#757575]': item.voteInfo.isVoting,
+                            'bg-[#CECECE]': !item.voteInfo.isVoting,
+                          },
+                        )}
                         onClick={() =>
                           router.push(`/votes/${item.voteInfo.id}`)
                         }
                       >
-                        투표하러 가기
+                        {item.voteInfo.isVoting
+                          ? '투표하러 가기'
+                          : '마감된 투표'}
                       </button>
                     </div>
                   </div>
