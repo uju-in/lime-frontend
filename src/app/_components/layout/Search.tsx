@@ -32,7 +32,7 @@ export default function Search({
       localStorage.setItem('recentSearch', JSON.stringify([inputKeyword]))
     }
     setIsSearchView(false)
-  }, [inputKeyword, router])
+  }, [inputKeyword, router, setIsSearchView])
 
   return (
     <section>
