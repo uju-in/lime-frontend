@@ -12,8 +12,8 @@ export default function Home() {
       <section className="flex justify-center py-[51px]">
         <div className="flex h-[72px] w-[996px] items-center justify-center gap-[23.1px] rounded-[57.823px] border-2 border-black">
           <Image
-            width={34.694}
-            height={34.694}
+            width={34}
+            height={34}
             src="/image/icon/icon-search.svg"
             alt="search keyword"
           />
