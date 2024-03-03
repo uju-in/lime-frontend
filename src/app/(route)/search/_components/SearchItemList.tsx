@@ -7,8 +7,8 @@ import { ItemType } from '@/app/_types/item.type'
 import useItemListData from '@/app/_hook/api/items/useItemListData'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import { useInView } from 'react-intersection-observer'
-import SortBox from './SortBox'
 import { SortOption } from '../_constants'
+import SortBox from './SortBox'
 
 export function Item({ item }: { item: ItemType }) {
   const { name, price, id, image, createdAt, favoriteCount, reviewCount } =
@@ -60,13 +60,12 @@ export function Item({ item }: { item: ItemType }) {
   )
 }
 
-export default function ItemList() {
+export default function SearchItemList({ keyword }: { keyword: string }) {
   const [sortOption, setSortOption] = useState(SortOption[2])
-  const hobbyName = useGetSearchParam('category') || '농구'
   const { itemList, isLoading, isError, fetchNextPage, isFetchingNextPage } =
     useItemListData({
-      hobbyName,
       sortOption: sortOption.value,
+      keyword,
     })
 
   const { ref, inView } = useInView()

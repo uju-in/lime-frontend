@@ -23,7 +23,7 @@ export function RecentSearchKeyword() {
         <ul className="flex flex-col gap-[12px] pt-[14px] text-[12px] font-medium text-[#535353]">
           {RECENT_KEYWORD.map((keyword) => (
             <li key={keyword} className="flex items-center justify-between">
-              <Link href={`/items?keyword=${keyword}`}>{keyword}</Link>
+              <Link href={`/search?keyword=${keyword}`}>{keyword}</Link>
               <button
                 type="button"
                 onClick={() => handleRemoveKeyword(keyword)}
