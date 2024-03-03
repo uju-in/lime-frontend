@@ -8,7 +8,7 @@ export default function page() {
   return (
     <main className="mx-auto w-[794px]">
       <div className="mt-[52px] flex justify-between">
-        <CategoryPicker type="votes" />
+        <CategoryPicker path="votes" />
         <CreateVoteButton />
       </div>
       <Suspense fallback={<div>Loading. . . </div>}>

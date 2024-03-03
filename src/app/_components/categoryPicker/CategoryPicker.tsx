@@ -6,7 +6,7 @@ import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import { CategoryOption } from '@/app/_constants'
 import { defaultCategory } from '../../_utils/defaultCategory'
 
-export default function CategoryPicker({ type = '/' }: { type?: string }) {
+export default function CategoryPicker({ path = '/' }: { path?: string }) {
   const title = useGetSearchParam('title') || '스포츠'
   const category = useGetSearchParam('category') || '농구'
 
@@ -18,12 +18,12 @@ export default function CategoryPicker({ type = '/' }: { type?: string }) {
     <div>
       <ul
         className={cn('flex gap-[15px] text-[20px] font-[700]', {
-          'justify-center': type === '/',
+          'justify-center': path === '/',
         })}
       >
         {CategoryOption.map((item) => (
           <Link
-            href={`${type}?title=${item.title}&category=${defaultCategory(
+            href={`${path}?title=${item.title}&category=${defaultCategory(
               item.title,
             )}`}
             key={item.title}
@@ -44,13 +44,13 @@ export default function CategoryPicker({ type = '/' }: { type?: string }) {
       </ul>
       <ul
         className={cn('mt-[20px] flex gap-[15px] text-center', {
-          'justify-center': type === '/',
+          'justify-center': path === '/',
         })}
       >
         {categoryList &&
           categoryList.list.map((item) => {
             return (
-              <Link href={`${type}?title=${title}&category=${item}`} key={item}>
+              <Link href={`${path}?title=${title}&category=${item}`} key={item}>
                 <li
                   className={cn(
                     'h-[39px] min-w-[60px] cursor-pointer  border-[3px] font-[600]',
