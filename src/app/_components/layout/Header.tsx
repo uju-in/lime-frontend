@@ -1,7 +1,7 @@
-import { CategoryOption } from '@/app/_constants'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import ItemSection from './ItemSection'
 
 export default function Header() {
   return (
@@ -17,9 +17,9 @@ export default function Header() {
             {/* TODO: href 변경 */}
             <Link href="/">피드</Link>
           </li>
-          <Link href="/votes">
-            <li className="font-bold">투표</li>
-          </Link>
+          <li className="font-bold">
+            <Link href="/votes">투표</Link>
+          </li>
           <li className="group relative flex gap-[8px]">
             <div className="font-bold">아이템</div>
             <Image
@@ -29,31 +29,7 @@ export default function Header() {
               src="/image/icon/icon-arrow_bottom.svg"
               alt="arrow_bottom"
             />
-            <div className="absolute left-0 top-[40px] z-50 flex min-w-[300px] origin-top scale-y-0 transform divide-x rounded-[4px] bg-white py-[18px] text-[15px] text-[#575757] shadow-[0px_0px_7.8px_3px_rgba(0,0,0,0.10)] transition duration-300 ease-in-out group-hover:scale-y-100">
-              {CategoryOption.map((items) => {
-                const { title, list } = items
-                return (
-                  <ul
-                    key={title}
-                    className="flex flex-col gap-[13px] px-[30px]"
-                  >
-                    <li className="font-bold text-black">{title}</li>
-                    {list.map((item) => {
-                      return (
-                        <li key={item}>
-                          <Link
-                            className="hover:text-black"
-                            href={`/items?title=${title}&category=${item}`}
-                          >
-                            {item}
-                          </Link>
-                        </li>
-                      )
-                    })}
-                  </ul>
-                )
-              })}
-            </div>
+            <ItemSection />
           </li>
         </ul>
         {/* TODO: href 변경 */}
