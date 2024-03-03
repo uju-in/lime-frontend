@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { GoogleLoginButton, KakaoLoginButton } from './_components'
 
 export default function page() {
@@ -13,8 +14,8 @@ export default function page() {
       </div>
       {/* 이용 약관 */}
       <div className="text-[10px] text-[#787878] [&>a]:underline">
-        로그인하면 LIME의 <a href="/">개인정보처리방침</a>과{' '}
-        <a href="/">이용 약관</a>에 동의한 것으로 간주합니다.
+        로그인하면 LIME의 <Link href="/">개인정보처리방침</Link>과{' '}
+        <Link href="/">이용 약관</Link>에 동의한 것으로 간주합니다.
       </div>
     </div>
   )

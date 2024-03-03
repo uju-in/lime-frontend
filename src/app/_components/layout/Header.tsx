@@ -9,13 +9,13 @@ export default function Header() {
       <div className="flex items-center gap-[50px]">
         {/* 로고 */}
         <div className="pr-[50px] text-[35px] font-bold">
-          <a href="/">LIME</a>
+          <Link href="/">LIME</Link>
         </div>
         {/* 카테고리 */}
         <ul className="flex gap-[100px] text-[18px]">
           <li className="font-bold">
             {/* TODO: href 변경 */}
-            <a href="/">피드</a>
+            <Link href="/">피드</Link>
           </li>
           <Link href="/votes">
             <li className="font-bold">투표</li>
@@ -41,12 +41,12 @@ export default function Header() {
                     {list.map((item) => {
                       return (
                         <li key={item}>
-                          <a
+                          <Link
                             className="hover:text-black"
                             href={`/items?title=${title}&category=${item}`}
                           >
                             {item}
-                          </a>
+                          </Link>
                         </li>
                       )
                     })}
@@ -57,9 +57,9 @@ export default function Header() {
           </li>
         </ul>
         {/* TODO: href 변경 */}
-        <a href="/" className="border-l px-[50px] font-bold">
+        <Link href="/" className="border-l px-[50px] font-bold">
           MY
-        </a>
+        </Link>
       </div>
       <div className="flex gap-[24px]">
         {/* 검색 */}
