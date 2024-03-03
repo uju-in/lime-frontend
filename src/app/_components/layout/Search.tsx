@@ -1,13 +1,19 @@
 'use client'
 
 import Image from 'next/image'
-import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useCallback, useState } from 'react'
 import RQProvider from '../RQProvider'
 import { RecentSearchKeyword } from './search/RecentSearchKeyword'
 import { SearchItemList } from './search/SearchItemList'
 
 export default function Search() {
   const [inputKeyword, setInputKeyword] = useState('')
+  const router = useRouter()
+
+  const handleSearch = useCallback(() => {
+    router.push(`/search?keyword=${inputKeyword}`)
+  }, [inputKeyword, router])
 
   return (
     <section>
@@ -18,14 +24,23 @@ export default function Search() {
         placeholder="찾고 싶은 아이템을 검색해보세요!"
         value={inputKeyword}
         onChange={(e) => setInputKeyword(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.nativeEvent.isComposing) return
+          if (e.key === 'Enter') handleSearch()
+        }}
       />
-      <Image
+      <button
         className="absolute right-[14px] top-[9px]"
-        src="/image/icon/icon-search.svg"
-        alt="search"
-        width={24}
-        height={24}
-      />
+        type="button"
+        onClick={handleSearch}
+      >
+        <Image
+          src="/image/icon/icon-search.svg"
+          alt="search"
+          width={24}
+          height={24}
+        />
+      </button>
       {inputKeyword.length === 0 ? (
         <RecentSearchKeyword />
       ) : (
