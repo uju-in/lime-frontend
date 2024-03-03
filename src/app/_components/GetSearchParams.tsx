@@ -14,5 +14,5 @@ export function GetSearchParams() {
     }
   }, [token])
 
-  return <div>쿠키 저장 임시 로직</div>
+  return <div />
 }
