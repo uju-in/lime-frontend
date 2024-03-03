@@ -33,7 +33,9 @@ export default function VoteForm() {
 
   const { mutateAsync: addVote } = useAddVote()
 
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ) => {
     const { name, value } = e.target
 
     setVoteInfo((prevState) => ({
@@ -90,6 +92,7 @@ export default function VoteForm() {
         name="maximumParticipants"
         className="mt-[20px] h-[48px] w-full border border-[#BDBDBD] py-[14px] pl-[12px]"
         placeholder="숫자만 입력해 주세요."
+        onChange={handleChange}
       />
       <p className="mt-[8px] text-[14px] font-[400] text-[#A4A4A4]">
         * 투표 인원은 최대 1000명까지 가능합니다.

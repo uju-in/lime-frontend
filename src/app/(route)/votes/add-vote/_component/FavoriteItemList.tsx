@@ -10,6 +10,7 @@ import {
 import { useFavoritesList } from '@/app/_hook/api/votes/useFavoritesList'
 import { cn } from '@/app/_utils/twMerge'
 import { useCallback } from 'react'
+import { truncateString } from '../../_utils/truncateString'
 
 interface PropsType {
   folderId: number | null
@@ -72,7 +73,7 @@ export default function FavoriteList(props: PropsType) {
                 alt="item image"
               />
               <div className="h-[70px] text-[10px] font-[500]">
-                <p>{originalName}</p>
+                <p>{truncateString(originalName, 26)}</p>
                 <strong className="font-[700]">
                   {favoriteItemMetadata.price.toLocaleString()}원
                 </strong>

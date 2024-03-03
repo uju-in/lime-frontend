@@ -5,6 +5,7 @@ import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { cn } from '@/app/_utils/twMerge'
 import { SortOption } from '../_constants'
 import SortButtons from './SortButtons'
 
@@ -20,77 +21,115 @@ export default function VoteList() {
 
   return (
     <section>
-      {/** Sort Buttons */}
-      <div className="mt-[43.14px] flex justify-end">
-        <SortButtons sortOption={sortOption} setSortOption={setSortOption} />
-      </div>
-      {/** Votes */}
-      <article className="mt-[43.5px]">
-        <div className="grid grid-cols-2 gap-[20px]">
-          {voteList?.map((item) => (
-            <div
-              key={item.cursorId}
-              className="h-[408px] w-[387px] rounded-[8px] border border-[#E6E6E6] px-[24px] pt-[24px]"
-            >
-              <div>
-                <div className="flex h-[208px] w-[340px]">
-                  <Image
-                    width={170}
-                    height={104}
-                    src={item.item1Info.image}
-                    alt="vote item1"
-                  />
-                  <Image
-                    width={170}
-                    height={104}
-                    src={item.item2Info.image}
-                    alt="vote item2"
-                  />
+      {voteList.length === 0 ? (
+        <div className="mt-[186px] flex flex-col items-center gap-[29px]">
+          <strong className="text-[20px] font-[500]">
+            등록한 투표가 없어요.
+          </strong>
+          <button
+            type="button"
+            className="flex items-center gap-[6px]"
+            onClick={() => router.push('/votes/add-vote')}
+          >
+            <Image
+              width={15}
+              height={15}
+              src="/image/icon/icon-plus_858585.svg"
+              alt="add vote"
+            />
+            <span className="font-[600] text-[#858585]">
+              투표 생성하러 가기
+            </span>
+          </button>
+        </div>
+      ) : (
+        <>
+          <div className="mt-[43.14px] flex justify-end">
+            <SortButtons
+              sortOption={sortOption}
+              setSortOption={setSortOption}
+            />
+          </div>
+          {/** Votes */}
+          <article className="mt-[43.5px]">
+            <div className="grid grid-cols-2 gap-[20px]">
+              {voteList?.map((item) => (
+                <div
+                  key={item.cursorId}
+                  className="h-[408px] w-[387px] rounded-[8px] border border-[#E6E6E6] px-[24px] pt-[24px]"
+                >
+                  <div>
+                    <div className="flex h-[208px] w-[340px]">
+                      <Image
+                        width={170}
+                        height={104}
+                        src={item.item1Info.image}
+                        alt="vote item1"
+                      />
+                      <Image
+                        width={170}
+                        height={104}
+                        src={item.item2Info.image}
+                        alt="vote item2"
+                      />
+                    </div>
+                    <p className="mt-[18px] h-[45px] text-[14px] font-[500]">
+                      {item.voteInfo.content}
+                    </p>
+                    <p className="mt-[9px] text-[10px] font-[500] text-[#9C9C9C]">
+                      {item.voteInfo.participants}명 참여중
+                    </p>
+                    <div className="flex justify-center">
+                      <button
+                        type="button"
+                        className={cn(
+                          'mt-[18px] h-[48px] w-[136ox] rounded-[8px]  px-[26px] font-[600] text-[#fff]',
+
+                          {
+                            'bg-[#757575]': item.voteInfo.isVoting,
+                            'bg-[#CECECE]': !item.voteInfo.isVoting,
+                          },
+                        )}
+                        onClick={() =>
+                          router.push(`/votes/${item.voteInfo.id}`)
+                        }
+                      >
+                        {item.voteInfo.isVoting
+                          ? '투표하러 가기'
+                          : '마감된 투표'}
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <p className="mt-[18px] h-[45px] text-[14px] font-[500]">
-                  {item.voteInfo.content}
-                </p>
-                <p className="mt-[9px] text-[10px] font-[500] text-[#9C9C9C]">
-                  {item.voteInfo.participants}명 참여중
-                </p>
-                <div className="flex justify-center">
+              ))}
+            </div>
+            {/** More Item Request */}
+            <div className="flex h-[105px] items-start items-center justify-center">
+              {isFetchingNextPage ? (
+                <div>More Loading. . . </div>
+              ) : (
+                hasNextPage && (
                   <button
                     type="button"
-                    className="mt-[18px] h-[48px] w-[136ox] rounded-[8px] bg-[#757575] px-[26px] font-[600] text-[#fff]"
-                    onClick={() => router.push(`/votes/${item.voteInfo.id}`)}
+                    className="flex items-center gap-[8px]"
+                    onClick={() => fetchNextPage()}
                   >
-                    투표하러 가기
+                    <span className="text-[14px] font-[600] text-[#CCC]">
+                      더보기
+                    </span>
+                    <Image
+                      width={8}
+                      height={14}
+                      src="/image/icon/icon-arrow_bottom_BD.svg"
+                      alt="arrow bottom"
+                    />
                   </button>
-                </div>
-              </div>
+                )
+              )}
             </div>
-          ))}
-        </div>
-        {/** More Item Request */}
-        <div className="flex h-[105px] items-start items-center justify-center">
-          {isFetchingNextPage ? (
-            <div>More Loading. . . </div>
-          ) : (
-            hasNextPage && (
-              <button
-                type="button"
-                className="flex items-center gap-[8px]"
-                onClick={() => fetchNextPage()}
-              >
-                <span className="text-[14px] font-[600] text-[#CCC]">
-                  더보기
-                </span>
-                <Image
-                  width={8}
-                  height={14}
-                  src="/image/icon/icon-arrow_bottom_BD.svg"
-                  alt="arrow bottom"
-                />
-              </button>
-            )
-          )}
-        </div>
-      </article>
+          </article>
+        </>
+      )}
     </section>
   )
 }

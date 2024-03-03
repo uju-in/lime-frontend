@@ -1,10 +1,11 @@
 import { VoteDetailType } from '@/app/_types/detailVote.type'
-import { getCookie } from '@/app/_utils/cookie'
-import { voteTags } from '.'
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { voteKeys } from '.'
 
-export async function fetchVoteDetail(voteId: number): Promise<VoteDetailType> {
-  const accessToken = getCookie('accessToken')
-
+async function fetchVoteDetail(
+  voteId: number,
+  accessToken: string,
+): Promise<VoteDetailType> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/votes/${voteId}`,
     {
@@ -13,7 +14,7 @@ export async function fetchVoteDetail(voteId: number): Promise<VoteDetailType> {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`,
       },
-      next: { tags: [voteTags.voteDetail] },
+      cache: 'no-store',
     },
   )
 
@@ -24,4 +25,18 @@ export async function fetchVoteDetail(voteId: number): Promise<VoteDetailType> {
   }
 
   return data
+}
+
+export const useVoteDetail = (voteId: number, accessToken: string) => {
+  const {
+    data: voteData,
+    isError,
+    isSuccess,
+  } = useSuspenseQuery<VoteDetailType, Error, VoteDetailType>({
+    queryKey: voteKeys.detail(voteId).queryKey,
+    queryFn: () => fetchVoteDetail(voteId, accessToken),
+    staleTime: 1000 * 60,
+  })
+
+  return { voteData, isError, isSuccess }
 }

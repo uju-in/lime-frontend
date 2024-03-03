@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useCallback, useState } from 'react'
-import { voteItem } from '@/app/_hook/api/votes/useParticipationVote'
+import { useParticipationVote } from '@/app/_hook/api/votes/useParticipationVote'
 import { ItemInfoType, VoteInfoType } from '@/app/_types/detailVote.type'
-import { reVote } from '@/app/_hook/api/votes/useReParticipation'
+import { useReParticipation } from '@/app/_hook/api/votes/useReParticipation'
 import ProgressBar from './ProgressBar'
 import VoteItem from './VoteItem'
 
@@ -16,9 +16,12 @@ interface PropsType {
 
 export default function VoteInfo(props: PropsType) {
   const { item1Info, item2Info, voteInfo, selectedItemId } = props
-  const { id: voteId, item1Votes, item2Votes } = voteInfo
+  const { id: voteId, item1Votes, item2Votes, isVoting } = voteInfo
 
   const [itemId, setItemId] = useState<number | null>(null)
+
+  const { mutateAsync: voteItem } = useParticipationVote()
+  const { mutateAsync: reVote } = useReParticipation()
 
   const handleSelectItem = useCallback(
     (selectItemId: number) => {
@@ -48,7 +51,7 @@ export default function VoteInfo(props: PropsType) {
 
   /** 재투표(투표 취소) */
   const handleReVote = async () => {
-    await reVote({ voteId })
+    await reVote(voteId)
   }
 
   return (
@@ -70,21 +73,23 @@ export default function VoteInfo(props: PropsType) {
           />
         </div>
         {/** 투표 게이지 */}
-        {selectedItemId && (
+        {(selectedItemId || !isVoting) && (
           <ProgressBar item1Votes={item1Votes} item2Votes={item2Votes} />
         )}
         <div className="mt-[36px] flex justify-center">
-          <button
-            type="button"
-            className={`${
-              itemId ? 'bg-[#000]' : 'bg-[#757575]'
-            } h-[48px] w-[136px] rounded-[100px] ${
-              selectedItemId ? 'px-[22px]' : 'px-[40px]'
-            } font-[600] text-[#fff]`}
-            onClick={selectedItemId ? handleReVote : handleVote}
-          >
-            {selectedItemId ? '다시 투표하기' : '투표하기'}
-          </button>
+          {isVoting && (
+            <button
+              type="button"
+              className={`${
+                itemId ? 'bg-[#000]' : 'bg-[#757575]'
+              } h-[48px] w-[136px] rounded-[100px] ${
+                selectedItemId ? 'px-[22px]' : 'px-[40px]'
+              } font-[600] text-[#fff]`}
+              onClick={selectedItemId ? handleReVote : handleVote}
+            >
+              {selectedItemId ? '투표 취소하기' : '투표하기'}
+            </button>
+          )}
         </div>
       </div>
     </article>
