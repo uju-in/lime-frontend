@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useCallback, useState } from 'react'
+import { LocalStorage } from '@/app/_utils/localStorage'
 import RQProvider from '../RQProvider'
 import { RecentSearchKeyword } from './search/RecentSearchKeyword'
 import { SearchItemList } from './search/SearchItemList'
@@ -20,17 +21,8 @@ export default function Search({
 
     if (inputKeyword.length === 0) return
 
-    const recentSearch = localStorage.getItem('recentSearch')
+    LocalStorage.search().add(inputKeyword)
 
-    if (recentSearch) {
-      const recentSearchList: string[] = JSON.parse(recentSearch)
-      const newList = recentSearchList
-        .filter((item) => item !== inputKeyword)
-        .concat(inputKeyword)
-      localStorage.setItem('recentSearch', JSON.stringify(newList))
-    } else {
-      localStorage.setItem('recentSearch', JSON.stringify([inputKeyword]))
-    }
     setIsSearchView(false)
   }, [inputKeyword, router, setIsSearchView])
 

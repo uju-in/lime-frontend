@@ -1,3 +1,4 @@
+import { LocalStorage } from '@/app/_utils/localStorage'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -7,14 +8,11 @@ export function RecentSearchKeyword({
 }: {
   setIsSearchView: React.Dispatch<React.SetStateAction<boolean>>
 }) {
-  const [resultList, setResultList] = useState([])
+  const [resultList, setResultList] = useState<string[]>([])
   const router = useRouter()
 
   const getList = () => {
-    const recentSearch = localStorage.getItem('recentSearch')
-    if (recentSearch) {
-      setResultList(JSON.parse(recentSearch))
-    }
+    setResultList(LocalStorage.search().getter())
   }
 
   useEffect(() => {
@@ -22,15 +20,8 @@ export function RecentSearchKeyword({
   }, [])
 
   const handleRemoveKeyword = (keyword: string) => {
-    const recentSearch = localStorage.getItem('recentSearch')
-    if (recentSearch) {
-      const newList: string[] = JSON.parse(recentSearch)
-      localStorage.setItem(
-        'recentSearch',
-        JSON.stringify(newList.filter((item) => item !== keyword)),
-      )
-      getList()
-    }
+    LocalStorage.search().removeItem(keyword)
+    getList()
   }
 
   return (
@@ -41,7 +32,7 @@ export function RecentSearchKeyword({
           type="button"
           className="text-[12px] font-medium text-[#a9a9a9]"
           onClick={() => {
-            localStorage.removeItem('recentSearch')
+            LocalStorage.search().removeAll()
             getList()
           }}
         >
