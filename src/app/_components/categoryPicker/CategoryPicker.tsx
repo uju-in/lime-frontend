@@ -1,12 +1,12 @@
 'use client'
 
-import { CategoryOption } from '@/app/_constants'
-import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import { cn } from '@/app/_utils/twMerge'
 import Link from 'next/link'
-import { defaultCategory } from '../_utils/defaultCategory'
+import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
+import { CategoryOption } from '@/app/_constants'
+import { defaultCategory } from '../../_utils/defaultCategory'
 
-export default function MenuButtons() {
+export default function CategoryPicker({ type = '/' }: { type?: string }) {
   const title = useGetSearchParam('title') || '스포츠'
   const category = useGetSearchParam('category') || '농구'
 
@@ -19,7 +19,7 @@ export default function MenuButtons() {
       <ul className="flex gap-[15px] text-[20px] font-[700]">
         {CategoryOption.map((item) => (
           <Link
-            href={`/votes?title=${item.title}&category=${defaultCategory(
+            href={`${type}?title=${item.title}&category=${defaultCategory(
               item.title,
             )}`}
             key={item.title}
@@ -42,7 +42,7 @@ export default function MenuButtons() {
         {categoryList &&
           categoryList.list.map((item) => {
             return (
-              <Link href={`/votes?title=${title}&category=${item}`} key={item}>
+              <Link href={`${type}?title=${title}&category=${item}`} key={item}>
                 <li
                   className={cn(
                     'h-[39px] min-w-[60px] cursor-pointer  border-[3px] font-[600]',
