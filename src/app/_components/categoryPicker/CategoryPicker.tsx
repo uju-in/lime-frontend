@@ -16,7 +16,11 @@ export default function CategoryPicker({ type = '/' }: { type?: string }) {
 
   return (
     <div>
-      <ul className="flex gap-[15px] text-[20px] font-[700]">
+      <ul
+        className={cn('flex gap-[15px] text-[20px] font-[700]', {
+          'justify-center': type === '/',
+        })}
+      >
         {CategoryOption.map((item) => (
           <Link
             href={`${type}?title=${item.title}&category=${defaultCategory(
@@ -38,7 +42,11 @@ export default function CategoryPicker({ type = '/' }: { type?: string }) {
           </Link>
         ))}
       </ul>
-      <ul className="mt-[20px] flex gap-[15px] text-center">
+      <ul
+        className={cn('mt-[20px] flex gap-[15px] text-center', {
+          'justify-center': type === '/',
+        })}
+      >
         {categoryList &&
           categoryList.list.map((item) => {
             return (
