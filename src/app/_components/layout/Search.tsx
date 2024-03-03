@@ -62,7 +62,7 @@ export default function Search() {
   const [inputKeyword, setInputKeyword] = useState('')
 
   return (
-    <div className="relative mx-auto w-fit">
+    <section>
       <input
         className="h-[40px] w-[590px] rounded-b-none rounded-t-[4px] border border-[#bdbdbd] py-[9.5px] pl-[14px] pr-[45px] text-[14px] placeholder:text-[#bdbdbd] focus:outline-none"
         placeholder="찾고 싶은 아이템을 검색해보세요!"
@@ -81,6 +81,6 @@ export default function Search() {
       ) : (
         <SearchItemList inputKeyword={inputKeyword} />
       )}
-    </div>
+    </section>
   )
 }

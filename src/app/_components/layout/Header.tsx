@@ -1,9 +1,31 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import useOutsideClick from '@/app/_hook/common/useOutsideClick'
+import React, { useRef, useState } from 'react'
 import ItemSection from './ItemSection'
+import Search from './Search'
 
 export default function Header() {
+  const searchRef = useRef(null)
+  const [isSearchView, setIsSearchView] = useState(false)
+
+  useOutsideClick(searchRef, () => {
+    if (isSearchView) {
+      setIsSearchView(false)
+    }
+  })
+
+  if (isSearchView)
+    return (
+      <div className="flex w-full items-center justify-between px-[150px] py-[23px]">
+        <div className="relative mx-auto h-[52.5px] w-fit" ref={searchRef}>
+          <Search />
+        </div>
+      </div>
+    )
+
   return (
     <div className="flex w-full items-center justify-between px-[150px] py-[23px]">
       <div className="flex items-center gap-[50px]">
@@ -39,13 +61,15 @@ export default function Header() {
       </div>
       <div className="flex gap-[24px]">
         {/* 검색 */}
-        <Image
-          className="cursor-pointer"
-          width={22}
-          height={22}
-          src="/image/icon/icon-search.svg"
-          alt="search"
-        />
+        <button type="button" onClick={() => setIsSearchView(true)}>
+          <Image
+            className="cursor-pointer"
+            width={22}
+            height={22}
+            src="/image/icon/icon-search.svg"
+            alt="search"
+          />
+        </button>
         {/* 프로필 */}
         <div className="h-[33px] w-[33px] rounded-full bg-[#777]" />
       </div>
