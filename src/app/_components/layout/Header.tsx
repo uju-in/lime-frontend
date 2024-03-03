@@ -21,7 +21,7 @@ export default function Header() {
     return (
       <div className="flex w-full items-center justify-between px-[150px] py-[23px]">
         <div className="relative mx-auto h-[52.5px] w-fit" ref={searchRef}>
-          <Search />
+          <Search setIsSearchView={setIsSearchView} />
         </div>
       </div>
     )

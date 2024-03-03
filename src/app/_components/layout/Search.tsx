@@ -7,12 +7,31 @@ import RQProvider from '../RQProvider'
 import { RecentSearchKeyword } from './search/RecentSearchKeyword'
 import { SearchItemList } from './search/SearchItemList'
 
-export default function Search() {
+export default function Search({
+  setIsSearchView,
+}: {
+  setIsSearchView: React.Dispatch<React.SetStateAction<boolean>>
+}) {
   const [inputKeyword, setInputKeyword] = useState('')
   const router = useRouter()
 
   const handleSearch = useCallback(() => {
     router.push(`/search?keyword=${inputKeyword}`)
+
+    if (inputKeyword.length === 0) return
+
+    const recentSearch = localStorage.getItem('recentSearch')
+
+    if (recentSearch) {
+      const recentSearchList: string[] = JSON.parse(recentSearch)
+      const newList = recentSearchList
+        .filter((item) => item !== inputKeyword)
+        .concat(inputKeyword)
+      localStorage.setItem('recentSearch', JSON.stringify(newList))
+    } else {
+      localStorage.setItem('recentSearch', JSON.stringify([inputKeyword]))
+    }
+    setIsSearchView(false)
   }, [inputKeyword, router])
 
   return (
@@ -42,7 +61,7 @@ export default function Search() {
         />
       </button>
       {inputKeyword.length === 0 ? (
-        <RecentSearchKeyword />
+        <RecentSearchKeyword setIsSearchView={setIsSearchView} />
       ) : (
         <RQProvider>
           <SearchItemList inputKeyword={inputKeyword} />

@@ -1,11 +1,36 @@
 import Image from 'next/image'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
-const RECENT_KEYWORD = ['농구공', '나이키', '드로잉북']
+export function RecentSearchKeyword({
+  setIsSearchView,
+}: {
+  setIsSearchView: React.Dispatch<React.SetStateAction<boolean>>
+}) {
+  const [resultList, setResultList] = useState([])
+  const router = useRouter()
 
-export function RecentSearchKeyword() {
+  const getList = () => {
+    const recentSearch = localStorage.getItem('recentSearch')
+    if (recentSearch) {
+      setResultList(JSON.parse(recentSearch))
+    }
+  }
+
+  useEffect(() => {
+    getList()
+  }, [])
+
   const handleRemoveKeyword = (keyword: string) => {
-    console.log(keyword)
+    const recentSearch = localStorage.getItem('recentSearch')
+    if (recentSearch) {
+      const newList: string[] = JSON.parse(recentSearch)
+      localStorage.setItem(
+        'recentSearch',
+        JSON.stringify(newList.filter((item) => item !== keyword)),
+      )
+      getList()
+    }
   }
 
   return (
@@ -15,15 +40,27 @@ export function RecentSearchKeyword() {
         <button
           type="button"
           className="text-[12px] font-medium text-[#a9a9a9]"
+          onClick={() => {
+            localStorage.removeItem('recentSearch')
+            getList()
+          }}
         >
           모두 지우기
         </button>
       </div>
       <div>
         <ul className="flex flex-col gap-[12px] pt-[14px] text-[12px] font-medium text-[#535353]">
-          {RECENT_KEYWORD.map((keyword) => (
+          {resultList.map((keyword) => (
             <li key={keyword} className="flex items-center justify-between">
-              <Link href={`/search?keyword=${keyword}`}>{keyword}</Link>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsSearchView(false)
+                  router.push(`/search?keyword=${keyword}`)
+                }}
+              >
+                {keyword}
+              </button>
               <button
                 type="button"
                 onClick={() => handleRemoveKeyword(keyword)}
