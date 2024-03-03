@@ -3,7 +3,7 @@ import { itemKeys } from '.'
 
 async function getSearchItemList(keyword: string) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/item-names/${keyword}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/item-names?keyword=${keyword}`,
     {
       method: 'GET',
       headers: {
@@ -20,6 +20,7 @@ export default function useSearchItem(keyword: string) {
   const { data, isLoading, isError } = useQuery({
     queryKey: itemKeys.searchList(keyword).queryKey,
     queryFn: () => getSearchItemList(keyword),
+    staleTime: 1000 * 60,
   })
 
   return {
