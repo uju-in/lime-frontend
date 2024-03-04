@@ -2,14 +2,16 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRecoilState } from 'recoil'
+import { searchViewState } from '@/app/_atoms/searchViewState'
 import useOutsideClick from '@/app/_hook/common/useOutsideClick'
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import ItemSection from './ItemSection'
 import Search from './Search'
 
 export default function Header() {
   const searchRef = useRef(null)
-  const [isSearchView, setIsSearchView] = useState(false)
+  const [isSearchView, setIsSearchView] = useRecoilState(searchViewState)
 
   useOutsideClick(searchRef, () => {
     if (isSearchView) {
@@ -21,7 +23,7 @@ export default function Header() {
     return (
       <div className="flex w-full items-center justify-between px-[150px] py-[23px]">
         <div className="relative mx-auto h-[52.5px] w-fit" ref={searchRef}>
-          <Search setIsSearchView={setIsSearchView} />
+          <Search />
         </div>
       </div>
     )

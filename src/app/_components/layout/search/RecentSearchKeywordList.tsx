@@ -1,15 +1,9 @@
 import { LocalStorage } from '@/app/_utils/localStorage'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import RecentSearchKeywordItem from './RecentSearchKeywordItem'
 
-export function RecentSearchKeyword({
-  setIsSearchView,
-}: {
-  setIsSearchView: React.Dispatch<React.SetStateAction<boolean>>
-}) {
+export function RecentSearchKeyword() {
   const [resultList, setResultList] = useState<string[]>([])
-  const router = useRouter()
 
   const getList = () => {
     setResultList(LocalStorage.search().getter())
@@ -18,11 +12,6 @@ export function RecentSearchKeyword({
   useEffect(() => {
     getList()
   }, [])
-
-  const handleRemoveKeyword = (keyword: string) => {
-    LocalStorage.search().removeItem(keyword)
-    getList()
-  }
 
   return (
     <section className="absolute top-[40px] z-50 w-[590px] rounded-b-[4px] border border-t-0 border-[#bdbdbd] bg-white p-[22px_17px]">
@@ -42,28 +31,11 @@ export function RecentSearchKeyword({
       <div>
         <ul className="flex flex-col gap-[12px] pt-[14px] text-[12px] font-medium text-[#535353]">
           {resultList.map((keyword) => (
-            <li key={keyword} className="flex items-center justify-between">
-              <button
-                type="button"
-                onClick={() => {
-                  setIsSearchView(false)
-                  router.push(`/search?keyword=${keyword}`)
-                }}
-              >
-                {keyword}
-              </button>
-              <button
-                type="button"
-                onClick={() => handleRemoveKeyword(keyword)}
-              >
-                <Image
-                  src="/image/icon/icon-close.svg"
-                  width={12}
-                  height={12}
-                  alt="close-button"
-                />
-              </button>
-            </li>
+            <RecentSearchKeywordItem
+              key={keyword}
+              keyword={keyword}
+              getList={getList}
+            />
           ))}
         </ul>
       </div>

@@ -3,17 +3,16 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useCallback, useState } from 'react'
+import { useSetRecoilState } from 'recoil'
+import { searchViewState } from '@/app/_atoms/searchViewState'
 import { LocalStorage } from '@/app/_utils/localStorage'
 import RQProvider from '../RQProvider'
-import { RecentSearchKeyword } from './search/RecentSearchKeyword'
+import { RecentSearchKeyword } from './search/RecentSearchKeywordList'
 import { SearchItemList } from './search/SearchItemList'
 
-export default function Search({
-  setIsSearchView,
-}: {
-  setIsSearchView: React.Dispatch<React.SetStateAction<boolean>>
-}) {
+export default function Search() {
   const [inputKeyword, setInputKeyword] = useState('')
+  const setIsSearchView = useSetRecoilState(searchViewState)
   const router = useRouter()
 
   const handleSearch = useCallback(() => {
@@ -53,7 +52,7 @@ export default function Search({
         />
       </button>
       {inputKeyword.length === 0 ? (
-        <RecentSearchKeyword setIsSearchView={setIsSearchView} />
+        <RecentSearchKeyword />
       ) : (
         <RQProvider>
           <SearchItemList inputKeyword={inputKeyword} />
