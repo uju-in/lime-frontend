@@ -88,7 +88,7 @@ export default function ReviewModal(props: PropsType) {
 
     if (
       action === 'create' &&
-      !validateForm({ multipartReviewImages, rating })
+      !validateForm({ multipartReviewImages, rating, content })
     ) {
       return
     }
@@ -183,6 +183,7 @@ export default function ReviewModal(props: PropsType) {
               className="h-[152px] w-[508px] max-w-full resize-none border border-[#DADADA] bg-[#F4F4F4] p-[14px_12px] text-[14px] outline-none"
               onChange={(e) => setContent(e.target.value)}
               minLength={10}
+              maxLength={1000}
               value={content}
               required
             />
