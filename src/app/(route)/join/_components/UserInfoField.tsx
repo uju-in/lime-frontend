@@ -14,6 +14,7 @@ import useSignUp from '@/app/_hook/api/auth/useSignUp'
 import { setCookie } from '@/app/_utils/cookie'
 import { cn } from '@/app/_utils/twMerge'
 import CareerSelector from './CareerSelector'
+import MBTISelector from './MbtiSelector'
 
 export default function UserInfoField() {
   const router = useRouter()
@@ -83,6 +84,8 @@ export default function UserInfoField() {
     }
   }
 
+  console.log(profile)
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="w-[436px]">
@@ -137,16 +140,7 @@ export default function UserInfoField() {
         <label htmlFor="mbti" className="font-[600]">
           MBTI
         </label>
-        <input
-          id="mbti"
-          name="mbti"
-          onChange={handleChange}
-          placeholder="MBTI를 입력해 주세요."
-          className="mt-[16px] h-[48px] w-[436px] rounded-[4px] border border-[#BDBDBD] px-[12px] outline-0"
-          maxLength={4}
-          minLength={4}
-          required
-        />
+        <MBTISelector setMbti={(mbti) => setProfile({ ...profile, mbti })} />
       </div>
       <p className="mt-[36px] font-[600]">대표 취미</p>
       <CategorySelector
