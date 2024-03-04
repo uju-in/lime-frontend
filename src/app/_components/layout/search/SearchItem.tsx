@@ -1,4 +1,6 @@
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useSetRecoilState } from 'recoil'
+import { searchViewState } from '@/app/_atoms/searchViewState'
 
 interface Props {
   itemId: number
@@ -7,6 +9,9 @@ interface Props {
 }
 
 export function SearchItem({ itemId, itemName, inputKeyword }: Props) {
+  const router = useRouter()
+  const setIsSearchView = useSetRecoilState(searchViewState)
+
   const startAt = itemName.indexOf(inputKeyword)
   const endAt = startAt + inputKeyword.length
 
@@ -18,11 +23,17 @@ export function SearchItem({ itemId, itemName, inputKeyword }: Props) {
 
   return (
     <li className="text-[#535353]">
-      <Link href={`/items/${itemId}`}>
+      <button
+        type="button"
+        onClick={() => {
+          router.push(`/items/${itemId}`)
+          setIsSearchView(false)
+        }}
+      >
         <span>{first}</span>
         <strong className="font-semibold text-black">{second}</strong>
         <span>{third}</span>
-      </Link>
+      </button>
     </li>
   )
 }
