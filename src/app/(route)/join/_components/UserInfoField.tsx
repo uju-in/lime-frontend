@@ -84,8 +84,6 @@ export default function UserInfoField() {
     }
   }
 
-  console.log(profile)
-
   return (
     <form onSubmit={handleSubmit}>
       <div className="w-[436px]">
