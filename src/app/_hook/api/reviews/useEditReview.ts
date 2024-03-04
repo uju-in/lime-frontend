@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getCookie } from '@/app/_utils/cookie'
+import renderToast from '@/app/_utils/toast'
 import { reviewKeys } from '.'
 
 interface EditReviewRequest {
@@ -37,12 +38,18 @@ export default function useEditReview() {
     mutationFn: ({ reviewId, formData }) =>
       postReviewData({ reviewId, formData }),
     onSuccess: () => {
-      alert('리뷰 수정 성공!')
+      renderToast({
+        type: 'success',
+        message: '리뷰를 수정했습니다.',
+      })
 
       queryClient.invalidateQueries({ queryKey: reviewKeys.reviewList._def })
     },
     onError: (error) => {
-      alert(error)
+      renderToast({
+        type: 'error',
+        message: String(error),
+      })
     },
   })
 }

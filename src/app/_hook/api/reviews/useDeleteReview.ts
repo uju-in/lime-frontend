@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getCookie } from '@/app/_utils/cookie'
+import renderToast from '@/app/_utils/toast'
 import { reviewKeys } from '.'
 
 async function deleteReview(reviewId: number) {
@@ -28,14 +29,20 @@ export default function useDeleteReview() {
   return useMutation<void, Error, number>({
     mutationFn: (reviewId) => deleteReview(reviewId),
     onSuccess: () => {
-      alert('리뷰 삭제 성공!')
+      renderToast({
+        type: 'success',
+        message: '리뷰를 삭제했습니다.',
+      })
 
       queryClient.invalidateQueries({
         queryKey: reviewKeys.reviewList._def,
       })
     },
     onError: (error) => {
-      alert(error)
+      renderToast({
+        type: 'error',
+        message: String(error),
+      })
     },
   })
 }

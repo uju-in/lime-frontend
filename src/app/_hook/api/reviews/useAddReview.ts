@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getCookie } from '@/app/_utils/cookie'
+import renderToast from '@/app/_utils/toast'
 import { reviewKeys } from '.'
 
 interface AddReviewRequest {
@@ -33,14 +34,20 @@ export default function useAddReview() {
   return useMutation<number, Error, AddReviewRequest>({
     mutationFn: ({ itemId, formData }) => postAddReview({ itemId, formData }),
     onSuccess: () => {
-      alert('리뷰 등록 성공!')
+      renderToast({
+        type: 'success',
+        message: '리뷰를 등록했습니다.',
+      })
 
       queryClient.invalidateQueries({
         queryKey: reviewKeys.reviewList._def,
       })
     },
     onError: (error) => {
-      alert(error)
+      renderToast({
+        type: 'error',
+        message: String(error),
+      })
     },
   })
 }
