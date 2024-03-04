@@ -69,7 +69,7 @@ export default function ReviewSection(props: PropsType) {
                   type="button"
                   className={cn({
                     'text-[#000]': sortOption === option.value,
-                    'text-[#100d0d]': sortOption !== option.value,
+                    'text-[#BCBCBC]': sortOption !== option.value,
                   })}
                   onClick={() => setSortOption(option.value)}
                 >
