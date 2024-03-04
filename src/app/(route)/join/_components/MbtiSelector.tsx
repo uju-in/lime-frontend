@@ -4,25 +4,7 @@ import { useRef, useState } from 'react'
 import Image from 'next/image'
 import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 import { cn } from '@/app/_utils/twMerge'
-
-const MBTIOptions = [
-  'ISTJ',
-  'ISFJ',
-  'INFJ',
-  'INTJ',
-  'ISTP',
-  'ISFP',
-  'INFP',
-  'INTP',
-  'ESTP',
-  'ESFP',
-  'ENFP',
-  'ENTP',
-  'ESTJ',
-  'ESFJ',
-  'ENFJ',
-  'ENTJ',
-]
+import { MBTIOptions } from '../_constants'
 
 interface Props {
   setMbti: (mbti: string) => void

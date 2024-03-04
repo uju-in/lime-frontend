@@ -23,3 +23,22 @@ export const careerOptions: CareerOption[] = [
   { label: '19년차', value: 19 },
   { label: '20년차 이상', value: 21 },
 ]
+
+export const MBTIOptions: string[] = [
+  'ISTJ',
+  'ISFJ',
+  'INFJ',
+  'INTJ',
+  'ISTP',
+  'ISFP',
+  'INFP',
+  'INTP',
+  'ESTP',
+  'ESFP',
+  'ENFP',
+  'ENTP',
+  'ESTJ',
+  'ESFJ',
+  'ENFJ',
+  'ENTJ',
+]
