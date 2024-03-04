@@ -46,10 +46,21 @@ export const validateForm = ({
 export const validateImage = ({
   existingImages,
   multipartReviewImages,
+  content,
 }: {
   existingImages: string[]
   multipartReviewImages: File[]
+  content: string
 }) => {
+  if (content.trim().length < MAX_CONTENT_LENGTH) {
+    renderToast({
+      type: 'error',
+      message: '리뷰 내용을 최소 10자 이상 작성해 주세요..',
+    })
+
+    return false
+  }
+
   if (existingImages.length + multipartReviewImages.length === 0) {
     renderToast({
       type: 'error',

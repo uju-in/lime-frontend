@@ -95,7 +95,7 @@ export default function ReviewModal(props: PropsType) {
 
     if (
       action === 'edit' &&
-      !validateImage({ multipartReviewImages, existingImages })
+      !validateImage({ multipartReviewImages, existingImages, content })
     ) {
       return
     }
@@ -198,14 +198,12 @@ export default function ReviewModal(props: PropsType) {
             >
               사진 첨부하기
             </button>
-            {/** 이미지 목록 */}
-            {action === 'edit' && (
-              <ReviewImagesDisplay
-                existingImages={existingImages}
-                newImages={multipartReviewImages}
-                onImageDelete={handleImageDelete}
-              />
-            )}
+            {/** Review Image List */}
+            <ReviewImagesDisplay
+              existingImages={existingImages}
+              newImages={multipartReviewImages}
+              onImageDelete={handleImageDelete}
+            />
             <input
               name="multipartReviewImages"
               type="file"
