@@ -27,6 +27,11 @@ const nextConfig = {
         hostname: '*.ncloudstorage.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: '*.naver.com',
+        port: '',
+      },
     ],
   },
   reactStrictMode: false,
