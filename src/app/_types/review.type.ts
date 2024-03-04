@@ -5,6 +5,14 @@ export interface ItemInfo {
   image: string
 }
 
+export interface ItemDetailType {
+  itemInfo: ItemInfo
+  hobbyName: string
+  itemAvgRate: number
+  itemUrl: string
+  favoriteCount: number
+}
+
 export interface MemberInfo {
   level: number
   memberId: number
