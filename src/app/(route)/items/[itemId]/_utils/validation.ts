@@ -13,19 +13,28 @@ export const validateForm = ({
   content: string
 }) => {
   if (content.trim().length < MAX_CONTENT_LENGTH) {
-    alert('리뷰 내용을 최소 10자 입력해 주세요!')
+    renderToast({
+      type: 'error',
+      message: '리뷰 내용을 최소 10자 입력해 주세요!',
+    })
 
     return false
   }
 
   if (rating === 0) {
-    alert('별점을 선택해 주세요!')
+    renderToast({
+      type: 'error',
+      message: '별점을 선택해 주세요!',
+    })
 
     return false
   }
 
   if (multipartReviewImages.length === 0) {
-    alert('리뷰 사진을 첨부해 주세요.')
+    renderToast({
+      type: 'error',
+      message: '리뷰 사진을 첨부해 주세요.',
+    })
 
     return false
   }
@@ -42,7 +51,10 @@ export const validateImage = ({
   multipartReviewImages: File[]
 }) => {
   if (existingImages.length + multipartReviewImages.length === 0) {
-    alert('이미지를 등록해 주세요.')
+    renderToast({
+      type: 'error',
+      message: '이미지를 등록해 주세요.',
+    })
 
     return false
   }
