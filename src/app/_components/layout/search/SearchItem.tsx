@@ -12,11 +12,11 @@ export function SearchItem({ itemId, itemName, inputKeyword }: Props) {
   const router = useRouter()
   const setIsSearchView = useSetRecoilState(searchViewState)
 
-  const startAt = itemName.indexOf(inputKeyword)
-  const endAt = startAt + inputKeyword.length
+  const startAt = itemName.indexOf(inputKeyword) // strong text startAt
+  const endAt = startAt + inputKeyword.length // strong text endAt
 
   const first = itemName.substring(0, startAt)
-  const second = itemName.substring(startAt, endAt)
+  const second = itemName.substring(startAt, endAt) // strong text
   const third = itemName.substring(endAt)
 
   if (startAt < 0) return <div className="text-[#535353]">{itemName}</div>
