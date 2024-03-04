@@ -8,7 +8,7 @@ import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 import { cn } from '@/app/_utils/twMerge'
 import { CareerOption } from '@/app/_types/signUp.types'
 
-import { careerOptions } from '../_constants/careerOptions'
+import { careerOptions } from '../_constants'
 
 interface CareerSelectorProps {
   setCareer: (value: number) => void
