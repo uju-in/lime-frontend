@@ -25,9 +25,10 @@ export namespace LocalStorage {
       add: (value: string): void => {
         const originList = LocalStorage.search().getter()
         if (originList) {
-          const newList = originList
-            .filter((item) => item !== value)
+          let newList = originList
+            .filter((item) => item !== value) // 중복 제거
             .concat(value)
+          if (newList.length > 10) newList = newList.splice(1, 10) // 10개까지만 저장
           LocalStorage.search().setter(newList)
         } else {
           LocalStorage.search().setter([value])
