@@ -1,32 +1,27 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import Image from 'next/image'
-
 import useOutsideClick from '@/app/_hook/common/useOutsideClick'
-
 import { cn } from '@/app/_utils/twMerge'
-import { CareerOption } from '@/app/_types/signUp.types'
+import { MBTIOptions } from '../_constants'
 
-import { careerOptions } from '../_constants'
-
-interface CareerSelectorProps {
-  setCareer: (value: number) => void
+interface Props {
+  setMbti: (mbti: string) => void
 }
 
-export default function CareerSelector({ setCareer }: CareerSelectorProps) {
+export default function MBTISelector({ setMbti }: Props) {
   const dropdownRef = useRef(null)
 
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
-  const [careerLabel, setCareerLabel] = useState<string>('경력 기간 선택')
+  const [selectedMBTI, setSelectedMBTI] = useState<string>('MBTI 유형 선택')
 
-  const handleCareerChange = ({ label, value }: CareerOption) => {
-    setCareer(value)
+  const handleSelectMBTI = (mbti: string) => {
+    setSelectedMBTI(mbti)
+    setMbti(mbti)
     setIsDropdownOpen(false)
-    setCareerLabel(label)
   }
 
-  /** 외부 클릭 시 dropdown 닫기 */
   useOutsideClick(dropdownRef, () => {
     if (isDropdownOpen) {
       setIsDropdownOpen(false)
@@ -40,14 +35,14 @@ export default function CareerSelector({ setCareer }: CareerSelectorProps) {
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         className="flex h-[48px] w-[436px] items-center justify-between rounded-[4px] border border-[#BDBDBD] px-4"
       >
-        <p
+        <span
           className={cn('text-[14px] font-[500]', {
-            'text-[#BDBDBD]': careerLabel === '경력 기간 선택',
-            'text-[#000]': careerLabel !== '경력 기간 선택',
+            'text-[#BDBDBD]': selectedMBTI === 'MBTI 유형 선택',
+            'text-[#000]': selectedMBTI !== 'MBTI 유형 선택',
           })}
         >
-          {careerLabel}
-        </p>
+          {selectedMBTI}
+        </span>
         <Image
           className="cursor-pointer"
           width={14}
@@ -65,13 +60,13 @@ export default function CareerSelector({ setCareer }: CareerSelectorProps) {
           ref={dropdownRef}
           className="absolute z-10 mt-3 h-[288px] w-[436px] overflow-y-scroll rounded-[4px] bg-white shadow-[0px_0px_7.8px_3px_rgba(0,0,0,0.10)]"
         >
-          {careerOptions.map((item) => (
+          {MBTIOptions.map((option) => (
             <li
-              key={item.label}
+              key={option}
               className="flex h-[48px] cursor-pointer items-center pl-3 hover:bg-[#F2F2F2]"
-              onClick={() => handleCareerChange(item)}
+              onClick={() => handleSelectMBTI(option)}
             >
-              {item.label}
+              {option}
             </li>
           ))}
         </ul>
