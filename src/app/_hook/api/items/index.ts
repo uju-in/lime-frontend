@@ -8,7 +8,3 @@ export const itemKeys = createQueryKeys('items', {
   ],
   itemDetail: (itemId: number) => [itemId],
 })
-
-export const itemTags = {
-  itemDetail: 'itemDetail' as const,
-}
