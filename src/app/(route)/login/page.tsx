@@ -10,7 +10,7 @@ export default function page() {
       {/* 소셜 로그인 버튼 */}
       <div className="my-[62px] flex flex-col gap-[11px]">
         <KakaoLoginButton />
-        <GoogleLoginButton />
+        {/* <GoogleLoginButton /> */}
       </div>
       {/* 이용 약관 */}
       <div className="text-[10px] text-[#787878] [&>a]:underline">
