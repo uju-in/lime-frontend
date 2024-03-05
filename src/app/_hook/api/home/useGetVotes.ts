@@ -11,6 +11,7 @@ export async function fetchVotes(hobby: string): Promise<PagesResponse> {
       headers: {
         'Content-Type': 'application/json',
       },
+      cache: 'no-cache',
     },
   )
 
