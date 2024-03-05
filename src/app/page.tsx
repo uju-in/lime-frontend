@@ -34,7 +34,7 @@ export default function Home({ searchParams }: Props) {
           />
         </div>
       </section> */}
-        <section className="pt-[51px]">
+        <section className="bg-white pt-[51px]">
           <CategoryPicker />
         </section>
         {/** Feed */}
