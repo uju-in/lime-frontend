@@ -1,10 +1,10 @@
-import { getCookie } from '@/app/_utils/cookie'
 import renderToast from '@/app/_utils/toast'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { getCookie } from 'cookies-next'
 import { voteKeys } from '.'
 
 async function reVote(voteId: number): Promise<void> {
-  const accessToken = await getCookie('accessToken')
+  const accessToken = getCookie('accessToken')
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/votes/${voteId}/cancel

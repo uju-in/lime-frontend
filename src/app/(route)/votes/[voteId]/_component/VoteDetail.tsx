@@ -9,13 +9,12 @@ import ManagementButton from './ManagementButton'
 
 interface Props {
   voteId: number
-  accessToken: string
 }
 
 export default function VoteDetail(props: Props) {
-  const { voteId, accessToken } = props
+  const { voteId } = props
 
-  const { voteData, isError, isSuccess } = useVoteDetail(voteId, accessToken)
+  const { voteData, isError, isSuccess } = useVoteDetail(voteId)
 
   const { item1Info, item2Info, voteInfo, selectedItemId, isOwner } =
     voteData as VoteDetailType

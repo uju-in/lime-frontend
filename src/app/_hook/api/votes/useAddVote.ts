@@ -1,13 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-
-import { getCookie } from '@/app/_utils/cookie'
-
 import { VoteInfoType } from '@/app/_types/addVote.type'
 import renderToast from '@/app/_utils/toast'
+import { getCookie } from 'cookies-next'
 import { voteKeys } from '.'
 
 async function postAddItem(params: VoteInfoType) {
-  const accessToken = await getCookie('accessToken')
+  const accessToken = getCookie('accessToken')
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/votes`, {
     method: 'POST',
