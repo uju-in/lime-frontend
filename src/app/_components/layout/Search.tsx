@@ -54,9 +54,11 @@ export default function Search() {
       {inputKeyword.length === 0 ? (
         <RecentSearchKeyword />
       ) : (
-        <RQProvider>
-          <SearchItemList inputKeyword={inputKeyword} />
-        </RQProvider>
+        <section className="absolute top-[40px] z-50 w-[590px] rounded-b-[4px] border border-t-0 border-[#bdbdbd] bg-white p-[22px_17px]">
+          <RQProvider>
+            <SearchItemList inputKeyword={inputKeyword} />
+          </RQProvider>
+        </section>
       )}
     </section>
   )
