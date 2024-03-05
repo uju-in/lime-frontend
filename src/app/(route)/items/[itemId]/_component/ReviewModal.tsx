@@ -88,14 +88,14 @@ export default function ReviewModal(props: PropsType) {
 
     if (
       action === 'create' &&
-      !validateForm({ multipartReviewImages, rating })
+      !validateForm({ multipartReviewImages, rating, content })
     ) {
       return
     }
 
     if (
       action === 'edit' &&
-      !validateImage({ multipartReviewImages, existingImages })
+      !validateImage({ multipartReviewImages, existingImages, content })
     ) {
       return
     }
@@ -183,6 +183,7 @@ export default function ReviewModal(props: PropsType) {
               className="h-[152px] w-[508px] max-w-full resize-none border border-[#DADADA] bg-[#F4F4F4] p-[14px_12px] text-[14px] outline-none"
               onChange={(e) => setContent(e.target.value)}
               minLength={10}
+              maxLength={1000}
               value={content}
               required
             />
@@ -197,14 +198,12 @@ export default function ReviewModal(props: PropsType) {
             >
               사진 첨부하기
             </button>
-            {/** 이미지 목록 */}
-            {action === 'edit' && (
-              <ReviewImagesDisplay
-                existingImages={existingImages}
-                newImages={multipartReviewImages}
-                onImageDelete={handleImageDelete}
-              />
-            )}
+            {/** Review Image List */}
+            <ReviewImagesDisplay
+              existingImages={existingImages}
+              newImages={multipartReviewImages}
+              onImageDelete={handleImageDelete}
+            />
             <input
               name="multipartReviewImages"
               type="file"

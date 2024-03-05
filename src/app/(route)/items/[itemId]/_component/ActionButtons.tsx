@@ -1,8 +1,6 @@
 'use client'
 
-import React from 'react'
-
-import { postSaveToWishlist } from '@/app/_hook/api/items/useSaveToWishlist'
+import useAddFavorites from '@/app/_hook/api/items/useSaveToWishlist'
 
 interface PropsType {
   itemUrl: string
@@ -12,9 +10,11 @@ interface PropsType {
 export default function ActionButtons(props: PropsType) {
   const { itemUrl, itemId } = props
 
+  const { mutateAsync: saveToWishlist } = useAddFavorites()
+
   /** 아이템 등록 */
-  const handleSaveItem = async () => {
-    await postSaveToWishlist([itemId])
+  const handleSaveItem = () => {
+    saveToWishlist([itemId])
   }
 
   /** 구매하러 가기 */

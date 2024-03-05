@@ -1,9 +1,10 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory'
 
 export const itemKeys = createQueryKeys('items', {
-  itemList: (keyword: string, sortOption: string) => [keyword, sortOption],
+  itemList: (hobbyName: string, keyword: string, sortOption: string) => [
+    hobbyName,
+    keyword,
+    sortOption,
+  ],
+  itemDetail: (itemId: number) => [itemId],
 })
-
-export const itemTags = {
-  itemDetail: 'itemDetail' as const,
-}

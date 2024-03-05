@@ -17,27 +17,24 @@ const nextConfig = {
         hostname: '*.danawa.com',
         port: '',
       },
+      {
+        protocol: 'http',
+        hostname: '*.kakaocdn.net',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.ncloudstorage.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.naver.com',
+        port: '',
+      },
     ],
   },
   reactStrictMode: false,
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**.com',
-      },
-      {
-        protocol: 'http',
-        hostname: '**',
-        pathname: '/dn/**'
-      },
-      {
-        protocol: 'https',
-        hostname: '**',
-        pathname: '/**'
-      },
-    ],
-  }
 }
 
 module.exports = nextConfig

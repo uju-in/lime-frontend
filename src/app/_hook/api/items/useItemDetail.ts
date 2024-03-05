@@ -1,6 +1,8 @@
-import { itemTags } from '.'
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { ItemDetailType } from '@/app/_types/review.type'
+import { itemKeys } from '.'
 
-export async function fetchItemDetail(itemId: number) {
+async function fetchItemDetail(itemId: number) {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/items/${itemId}`,
     {
@@ -8,7 +10,6 @@ export async function fetchItemDetail(itemId: number) {
       headers: {
         'Content-Type': 'application/json',
       },
-      next: { tags: [itemTags.itemDetail] },
     },
   )
 
@@ -19,4 +20,19 @@ export async function fetchItemDetail(itemId: number) {
   }
 
   return data
+}
+
+export const useItemDetail = (itemId: number) => {
+  const {
+    data: itemData,
+    isError,
+    isLoading,
+    isSuccess,
+  } = useSuspenseQuery<ItemDetailType, Error, ItemDetailType>({
+    queryKey: itemKeys.itemDetail(itemId).queryKey,
+    queryFn: () => fetchItemDetail(itemId),
+    staleTime: 1000 * 60,
+  })
+
+  return { itemData, isError, isSuccess, isLoading }
 }
