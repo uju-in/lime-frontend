@@ -2,30 +2,26 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
-
 import { ItemInfo, ReviewResponse, SortOption } from '@/app/_types/review.type'
-
 import { useSearchItemQuery } from '@/app/_hook/api/reviews/useReviewListData'
 import { cn } from '@/app/_utils/twMerge'
-
 import Review from './Review'
 import ReviewModal from './ReviewModal'
 import { ReviewItemSkeleton } from './ReviewSkeletonUI'
-
 import { sortOptions } from '../_constants'
 
 interface PropsType {
-  accessToken: string
   itemInfo: ItemInfo
 }
 
 export default function ReviewSection(props: PropsType) {
-  const { accessToken, itemInfo } = props
+  const { itemInfo } = props
+
   const [showReviewModal, setShowReviewModal] = useState(false)
   const [sortOption, setSortOption] = useState<SortOption>('NEWEST')
 
   const { data, reviewList, fetchNextPage, isFetchingNextPage, hasNextPage } =
-    useSearchItemQuery(itemInfo.id, sortOption, accessToken)
+    useSearchItemQuery(itemInfo.id, sortOption)
 
   /** 추가 데이터 요청(리뷰 더보기) */
   const handleLoadMore = () => {

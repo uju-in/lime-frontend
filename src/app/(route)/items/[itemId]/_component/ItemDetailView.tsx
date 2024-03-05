@@ -10,12 +10,11 @@ import ReviewSection from './ReviewSection'
 import { ReviewSectionSkeletonUI } from './ReviewSkeletonUI'
 
 interface Props {
-  accessToken: string
   itemId: number
 }
 
 export default function ItemDetailView(props: Props) {
-  const { accessToken, itemId } = props
+  const { itemId } = props
 
   const { itemData, isError, isSuccess, isLoading } = useItemDetail(itemId)
 
@@ -82,7 +81,7 @@ export default function ItemDetailView(props: Props) {
           </div>
         </section>
         <Suspense fallback={<ReviewSectionSkeletonUI />}>
-          <ReviewSection itemInfo={itemInfo} accessToken={accessToken} />
+          <ReviewSection itemInfo={itemInfo} />
         </Suspense>
       </article>
     )

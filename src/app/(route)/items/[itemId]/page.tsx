@@ -9,11 +9,9 @@ type Props = {
 export default function DetailPage({ params }: Props) {
   const { itemId } = params
 
-  const accessToken = getCookie('accessToken')
-
   return (
     <Suspense fallback={<div>Loading. . .</div>}>
-      <ItemDetailView accessToken={accessToken} itemId={itemId} />
+      <ItemDetailView itemId={itemId} />
     </Suspense>
   )
 }
