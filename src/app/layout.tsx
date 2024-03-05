@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
+import RecoilRootProvider from './_components/RecoilRootProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,7 +20,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className={inter.className}>
         <Toaster />
-        {children}
+        <RecoilRootProvider>{children}</RecoilRootProvider>
       </body>
     </html>
   )
