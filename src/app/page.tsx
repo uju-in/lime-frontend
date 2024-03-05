@@ -1,12 +1,10 @@
 import Layout from '@/app/_components/layout/Layout'
 import Image from 'next/image'
-import { Suspense } from 'react'
 import { GetSearchParams } from './_components/GetSearchParams'
 import Footer from './_components/layout/Footer'
 import CategoryPicker from './_components/categoryPicker/CategoryPicker'
 import LoadMoreButton from './(route)/_components/LoadMoreButton'
 import VoteSection from './(route)/_components/VoteSection'
-import RQProvider from './_components/RQProvider'
 
 type Props = {
   searchParams: { category: string }
@@ -36,7 +34,7 @@ export default function Home({ searchParams }: Props) {
           />
         </div>
       </section> */}
-        <section className="bg-red-500 pt-[51px]">
+        <section className="pt-[51px]">
           <CategoryPicker />
         </section>
         {/** Feed */}
