@@ -1,4 +1,3 @@
-import { getCookie } from '@/app/_utils/cookie'
 import { Suspense } from 'react'
 import ItemDetailView from './_component/ItemDetailView'
 
