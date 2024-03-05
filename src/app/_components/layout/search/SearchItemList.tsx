@@ -13,12 +13,12 @@ export function SearchItemList({ inputKeyword }: { inputKeyword: string }) {
   return (
     <section className="absolute top-[40px] z-50 w-[590px] rounded-b-[4px] border border-t-0 border-[#bdbdbd] bg-white p-[22px_17px]">
       <ul className="flex flex-col gap-[12px] text-[12px] text-[#535353]">
-        {data.itemNameGetResults.map((item: SearchItemType) => {
+        {data.itemNameGetResults.map(({ itemId, itemName }: SearchItemType) => {
           return (
             <SearchItem
-              key={item.itemId}
-              itemId={item.itemId}
-              itemName={item.itemName}
+              key={itemId}
+              itemId={itemId}
+              itemName={itemName}
               inputKeyword={inputKeyword}
             />
           )
