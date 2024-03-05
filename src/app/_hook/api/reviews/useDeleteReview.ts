@@ -1,9 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { getCookie } from '@/app/_utils/cookie'
+
+import renderToast from '@/app/_utils/toast'
+import { getCookie } from 'cookies-next'
 import { reviewKeys } from '.'
+import { itemKeys } from '../items'
 
 async function deleteReview(reviewId: number) {
-  const accessToken = await getCookie('accessToken')
+  const accessToken = getCookie('accessToken')
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews/${reviewId}`,
@@ -28,14 +31,23 @@ export default function useDeleteReview() {
   return useMutation<void, Error, number>({
     mutationFn: (reviewId) => deleteReview(reviewId),
     onSuccess: () => {
-      alert('리뷰 삭제 성공!')
+      renderToast({
+        type: 'success',
+        message: '리뷰를 삭제했습니다.',
+      })
 
       queryClient.invalidateQueries({
         queryKey: reviewKeys.reviewList._def,
       })
+      queryClient.invalidateQueries({
+        queryKey: itemKeys.itemDetail._def,
+      })
     },
     onError: (error) => {
-      alert(error)
+      renderToast({
+        type: 'error',
+        message: String(error),
+      })
     },
   })
 }

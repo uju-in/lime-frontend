@@ -2,8 +2,8 @@
 
 import React, { useEffect } from 'react'
 
+import { setCookie } from 'cookies-next'
 import useGetSearchParam from '../_hook/common/useGetSearchParams'
-import { setCookie } from '../_utils/cookie'
 
 export function GetSearchParams() {
   const token = useGetSearchParam('accessToken')

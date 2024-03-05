@@ -7,8 +7,5 @@ export const itemKeys = createQueryKeys('items', {
     keyword,
   ],
   searchList: (keyword: string) => [keyword],
+  itemDetail: (itemId: number) => [itemId],
 })
-
-export const itemTags = {
-  itemDetail: 'itemDetail' as const,
-}

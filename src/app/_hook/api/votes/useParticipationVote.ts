@@ -1,7 +1,6 @@
-import { revalidatePath, revalidateTag } from 'next/cache'
-import { getCookie } from '@/app/_utils/cookie'
 import renderToast from '@/app/_utils/toast'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { getCookie } from 'cookies-next'
 import { voteKeys } from '.'
 
 interface VoteItemRequest {
@@ -10,7 +9,7 @@ interface VoteItemRequest {
 }
 
 async function voteItem({ itemId, voteId }: VoteItemRequest): Promise<number> {
-  const accessToken = await getCookie('accessToken')
+  const accessToken = getCookie('accessToken')
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/votes/${voteId}/participation
@@ -47,6 +46,9 @@ export const useParticipationVote = () => {
 
       queryClient.invalidateQueries({
         queryKey: voteKeys.detail._def,
+      })
+      queryClient.invalidateQueries({
+        queryKey: voteKeys.voteList._def,
       })
     },
     onError: (error) => {
