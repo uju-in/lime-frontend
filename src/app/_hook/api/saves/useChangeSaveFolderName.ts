@@ -1,6 +1,6 @@
-import { getCookie } from '@/app/_utils/cookie'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import renderToast from '@/app/_utils/toast'
+import { getCookie } from 'cookies-next'
 import { saveKeys } from '.'
 
 interface ChangeSaveFolderRequest {
@@ -12,7 +12,7 @@ async function postChangeName({
   folderId,
   folderName,
 }: ChangeSaveFolderRequest) {
-  const accessToken = await getCookie('accessToken')
+  const accessToken = getCookie('accessToken')
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/favorites/folders/${folderId}`,

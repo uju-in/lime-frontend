@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { getCookie } from '@/app/_utils/cookie'
 import renderToast from '@/app/_utils/toast'
+import { getCookie } from 'cookies-next'
 import { saveKeys } from '.'
 
 async function deleteSave(favoriteItemIds: number[], folderIds: number[]) {
-  const accessToken = await getCookie('accessToken')
+  const accessToken = getCookie('accessToken')
   const formData = new FormData()
   if (favoriteItemIds.length > 0) {
     formData.append('favoriteItemIds', favoriteItemIds.join(','))

@@ -11,8 +11,8 @@ import {
 import CategorySelector from '@/app/_components/categorySelector'
 import useNicknameValidation from '@/app/_hook/api/auth/useNicknameValidation'
 import useSignUp from '@/app/_hook/api/auth/useSignUp'
-import { setCookie } from '@/app/_utils/cookie'
 import { cn } from '@/app/_utils/twMerge'
+import { setCookie } from 'cookies-next'
 import CareerSelector from './CareerSelector'
 import MBTISelector from './MbtiSelector'
 

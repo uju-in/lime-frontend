@@ -1,5 +1,5 @@
-import { getCookie } from '@/app/_utils/cookie'
 import { useQuery } from '@tanstack/react-query'
+import { getCookie } from 'cookies-next'
 import { saveKeys } from '.'
 
 interface SaveListRequest {
@@ -8,7 +8,7 @@ interface SaveListRequest {
 }
 
 async function getSavesList({ type, folderId }: SaveListRequest) {
-  const accessToken = await getCookie('accessToken')
+  const accessToken = getCookie('accessToken')
 
   let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/favorites`
 
