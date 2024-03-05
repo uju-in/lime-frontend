@@ -10,7 +10,7 @@ export default function JoinPage() {
       <section
         className={cn(
           'mx-auto w-[610px] flex-1 bg-white px-[87px] pt-[71px]',
-          'mo:px-[16px] mo:w-full',
+          'mo:w-full mo:px-[16px]',
         )}
       >
         <p className="mb-[10px] text-[26px] font-[700]">Lime</p>
