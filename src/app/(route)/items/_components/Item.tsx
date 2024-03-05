@@ -1,6 +1,8 @@
+'use client'
+
 import { ItemType } from '@/app/_types/item.type'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 export default function Item({ item }: { item: ItemType }) {
   const { name, price, id, image, createdAt, favoriteCount, reviewCount } =
