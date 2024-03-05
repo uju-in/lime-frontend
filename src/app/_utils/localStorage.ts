@@ -2,6 +2,7 @@ export namespace LocalStorage {
   // 최근 검색어
   export const search = () => {
     const KEY = 'recentSearch'
+    const MAX_SIZE = 10
 
     return {
       getter: (): string[] => {
@@ -28,7 +29,7 @@ export namespace LocalStorage {
           let newList = originList
             .filter((item) => item !== value) // 중복 제거
             .concat(value)
-          if (newList.length > 10) newList = newList.splice(1, 10) // 10개까지만 저장
+          if (newList.length > MAX_SIZE) newList = newList.splice(1, MAX_SIZE) // 10개까지만 저장
           LocalStorage.search().setter(newList)
         } else {
           LocalStorage.search().setter([value])
