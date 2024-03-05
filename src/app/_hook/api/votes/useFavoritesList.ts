@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-
-import { getCookie } from '@/app/_utils/cookie'
+import { getCookie } from 'cookies-next'
 import { voteKeys } from '.'
 
 interface RequestInfo {
@@ -9,7 +8,7 @@ interface RequestInfo {
 }
 
 export async function fetchFavoriteList({ type, folderId }: RequestInfo) {
-  const accessToken = await getCookie('accessToken')
+  const accessToken = getCookie('accessToken')
 
   let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/favorites?favoriteTypeCondition=${type}`
 
