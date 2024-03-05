@@ -63,9 +63,7 @@ export default function Home({ searchParams }: Props) {
             <strong className="text-[32px] font-[700]">투표</strong>
             <LoadMoreButton sectionName="투표" />
           </div>
-          <RQProvider>
-            <VoteSection hobby={category} />
-          </RQProvider>
+          <VoteSection hobby={category} />
         </section>
       </article>
       <Footer />
