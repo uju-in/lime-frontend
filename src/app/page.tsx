@@ -17,11 +17,12 @@ export default function Home({ searchParams }: Props) {
 
   return (
     <Layout>
-      {/* 로그인 시 토큰 저장을 위해 임시로 배치한 클라이언트 컴포넌트 */}
-      <GetSearchParams />
-      {/** 메인 검색창 임시 보류 */}
+      <main className="bg-[#F7F7F7]">
+        {/* 로그인 시 토큰 저장을 위해 임시로 배치한 클라이언트 컴포넌트 */}
+        <GetSearchParams />
+        {/** 메인 검색창 임시 보류 */}
 
-      {/* <section className="flex justify-center py-[51px]">
+        {/* <section className="flex justify-center py-[51px]">
         <div className="flex h-[72px] w-[996px] items-center justify-center gap-[23.1px] rounded-[57.823px] border-2 border-black">
           <Image
             width={34}
@@ -35,38 +36,40 @@ export default function Home({ searchParams }: Props) {
           />
         </div>
       </section> */}
-
-      <CategoryPicker />
-      {/** Feed */}
-      <article className="bg-[#F7F7F7] px-[118px]">
-        <section className="pt-[80px]">
-          <div className="flex justify-between">
-            <strong className="text-[32px] font-[700]">피드</strong>
-            <button
-              type="button"
-              className="flex h-[45px] w-[152px] items-center justify-center gap-[7.5px] rounded-[30px] bg-[#424242] text-[14px] font-[700] text-white"
-            >
-              <span>피드 더보기</span>
-              <Image
-                width={18}
-                height={18}
-                src="/image/icon/icon-arrow_long_right_white.svg"
-                alt="right arrow"
-              />
-            </button>
-          </div>
-          <div className="mt-[32px] h-[357px]" />
+        <section className="bg-red-500 pt-[51px]">
+          <CategoryPicker />
         </section>
-        {/** Votes */}
-        <section className="mt-[157px] pb-[157px]">
-          <div className="flex justify-between">
-            <strong className="text-[32px] font-[700]">투표</strong>
-            <LoadMoreButton sectionName="투표" />
-          </div>
-          <VoteSection hobby={category} />
-        </section>
-      </article>
-      <Footer />
+        {/** Feed */}
+        <article className="mx-auto max-w-[1440px] px-[118px]">
+          <section className="pt-[80px]">
+            <div className="flex justify-between">
+              <strong className="text-[32px] font-[700]">피드</strong>
+              <button
+                type="button"
+                className="flex h-[45px] w-[152px] items-center justify-center gap-[7.5px] rounded-[30px] bg-[#424242] text-[14px] font-[700] text-white"
+              >
+                <span>피드 더보기</span>
+                <Image
+                  width={18}
+                  height={18}
+                  src="/image/icon/icon-arrow_long_right_white.svg"
+                  alt="right arrow"
+                />
+              </button>
+            </div>
+            <div className="mt-[32px] h-[357px]" />
+          </section>
+          {/** Votes */}
+          <section className="mt-[157px] pb-[157px]">
+            <div className="flex justify-between">
+              <strong className="text-[32px] font-[700]">투표</strong>
+              <LoadMoreButton sectionName="투표" />
+            </div>
+            <VoteSection hobby={category} />
+          </section>
+        </article>
+        <Footer />
+      </main>
     </Layout>
   )
 }
