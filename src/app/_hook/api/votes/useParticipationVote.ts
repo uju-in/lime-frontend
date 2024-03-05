@@ -47,6 +47,9 @@ export const useParticipationVote = () => {
       queryClient.invalidateQueries({
         queryKey: voteKeys.detail._def,
       })
+      queryClient.invalidateQueries({
+        queryKey: voteKeys.voteList._def,
+      })
     },
     onError: (error) => {
       renderToast({
