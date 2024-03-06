@@ -1,5 +1,9 @@
 'use client'
 
+/**
+ * Item 컴포넌트의 width, height는 호출하는 상위 태그에서 결정
+ */
+
 import { ItemType } from '@/app/_types/item.type'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'

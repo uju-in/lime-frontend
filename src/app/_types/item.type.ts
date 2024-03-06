@@ -10,3 +10,10 @@ export interface ItemType {
     reviewCount: number
   }
 }
+
+export interface ItemResponse {
+  nextCursorId: string
+  itemTotalCount: number
+  totalCount: number
+  items: ItemType[]
+}

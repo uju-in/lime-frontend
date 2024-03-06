@@ -12,7 +12,7 @@ interface PropsType {
   onSelectItem: (selectItemId: number) => void
 }
 
-export default function VoteItem(props: PropsType) {
+export default function FavoritesVoteItem(props: PropsType) {
   const { itemId, voteItemInfo, onSelectItem } = props
   const { id, image, name, price } = voteItemInfo
   const router = useRouter()

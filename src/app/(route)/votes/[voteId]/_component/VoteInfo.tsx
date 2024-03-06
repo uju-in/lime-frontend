@@ -5,7 +5,7 @@ import { useParticipationVote } from '@/app/_hook/api/votes/useParticipationVote
 import { ItemInfoType, VoteInfoType } from '@/app/_types/detailVote.type'
 import { useReParticipation } from '@/app/_hook/api/votes/useReParticipation'
 import ProgressBar from './ProgressBar'
-import VoteItem from './VoteItem'
+import VoteItem from './FavoritesVoteItem'
 
 interface PropsType {
   item1Info: ItemInfoType
