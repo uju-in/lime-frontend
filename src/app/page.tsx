@@ -5,6 +5,7 @@ import Footer from './_components/layout/Footer'
 import CategoryPicker from './_components/categoryPicker/CategoryPicker'
 import LoadMoreButton from './(route)/_components/LoadMoreButton'
 import VoteSection from './(route)/_components/VoteSection'
+import ItemSection from './(route)/_components/ItemSection'
 
 type Props = {
   searchParams: { category: string }
@@ -64,6 +65,14 @@ export default function Home({ searchParams }: Props) {
               <LoadMoreButton sectionName="투표" />
             </div>
             <VoteSection hobby={category} />
+          </section>
+          {/** Items */}
+          <section className="my-[157px] pb-[157px]">
+            <div className="flex justify-between">
+              <strong className="text-[32px] font-[700]">아이템</strong>
+              <LoadMoreButton sectionName="아이템" />
+            </div>
+            <ItemSection hobby={category} />
           </section>
         </article>
         <Footer />
