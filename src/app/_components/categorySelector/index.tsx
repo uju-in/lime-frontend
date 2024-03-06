@@ -36,8 +36,10 @@ export default function CategorySelector({
         const items = categories[categoryGroup as keyof Categories]
         return (
           <React.Fragment key={categoryGroup}>
-            <p className="mt-8 text-[14px] font-[400]">{categoryGroup}</p>
-            <div className="flex flex-wrap">
+            <p className="mb-[4px] mt-8 text-[14px] font-[400]">
+              {categoryGroup}
+            </p>
+            <div className={cn('flex flex-wrap gap-[8px]', 'mo:gap-[6px]')}>
               {items.map((item) => {
                 const checked =
                   selected.item === item && selected.category === categoryGroup
@@ -45,11 +47,12 @@ export default function CategorySelector({
                   <label
                     key={item}
                     className={cn(
-                      'my-3 mr-3 flex h-[32px] cursor-pointer items-center rounded-[40px] border px-5 text-[12px] font-medium',
+                      'flex h-[32px] cursor-pointer items-center rounded-[40px] border px-[16px] text-[12px] font-medium',
                       {
                         'border-black': checked,
                         'border-[#BDBDBD] text-[#BDBDBD]': !checked,
                       },
+                      'mo:px-[14px]',
                     )}
                   >
                     <input

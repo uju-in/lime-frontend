@@ -29,14 +29,14 @@ export default function MBTISelector({ setMbti }: Props) {
   })
 
   return (
-    <>
+    <div className="relative w-full text-[14px]">
       <button
         type="button"
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-        className="flex h-[48px] w-[436px] items-center justify-between rounded-[4px] border border-[#BDBDBD] px-4"
+        className="flex h-[48px] w-full items-center justify-between rounded-[4px] border border-[#BDBDBD] px-4"
       >
         <span
-          className={cn('text-[14px] font-[500]', {
+          className={cn('font-[500]', {
             'text-[#BDBDBD]': selectedMBTI === 'MBTI 유형 선택',
             'text-[#000]': selectedMBTI !== 'MBTI 유형 선택',
           })}
@@ -58,7 +58,10 @@ export default function MBTISelector({ setMbti }: Props) {
       {isDropdownOpen && (
         <ul
           ref={dropdownRef}
-          className="absolute z-10 mt-3 h-[288px] w-[436px] overflow-y-scroll rounded-[4px] bg-white shadow-[0px_0px_7.8px_3px_rgba(0,0,0,0.10)]"
+          className={cn(
+            'absolute z-10 mt-3 h-[288px] w-full overflow-y-scroll rounded-[4px] bg-white shadow-[0px_0px_7.8px_3px_rgba(0,0,0,0.10)]',
+            'mo:h-[192px]',
+          )}
         >
           {MBTIOptions.map((option) => (
             <li
@@ -71,6 +74,6 @@ export default function MBTISelector({ setMbti }: Props) {
           ))}
         </ul>
       )}
-    </>
+    </div>
   )
 }

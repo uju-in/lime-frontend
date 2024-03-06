@@ -15,6 +15,10 @@ const config: Config = {
         'gradient-folder':
           'linear-gradient(180deg, #000 -77.61%, #000 -77.58%, rgba(0, 0, 0, 0.00) 100%)',
       },
+      screens: {
+        mo: { max: '767px' },
+        tablet: { min: '768px', max: '1024px' },
+      },
     },
   },
   plugins: [],
