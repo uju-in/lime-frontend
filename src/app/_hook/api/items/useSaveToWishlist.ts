@@ -22,7 +22,7 @@ async function postSaveToWishlist(itemIds: number[]): Promise<void> {
   if (!res.ok) {
     const data = await res.json()
 
-    throw Error(data.message)
+    throw data.message
   }
 }
 
