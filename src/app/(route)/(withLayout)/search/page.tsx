@@ -1,4 +1,3 @@
-import Layout from '@/app/_components/layout/Layout'
 import RQProvider from '@/app/_components/RQProvider'
 import React from 'react'
 import SearchItemList from './_components/SearchItemList'

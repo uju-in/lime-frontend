@@ -1,5 +1,4 @@
 import React from 'react'
-import Layout from '@/app/_components/layout/Layout'
 import RQProvider from '@/app/_components/RQProvider'
 import SideMenu from './_components/SideMenu'
 import ItemList from './_components/ItemList'

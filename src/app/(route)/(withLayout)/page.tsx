@@ -1,4 +1,3 @@
-import Layout from '@/app/_components/layout/Layout'
 import Image from 'next/image'
 import { GetSearchParams } from '../../_components/GetSearchParams'
 import Footer from '../../_components/layout/Footer'
