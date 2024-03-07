@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { GetSearchParams } from '../../_components/GetSearchParams'
-import Footer from '../../_components/layout/Footer'
 import CategoryPicker from '../../_components/categoryPicker/CategoryPicker'
 import LoadMoreButton from '../_components/LoadMoreButton'
 import VoteSection from '../_components/VoteSection'
@@ -65,7 +64,7 @@ export default function Home({ searchParams }: Props) {
           <VoteSection hobby={category} />
         </section>
         {/** Items */}
-        <section className="my-[157px] pb-[157px]">
+        <section className="mt-[157px] pb-[157px]">
           <div className="flex justify-between">
             <strong className="text-[32px] font-[700]">아이템</strong>
             <LoadMoreButton sectionName="아이템" />
@@ -73,7 +72,6 @@ export default function Home({ searchParams }: Props) {
           <ItemSection hobby={category} />
         </section>
       </article>
-      <Footer />
     </main>
   )
 }
