@@ -9,8 +9,8 @@ import { cn } from '@/app/_utils/twMerge'
 
 export default function SideMenu() {
   const router = useRouter()
-  const title = useGetSearchParam('title')
-  const category = useGetSearchParam('category')
+  const title = useGetSearchParam('title') || '스포츠'
+  const category = useGetSearchParam('category') || '농구'
 
   const categoryList = CategoryOption.find((item) => {
     return item.title === title
