@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from 'react'
 import Image from 'next/image'
-import { SortOption } from '@/app/(route)/items/_constants'
+import { SortOption } from '@/app/(route)/(withLayout)/items/_constants'
 import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 import { cn } from '@/app/_utils/twMerge'
 

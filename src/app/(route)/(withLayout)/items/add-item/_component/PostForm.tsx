@@ -9,7 +9,7 @@ import useAddItem from '@/app/_hook/api/items/useAddItem'
 
 import { validateUrl } from '../_utils/validation'
 
-import Categories from '../../../../_components/categorySelector'
+import Categories from '../../../../../_components/categorySelector'
 
 export default function PostForm() {
   const router = useRouter()

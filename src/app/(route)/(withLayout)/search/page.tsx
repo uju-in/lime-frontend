@@ -11,13 +11,11 @@ export default function page({ searchParams }: Props) {
   const { keyword } = searchParams
 
   return (
-    <Layout>
-      <div className="mx-auto w-[1200px]">
-        <h1 className="text-[24px] font-bold">{`'${keyword}' 검색 결과`}</h1>
-        <RQProvider>
-          <SearchItemList keyword={keyword} />
-        </RQProvider>
-      </div>
-    </Layout>
+    <div className="mx-auto w-[1200px]">
+      <h1 className="text-[24px] font-bold">{`'${keyword}' 검색 결과`}</h1>
+      <RQProvider>
+        <SearchItemList keyword={keyword} />
+      </RQProvider>
+    </div>
   )
 }

@@ -14,10 +14,8 @@ export default function SavesDetailPage({ params, searchParams }: Props) {
   const { name } = searchParams
 
   return (
-    <Layout>
-      <RQProvider>
-        <SaveFolderComponent folderId={Number(folderId)} folderName={name} />
-      </RQProvider>
-    </Layout>
+    <RQProvider>
+      <SaveFolderComponent folderId={Number(folderId)} folderName={name} />
+    </RQProvider>
   )
 }

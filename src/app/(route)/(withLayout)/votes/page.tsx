@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import CategoryPicker from '../../_components/categoryPicker/CategoryPicker'
+import CategoryPicker from '../../../_components/categoryPicker/CategoryPicker'
 import RankingList from './_component/RankingList'
 import VoteList from './_component/VoteList'
 import CreateVoteButton from './_component/CreateVoteButton'

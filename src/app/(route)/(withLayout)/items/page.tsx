@@ -6,15 +6,13 @@ import ItemList from './_components/ItemList'
 
 export default function page() {
   return (
-    <Layout>
-      <div className="flex gap-[50px] px-[150px]">
-        <SideMenu />
-        <div className="flex-1">
-          <RQProvider>
-            <ItemList />
-          </RQProvider>
-        </div>
+    <div className="flex gap-[50px] px-[150px]">
+      <SideMenu />
+      <div className="flex-1">
+        <RQProvider>
+          <ItemList />
+        </RQProvider>
       </div>
-    </Layout>
+    </div>
   )
 }

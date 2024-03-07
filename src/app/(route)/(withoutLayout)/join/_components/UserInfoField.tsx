@@ -7,7 +7,7 @@ import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import {
   validateForm,
   validateNickname,
-} from '@/app/(route)/join/_utils/validation'
+} from '@/app/(route)/(withoutLayout)/join/_utils/validation'
 import CategorySelector from '@/app/_components/categorySelector'
 import useNicknameValidation from '@/app/_hook/api/auth/useNicknameValidation'
 import useSignUp from '@/app/_hook/api/auth/useSignUp'

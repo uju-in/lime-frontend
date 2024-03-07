@@ -6,10 +6,8 @@ import SaveComponent from './_component/SaveComponent'
 
 export default function SavesPage() {
   return (
-    <Layout>
-      <RQProvider>
-        <SaveComponent />
-      </RQProvider>
-    </Layout>
+    <RQProvider>
+      <SaveComponent />
+    </RQProvider>
   )
 }
