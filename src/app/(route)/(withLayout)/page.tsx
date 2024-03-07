@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import MoNavbar from '@/app/_components/layout/mobile/MoNavbar'
 import { GetSearchParams } from '../../_components/GetSearchParams'
 import CategoryPicker from '../../_components/categoryPicker/CategoryPicker'
 import LoadMoreButton from '../_components/LoadMoreButton'
@@ -72,6 +73,7 @@ export default function Home({ searchParams }: Props) {
           <ItemSection hobby={category} />
         </section>
       </article>
+      <MoNavbar />
     </main>
   )
 }
