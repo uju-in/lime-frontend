@@ -1,8 +1,14 @@
+import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 
 export default function Footer() {
   return (
-    <footer className="flex bg-white px-[128px] pb-[140px] pt-[49px]">
+    <footer
+      className={cn(
+        'flex bg-white px-[128px] pb-[140px] pt-[49px]',
+        'mo:hidden',
+      )}
+    >
       <section className="flex w-full gap-[146px]">
         <div className="flex-1">
           <div className="flex gap-[35px]">

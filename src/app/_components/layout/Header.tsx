@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRecoilState } from 'recoil'
 import { searchViewState } from '@/app/_atoms/searchViewState'
 import useOutsideClick from '@/app/_hook/common/useOutsideClick'
+import { cn } from '@/app/_utils/twMerge'
 import React, { useRef } from 'react'
 import ItemSection from './ItemSection'
 import Search from './Search'
@@ -29,7 +30,12 @@ export default function Header() {
     )
 
   return (
-    <div className="flex w-full items-center justify-between px-[150px] py-[23px]">
+    <div
+      className={cn(
+        'flex w-full items-center justify-between px-[150px] py-[23px]',
+        'mo:hidden',
+      )}
+    >
       <div className="flex items-center gap-[50px]">
         {/* 로고 */}
         <div className="pr-[50px] text-[35px] font-bold">

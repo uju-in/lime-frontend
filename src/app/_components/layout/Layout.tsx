@@ -1,11 +1,13 @@
 import React, { ReactNode } from 'react'
 import Header from './Header'
+import Footer from './Footer'
 
 function Layout({ children }: { children: ReactNode }) {
   return (
-    <div className="my-0 flex h-screen flex-col">
+    <div className="my-0 flex flex-col">
       <Header />
-      <div className="h-full pb-[18px]">{children}</div>
+      <div className="pb-[18px]">{children}</div>
+      <Footer />
     </div>
   )
 }
