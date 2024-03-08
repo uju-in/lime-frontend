@@ -22,6 +22,7 @@ export default function page() {
           <VoteList />
         </Suspense>
       </main>
+      <MoAddButton />
       <MoNavbar />
     </>
   )
