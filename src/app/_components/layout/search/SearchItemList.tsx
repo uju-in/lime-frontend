@@ -1,5 +1,6 @@
 import useSearchItem from '@/app/_hook/api/items/useSearchItem'
 import { SearchItemType } from '@/app/_types/searchItem.type'
+import { cn } from '@/app/_utils/twMerge'
 import { SearchItem } from './SearchItem'
 
 export function SearchItemList({ inputKeyword }: { inputKeyword: string }) {
@@ -8,7 +9,12 @@ export function SearchItemList({ inputKeyword }: { inputKeyword: string }) {
   if (isLoading || isError) return null
 
   return (
-    <ul className="flex flex-col gap-[12px] text-[12px] text-[#535353]">
+    <ul
+      className={cn(
+        'flex flex-col gap-[12px] text-[12px] text-[#535353]',
+        'mo:gap-0',
+      )}
+    >
       {data.itemNameGetResults.map(({ itemId, itemName }: SearchItemType) => {
         return (
           <SearchItem
