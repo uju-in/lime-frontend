@@ -1,5 +1,6 @@
 'use client'
 
+import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
@@ -9,7 +10,10 @@ export default function CreateVoteButton() {
   return (
     <button
       type="button"
-      className="flex h-[73px] w-[64px] flex-col items-center justify-center gap-[4px] rounded-[8px] border-2 border-black"
+      className={cn(
+        'flex h-[73px] w-[64px] flex-col items-center justify-center gap-[4px] rounded-[8px] border-2 border-black',
+        'mo:hidden',
+      )}
       onClick={() => router.push('/votes/add-vote')}
     >
       <Image
