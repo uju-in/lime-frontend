@@ -2,6 +2,7 @@
 
 import React, { ChangeEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { cn } from '@/app/_utils/twMerge'
 
 import { ItemState } from '@/app/_types/addItem.type'
 
@@ -55,20 +56,36 @@ export default function PostForm() {
       <Categories
         setCategory={(hobbyName) => setItem({ ...item, hobbyName })}
       />
-      <p className="mb-[36px] mt-[70px] text-[18px] font-[600]">
+      <p
+        className={cn(
+          'mb-[36px] mt-[70px] text-[18px] font-[600]',
+          'mo:mb-[13px] mo:mt-[48px]',
+        )}
+      >
         아이템 추가할 URL을 입력하세요
       </p>
       <input
         name="itemUrl"
-        className="h-[40px] w-[720px] rounded-[2px] border border-[#DADADA] p-1 focus:outline-none"
+        className={cn(
+          'h-[40px] w-[720px] rounded-[2px] border border-[#DADADA] p-1 focus:outline-none',
+          'mo:w-full',
+        )}
         onChange={handleChange}
       />
       <p className="mt-[8px] text-[14px] font-[400] text-[#A4A4A4]">
         *네이버 쇼핑, 쿠팡, 다나와 URL만 입력 가능합니다.
       </p>
-      <div className=" mt-[70px] flex justify-center">
+      <div
+        className={cn(
+          'flex justify-center',
+          'mo:absolute mo:bottom-[38px] mo:w-[calc(100%-32px)]',
+        )}
+      >
         <button
-          className="h-[45px] w-[250px] rounded-[2px] bg-black text-[15px] text-white"
+          className={cn(
+            'mt-[70px] h-[45px] w-[250px] rounded-[2px] bg-black text-[15px] text-white',
+            'mo:w-full',
+          )}
           type="submit"
         >
           생성하기
