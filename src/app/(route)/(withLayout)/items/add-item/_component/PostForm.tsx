@@ -50,7 +50,7 @@ export default function PostForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <p className="text-[18px] font-semibold">
+      <p className="mt-[61px] text-[18px]  font-semibold">
         아이템 추가할 취미를 선택해 주세요.
       </p>
       <Categories
