@@ -20,7 +20,7 @@ export default function RankingList() {
     <section className={cn('mt-[52px] w-full', 'mo:pl-[16px]')}>
       {rankingInfos.length > 0 && (
         <>
-          <p className="mt-[69.5px]">
+          <p>
             <strong className="text-[26px] font-[700]">투표 랭킹</strong>
           </p>
           <div
