@@ -4,7 +4,11 @@ import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-export default function MoAddButton() {
+interface PropsType {
+  path: string
+}
+
+export default function MoAddButton({ path }: PropsType) {
   const router = useRouter()
 
   return (
@@ -17,7 +21,7 @@ export default function MoAddButton() {
       <button
         type="button"
         className="h-[36px] w-[36px]  rounded-full bg-black p-[10px]"
-        onClick={() => router.push('/votes/add-vote')}
+        onClick={() => router.push(`/${path}/add-vote`)}
       >
         <Image
           width={18}
