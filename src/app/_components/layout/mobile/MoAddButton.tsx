@@ -14,20 +14,20 @@ export default function MoAddButton({ path }: PropsType) {
   return (
     <div
       className={cn(
-        'fixed bottom-[72px] right-0 z-50 hidden h-[56px] w-[56px]',
+        'fixed bottom-[92px] right-[16px] z-50 hidden h-[56px] w-[56px]',
         'mo:block',
       )}
     >
       <button
         type="button"
-        className="h-[36px] w-[36px]  rounded-full bg-black p-[10px]"
+        className="h-[56px] w-[56px]  rounded-full bg-black p-[10px]"
         onClick={() => router.push(`/${path}/add-vote`)}
       >
         <Image
-          width={18}
-          height={18}
+          width={36}
+          height={36}
           src="/image/icon/icon-plus_white.svg"
-          alt="add vote"
+          alt="add button"
         />
       </button>
     </div>
