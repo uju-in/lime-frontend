@@ -57,6 +57,11 @@ export default function Search() {
                 >
                   <span>{keyword}</span>
                   <Image
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      LocalStorage.search().removeItem(keyword)
+                      getList()
+                    }}
                     src="/image/icon/icon-close_white.svg"
                     alt="close"
                     width={14}
