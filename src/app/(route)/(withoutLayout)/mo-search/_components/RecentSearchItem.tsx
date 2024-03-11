@@ -11,22 +11,26 @@ interface Props {
 export default function RecentSearchItem({ keyword, getList }: Props) {
   const router = useRouter()
 
+  const removeItem = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+    e.stopPropagation()
+    LocalStorage.search().removeItem(keyword)
+    getList()
+  }
+
+  const moveSearchResultPage = () => {
+    router.push(`/search?keyword=${keyword}`)
+    LocalStorage.search().add(keyword)
+  }
+
   return (
     <button
       type="button"
       className="flex cursor-pointer items-center gap-[4px] rounded-full bg-black p-[8px_12px] text-white hover:bg-slate-600"
-      onClick={() => {
-        router.push(`/search?keyword=${keyword}`)
-        LocalStorage.search().add(keyword)
-      }}
+      onClick={moveSearchResultPage}
     >
       <span>{keyword}</span>
       <Image
-        onClick={(e) => {
-          e.stopPropagation()
-          LocalStorage.search().removeItem(keyword)
-          getList()
-        }}
+        onClick={removeItem}
         src="/image/icon/icon-close_white.svg"
         alt="close"
         width={14}
