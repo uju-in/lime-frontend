@@ -4,11 +4,11 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { LocalStorage } from '@/app/_utils/localStorage'
-import { MoHeader } from '../layout/mobile/MoHeader'
-import { SearchItemList } from '../layout/search/SearchItemList'
-import RQProvider from '../RQProvider'
+import { MoHeader } from '../../../../_components/layout/mobile/MoHeader'
+import { SearchItemList } from '../../../../_components/layout/search/SearchItemList'
+import RQProvider from '../../../../_components/RQProvider'
 
-export default function Search() {
+export default function SearchComponent() {
   const [resultList, setResultList] = useState<string[]>([])
   const [inputKeyword, setInputKeyword] = useState<string>('')
   const router = useRouter()
