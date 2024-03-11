@@ -22,22 +22,16 @@ export function SearchItem({ itemId, itemName, inputKeyword }: Props) {
 
   if (startAt < 0)
     return (
-      <li
-        className={cn(
-          'truncate text-[#535353]',
-          'mo:border-b mo:p-[18px_17px]',
-        )}
-      >
+      <li className={cn('text-[#535353]', 'mo:border-b mo:p-[18px_17px]')}>
         {itemName}
       </li>
     )
 
   return (
-    <li
-      className={cn('truncate text-[#535353]', 'mo:border-b mo:p-[18px_17px]')}
-    >
+    <li className={cn('text-[#535353]', 'mo:border-b mo:p-[18px_17px]')}>
       <button
         type="button"
+        className="text-left"
         onClick={() => {
           router.push(`/items/${itemId}`)
           setIsSearchView(false)
