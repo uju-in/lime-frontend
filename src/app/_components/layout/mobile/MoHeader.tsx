@@ -23,7 +23,7 @@ export namespace MoHeader {
           />
         </button>
         <h1 className="text-[16px] font-semibold">{title}</h1>
-        <div />
+        <div className="w-[24px]" />
       </header>
     )
   }
