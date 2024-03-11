@@ -52,7 +52,5 @@ export function useRequestToken() {
     }
   }
 
-  useEffect(() => {
-    authLogin()
-  }, [])
+  return authLogin
 }
