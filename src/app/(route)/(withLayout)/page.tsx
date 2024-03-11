@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import MoNavbar from '@/app/_components/layout/mobile/MoNavbar'
-import { GetSearchParams } from '../../_components/GetSearchParams'
 import CategoryPicker from '../../_components/categoryPicker/CategoryPicker'
 import LoadMoreButton from '../_components/LoadMoreButton'
 import VoteSection from '../_components/VoteSection'
@@ -15,8 +14,6 @@ export default function Home({ searchParams }: Props) {
 
   return (
     <main className="bg-[#F7F7F7]">
-      {/* 로그인 시 토큰 저장을 위해 임시로 배치한 클라이언트 컴포넌트 */}
-      <GetSearchParams />
       {/** 메인 검색창 임시 보류 */}
 
       {/* <section className="flex justify-center py-[51px]">
