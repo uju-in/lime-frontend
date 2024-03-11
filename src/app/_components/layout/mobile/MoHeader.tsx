@@ -60,6 +60,10 @@ export namespace MoHeader {
           placeholder="찾고 싶은 아이템을 검색해보세요!"
           value={inputKeyword}
           onChange={(e) => setInputKeyword(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.nativeEvent.isComposing) return
+            if (e.key === 'Enter') handleSearch()
+          }}
         />
         <button
           className="absolute right-[26px] top-[16px]"
