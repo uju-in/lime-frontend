@@ -41,7 +41,7 @@ const page = () => {
             </div>
             <div className="flex w-full justify-between px-[19px]">
               <span className="font-bold">경력</span>
-              <span className="font-medium text-[#808080]">6개월</span>
+              <span className="font-medium text-[#808080]">6년차</span>
             </div>
           </div>
 
