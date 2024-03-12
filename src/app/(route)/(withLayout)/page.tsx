@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import MoNavbar from '@/app/_components/layout/mobile/MoNavbar'
+import { cn } from '@/app/_utils/twMerge'
 import CategoryPicker from '../../_components/categoryPicker/CategoryPicker'
 import LoadMoreButton from '../_components/LoadMoreButton'
 import VoteSection from '../_components/VoteSection'
@@ -13,7 +14,7 @@ export default function Home({ searchParams }: Props) {
   const { category = '농구' } = searchParams
 
   return (
-    <main className="bg-[#F7F7F7]">
+    <main className={cn('bg-[#F7F7F7]', 'mo:bg-white')}>
       {/** 메인 검색창 임시 보류 */}
 
       {/* <section className="flex justify-center py-[51px]">
@@ -30,31 +31,25 @@ export default function Home({ searchParams }: Props) {
           />
         </div>
       </section> */}
-      <section className="bg-white pt-[51px]">
+      {/* <section className="bg-white pt-[51px]">
         <CategoryPicker />
-      </section>
+      </section> */}
       {/** Feed */}
-      <article className="mx-auto max-w-[1440px] px-[118px]">
+      <article
+        className={cn(
+          'mx-auto max-w-[1440px] px-[118px]',
+          'mo:w-full mo:px-[16px]',
+        )}
+      >
         <section className="pt-[80px]">
           <div className="flex justify-between">
             <strong className="text-[32px] font-[700]">피드</strong>
-            <button
-              type="button"
-              className="flex h-[45px] w-[152px] items-center justify-center gap-[7.5px] rounded-[30px] bg-[#424242] text-[14px] font-[700] text-white"
-            >
-              <span>피드 더보기</span>
-              <Image
-                width={18}
-                height={18}
-                src="/image/icon/icon-arrow_long_right_white.svg"
-                alt="right arrow"
-              />
-            </button>
+            <LoadMoreButton sectionName="피드" />
           </div>
           <div className="mt-[32px] h-[357px]" />
         </section>
         {/** Votes */}
-        <section className="mt-[157px] pb-[157px]">
+        <section className={cn('mt-[157px] pb-[157px]', 'mo:pb-[52px]')}>
           <div className="flex justify-between">
             <strong className="text-[32px] font-[700]">투표</strong>
             <LoadMoreButton sectionName="투표" />
@@ -62,7 +57,7 @@ export default function Home({ searchParams }: Props) {
           <VoteSection hobby={category} />
         </section>
         {/** Items */}
-        <section className="mt-[157px] pb-[157px]">
+        <section className={cn('mt-[157px] pb-[157px]', 'mo:mt-0 mo:w-full')}>
           <div className="flex justify-between">
             <strong className="text-[32px] font-[700]">아이템</strong>
             <LoadMoreButton sectionName="아이템" />
