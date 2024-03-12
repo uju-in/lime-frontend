@@ -11,7 +11,7 @@ export default function MoSearchBar({ path }: PropsType) {
   return (
     <div
       className={cn(
-        'mx-auto hidden h-[36px] w-[343px] rounded-[100px] bg-black px-[16px]',
+        'mx-auto flex hidden h-[36px] w-11/12 rounded-[100px] bg-black px-[16px]',
         'mo:flex',
       )}
     >
