@@ -19,12 +19,22 @@ export default function FavoritesVoteItem(props: PropsType) {
 
   return (
     <div
-      className={cn('relative', {
-        'border-[3px] border-[#000]': id === itemId,
-      })}
+      className={cn(
+        'relative',
+        'mo:flex:1 mo:rounded-[6px] mo:border-[2px] mo:border-black',
+        {
+          'border-[3px] border-[#000]': id === itemId,
+        },
+      )}
       onClick={() => onSelectItem(id)}
     >
-      <Image width={196} height={196} src={image} alt="item1 image" />
+      <Image
+        width={196}
+        height={196}
+        src={image}
+        alt="item1 image"
+        className="mo:rounded-[6px]"
+      />
       <div className="absolute bottom-[1px] h-[175px] w-[196px] rounded-[20px] bg-[#fff] px-[28px] pt-[15px] text-center">
         <p className="mb-[15.4px] h-[65px] text-center text-[14px] font-[500]">
           <strong>{truncateString(name, 35)}</strong>
