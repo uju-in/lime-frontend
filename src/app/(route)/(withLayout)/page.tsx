@@ -1,6 +1,5 @@
 import MoNavbar from '@/app/_components/layout/mobile/MoNavbar'
 import { cn } from '@/app/_utils/twMerge'
-import Image from 'next/image'
 import CategoryPicker from '../../_components/categoryPicker/CategoryPicker'
 import LoadMoreButton from './_components/LoadMoreButton'
 import VoteSection from './_components/VoteSection'
@@ -17,7 +16,7 @@ export default function Home({ searchParams }: Props) {
   return (
     <main className={cn('bg-[#F7F7F7]', 'mo:bg-white')}>
       <MoHomeHeader />
-      <section className="bg-white">
+      <section className="bg-white pt-[56px]">
         <CategoryPicker />
       </section>
       {/** Feed */}
