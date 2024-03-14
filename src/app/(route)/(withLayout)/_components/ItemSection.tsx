@@ -1,6 +1,7 @@
 import { fetchItems } from '@/app/_hook/api/home/useGetItems'
 import { cn } from '@/app/_utils/twMerge'
 import Item from '../items/_components/Item'
+import NoResults from './NoResults'
 
 export default async function ItemSection({
   hobby = '농구',
@@ -10,6 +11,10 @@ export default async function ItemSection({
   const itemData = await fetchItems(hobby)
 
   const { items } = itemData
+
+  if (items.length === 0) {
+    return <NoResults sectionName="아이템" />
+  }
 
   return (
     <div

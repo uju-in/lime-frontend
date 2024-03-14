@@ -1,6 +1,7 @@
 import { fetchVotes } from '@/app/_hook/api/home/useGetVotes'
 import { cn } from '@/app/_utils/twMerge'
 import VoteItem from '../votes/_component/VoteItem'
+import NoResults from './NoResults'
 
 export default async function VoteSection({
   hobby = '농구',
@@ -10,6 +11,10 @@ export default async function VoteSection({
   const voteData = await fetchVotes(hobby)
 
   const { votes } = voteData
+
+  if (votes.length === 0) {
+    return <NoResults sectionName="투표" />
+  }
 
   return (
     <div
