@@ -17,7 +17,7 @@ export default function SideMenu() {
   })
 
   return (
-    <div className="flex flex-col gap-[20px]">
+    <div className={cn('flex flex-col gap-[20px]', 'mo:hidden')}>
       {/* Categories */}
       <div className="text-[25px] font-bold">{title}</div>
       <ul className="flex flex-col gap-[15px] text-[#575757]">
