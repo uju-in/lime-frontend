@@ -1,4 +1,5 @@
 import { fetchVotes } from '@/app/_hook/api/home/useGetVotes'
+import { cn } from '@/app/_utils/twMerge'
 import VoteItem from '../(withLayout)/votes/_component/VoteItem'
 
 export default async function VoteSection({
@@ -11,9 +12,17 @@ export default async function VoteSection({
   const { votes } = voteData
 
   return (
-    <div className="mt-[32px] flex gap-[15px]">
+    <div
+      className={cn(
+        'mt-[32px] grid grid-cols-[repeat(auto-fill,290px)] gap-[8px]',
+        'mo:max-h-[680px] mo:grid-cols-1 mo:overflow-hidden',
+      )}
+    >
       {votes.map((item) => (
-        <div key={item.cursorId} className="h-[332px] w-[290px]">
+        <div
+          key={item.cursorId}
+          className={cn('h-[332px] w-[290px]', 'w-full')}
+        >
           <VoteItem item={item} path="/" />
         </div>
       ))}

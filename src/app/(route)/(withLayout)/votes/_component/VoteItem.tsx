@@ -31,27 +31,21 @@ export default function VoteItem({ item, path }: VoteItemProps) {
     <div
       key={item.cursorId}
       className={cn(
-        `h-full rounded-[8px] border border-[#E6E6E6] bg-red-500 bg-white px-[24px] pt-[12px]`,
+        `h-full w-full rounded-[8px] border border-[#E6E6E6] bg-white px-[24px] pt-[12px]`,
       )}
     >
       <div
-        className={cn(`flex justify-center`, {
-          'h-[156px]': path,
-          'h-[228px]': !path,
+        className={cn('flex h-full w-full', {
+          'h-[156px]': path === '/',
+          'h-[228px]': path !== '/',
         })}
       >
-        <Image
-          width={path ? 127 : 170}
-          height={path ? 156 : 208}
-          src={item.item1Info.image}
-          alt="vote item1"
-        />
-        <Image
-          width={path ? 127 : 170}
-          height={path ? 156 : 208}
-          src={item.item2Info.image}
-          alt="vote item2"
-        />
+        <div className="relative h-full w-full">
+          <Image src={item.item1Info.image} alt="vote item1" fill />
+        </div>
+        <div className="relative h-full w-full">
+          <Image src={item.item2Info.image} alt="vote item2" fill />
+        </div>
       </div>
       <p className="mt-[18px] h-[45px] text-[14px] font-[500]">
         {item.voteInfo.content}
