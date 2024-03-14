@@ -1,6 +1,6 @@
 import { fetchVotes } from '@/app/_hook/api/home/useGetVotes'
 import { cn } from '@/app/_utils/twMerge'
-import VoteItem from '../(withLayout)/votes/_component/VoteItem'
+import VoteItem from '../votes/_component/VoteItem'
 
 export default async function VoteSection({
   hobby = '농구',

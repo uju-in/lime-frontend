@@ -1,6 +1,6 @@
 import { fetchItems } from '@/app/_hook/api/home/useGetItems'
 import { cn } from '@/app/_utils/twMerge'
-import Item from '../(withLayout)/items/_components/Item'
+import Item from '../items/_components/Item'
 
 export default async function ItemSection({
   hobby = '농구',

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { SectionNameType } from '@/app/_types/home.type'
 import { cn } from '@/app/_utils/twMerge'
-import { getSectionPath } from '../_utils/getSectionPath'
+import { getSectionPath } from '../../_utils/getSectionPath'
 
 export default function LoadMoreButton({
   sectionName,
