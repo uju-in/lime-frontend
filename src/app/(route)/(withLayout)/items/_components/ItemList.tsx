@@ -1,11 +1,10 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 import { ItemType } from '@/app/_types/item.type'
 import useItemListData from '@/app/_hook/api/items/useItemListData'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
+import { cn } from '@/app/_utils/twMerge'
 import { useInView } from 'react-intersection-observer'
 import SortBox from './SortBox'
 import { SortOption } from '../_constants'
@@ -36,7 +35,13 @@ export default function ItemList() {
       <div className="relative my-[30px] flex items-center justify-end">
         <SortBox sortOption={sortOption} setSortOption={setSortOption} />
       </div>
-      <div className="grid grid-cols-[repeat(auto-fill,184px)] gap-x-[19px] gap-y-[25px]">
+      <div
+        className={cn(
+          'grid grid-cols-[repeat(5,minmax(0px,1fr))] gap-x-[19px] gap-y-[25px]',
+          'tablet:grid-cols-[repeat(4,minmax(0px,1fr))]',
+          'mo:grid-cols-[repeat(3,minmax(0px,1fr))]',
+        )}
+      >
         {itemList.map((item: ItemType) => {
           return <Item item={item} key={item.cursorId} />
         })}
