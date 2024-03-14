@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import MoNavbar from '@/app/_components/layout/mobile/MoNavbar'
 import { cn } from '@/app/_utils/twMerge'
 import CategoryPicker from '../../_components/categoryPicker/CategoryPicker'
@@ -15,25 +14,9 @@ export default function Home({ searchParams }: Props) {
 
   return (
     <main className={cn('bg-[#F7F7F7]', 'mo:bg-white')}>
-      {/** 메인 검색창 임시 보류 */}
-
-      {/* <section className="flex justify-center py-[51px]">
-        <div className="flex h-[72px] w-[996px] items-center justify-center gap-[23.1px] rounded-[57.823px] border-2 border-black">
-          <Image
-            width={34}
-            height={34}
-            src="/image/icon/icon-search.svg"
-            alt="search keyword"
-          />
-          <input
-            className="h-[32px] w-[836px] text-[26px] font-[400] text-[#A5A5A5] outline-0"
-            placeholder="어떤 아이템을 찾으시나요?"
-          />
-        </div>
-      </section> */}
-      {/* <section className="bg-white pt-[51px]">
+      <section className="bg-white pt-[51px]">
         <CategoryPicker />
-      </section> */}
+      </section>
       {/** Feed */}
       <article
         className={cn(
