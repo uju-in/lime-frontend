@@ -1,10 +1,10 @@
 'use client'
 
 import RQProvider from '@/app/_components/RQProvider'
-import { MoHeader } from '@/app/_components/layout/mobile/MoHeader'
 import MoNavbar from '@/app/_components/layout/mobile/MoNavbar'
 import { cn } from '@/app/_utils/twMerge'
 import React, { ReactNode } from 'react'
+import FloatingButton from './_components/FloatingButton'
 
 export default function ItemListLayout({ children }: { children: ReactNode }) {
   return (
@@ -17,6 +17,7 @@ export default function ItemListLayout({ children }: { children: ReactNode }) {
       >
         {children}
       </div>
+      <FloatingButton />
       <MoNavbar />
     </RQProvider>
   )
