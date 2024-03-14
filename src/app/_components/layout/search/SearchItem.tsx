@@ -1,6 +1,7 @@
 import { useRouter } from 'next/navigation'
 import { useSetRecoilState } from 'recoil'
 import { searchViewState } from '@/app/_atoms/searchViewState'
+import { cn } from '@/app/_utils/twMerge'
 
 interface Props {
   itemId: number
@@ -19,12 +20,18 @@ export function SearchItem({ itemId, itemName, inputKeyword }: Props) {
   const second = itemName.substring(startAt, endAt) // strong text
   const third = itemName.substring(endAt)
 
-  if (startAt < 0) return <div className="text-[#535353]">{itemName}</div>
+  if (startAt < 0)
+    return (
+      <li className={cn('text-[#535353]', 'mo:border-b mo:p-[18px_17px]')}>
+        {itemName}
+      </li>
+    )
 
   return (
-    <li className="text-[#535353]">
+    <li className={cn('text-[#535353]', 'mo:border-b mo:p-[18px_17px]')}>
       <button
         type="button"
+        className="text-left"
         onClick={() => {
           router.push(`/items/${itemId}`)
           setIsSearchView(false)
