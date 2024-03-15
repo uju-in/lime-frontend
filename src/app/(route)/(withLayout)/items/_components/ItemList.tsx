@@ -13,11 +13,17 @@ import Item from './Item'
 export default function ItemList() {
   const [sortOption, setSortOption] = useState(SortOption[2])
   const hobbyName = useGetSearchParam('category') || '농구'
-  const { itemList, isLoading, isError, fetchNextPage, isFetchingNextPage } =
-    useItemListData({
-      hobbyName,
-      sortOption: sortOption.value,
-    })
+  const {
+    itemList,
+    itemTotalCount,
+    isLoading,
+    isError,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useItemListData({
+    hobbyName,
+    sortOption: sortOption.value,
+  })
 
   const { ref, inView } = useInView()
 
@@ -32,7 +38,10 @@ export default function ItemList() {
 
   return (
     <>
-      <div className="relative my-[30px] flex items-center justify-end">
+      <div className="relative my-[30px] flex items-center justify-between">
+        <span className="text-[12px] font-medium">
+          총 {itemTotalCount}개의 아이템
+        </span>
         <SortBox sortOption={sortOption} setSortOption={setSortOption} />
       </div>
       <div
