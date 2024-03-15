@@ -21,31 +21,40 @@ interface VoteItemProps {
       id: number
     }
   }
+  width: number
+  height: number
   path?: string
 }
 
-export default function VoteItem({ item, path }: VoteItemProps) {
+export default function VoteItem(props: VoteItemProps) {
+  const { item, width, height, path } = props
+
   const router = useRouter()
 
   return (
     <div
       key={item.cursorId}
-      className={cn(
-        `h-full w-full rounded-[8px] border border-[#E6E6E6] bg-white px-[24px] pt-[12px]`,
-      )}
+      className="flex h-full flex-col rounded-[8px] border border-[#E6E6E6] bg-white px-[24px] pt-[12px]"
     >
       <div
-        className={cn('flex h-full w-full', {
+        className={cn('flex', {
           'h-[156px]': path === '/',
-          'h-[228px]': path !== '/',
+          'h-[208px]': path !== '/',
         })}
       >
-        <div className="relative h-full w-full">
-          <Image src={item.item1Info.image} alt="vote item1" fill />
-        </div>
-        <div className="relative h-full w-full">
-          <Image src={item.item2Info.image} alt="vote item2" fill />
-        </div>
+        <Image
+          src={item.item1Info.image}
+          alt="vote item1"
+          width={width}
+          height={height}
+        />
+
+        <Image
+          src={item.item2Info.image}
+          alt="vote item2"
+          width={width}
+          height={height}
+        />
       </div>
       <p className="mt-[18px] h-[45px] text-[14px] font-[500]">
         {item.voteInfo.content}

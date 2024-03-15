@@ -26,9 +26,9 @@ export default async function VoteSection({
       {votes.map((item) => (
         <div
           key={item.cursorId}
-          className={cn('h-[332px] w-[290px]', 'w-full')}
+          className={cn('h-[332px] w-[290px]', 'mo:w-full')}
         >
-          <VoteItem item={item} path="/" />
+          <VoteItem item={item} width={128} height={156} path="/" />
         </div>
       ))}
     </div>
