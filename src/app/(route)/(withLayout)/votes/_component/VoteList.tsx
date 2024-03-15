@@ -60,7 +60,10 @@ export default function VoteList() {
               )}
             >
               {voteList?.map((item) => (
-                <div key={item.cursorId} className="h-[408px] w-[387px]">
+                <div
+                  key={item.cursorId}
+                  className={cn('h-[408px] w-[387px]', 'mo:w-full')}
+                >
                   <VoteItem item={item} width={170} height={208} />
                 </div>
               ))}

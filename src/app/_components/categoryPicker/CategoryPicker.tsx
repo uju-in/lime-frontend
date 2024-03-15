@@ -15,7 +15,7 @@ export default function CategoryPicker({ path = '/' }: { path?: string }) {
   })
 
   return (
-    <div className={cn('w-full')}>
+    <div className="w-full">
       <ul
         className={cn(
           'flex gap-[15px] text-[20px] font-[700]',
@@ -48,9 +48,13 @@ export default function CategoryPicker({ path = '/' }: { path?: string }) {
         ))}
       </ul>
       <ul
-        className={cn('mt-[20px] flex gap-[15px] text-center', 'mo:pl-[16px]', {
-          'justify-center': path === '/',
-        })}
+        className={cn(
+          'mt-[20px] flex gap-[15px] text-center',
+          'mo:gap-[9px] mo:pl-[16px]',
+          {
+            'justify-center': path === '/',
+          },
+        )}
       >
         {categoryList &&
           categoryList.list.map((item) => {
