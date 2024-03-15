@@ -24,12 +24,7 @@ export default async function ItemSection({
       )}
     >
       {items.map((item) => (
-        <div
-          key={item.cursorId}
-          className={cn('h-[290px] w-[184px]', 'mo:w-full')}
-        >
-          <Item item={item} />
-        </div>
+        <Item key={item.cursorId} item={item} />
       ))}
     </div>
   )

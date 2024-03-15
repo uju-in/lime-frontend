@@ -25,7 +25,8 @@ export default function Item({ item }: { item: ItemType }) {
           className="cursor-pointer rounded-[8px]"
           src={image}
           alt="item-image"
-          fill
+          width={184}
+          height={187}
         />
       </div>
       <div
