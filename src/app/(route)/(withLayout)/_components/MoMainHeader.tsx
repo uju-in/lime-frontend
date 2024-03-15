@@ -5,7 +5,11 @@ import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function MoHomeHeader() {
+interface Props {
+  sectionName: 'LIME' | '투표' | '아이템'
+}
+
+export default function MoMainHeader({ sectionName }: Props) {
   const scrollDirection = useScrollDirection()
 
   return (
@@ -20,7 +24,7 @@ export default function MoHomeHeader() {
       )}
     >
       <Link href="/">
-        <strong>LIME</strong>
+        <strong>{sectionName}</strong>
       </Link>
       <Link href="/mo-search">
         <Image
