@@ -4,7 +4,7 @@ import CategoryPicker from '../../_components/categoryPicker/CategoryPicker'
 import LoadMoreButton from './_components/LoadMoreButton'
 import VoteSection from './_components/VoteSection'
 import ItemSection from './_components/ItemSection'
-import MoMainHeader from './_components/MoMainHeader'
+import MoMainHeader from '../../_components/layout/mobile/MoMainHeader'
 
 type Props = {
   searchParams: { category: string }
