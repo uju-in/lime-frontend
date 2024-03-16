@@ -39,6 +39,12 @@ export const useReParticipation = () => {
       queryClient.invalidateQueries({
         queryKey: voteKeys.detail._def,
       })
+      queryClient.invalidateQueries({
+        queryKey: voteKeys.voteList._def,
+      })
+      queryClient.invalidateQueries({
+        queryKey: voteKeys.voteRanking._def,
+      })
     },
     onError: (error) => {
       renderToast({
