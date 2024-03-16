@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Modal from '@/app/_components/modal'
 import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import { cn } from '@/app/_utils/twMerge'
+import renderToast from '@/app/_utils/toast'
 import VoteItemList from './VoteItemList'
 
 interface PropsType {
@@ -26,7 +27,7 @@ export default function VoteModal(props: PropsType) {
 
   const handleSelectItem = () => {
     if (!currentSelectedItem) {
-      alert('아이템을 선택해 주세요.')
+      renderToast({ type: 'error', message: '아이템을 선택해 주세요.' })
 
       return
     }
@@ -101,7 +102,13 @@ export default function VoteModal(props: PropsType) {
               {currentFolderName}
             </strong>
             <div className="flex flex-1 justify-end">
-              <button type="button" className="text-[#C3C3C3]">
+              <button
+                type="button"
+                className={cn({
+                  'text-black': currentSelectedItem,
+                  'text-[#C3C3C3]': !currentSelectedItem,
+                })}
+              >
                 선택완료
               </button>
             </div>
