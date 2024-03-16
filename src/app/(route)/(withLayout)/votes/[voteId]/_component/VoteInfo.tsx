@@ -5,8 +5,10 @@ import { useParticipationVote } from '@/app/_hook/api/votes/useParticipationVote
 import { ItemInfoType, VoteInfoType } from '@/app/_types/detailVote.type'
 import { useReParticipation } from '@/app/_hook/api/votes/useReParticipation'
 import { cn } from '@/app/_utils/twMerge'
+import renderToast from '@/app/_utils/toast'
 import ProgressBar from './ProgressBar'
 import VoteItem from './FavoritesVoteItem'
+import VoteProgressTracker from './VoteProgressTracker'
 
 interface PropsType {
   item1Info: ItemInfoType
@@ -17,7 +19,14 @@ interface PropsType {
 
 export default function VoteInfo(props: PropsType) {
   const { item1Info, item2Info, voteInfo, selectedItemId } = props
-  const { id: voteId, item1Votes, item2Votes, isVoting } = voteInfo
+  const {
+    id: voteId,
+    item1Votes,
+    item2Votes,
+    isVoting,
+    participants,
+    endTime,
+  } = voteInfo
 
   const [itemId, setItemId] = useState<number | null>(null)
 
@@ -38,7 +47,10 @@ export default function VoteInfo(props: PropsType) {
   /** 투표 참여 */
   const handleVote = async () => {
     if (!itemId) {
-      alert('아이템을 투표해 주세요!')
+      renderToast({
+        type: 'error',
+        message: '아이템을 선택해 주세요!',
+      })
 
       return
     }
@@ -58,12 +70,17 @@ export default function VoteInfo(props: PropsType) {
   return (
     <article
       className={cn(
-        'mt-[12px] flex h-[567px] items-center rounded-[8px] border border-[#E6E6E6] px-[106px]',
-        'mo:w-full mo:border-0 mo:px-[16px]',
+        'mt-[12px] flex h-[567px] items-center rounded-[8px] border border-[#E6E6E6]  px-[106px]',
+        'mo:mt-0 mo:h-[520px] mo:w-full mo:items-start mo:border-0 mo:px-[16px]',
       )}
     >
-      <div className={cn('h-[464px] w-[514px]', 'mo:max-w-[514px]')}>
-        <div className={cn('flex h-[338px] justify-between', '')}>
+      <div className={cn('h-[464px] w-[514px]', 'mo:w-full')}>
+        <div
+          className={cn(
+            'flex h-[338px] justify-between',
+            'mo:justify-center mo:gap-[8px]',
+          )}
+        >
           {/** item1 */}
           <VoteItem
             voteItemInfo={item1Info}
@@ -83,17 +100,20 @@ export default function VoteInfo(props: PropsType) {
             onSelectItem={handleSelectItem}
           />
         </div>
+        <div className={cn('hidden', 'mo:block mo:pt-[16px]')}>
+          <VoteProgressTracker endTime={endTime} participants={participants} />
+        </div>
         {/** 투표 게이지 */}
         {(selectedItemId || !isVoting) && (
           <ProgressBar item1Votes={item1Votes} item2Votes={item2Votes} />
         )}
-        <div className="mt-[36px] flex justify-center bg-red-500">
+        <div className={cn('mt-[36px] flex justify-center', '')}>
           {isVoting && (
             <button
               type="button"
               className={cn(
                 'h-[48px] w-[136px] rounded-[100px] font-[600] text-[#fff]',
-                'mo:w-full',
+                'mo:w-full mo:rounded-[4px]',
                 {
                   'bg-[#000]': itemId,
                   'bg-[#757575]': !itemId,

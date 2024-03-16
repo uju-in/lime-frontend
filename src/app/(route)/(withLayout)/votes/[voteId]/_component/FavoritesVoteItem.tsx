@@ -21,9 +21,9 @@ export default function FavoritesVoteItem(props: PropsType) {
     <div
       className={cn(
         'relative',
-        'mo:flex:1 mo:rounded-[6px] mo:border-[2px] mo:border-black',
+        'mo:flex:1 border-black mo:rounded-[6px] mo:border-[2px]',
         {
-          'border-[3px] border-[#000]': id === itemId,
+          'border-0 border-[3px]': id === itemId,
         },
       )}
       onClick={() => onSelectItem(id)}
@@ -35,7 +35,16 @@ export default function FavoritesVoteItem(props: PropsType) {
         alt="item1 image"
         className="mo:rounded-[6px]"
       />
-      <div className="absolute bottom-[1px] h-[175px] w-[196px] rounded-[20px] bg-[#fff] px-[28px] pt-[15px] text-center">
+      <div
+        className={cn(
+          'absolute bottom-[1px] h-[175px] w-[196px] rounded-[20px] bg-[#fff] px-[28px] pt-[15px] text-center',
+          'mo:w-full',
+          {
+            'mo:bottom-[-1px] mo:rounded-[6px] mo:bg-black mo:text-white':
+              id === itemId,
+          },
+        )}
+      >
         <p className="mb-[15.4px] h-[65px] text-center text-[14px] font-[500]">
           <strong>{truncateString(name, 35)}</strong>
         </p>
@@ -45,7 +54,12 @@ export default function FavoritesVoteItem(props: PropsType) {
         <div className="mt-[21.39px] flex justify-center">
           <button
             type="button"
-            className="flex h-[24px] w-[80px] items-center justify-center rounded-[100px] border-[0.385px] border-[#000]"
+            className={cn(
+              'flex h-[24px] w-[80px] items-center justify-center rounded-[100px] border-[0.385px] border-[#000]',
+              {
+                'bg-white text-black': id === itemId,
+              },
+            )}
             onClick={() => router.push(`/items/${id}`)}
           >
             <span className="mr-[1.54px] text-[10px] font-[500]">

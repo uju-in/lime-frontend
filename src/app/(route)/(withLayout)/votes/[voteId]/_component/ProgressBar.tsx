@@ -15,7 +15,12 @@ export default function ProgressBar({ item1Votes, item2Votes }: PropsType) {
 
   if (item1Votes === 0 && item2Votes === 0) {
     return (
-      <div className="mt-[26px] flex h-[49px] w-[514px] items-center text-[22px] font-[500]">
+      <div
+        className={cn(
+          'mt-[26px] flex h-[49px] w-[514px] items-center text-[22px] font-[500]',
+          'mo:w-full',
+        )}
+      >
         <div className="flex h-full w-full items-center justify-center rounded-[8px] bg-[#000] text-[#fff]">
           0명
         </div>
@@ -24,7 +29,12 @@ export default function ProgressBar({ item1Votes, item2Votes }: PropsType) {
   }
 
   return (
-    <div className="mt-[26px] flex h-[49px] items-center text-[22px] font-[500] ">
+    <div
+      className={cn(
+        'mt-[26px] flex h-[49px] items-center text-[22px] font-[500]',
+        'mo:w-full',
+      )}
+    >
       {item1Votes !== 0 && (
         <div
           style={{ width: `${item1Width}px` }}

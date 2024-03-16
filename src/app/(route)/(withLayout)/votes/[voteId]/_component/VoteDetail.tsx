@@ -82,9 +82,6 @@ export default function VoteDetail(props: Props) {
           voteInfo={voteInfo}
           selectedItemId={selectedItemId}
         />
-        <div className={cn('hidden', 'mo:block')}>
-          <VoteProgressTracker endTime={endTime} participants={participants} />
-        </div>
       </section>
     )
   }
