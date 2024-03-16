@@ -48,7 +48,12 @@ export default function FavoriteList(props: PropsType) {
 
   if (isSuccess) {
     return (
-      <div className="grid grid-cols-3 gap-x-[10px] gap-y-[20px]">
+      <div
+        className={cn(
+          'grid grid-cols-3 gap-x-[10px] gap-y-[20px]',
+          'mo:w-full mo:place-items-center mo:gap-x-[2px] mo:p-[16px]',
+        )}
+      >
         {itemList.favoriteInfos.map((item: SaveItemType) => {
           const { metadata, originalName } = item
           const { favoriteItemMetadata } = metadata as MetadataType
@@ -56,7 +61,7 @@ export default function FavoriteList(props: PropsType) {
           return (
             <div
               key={item.favoriteId}
-              className={cn('w-[107px] cursor-pointer text-start ', {
+              className={cn('w-[107px] cursor-pointer text-start', {
                 'bg-[#e0e0e0]':
                   currentSelectedItem?.itemId === favoriteItemMetadata.itemId,
                 'bg-[#fff]':

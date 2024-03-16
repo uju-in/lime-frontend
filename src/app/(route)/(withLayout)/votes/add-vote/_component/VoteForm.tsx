@@ -149,7 +149,10 @@ export default function VoteForm() {
       <div className="flex items-center justify-center py-[98px]">
         <button
           type="submit"
-          className="h-[48px] w-[300px] rounded-[4px] bg-[#000] font-[600] text-[#fff]"
+          className={cn(
+            'h-[48px] w-[300px] rounded-[4px] bg-[#000] font-[600] text-[#fff]',
+            'mo:w-full',
+          )}
         >
           생성하기
         </button>

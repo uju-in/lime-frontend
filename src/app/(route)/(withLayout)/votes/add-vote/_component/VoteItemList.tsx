@@ -6,18 +6,30 @@ import {
   CurrentFavoriteItemMetadata,
   SaveItemType,
 } from '@/app/_types/saveItem.type'
+import { cn } from '@/app/_utils/twMerge'
+import { useRecoilState } from 'recoil'
 import FolderList from './FolderList'
 import FavoriteList from './FavoriteItemList'
+import ItemsNotFound from './ItemsNotFound'
 
 interface PropsType {
   setCurrentSelectedItem: React.Dispatch<
     React.SetStateAction<CurrentFavoriteItemMetadata | null>
   >
   currentSelectedItem: CurrentFavoriteItemMetadata | null
+  showMobileItemList: boolean
+  setShowMobileItemList: React.Dispatch<React.SetStateAction<boolean>>
+  setCurrentFolderName: React.Dispatch<React.SetStateAction<string>>
 }
 
 export default function VoteItemList(props: PropsType) {
-  const { setCurrentSelectedItem, currentSelectedItem } = props
+  const {
+    setCurrentSelectedItem,
+    currentSelectedItem,
+    showMobileItemList,
+    setShowMobileItemList,
+    setCurrentFolderName,
+  } = props
 
   const [folderInfo, setFolderInfo] = useState<SaveItemType[]>([])
   const [selectedFolder, setSelectedFolder] = useState<{
@@ -32,16 +44,45 @@ export default function VoteItemList(props: PropsType) {
 
   useEffect(() => {
     fetchFolderList()
-  }, [])
+  }, [showMobileItemList])
 
   return (
-    <div className="flex h-[410px] w-[760px] rounded-[8px] border  border-[#DADADA]">
+    <div
+      className={cn(
+        'flex h-[410px] w-[760px] rounded-[8px] border border-[#DADADA]',
+        'mo:w-full mo:border-none',
+      )}
+    >
       <FolderList
         favoriteInfos={folderInfo}
         selectedFolder={selectedFolder}
         setSelectedFolder={setSelectedFolder}
+        setCurrentFolderName={setCurrentFolderName}
       />
-      <div className="flex-1 overflow-y-auto pl-[16px]">
+      {!showMobileItemList ? (
+        <div
+          className="hidden w-full mo:block"
+          onClick={() => {
+            setShowMobileItemList(true)
+          }}
+        >
+          <FolderList
+            favoriteInfos={folderInfo}
+            selectedFolder={selectedFolder}
+            setSelectedFolder={setSelectedFolder}
+            setCurrentFolderName={setCurrentFolderName}
+          />
+        </div>
+      ) : (
+        <div className={cn('hidden w-full', 'mo:block')}>
+          <FavoriteList
+            folderId={selectedFolder.folderId}
+            currentSelectedItem={currentSelectedItem}
+            setCurrentSelectedItem={setCurrentSelectedItem}
+          />
+        </div>
+      )}
+      <div className={cn('flex-1 overflow-y-auto pl-[16px]', 'mo:hidden')}>
         {selectedFolder.itemCount !== 0 ? (
           <>
             <p className="my-[13px] text-[12px]">
@@ -54,14 +95,7 @@ export default function VoteItemList(props: PropsType) {
             />
           </>
         ) : (
-          <div className="flex h-full flex-col items-center justify-center">
-            <strong className="mb-[12px] text-[20px] font-[600]">
-              찜한 아이템이 없어요
-            </strong>
-            <p className="text-[14px] font-[500]">
-              마음에 드는 아이템을 담아보세요
-            </p>
-          </div>
+          <ItemsNotFound />
         )}
       </div>
     </div>
