@@ -108,6 +108,7 @@ export default function VoteModal(props: PropsType) {
                   'text-black': currentSelectedItem,
                   'text-[#C3C3C3]': !currentSelectedItem,
                 })}
+                onClick={handleSelectItem}
               >
                 선택완료
               </button>
