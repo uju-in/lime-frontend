@@ -5,5 +5,4 @@ export const voteKeys = createQueryKeys('votes', {
   favorites: (folderId: number) => [folderId],
   voteList: (hobby: string, sortOption: string) => [hobby, sortOption],
   voteRanking: (hobby: string) => [hobby],
-  searchList: (keyword) => [keyword],
 })
