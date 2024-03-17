@@ -22,7 +22,7 @@ export default function VoteItemsSelector(props: PropsType) {
     <div>
       {selectedFolder.itemCount !== 0 ? (
         <>
-          <p className="my-[13px] text-[12px]">
+          <p className={cn('my-[13px] text-[12px]', 'mo:hidden')}>
             아이템 {selectedFolder.itemCount}개
           </p>
           <FavoriteList
