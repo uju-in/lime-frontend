@@ -43,7 +43,10 @@ export default function VoteModal(props: PropsType) {
         setShowVoteModal(false)
       }}
     >
-      <Modal isScrollActive={false} section="addVote">
+      <Modal
+        isScrollActive={false}
+        innerClassNames="mo:bottom-0 mo:top-[15%] mo:w-full mo:max-w-full mo:-translate-y-0"
+      >
         <div className={cn('h-[592px] w-[852px]', 'mo:w-full')}>
           {/** PC Modal Header */}
           <div

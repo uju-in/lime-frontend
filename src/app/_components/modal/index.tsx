@@ -6,10 +6,14 @@ import { ReactNode } from 'react'
 type ModalProps = {
   children: ReactNode
   isScrollActive?: boolean
-  section?: string
+  innerClassNames?: string
 }
 
-function Modal({ isScrollActive = false, section, children }: ModalProps) {
+function Modal({
+  isScrollActive = false,
+  innerClassNames,
+  children,
+}: ModalProps) {
   return (
     <div
       id="ModalContainer"
@@ -22,9 +26,8 @@ function Modal({ isScrollActive = false, section, children }: ModalProps) {
           {
             'overflow-y-scroll': isScrollActive,
             'overflow-x-hidden': !isScrollActive,
-            'mo:bottom-0 mo:top-[15%] mo:w-full mo:max-w-full mo:-translate-y-0':
-              section === 'addVote',
           },
+          innerClassNames,
         )}
         onClick={(e) => e.stopPropagation()}
       >
