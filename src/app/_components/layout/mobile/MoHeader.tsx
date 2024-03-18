@@ -2,10 +2,41 @@ import useScrollDirection from '@/app/_hook/common/useScrollDirection'
 import { LocalStorage } from '@/app/_utils/localStorage'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useCallback } from 'react'
 
 export namespace MoHeader {
+  export function Main({ title }: { title: string }) {
+    const scrollDirection = useScrollDirection()
+
+    return (
+      <header
+        className={cn(
+          'fixed left-0 right-0 top-0 z-10 hidden h-[56px] items-center justify-between bg-white p-[16px] text-[18px] font-[700]',
+          'mo:flex',
+          {
+            'mo:hidden': scrollDirection === 'down',
+            'mo:flex': scrollDirection === 'up',
+          },
+        )}
+      >
+        <Link href="/">
+          <strong>{title}</strong>
+        </Link>
+        <Link href="/mo-search">
+          <Image
+            src="/image/icon/icon-search_black.svg"
+            alt="search"
+            width={24}
+            height={24}
+            className="cursor-pointer"
+          />
+        </Link>
+      </header>
+    )
+  }
+
   export function Back({ title }: { title: string }) {
     const router = useRouter()
     const scrollDirection = useScrollDirection()
