@@ -19,7 +19,7 @@ export default function Item({ item }: { item: ItemType }) {
 
   return (
     <div className="flex h-full w-full flex-col gap-[7px] text-[14px]">
-      <div className="relative h-[187px] w-full">
+      <div className="relative w-full">
         <Image
           onClick={handleItemClick}
           className="cursor-pointer rounded-[8px]"
