@@ -1,17 +1,24 @@
+import useScrollDirection from '@/app/_hook/common/useScrollDirection'
 import { LocalStorage } from '@/app/_utils/localStorage'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 
 export namespace MoHeader {
   export function Back({ title }: { title: string }) {
     const router = useRouter()
+    const scrollDirection = useScrollDirection()
+
     return (
       <header
         className={cn(
           'hidden items-center justify-between py-[10px]',
           'mo:flex',
+          {
+            'mo:hidden': scrollDirection === 'down',
+            'mo:flex': scrollDirection === 'up',
+          },
         )}
       >
         <button type="button" onClick={() => router.back()}>
@@ -36,6 +43,7 @@ export namespace MoHeader {
     setInputKeyword: React.Dispatch<React.SetStateAction<string>>
   }) {
     const router = useRouter()
+    const scrollDirection = useScrollDirection()
 
     const handleSearch = useCallback(() => {
       router.push(`/search?keyword=${inputKeyword}`)
@@ -46,7 +54,12 @@ export namespace MoHeader {
     }, [inputKeyword, router])
 
     return (
-      <header className="flex items-center gap-[19px] px-[8px] py-[10px]">
+      <header
+        className={cn('flex items-center gap-[19px] px-[8px] py-[10px]', {
+          'mo:hidden': scrollDirection === 'down',
+          'mo:flex': scrollDirection === 'up',
+        })}
+      >
         <button type="button" onClick={() => router.back()}>
           <Image
             src="/image/icon/icon-back.svg"
