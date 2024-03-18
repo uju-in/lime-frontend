@@ -2,6 +2,7 @@
 
 import { useVoteRanking } from '@/app/_hook/api/votes/useVoteRanking'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
+import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -16,13 +17,18 @@ export default function RankingList() {
   }
 
   return (
-    <section className="mt-[52px]">
+    <section className={cn('mt-[52px] w-full', 'mo:pl-[16px]')}>
       {rankingInfos.length > 0 && (
         <>
-          <p className="mt-[69.5px]">
+          <p>
             <strong className="text-[26px] font-[700]">투표 랭킹</strong>
           </p>
-          <div className="mt-[22px] flex gap-[33.5px]">
+          <div
+            className={cn(
+              'mt-[22px] flex gap-[33.5px] scrollbar-hide',
+              'mo:gap-[12px] mo:overflow-x-scroll',
+            )}
+          >
             {/** Ranking Item */}
             {rankingInfos &&
               rankingInfos.map((item) => (

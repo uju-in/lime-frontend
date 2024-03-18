@@ -48,7 +48,12 @@ export default function FavoriteList(props: PropsType) {
 
   if (isSuccess) {
     return (
-      <div className="grid grid-cols-3 gap-x-[10px] gap-y-[20px]">
+      <div
+        className={cn(
+          'grid grid-cols-3 gap-x-[10px] gap-y-[20px]',
+          'mo:w-full mo:place-items-center mo:gap-x-[2px] mo:p-[16px]',
+        )}
+      >
         {itemList.favoriteInfos.map((item: SaveItemType) => {
           const { metadata, originalName } = item
           const { favoriteItemMetadata } = metadata as MetadataType
@@ -56,22 +61,23 @@ export default function FavoriteList(props: PropsType) {
           return (
             <div
               key={item.favoriteId}
-              className={cn('w-[107px] cursor-pointer text-start ', {
-                'bg-[#e0e0e0]':
-                  currentSelectedItem?.itemId === favoriteItemMetadata.itemId,
-                'bg-[#fff]':
-                  currentSelectedItem?.itemId !== favoriteItemMetadata.itemId,
-              })}
+              className="w-[107px] cursor-pointer text-start"
               onClick={() =>
                 handleSelectItem(favoriteItemMetadata, originalName)
               }
             >
-              <Image
-                width={107}
-                height={107}
-                src={favoriteItemMetadata.imageUrl}
-                alt="item image"
-              />
+              <div className="relative">
+                <Image
+                  width={107}
+                  height={107}
+                  src={favoriteItemMetadata.imageUrl}
+                  alt="item image"
+                />
+                {currentSelectedItem?.itemId ===
+                  favoriteItemMetadata.itemId && (
+                  <div className="absolute bottom-0 left-0 right-0 top-0 bg-[#6F6F6F] opacity-80" />
+                )}
+              </div>
               <div className="h-[70px] text-[10px] font-[500]">
                 <p>{truncateString(originalName, 26)}</p>
                 <strong className="font-[700]">
