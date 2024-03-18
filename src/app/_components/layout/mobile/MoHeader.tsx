@@ -1,5 +1,3 @@
-'use client'
-
 import { LocalStorage } from '@/app/_utils/localStorage'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
