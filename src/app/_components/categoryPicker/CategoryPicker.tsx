@@ -15,11 +15,15 @@ export default function CategoryPicker({ path = '/' }: { path?: string }) {
   })
 
   return (
-    <div>
+    <div className="w-full">
       <ul
-        className={cn('flex gap-[15px] text-[20px] font-[700]', {
-          'justify-center': path === '/',
-        })}
+        className={cn(
+          'flex gap-[15px] text-[20px] font-[700]',
+          'mo:rounded-none mo:border mo:border-x-0 mo:border-t-0 mo:border-black mo:pl-[16px]',
+          {
+            'justify-center': path === '/',
+          },
+        )}
       >
         {CategoryOption.map((item) => (
           <Link
@@ -32,7 +36,8 @@ export default function CategoryPicker({ path = '/' }: { path?: string }) {
               className={cn(
                 'h-[42.5px] w-[86.5px] cursor-pointer rounded-[83.333px] px-[16px] py-[8px] text-[#fff]',
                 {
-                  'bg-black text-white': title === item.title,
+                  'bg-black text-white mo:rounded-none mo:border-2 mo:border-x-0 mo:border-t-0 mo:border-black mo:bg-white mo:text-black':
+                    title === item.title,
                   'bg-white text-[#AAA]': title !== item.title,
                 },
               )}
@@ -43,9 +48,13 @@ export default function CategoryPicker({ path = '/' }: { path?: string }) {
         ))}
       </ul>
       <ul
-        className={cn('mt-[20px] flex gap-[15px] text-center', {
-          'justify-center': path === '/',
-        })}
+        className={cn(
+          'mt-[20px] flex gap-[15px] text-center',
+          'mo:gap-[9px] mo:pl-[16px]',
+          {
+            'justify-center': path === '/',
+          },
+        )}
       >
         {categoryList &&
           categoryList.list.map((item) => {
@@ -53,11 +62,12 @@ export default function CategoryPicker({ path = '/' }: { path?: string }) {
               <Link href={`${path}?title=${title}&category=${item}`} key={item}>
                 <li
                   className={cn(
-                    'h-[39px] min-w-[60px] cursor-pointer  border-[3px] font-[600]',
+                    'flex h-[39px] min-w-[60px]  cursor-pointer items-center justify-center border-[3px] font-[600]',
+                    'mo:rounded-[100px] mo:px-[14px] mo:py-[10px] mo:text-[12px] mo:font-[500] mo:text-white',
                     {
-                      'border-x-0 border-t-0 border-b-[#000]':
+                      'border-x-0 border-t-0 border-b-[#000] mo:bg-black':
                         category === item,
-                      'border-0': category !== item,
+                      'border-0 mo:bg-[#AEAEAE]': category !== item,
                     },
                   )}
                 >

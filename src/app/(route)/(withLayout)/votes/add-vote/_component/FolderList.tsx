@@ -11,21 +11,27 @@ interface PropsType {
   setSelectedFolder: React.Dispatch<
     React.SetStateAction<{ folderId: number | null; itemCount: number | null }>
   >
+  setCurrentFolderName: React.Dispatch<React.SetStateAction<string>>
 }
 
 export default function FolderList(props: PropsType) {
-  const { favoriteInfos, selectedFolder, setSelectedFolder } = props
+  const {
+    favoriteInfos,
+    selectedFolder,
+    setSelectedFolder,
+    setCurrentFolderName,
+  } = props
 
   /** select folderId, itemCount */
   const handleSelectFolder = useCallback(
-    (favoriteId: number, itemCount: number) => {
+    (favoriteId: number, itemCount: number, originalName: string) => {
       const isSelected = favoriteId === selectedFolder.folderId
 
       if (!isSelected) {
         setSelectedFolder({ folderId: favoriteId, itemCount })
-      } else {
-        setSelectedFolder({ folderId: null, itemCount: null })
       }
+
+      setCurrentFolderName(originalName)
     },
     [selectedFolder, setSelectedFolder],
   )
@@ -47,7 +53,11 @@ export default function FolderList(props: PropsType) {
               },
             )}
             onClick={() =>
-              handleSelectFolder(favoriteId, folderMetadata.itemCount)
+              handleSelectFolder(
+                favoriteId,
+                folderMetadata.itemCount,
+                originalName,
+              )
             }
           >
             <Image

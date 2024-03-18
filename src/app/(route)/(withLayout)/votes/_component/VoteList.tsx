@@ -5,6 +5,7 @@ import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { cn } from '@/app/_utils/twMerge'
 import { SortOption } from '../_constants'
 import SortButtons from './SortButtons'
 import VoteItem from './VoteItem'
@@ -20,7 +21,7 @@ export default function VoteList() {
     useVoteListData(hobby, sortOption.value)
 
   return (
-    <section>
+    <section className="mo:px-[16px]">
       {voteList.length === 0 ? (
         <div className="mt-[186px] flex flex-col items-center gap-[29px]">
           <strong className="text-[20px] font-[500]">
@@ -51,16 +52,29 @@ export default function VoteList() {
             />
           </div>
           {/** Votes */}
-          <article className="mt-[43.5px]">
-            <div className="grid grid-cols-2 gap-[20px]">
+          <article className="mt-[43.5px] w-full">
+            <div
+              className={cn(
+                'grid grid-cols-2 gap-[20px]',
+                'mo:grid-cols-1 mo:gap-[16px]',
+              )}
+            >
               {voteList?.map((item) => (
-                <div key={item.cursorId} className="h-[408px] w-[387px]">
+                <div
+                  key={item.cursorId}
+                  className={cn('h-[408px] w-[387px]', 'mo:w-full')}
+                >
                   <VoteItem item={item} width={170} height={208} />
                 </div>
               ))}
             </div>
             {/** More Item Request */}
-            <div className="flex h-[105px] items-start items-center justify-center">
+            <div
+              className={cn(
+                'flex items-start items-center justify-center pb-[85px] pt-[32px]',
+                '',
+              )}
+            >
               {isFetchingNextPage ? (
                 <div>More Loading. . . </div>
               ) : (

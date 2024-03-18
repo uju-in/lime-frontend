@@ -6,6 +6,7 @@ import useAddVote from '@/app/_hook/api/votes/useAddVote'
 import { VoteInfoType } from '@/app/_types/addVote.type'
 import CategorySelector from '@/app/_components/categorySelector'
 import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
+import { cn } from '@/app/_utils/twMerge'
 import VoteModal from './VoteModal'
 import ItemSelector from './ItemSelector'
 
@@ -83,14 +84,22 @@ export default function VoteForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="mt-[61px] flex gap-[8px] text-[18px] font-[600]">
+    <form onSubmit={handleSubmit} className="mo:w-full">
+      <div
+        className={cn(
+          'mt-[61px] flex gap-[8px] text-[18px] font-[600]',
+          'mo:w-full',
+        )}
+      >
         <h1>투표 인원을 설정해 주세요</h1>
         <p className="text-[#A4A4A4]">(선택)</p>
       </div>
       <input
         name="maximumParticipants"
-        className="mt-[20px] h-[48px] w-full border border-[#BDBDBD] py-[14px] pl-[12px]"
+        className={cn(
+          'mt-[20px] h-[48px] w-full border border-[#BDBDBD] py-[14px] pl-[12px]',
+          'mo:w-full',
+        )}
         placeholder="숫자만 입력해 주세요."
         onChange={handleChange}
       />
@@ -129,15 +138,21 @@ export default function VoteForm() {
       <textarea
         name="content"
         placeholder="최소 10자 이상 작성해 주세요."
-        className="h-[140px] w-[720px] resize-none rounded-[4px] border border-[#DADADA] px-[12px] pt-[14px] outline-0"
+        className={cn(
+          'h-[140px] w-[720px] resize-none rounded-[4px] border border-[#DADADA] px-[12px] pt-[14px] outline-0',
+          'mo:w-full',
+        )}
         minLength={10}
         onChange={handleChange}
         required
       />
-      <div className="flex h-[300px] items-center justify-center">
+      <div className="flex items-center justify-center py-[98px]">
         <button
           type="submit"
-          className="h-[48px] w-[300px] rounded-[4px] bg-[#000] font-[600] text-[#fff]"
+          className={cn(
+            'h-[48px] w-[300px] rounded-[4px] bg-[#000] font-[600] text-[#fff]',
+            'mo:w-full',
+          )}
         >
           생성하기
         </button>
