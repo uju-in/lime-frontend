@@ -25,7 +25,7 @@ export default function RankingList() {
           </p>
           <div
             className={cn(
-              'mt-[22px] flex gap-[33.5px]',
+              'mt-[22px] flex gap-[33.5px] scrollbar-hide',
               'mo:gap-[12px] mo:overflow-x-scroll',
             )}
           >
