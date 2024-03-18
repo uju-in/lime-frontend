@@ -8,7 +8,12 @@ export default function FloatingButton() {
   const router = useRouter()
 
   return (
-    <div className="fixed bottom-[90px] right-[16px] flex flex-col gap-[8px]">
+    <div
+      className={cn(
+        'fixed bottom-[90px] right-[16px] hidden flex-col gap-[8px]',
+        'mo:flex',
+      )}
+    >
       {isOpen && (
         <>
           <button
