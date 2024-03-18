@@ -8,9 +8,11 @@ export default function AddItemLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="mo:px-[16px]">
+    <div className="mo:w-full mo:px-[16px]">
       <MoHeader.Back title="아이템 생성" />
-      <div className="flex h-dvh justify-center bg-[#F7F7F7]">{children}</div>
+      <div className="flex h-dvh w-full justify-center bg-[#F7F7F7]">
+        {children}
+      </div>
     </div>
   )
 }
