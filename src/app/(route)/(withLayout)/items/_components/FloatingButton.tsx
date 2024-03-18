@@ -38,7 +38,7 @@ export default function FloatingButton() {
             className="rounded-full bg-[#595959] p-[10px]"
           >
             <Image
-              src="/image/icon/icon-plus_white.svg"
+              src="/image/icon/icon-plus_white_36.svg"
               width={36}
               height={36}
               alt="plus"
