@@ -22,7 +22,7 @@ export default function FloatingButton() {
               src="/image/icon/icon-save_white.svg"
               width={36}
               height={36}
-              alt="menu"
+              alt="save"
             />
           </button>
           <button
@@ -36,7 +36,7 @@ export default function FloatingButton() {
               src="/image/icon/icon-plus_white.svg"
               width={36}
               height={36}
-              alt="menu"
+              alt="plus"
             />
           </button>
         </>
@@ -52,7 +52,7 @@ export default function FloatingButton() {
           src="/image/icon/icon-more.svg"
           width={36}
           height={36}
-          alt="menu"
+          alt="more"
         />
       </button>
     </div>
