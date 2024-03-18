@@ -21,7 +21,7 @@ export default function MoAddButton({ path }: PropsType) {
       <button
         type="button"
         className="h-[56px] w-[56px]  rounded-full bg-black p-[10px]"
-        onClick={() => router.push(`/${path}/add-vote`)}
+        onClick={() => router.push(`/${path}`)}
       >
         <Image
           width={36}

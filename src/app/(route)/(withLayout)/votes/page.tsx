@@ -24,7 +24,7 @@ export default function page() {
           <VoteList />
         </Suspense>
       </main>
-      <MoAddButton path="votes" />
+      <MoAddButton path="votes/add-vote" />
       <MoNavbar />
     </>
   )
