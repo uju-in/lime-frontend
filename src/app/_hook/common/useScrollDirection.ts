@@ -4,7 +4,7 @@
 
 import { useState, useEffect } from 'react'
 
-const SCROLL_THRESHOLD = 5 // 스크롤 변화를 감지하는 임계값
+const SCROLL_THRESHOLD = 3 // 스크롤 변화를 감지하는 임계값
 
 export default function useScrollDirection() {
   const [scrollDirection, setScrollDirection] = useState('up')
