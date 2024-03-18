@@ -38,8 +38,13 @@ export default function ItemList() {
 
   return (
     <>
-      <div className="relative my-[30px] flex items-center justify-between">
-        <span className="text-[12px] font-medium">
+      <div
+        className={cn(
+          'relative my-[30px] flex items-center justify-end',
+          'mo:justify-between',
+        )}
+      >
+        <span className={cn('hidden text-[12px] font-medium', 'mo:block')}>
           총 {itemTotalCount}개의 아이템
         </span>
         <SortBox sortOption={sortOption} setSortOption={setSortOption} />
