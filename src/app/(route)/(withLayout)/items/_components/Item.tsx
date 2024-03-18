@@ -18,15 +18,17 @@ export default function Item({ item }: { item: ItemType }) {
   }
 
   return (
-    <div className="flex flex-col gap-[7px] text-[14px]">
-      <Image
-        onClick={handleItemClick}
-        className="cursor-pointer rounded-[8px]"
-        src={image}
-        alt="item-image"
-        width={184}
-        height={184}
-      />
+    <div className="flex h-full w-full flex-col gap-[7px] text-[14px]">
+      <div className="relative h-[187px] w-full">
+        <Image
+          onClick={handleItemClick}
+          className="cursor-pointer rounded-[8px]"
+          src={image}
+          alt="item-image"
+          width={184}
+          height={187}
+        />
+      </div>
       <div
         onClick={handleItemClick}
         className="line-clamp-2 h-[42px] cursor-pointer text-[#515151] hover:underline"
