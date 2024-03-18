@@ -70,7 +70,9 @@ const useItemListData = ({
   }, [data])
 
   const itemTotalCount = useMemo(() => {
-    return data ? data.pages.flatMap((pageData) => pageData.itemTotalCount) : 0
+    return data
+      ? data.pages.flatMap((pageData) => pageData.itemTotalCount)[0]
+      : 0
   }, [data])
 
   return {
