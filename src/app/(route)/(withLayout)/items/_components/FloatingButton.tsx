@@ -1,3 +1,5 @@
+'use client'
+
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'

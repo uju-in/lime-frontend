@@ -1,5 +1,3 @@
-'use client'
-
 import React, { ReactNode } from 'react'
 import RQProvider from '@/app/_components/RQProvider'
 import MoNavbar from '@/app/_components/layout/mobile/MoNavbar'
