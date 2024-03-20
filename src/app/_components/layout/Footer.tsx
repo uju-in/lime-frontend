@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer
       className={cn(
-        'flex bg-white px-[128px] pb-[140px] pt-[49px]',
+        'm-[49px_auto_140px] flex w-[1024px] max-w-full bg-white px-[10px]',
         'mo:hidden',
       )}
     >

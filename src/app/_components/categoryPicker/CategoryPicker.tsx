@@ -49,7 +49,7 @@ export default function CategoryPicker({ path = '/' }: { path?: string }) {
       </ul>
       <ul
         className={cn(
-          'mt-[20px] flex gap-[15px] text-center',
+          'mt-[20px] flex gap-[15px] overflow-x-scroll text-center',
           'mo:gap-[9px] mo:pl-[16px]',
           {
             'justify-center': path === '/',
@@ -62,7 +62,7 @@ export default function CategoryPicker({ path = '/' }: { path?: string }) {
               <Link href={`${path}?title=${title}&category=${item}`} key={item}>
                 <li
                   className={cn(
-                    'flex h-[39px] min-w-[60px]  cursor-pointer items-center justify-center border-[3px] font-[600]',
+                    'flex h-[39px] min-w-[60px] cursor-pointer items-center justify-center text-nowrap border-[3px] font-[600]',
                     'mo:rounded-[100px] mo:px-[14px] mo:py-[10px] mo:text-[12px] mo:font-[500] mo:text-white',
                     {
                       'border-x-0 border-t-0 border-b-[#000] mo:bg-black':

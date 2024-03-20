@@ -58,6 +58,7 @@ const useItemListData = ({
     }: {
       nextCursorId: string
       items: ItemType[]
+      itemTotalCount: number
     }) => {
       return nextCursorId
     },
@@ -68,9 +69,16 @@ const useItemListData = ({
     return data ? data.pages.flatMap((pageData) => pageData.items) : []
   }, [data])
 
+  const itemTotalCount = useMemo(() => {
+    return data
+      ? data.pages.flatMap((pageData) => pageData.itemTotalCount)[0]
+      : 0
+  }, [data])
+
   return {
     data,
     itemList,
+    itemTotalCount,
     isLoading,
     isError,
     fetchNextPage,

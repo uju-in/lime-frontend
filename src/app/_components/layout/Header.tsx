@@ -22,7 +22,7 @@ export default function Header() {
 
   if (isSearchView)
     return (
-      <div className="flex w-full items-center justify-between px-[150px] py-[23px]">
+      <div className="mx-auto my-[23px] flex w-[1024px] max-w-full items-center justify-between px-[10px]">
         <div className="relative mx-auto h-[52.5px] w-fit" ref={searchRef}>
           <Search />
         </div>
@@ -32,7 +32,7 @@ export default function Header() {
   return (
     <div
       className={cn(
-        'flex w-full items-center justify-between px-[150px] py-[23px]',
+        'mx-auto my-[23px] flex w-[1024px] max-w-full items-center justify-between px-[10px]',
         'mo:hidden',
       )}
     >
@@ -42,7 +42,7 @@ export default function Header() {
           <Link href="/">LIME</Link>
         </div>
         {/* 카테고리 */}
-        <ul className="flex gap-[100px] text-[18px]">
+        <ul className="flex gap-[80px] text-[18px]">
           <li className="font-bold">
             {/* TODO: href 변경 */}
             <Link href="/">피드</Link>
