@@ -29,7 +29,7 @@ export default function ReviewSection(props: PropsType) {
   }
 
   return (
-    <article className="mt-[64px]">
+    <article className={cn('mt-[64px]', 'mo:mt-[28px] mo:px-[16px]')}>
       <div className="flex h-[42px] justify-between border-b-2 border-b-[#000]">
         <strong className="text-[18px] font-[600]">
           리뷰 ({data?.pages[0]?.itemReviewTotalCount})
