@@ -63,7 +63,13 @@ export default function SearchItemList({ keyword }: { keyword: string }) {
         </p>
         <SortBox sortOption={sortOption} setSortOption={setSortOption} />
       </div>
-      <div className="grid grid-cols-[repeat(auto-fill,184px)] gap-x-[19px] gap-y-[25px]">
+      <div
+        className={cn(
+          'grid grid-cols-6 gap-x-[19px] gap-y-[25px]',
+          'tablet:grid-cols-5',
+          'mo:grid-cols-3',
+        )}
+      >
         {itemList.map((item: ItemType) => {
           return <SearchItem item={item} key={item.cursorId} />
         })}

@@ -12,7 +12,7 @@ export function SearchItem({ item }: { item: ItemType }) {
   }
 
   return (
-    <div className="flex w-[184px] flex-col gap-[7px] text-[14px]">
+    <div className="flex flex-col gap-[7px] text-[14px]">
       <Image
         onClick={handleItemClick}
         className="cursor-pointer rounded-[8px]"
