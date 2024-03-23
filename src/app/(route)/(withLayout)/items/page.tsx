@@ -14,7 +14,7 @@ export default function page() {
       </div>
       <div
         className={cn(
-          'mx-auto flex w-[1024px] max-w-full justify-center gap-[50px] px-[10px]',
+          'mx-auto flex w-[1200px] max-w-full justify-center gap-[50px] px-[10px]',
           'mo:px-[16px]',
         )}
       >
