@@ -52,8 +52,8 @@ export default function SortBox(props: Props) {
             return (
               <li
                 className={cn('cursor-pointer hover:text-black', {
-                  'font-semibold text-black': sortOption === item,
-                  'font-normal text-[#868585]': sortOption !== item,
+                  'font-semibold text-black': sortOption.value === item.value,
+                  'font-normal text-[#868585]': sortOption.value !== item.value,
                 })}
                 key={item.value}
                 onClick={() => {
