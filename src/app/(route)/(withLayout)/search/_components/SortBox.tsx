@@ -47,7 +47,7 @@ export default function SortBox(props: Props) {
         />
       </button>
       {showSortList && (
-        <ul className="absolute right-0 top-[25px] flex flex-col gap-[5px] rounded-[4px] border border-[#ededed] bg-white p-[10px_15px] shadow-[0px_0px_5.85px_2.25px_rgba(0,0,0,0.10)]">
+        <ul className="absolute right-0 top-[25px] z-50 flex flex-col gap-[5px] rounded-[4px] border border-[#ededed] bg-white p-[10px_15px] shadow-[0px_0px_5.85px_2.25px_rgba(0,0,0,0.10)]">
           {SortOption.map((item) => {
             return (
               <li
