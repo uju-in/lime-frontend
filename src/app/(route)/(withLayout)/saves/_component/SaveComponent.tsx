@@ -65,7 +65,7 @@ export default function SaveComponent() {
   }
 
   return (
-    <section className="mx-auto h-full max-w-[1200px]">
+    <section className="mx-auto h-full max-w-[1200px] px-[10px]">
       {/* Header */}
       {mode === SavePageMode.DEFAULT && (
         <SaveHeader.Default
