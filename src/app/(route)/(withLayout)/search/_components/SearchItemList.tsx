@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { ItemType } from '@/app/_types/item.type'
 import useItemListData from '@/app/_hook/api/items/useItemListData'
+import { cn } from '@/app/_utils/twMerge'
 import { useInView } from 'react-intersection-observer'
 import { SortOption } from '../_constants'
 import SortBox from './SortBox'
@@ -101,7 +102,12 @@ export default function SearchItemList({ keyword }: { keyword: string }) {
 
   return (
     <>
-      <div className="relative my-[30px] flex items-center justify-between">
+      <div
+        className={cn(
+          'relative my-[30px] flex items-center justify-between',
+          'mo:mb-[12px] mo:mt-[16px]',
+        )}
+      >
         <p className="text-[14px] font-medium">
           총 {itemList.length}개의 아이템
         </p>
