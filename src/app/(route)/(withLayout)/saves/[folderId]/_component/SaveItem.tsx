@@ -22,7 +22,7 @@ export default function SaveItem(props: Props) {
   } = props
 
   return (
-    <div className="relative flex w-[184px] flex-col gap-[7px] text-[14px]">
+    <div className="relative flex flex-col gap-[7px] text-[14px]">
       <Image
         height={184}
         width={184}

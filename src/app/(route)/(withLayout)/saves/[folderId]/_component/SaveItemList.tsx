@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { SaveItemType, SavePageMode } from '@/app/_types/save.type'
+import { cn } from '@/app/_utils/twMerge'
 import { useRouter } from 'next/navigation'
 import SaveItem from './SaveItem'
 
@@ -21,7 +22,13 @@ export default function SaveItemList({
   const router = useRouter()
 
   return (
-    <div className="relative grid grid-cols-[repeat(auto-fill,184px)] justify-center gap-x-[19px] gap-y-[25px]">
+    <div
+      className={cn(
+        'relative grid grid-cols-6 justify-center gap-x-[19px] gap-y-[25px]',
+        'tablet:grid-cols-5',
+        'mo:grid-cols-3',
+      )}
+    >
       {itemList.map((item) => {
         const { originalName, metadata, favoriteId } = item
         const { price, imageUrl, favoriteCount, reviewCount, itemId } =
