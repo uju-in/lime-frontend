@@ -22,7 +22,7 @@ export default function Header() {
 
   if (isSearchView)
     return (
-      <div className="mx-auto my-[23px] flex w-[1024px] max-w-full items-center justify-between px-[10px]">
+      <div className="mx-auto my-[23px] flex w-[1200px] max-w-full items-center justify-between px-[10px]">
         <div className="relative mx-auto h-[52.5px] w-fit" ref={searchRef}>
           <Search />
         </div>
@@ -32,7 +32,7 @@ export default function Header() {
   return (
     <div
       className={cn(
-        'mx-auto my-[23px] flex w-[1024px] max-w-full items-center justify-between px-[10px]',
+        'mx-auto my-[23px] flex w-[1200px] max-w-full items-center justify-between px-[10px]',
         'mo:hidden',
       )}
     >
