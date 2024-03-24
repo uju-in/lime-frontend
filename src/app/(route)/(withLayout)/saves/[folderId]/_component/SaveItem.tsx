@@ -42,7 +42,7 @@ export default function SaveItem(props: Props) {
       )}
       <p
         onClick={onClick}
-        className="cursor-pointer text-[#515151] hover:underline"
+        className="line-clamp-2 cursor-pointer text-[#515151] hover:underline"
       >
         {originalName}
       </p>
