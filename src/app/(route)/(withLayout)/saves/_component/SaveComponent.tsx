@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import Image from 'next/image'
 import {
   SaveFolderType,
@@ -10,6 +10,7 @@ import {
 import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
 import useSaveList from '@/app/_hook/api/saves/useSavesList'
 import renderToast from '@/app/_utils/toast'
+import { cn } from '@/app/_utils/twMerge'
 
 import { SaveHeader } from './SaveHeader'
 import SaveList from './SaveList'
@@ -67,18 +68,20 @@ export default function SaveComponent() {
   return (
     <section className="mx-auto h-full max-w-[1200px]">
       {/* Header */}
-      {mode === SavePageMode.DEFAULT && (
-        <SaveHeader.Default
-          setMode={setMode}
-          setShowAddFolderModal={setShowAddFolderModal}
-        />
-      )}
-      {mode === SavePageMode.EDIT_LIST && (
-        <SaveHeader.EditList
-          handleAllSelect={handleAllSelect}
-          checkedList={checkedList}
-        />
-      )}
+      <div className={cn('block', 'mo:hidden')}>
+        {mode === SavePageMode.DEFAULT && (
+          <SaveHeader.Default
+            setMode={setMode}
+            setShowAddFolderModal={setShowAddFolderModal}
+          />
+        )}
+        {mode === SavePageMode.EDIT_LIST && (
+          <SaveHeader.EditList
+            handleAllSelect={handleAllSelect}
+            checkedList={checkedList}
+          />
+        )}
+      </div>
       <SaveList
         mode={mode}
         folderList={folderList}

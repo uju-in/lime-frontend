@@ -1,10 +1,11 @@
 import useScrollDirection from '@/app/_hook/common/useScrollDirection'
 import { LocalStorage } from '@/app/_utils/localStorage'
+import MoAddFolderModal from '@/app/(route)/(withLayout)/saves/_component/MoAddFolderModal'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 
 export namespace MoHeader {
   export function Main({ title }: { title: string }) {
@@ -121,6 +122,51 @@ export namespace MoHeader {
             height={24}
           />
         </button>
+      </header>
+    )
+  }
+
+  export function Save({ title }: { title: string }) {
+    const router = useRouter()
+    const scrollDirection = useScrollDirection()
+    const [showAddFolderModal, setShowAddFolderModal] = useState(false)
+
+    return (
+      <header
+        className={cn(
+          'fixed left-0 right-0 top-0 z-50 hidden items-center justify-between bg-white px-[10px] py-[10px]',
+          'mo:flex',
+          {
+            'mo:hidden': scrollDirection === 'down',
+            'mo:flex': scrollDirection === 'up',
+          },
+        )}
+      >
+        <button type="button" onClick={() => router.back()}>
+          <Image
+            src="/image/icon/icon-back.svg"
+            width={24}
+            height={24}
+            alt="arrow left"
+          />
+        </button>
+        <h1 className="text-[16px] font-semibold">{title}</h1>
+        <button
+          type="button"
+          onClick={() => {
+            setShowAddFolderModal(true)
+          }}
+        >
+          <Image
+            src="/image/icon/icon-plus_242424.svg"
+            width={24}
+            height={24}
+            alt="plus"
+          />
+        </button>
+        {showAddFolderModal && (
+          <MoAddFolderModal setShowAddFolderModal={setShowAddFolderModal} />
+        )}
       </header>
     )
   }
