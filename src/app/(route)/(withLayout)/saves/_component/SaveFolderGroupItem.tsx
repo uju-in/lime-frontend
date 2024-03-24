@@ -26,7 +26,7 @@ export default function SaveFolderGroupItem(props: Props) {
       }}
       disabled={disabled}
       className={cn(
-        'relative mr-5 flex h-[240px] w-[387px] overflow-hidden rounded-[9px] bg-[#D2D2D2]',
+        'relative flex h-[240px] overflow-hidden rounded-[9px] bg-[#D2D2D2]',
         {
           'cursor-auto': disabled,
           'cursor-pointer': !disabled,

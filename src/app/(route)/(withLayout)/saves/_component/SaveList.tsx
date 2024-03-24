@@ -7,6 +7,7 @@ import {
 } from '@/app/_types/save.type'
 
 import React from 'react'
+import { cn } from '@/app/_utils/twMerge'
 import { useRouter } from 'next/navigation'
 import SaveFolderGroupItem from './SaveFolderGroupItem'
 import { SaveItem } from '../[folderId]/_component'
@@ -31,7 +32,13 @@ export default function SaveList({
   return (
     <>
       {/* 폴더 */}
-      <div className="mb-[40px] grid grid-cols-[repeat(auto-fill,387px)] gap-[17px]">
+      <div
+        className={cn(
+          'mb-[40px] grid grid-cols-3 gap-[17px]',
+          'tablet:grid-cols-2',
+          'mo:grid-cols-1',
+        )}
+      >
         {folderList.map((item: SaveFolderType) => {
           return (
             <SaveFolderGroupItem
