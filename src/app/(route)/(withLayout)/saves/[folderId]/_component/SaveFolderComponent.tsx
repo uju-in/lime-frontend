@@ -6,6 +6,7 @@ import { SaveItemType, SavePageMode } from '@/app/_types/save.type'
 import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
 import useSaveList from '@/app/_hook/api/saves/useSavesList'
 import renderToast from '@/app/_utils/toast'
+import { cn } from '@/app/_utils/twMerge'
 
 import { SaveFolderHeader, SaveItemList } from '.'
 import MoveFolderModal from '../../_component/MoveFolderModal'
@@ -61,7 +62,12 @@ export default function SaveFolderComponent(props: Props) {
   return (
     <div className="mx-auto max-w-[1200px]">
       {/* Header */}
-      <section className="relative mb-[100px] flex items-center justify-center gap-[12px]">
+      <section
+        className={cn(
+          'relative mb-[100px] flex items-center justify-center gap-[12px]',
+          'mo:hidden',
+        )}
+      >
         {mode === SavePageMode.DEFAULT && (
           <SaveFolderHeader.Default
             setMode={setMode}
