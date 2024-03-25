@@ -7,6 +7,8 @@ import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
 import useSaveList from '@/app/_hook/api/saves/useSavesList'
 import renderToast from '@/app/_utils/toast'
 import { cn } from '@/app/_utils/twMerge'
+import { useRecoilState } from 'recoil'
+import { saveModeState } from '@/app/_atoms/saveModeState'
 
 import { SaveFolderHeader, SaveItemList } from '.'
 import MoveFolderModal from '../../_component/MoveFolderModal'
@@ -19,7 +21,8 @@ interface Props {
 
 export default function SaveFolderComponent(props: Props) {
   const { folderId, folderName } = props
-  const [mode, setMode] = useState<SavePageMode>(SavePageMode.DEFAULT)
+  const [mode, setMode] = useRecoilState(saveModeState)
+
   const [checkedList, setCheckedList] = useState<number[]>([])
 
   const [showMoveFolderModal, setShowMoveFolderModal] = useState(false)
@@ -70,14 +73,12 @@ export default function SaveFolderComponent(props: Props) {
       >
         {mode === SavePageMode.DEFAULT && (
           <SaveFolderHeader.Default
-            setMode={setMode}
             folderId={folderId}
             originFolderName={folderName}
           />
         )}
         {mode === SavePageMode.CHANGE_NAME && (
           <SaveFolderHeader.ChangeName
-            setMode={setMode}
             folderId={folderId}
             originFolderName={folderName}
           />
