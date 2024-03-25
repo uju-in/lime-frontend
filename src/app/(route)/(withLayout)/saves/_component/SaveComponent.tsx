@@ -66,7 +66,7 @@ export default function SaveComponent() {
   }
 
   return (
-    <section className="mx-auto h-full max-w-[1200px]">
+    <section className="mx-auto h-full max-w-[1200px] px-[10px]">
       {/* Header */}
       <div className={cn('block', 'mo:hidden')}>
         {mode === SavePageMode.DEFAULT && (
