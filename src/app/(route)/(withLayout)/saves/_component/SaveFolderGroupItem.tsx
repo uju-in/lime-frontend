@@ -1,4 +1,3 @@
-import { cn } from '@/app/_utils/twMerge'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import React from 'react'
@@ -7,7 +6,6 @@ interface Props {
   folderName: string
   id: number
   itemCount: number
-  disabled: boolean
   imageUrls: string[]
 }
 
@@ -15,7 +13,7 @@ const gray64Img =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJMAAAB5CAYAAAA9OhPxAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFTSURBVHgB7dJRDYAwFMDAB5lQnIGmKWIi+nmX1EGvvfczEFindyBwD0TMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxExkxkzETGTGTMRMZMZMxEZp2+gcAPe0EFC+eeLFQAAAAASUVORK5CYII='
 
 export default function SaveFolderGroupItem(props: Props) {
-  const { folderName, id, disabled, imageUrls, itemCount } = props
+  const { folderName, id, imageUrls, itemCount } = props
   const router = useRouter()
 
   return (
@@ -24,14 +22,7 @@ export default function SaveFolderGroupItem(props: Props) {
       onClick={() => {
         router.push(`/saves/${id}?name=${folderName}`)
       }}
-      disabled={disabled}
-      className={cn(
-        'relative flex h-[240px] overflow-hidden rounded-[9px] bg-[#D2D2D2]',
-        {
-          'cursor-auto': disabled,
-          'cursor-pointer': !disabled,
-        },
-      )}
+      className="relative flex h-[240px] overflow-hidden rounded-[9px] bg-[#D2D2D2]"
     >
       <Image
         src={itemCount > 0 ? imageUrls[0] : gray64Img}
@@ -56,9 +47,6 @@ export default function SaveFolderGroupItem(props: Props) {
           alt="img"
         />
       </div>
-      {disabled && (
-        <div className="absolute left-0 top-0 z-20 h-full w-full bg-white opacity-80" />
-      )}
       <div className="absolute left-0 top-0 z-10 h-[193px] w-full rounded-t-[9px] bg-gradient-folder pl-4 pt-4">
         <p className="text-left text-[20px] font-[700] text-white drop-shadow-[0.774px_0.774px_2.012px_rgba(0,0,0,0.30)]">
           {folderName}
