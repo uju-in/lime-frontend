@@ -10,10 +10,8 @@ import FloatingButton from './_components/FloatingButton'
 export default function ItemListLayout({ children }: { children: ReactNode }) {
   return (
     <RQProvider>
-      <MoHeader.Main title="아이템" />
       <div>{children}</div>
       <FloatingButton />
-      <MoNavbar />
     </RQProvider>
   )
 }
