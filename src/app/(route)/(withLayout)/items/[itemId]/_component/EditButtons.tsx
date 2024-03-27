@@ -18,7 +18,7 @@ export default function EditButtons(props: PropsType) {
 
   const { mutateAsync: deleteReview } = useDeleteReview()
 
-  const handleDeleteReview = (e: any) => {
+  const handleDeleteReview = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
 
     setShowConfirm(true)
