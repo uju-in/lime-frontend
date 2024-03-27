@@ -5,7 +5,10 @@ import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
+import useOutsideClick from '@/app/_hook/common/useOutsideClick'
+import MoDeleteFolderModal from '@/app/(route)/(withLayout)/saves/_component/MoDeleteFolderModal'
+import MoChangeFolderNameModal from '@/app/(route)/(withLayout)/saves/_component/MoChangeFolderNameModal'
 
 export namespace MoHeader {
   export function Main({ title }: { title: string }) {
@@ -129,7 +132,21 @@ export namespace MoHeader {
   export function Save({ title }: { title: string }) {
     const router = useRouter()
     const scrollDirection = useScrollDirection()
+    const [showDropDown, setShowDropDown] = useState(false)
     const [showAddFolderModal, setShowAddFolderModal] = useState(false)
+    const [showFolderDeleteModal, setShowFolderDeleteModal] = useState(false)
+    const [showChangeFolderNameModal, setShowChangeFolderNameModal] =
+      useState(false)
+
+    const dropdownRef = useRef(null)
+
+    const isDetailPage = title.length > 0 // 찜 폴더 상세 페이지인지 여부 (/saves/[folderId]?name=)
+
+    useOutsideClick(dropdownRef, () => {
+      if (showDropDown) {
+        setShowDropDown(false)
+      }
+    })
 
     return (
       <header
@@ -150,22 +167,67 @@ export namespace MoHeader {
             alt="arrow left"
           />
         </button>
-        <h1 className="text-[16px] font-semibold">{title}</h1>
+        <h1 className="text-[16px] font-semibold">
+          {isDetailPage ? title : '찜목록'}
+        </h1>
         <button
           type="button"
           onClick={() => {
-            setShowAddFolderModal(true)
+            if (isDetailPage) {
+              setShowDropDown(true)
+            } else {
+              setShowAddFolderModal(true)
+            }
           }}
         >
           <Image
-            src="/image/icon/icon-plus_242424.svg"
+            src={
+              isDetailPage
+                ? '/image/icon/icon-save_menu.svg'
+                : '/image/icon/icon-plus_242424.svg'
+            }
             width={24}
             height={24}
-            alt="plus"
+            alt="icon"
           />
         </button>
+        {showDropDown && (
+          <ul
+            ref={dropdownRef}
+            className="absolute right-[10px] top-10 flex w-[160px] flex-col divide-y-[0.5px] divide-[#8C8C8C] rounded-[12px] bg-[#F2F2F2] text-[14px] font-medium"
+          >
+            <li
+              onClick={() => setShowChangeFolderNameModal(true)}
+              className="cursor-pointer rounded-t-[12px] p-[11px_17px] hover:bg-[#ddd]"
+            >
+              이름 수정
+            </li>
+            <li className="cursor-pointer p-[11px_17px] hover:bg-[#ddd]">
+              목록 편집
+            </li>
+            <li
+              onClick={() => {
+                setShowDropDown(false)
+                setShowFolderDeleteModal(true)
+              }}
+              className="cursor-pointer rounded-b-[12px] p-[11px_17px] text-[#f00] hover:bg-[#ddd]"
+            >
+              폴더 삭제
+            </li>
+          </ul>
+        )}
+        {/* ----- Modal ----- */}
         {showAddFolderModal && (
           <MoAddFolderModal setShowAddFolderModal={setShowAddFolderModal} />
+        )}
+        {showFolderDeleteModal && (
+          <MoDeleteFolderModal setShowModal={setShowFolderDeleteModal} />
+        )}
+        {showChangeFolderNameModal && (
+          <MoChangeFolderNameModal
+            originFolderName={title}
+            setShowModal={setShowChangeFolderNameModal}
+          />
         )}
       </header>
     )
