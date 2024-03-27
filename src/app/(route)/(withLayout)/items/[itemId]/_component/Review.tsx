@@ -128,16 +128,10 @@ export default function Review(props: PropsType) {
           <p className="text-start">{reviewSummary.content}</p>
         </div>
         {reviewLoginMemberStatus.isReviewed && (
-          <div
-            className={cn(
-              'ml-[48px] mt-[10px] hidden items-center gap-[10px] text-[12px] font-[500] text-[#B3B3B3]',
-              'mo:ml-0 mo:flex',
-            )}
-          >
-            <span>수정하기</span>
-            <span className="h-[10px] w-[1px] bg-[#B3B3B3]" />
-            <span>삭제하기</span>
-          </div>
+          <EditButtons
+            setShowReviewModal={setShowReviewModal}
+            reviewId={reviewSummary.reviewId}
+          />
         )}
         {/** 리뷰 상세 이미지 */}
         {showReviewDetail === reviewSummary.reviewId && (
