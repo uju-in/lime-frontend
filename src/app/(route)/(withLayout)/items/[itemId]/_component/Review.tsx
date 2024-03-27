@@ -128,10 +128,12 @@ export default function Review(props: PropsType) {
           <p className="text-start">{reviewSummary.content}</p>
         </div>
         {reviewLoginMemberStatus.isReviewed && (
-          <EditButtons
-            setShowReviewModal={setShowReviewModal}
-            reviewId={reviewSummary.reviewId}
-          />
+          <div className={cn('hidden', 'mo:block')}>
+            <EditButtons
+              setShowReviewModal={setShowReviewModal}
+              reviewId={reviewSummary.reviewId}
+            />
+          </div>
         )}
         {/** 리뷰 상세 이미지 */}
         {showReviewDetail === reviewSummary.reviewId && (
