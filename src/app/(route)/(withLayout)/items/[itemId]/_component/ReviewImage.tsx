@@ -26,7 +26,7 @@ export default function ReviewImage({
   return (
     <div
       className={cn('relative', 'mo:py-[20px]', {
-        'hidden mo:flex': mode === 'mobile',
+        'hidden mo:flex mo:gap-[8px]': mode === 'mobile',
         'mo:hidden': mode !== 'mobile',
       })}
     >
