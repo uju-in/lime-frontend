@@ -8,6 +8,9 @@ import React, { useCallback, useRef, useState } from 'react'
 import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 import MoDeleteFolderModal from '@/app/(route)/(withLayout)/saves/_component/MoDeleteFolderModal'
 import MoChangeFolderNameModal from '@/app/(route)/(withLayout)/saves/_component/MoChangeFolderNameModal'
+import { useSetRecoilState } from 'recoil'
+import { saveModeState } from '@/app/_atoms/saveModeState'
+import { SavePageMode } from '@/app/_types/save.type'
 import AddFolderModal from '@/app/(route)/(withLayout)/saves/_component/AddFolderModal'
 
 export namespace MoHeader {
@@ -138,6 +141,8 @@ export namespace MoHeader {
     const [showChangeFolderNameModal, setShowChangeFolderNameModal] =
       useState(false)
 
+    const setMode = useSetRecoilState(saveModeState)
+
     const dropdownRef = useRef(null)
 
     const isDetailPage = title.length > 0 // 찜 폴더 상세 페이지인지 여부 (/saves/[folderId]?name=)
@@ -197,12 +202,21 @@ export namespace MoHeader {
             className="absolute right-[10px] top-10 flex w-[160px] flex-col divide-y-[0.5px] divide-[#8C8C8C] rounded-[12px] bg-[#F2F2F2] text-[14px] font-medium"
           >
             <li
-              onClick={() => setShowChangeFolderNameModal(true)}
+              onClick={() => {
+                setShowDropDown(false)
+                setShowChangeFolderNameModal(true)
+              }}
               className="cursor-pointer rounded-t-[12px] p-[11px_17px] hover:bg-[#ddd]"
             >
               이름 수정
             </li>
-            <li className="cursor-pointer p-[11px_17px] hover:bg-[#ddd]">
+            <li
+              onClick={() => {
+                setShowDropDown(false)
+                setMode(SavePageMode.EDIT_LIST)
+              }}
+              className="cursor-pointer p-[11px_17px] hover:bg-[#ddd]"
+            >
               목록 편집
             </li>
             <li
