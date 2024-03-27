@@ -1,18 +1,22 @@
 import Modal from '@/app/_components/modal'
 import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
+import { useParams, useRouter } from 'next/navigation'
 import React from 'react'
 
 interface Props {
-  folderId: number
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function MoDeleteFolderModal({ folderId, setShowModal }: Props) {
+export default function MoDeleteFolderModal({ setShowModal }: Props) {
   const { mutateAsync: deleteFolder } = useDeleteSave()
+  const { folderId } = useParams()
+  const router = useRouter()
 
   const handleDeleteFolder = async () => {
-    const req = { favoriteItemIds: [], folderIds: [folderId] }
+    const req = { favoriteItemIds: [], folderIds: [Number(folderId)] }
     await deleteFolder(req)
+    router.replace('/saves')
+    setShowModal(false)
   }
 
   return (

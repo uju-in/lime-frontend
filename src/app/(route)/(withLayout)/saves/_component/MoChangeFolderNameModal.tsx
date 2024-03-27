@@ -3,19 +3,22 @@ import Modal from '@/app/_components/modal'
 import { cn } from '@/app/_utils/twMerge'
 import renderToast from '@/app/_utils/toast'
 import { useChangeSaveFolderName } from '@/app/_hook/api/saves/useChangeSaveFolderName'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
 interface Props {
-  folderId: number
   originFolderName: string
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function MoChangeFolderNameModal(props: Props) {
-  const { folderId, originFolderName, setShowModal } = props
+  const { originFolderName, setShowModal } = props
   const [newFolderName, setNewFolderName] = useState('')
-  const router = useRouter()
   const { mutateAsync: changeName } = useChangeSaveFolderName()
+
+  const { folderId } = useParams()
+  const fId = Number(folderId)
+
+  const router = useRouter()
 
   const handleChangeName = useCallback(async () => {
     if (!newFolderName) {
@@ -23,11 +26,11 @@ export default function MoChangeFolderNameModal(props: Props) {
       return
     }
 
-    await changeName({ folderId, folderName: newFolderName })
-    router.replace(`/saves/${folderId}?name=${newFolderName}`)
+    await changeName({ folderId: fId, folderName: newFolderName })
+    router.replace(`/saves/${fId}?name=${newFolderName}`)
 
     setShowModal(false)
-  }, [newFolderName, changeName, setShowModal, folderId, router])
+  }, [newFolderName, changeName, setShowModal, fId, router])
 
   return (
     <Modal>
