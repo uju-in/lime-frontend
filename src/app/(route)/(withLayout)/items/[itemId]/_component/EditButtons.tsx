@@ -74,6 +74,7 @@ export default function EditButtons(props: PropsType) {
         <Confirm
           setShowConfirm={setShowConfirm}
           id={reviewId}
+          title="리뷰"
           onConfirmedAction={deleteReview}
         />
       )}
