@@ -44,7 +44,13 @@ export default function MoveFolderModal(props: Props) {
 
     await moveItems(req)
     setShowMoveFolderModal(false)
-  }, [selectFolderId, moveItems, checkedList, setShowMoveFolderModal])
+  }, [
+    selectFolderId,
+    moveItems,
+    checkedList,
+    setShowMoveFolderModal,
+    currentFolderId,
+  ])
 
   if (isLoading) return <div>...loading</div>
   if (isError) return null
