@@ -10,6 +10,7 @@ import useEditReview from '@/app/_hook/api/reviews/useEditReview'
 
 import Modal from '@/app/_components/modal'
 import { cn } from '@/app/_utils/twMerge'
+import renderToast from '@/app/_utils/toast'
 import StarRatingFormatter from './StarRatingFormatter'
 import ReviewImagesDisplay from './ReviewImagesDisplay'
 
@@ -26,6 +27,8 @@ interface PropsType {
   action: 'create' | 'edit'
   review?: ReviewInfo
 }
+
+const MAX_IMAGE_COUNT = 5
 
 export default function ReviewModal(props: PropsType) {
   const { setShowReviewModal, itemData, action, review } = props
@@ -55,6 +58,15 @@ export default function ReviewModal(props: PropsType) {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files)
+
+      const totalImagesCount =
+        existingImages.length + multipartReviewImages.length + filesArray.length
+
+      if (totalImagesCount > MAX_IMAGE_COUNT) {
+        renderToast({ type: 'error', message: '최대 5장까지 등록 가능합니다.' })
+
+        return
+      }
 
       setMultipartReviewImages((prev) => [...prev, ...filesArray])
     }
