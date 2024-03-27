@@ -1,6 +1,5 @@
 import useScrollDirection from '@/app/_hook/common/useScrollDirection'
 import { LocalStorage } from '@/app/_utils/localStorage'
-import MoAddFolderModal from '@/app/(route)/(withLayout)/saves/_component/MoAddFolderModal'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,6 +8,7 @@ import React, { useCallback, useRef, useState } from 'react'
 import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 import MoDeleteFolderModal from '@/app/(route)/(withLayout)/saves/_component/MoDeleteFolderModal'
 import MoChangeFolderNameModal from '@/app/(route)/(withLayout)/saves/_component/MoChangeFolderNameModal'
+import AddFolderModal from '@/app/(route)/(withLayout)/saves/_component/AddFolderModal'
 
 export namespace MoHeader {
   export function Main({ title }: { title: string }) {
@@ -218,7 +218,7 @@ export namespace MoHeader {
         )}
         {/* ----- Modal ----- */}
         {showAddFolderModal && (
-          <MoAddFolderModal setShowAddFolderModal={setShowAddFolderModal} />
+          <AddFolderModal setShowAddFolderModal={setShowAddFolderModal} />
         )}
         {showFolderDeleteModal && (
           <MoDeleteFolderModal setShowModal={setShowFolderDeleteModal} />
