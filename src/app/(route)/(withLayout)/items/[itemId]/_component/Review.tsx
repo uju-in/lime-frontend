@@ -66,7 +66,7 @@ export default function Review(props: PropsType) {
         {
           'border-0': isFirst,
           'border-t border-[#D2D2D2]': !isFirst,
-          'bg-[#F6F6F6] mo:items-center':
+          'bg-[#F6F6F6] mo:items-center mo:bg-white':
             showReviewDetail === reviewSummary.reviewId,
           'items-center bg-[#fff]': showReviewDetail !== reviewSummary.reviewId,
         },
