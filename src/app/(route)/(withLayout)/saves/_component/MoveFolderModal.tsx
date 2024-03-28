@@ -65,14 +65,14 @@ export default function MoveFolderModal(props: Props) {
           'mo:h-full mo:gap-0 mo:p-0',
         )}
       >
-        <div className="hidden mo:block">
+        {/* <div className="hidden mo:block">
           <div className="mx-auto my-[17px] h-[5px] w-[40px] rounded-full bg-[#d2d2d2]" />
           <h1 className="border-b py-[11.5px] text-center text-[16px] font-semibold">
             폴더 이동
           </h1>
-        </div>
-        {/* 닫기 버튼 */}
-        <div className="block mo:hidden">
+        </div> */}
+        <div className="mo:border-b mo:p-[20px_18px]">
+          {/* 닫기 버튼 */}
           <button
             className="absolute right-[20px]"
             type="button"
