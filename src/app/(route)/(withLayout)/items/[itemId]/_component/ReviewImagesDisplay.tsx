@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { cn } from '@/app/_utils/twMerge'
 
 interface ReviewImagesDisplayProps {
   existingImages: string[]
@@ -29,7 +30,12 @@ export default function ReviewImagesDisplay({
   }, [newImages])
 
   return (
-    <div className="flex w-[508px] gap-2 overflow-x-auto overflow-y-hidden">
+    <div
+      className={cn(
+        'flex w-[508px] gap-2 overflow-y-hidden overflow-x-scroll',
+        'mo:w-[250px]',
+      )}
+    >
       {existingImages.map((imageUrl: string, index: number) => (
         <div
           // eslint-disable-next-line react/no-array-index-key

@@ -29,8 +29,13 @@ export default function ReviewSection(props: PropsType) {
   }
 
   return (
-    <article className="mt-[64px]">
-      <div className="flex h-[42px] justify-between border-b-2 border-b-[#000]">
+    <article className={cn('mt-[64px]', 'mo:mt-[28px] mo:px-[16px]')}>
+      <div
+        className={cn(
+          'flex h-[42px] justify-between border-b-2 border-b-[#000]',
+          'mo:border-0',
+        )}
+      >
         <strong className="text-[18px] font-[600]">
           리뷰 ({data?.pages[0]?.itemReviewTotalCount})
         </strong>
@@ -85,13 +90,18 @@ export default function ReviewSection(props: PropsType) {
               />
             ))}
             {/** 리뷰 더보기 */}
-            <div className="flex h-[80px] items-start justify-center">
+            <div
+              className={cn('flex items-start justify-center', 'mo:pb-[80px]')}
+            >
               {isFetchingNextPage ? (
                 <ReviewItemSkeleton />
               ) : (
                 hasNextPage && (
                   <button
-                    className="flex items-center text-[14px] font-[600] text-[#BCBCBC]"
+                    className={cn(
+                      'flex items-center justify-center text-[14px] font-[600] text-[#BCBCBC]',
+                      'mo:h-[48px] mo:w-full mo:rounded-[100px] mo:border',
+                    )}
                     type="button"
                     onClick={handleLoadMore}
                   >
@@ -111,7 +121,7 @@ export default function ReviewSection(props: PropsType) {
         </>
       ) : (
         // 리뷰가 없을 경우
-        <div className="mt-[51px] flex justify-center font-[500]">
+        <div className="flex justify-center pb-[101px] pt-[41px] font-[500]">
           이 상품의 첫 번째 리뷰를 작성해 보세요
         </div>
       )}

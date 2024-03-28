@@ -1,6 +1,7 @@
 'use client'
 
 import useAddFavorites from '@/app/_hook/api/items/useSaveToWishlist'
+import { cn } from '@/app/_utils/twMerge'
 
 interface PropsType {
   itemUrl: string
@@ -28,17 +29,22 @@ export default function ActionButtons(props: PropsType) {
   }
 
   return (
-    <div className="flex h-[48px] justify-between">
+    <div
+      className={cn(
+        'flex h-[48px] justify-between',
+        'mo:fixed mo:bottom-0 mo:right-0 mo:z-50 mo:h-[68px] mo:w-full mo:items-center mo:justify-center mo:gap-[8px] mo:border mo:bg-white mo:px-[16px]',
+      )}
+    >
       <button
         type="button"
-        className="w-[164px] rounded-[4px] bg-[#EDEDED] text-[14px] font-[600]"
+        className="h-[48px] w-[164px] rounded-[4px] bg-[#EDEDED] text-[14px] font-[600]"
         onClick={handleSaveItem}
       >
         아이템 담기
       </button>
       <button
         type="button"
-        className="w-[292px] rounded-[4px] bg-black text-[14px] font-[600] text-[#fff]"
+        className="h-[48px] w-[292px] rounded-[4px] bg-black text-[14px] font-[600] text-[#fff]"
         onClick={handleBuyItem}
       >
         구매하러 가기

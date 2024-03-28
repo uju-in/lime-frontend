@@ -49,7 +49,7 @@ export default function CategoryPicker({ path = '/' }: { path?: string }) {
       </ul>
       <ul
         className={cn(
-          'mt-[20px] flex gap-[15px] overflow-x-scroll text-center',
+          'mt-[20px] flex gap-[15px] overflow-x-scroll text-center scrollbar-hide',
           'mo:gap-[9px] mo:pl-[16px]',
           {
             'justify-center': path === '/',

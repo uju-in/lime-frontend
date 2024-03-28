@@ -9,6 +9,8 @@ import useAddReview from '@/app/_hook/api/reviews/useAddReview'
 import useEditReview from '@/app/_hook/api/reviews/useEditReview'
 
 import Modal from '@/app/_components/modal'
+import { cn } from '@/app/_utils/twMerge'
+import renderToast from '@/app/_utils/toast'
 import StarRatingFormatter from './StarRatingFormatter'
 import ReviewImagesDisplay from './ReviewImagesDisplay'
 
@@ -25,6 +27,8 @@ interface PropsType {
   action: 'create' | 'edit'
   review?: ReviewInfo
 }
+
+const MAX_IMAGE_COUNT = 5
 
 export default function ReviewModal(props: PropsType) {
   const { setShowReviewModal, itemData, action, review } = props
@@ -54,6 +58,15 @@ export default function ReviewModal(props: PropsType) {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files)
+
+      const totalImagesCount =
+        existingImages.length + multipartReviewImages.length + filesArray.length
+
+      if (totalImagesCount > MAX_IMAGE_COUNT) {
+        renderToast({ type: 'error', message: '최대 5장까지 등록 가능합니다.' })
+
+        return
+      }
 
       setMultipartReviewImages((prev) => [...prev, ...filesArray])
     }
@@ -129,14 +142,45 @@ export default function ReviewModal(props: PropsType) {
   }
 
   return (
-    <Modal isScrollActive>
-      <form className="p-[13px_0_45px]" onSubmit={handleSubmit}>
-        <div className="flex justify-between border-b px-[23px] py-[18px]">
-          <div className="w-[36px]" />
-          <p className="w-full text-center text-[24px]">리뷰작성</p>
+    <Modal innerClassNames="mo:top-0 mo:max-w-full mo:max-h-full mo:-translate-y-0">
+      <form
+        className={cn('w-full p-[13px_0_45px]', 'mo:px-[16px]')}
+        onSubmit={handleSubmit}
+      >
+        <div
+          className={cn(
+            'flex justify-between border-b px-[23px] py-[18px]',
+            'mo:border-0 mo:px-0 mo:py-[6px]',
+          )}
+        >
+          <div className={cn('w-[36px]', 'mo:hidden')} />
           <button
             type="button"
             aria-label="close"
+            onClick={() => {
+              setShowReviewModal(false)
+            }}
+          >
+            <Image
+              width={24}
+              height={24}
+              className={cn('hidden', 'mo:block')}
+              src="/image/icon/icon-close.svg"
+              alt="close"
+            />
+          </button>
+          <p
+            className={cn(
+              'w-full text-center text-[24px]',
+              'mo:text-[16px] mo:font-[600]',
+            )}
+          >
+            리뷰 작성
+          </p>
+          <button
+            type="button"
+            aria-label="close"
+            className="mo:hidden"
             onClick={() => {
               setShowReviewModal(false)
             }}
@@ -150,7 +194,7 @@ export default function ReviewModal(props: PropsType) {
             />
           </button>
         </div>
-        <div className="mt-[34px] px-[41px]">
+        <div className={cn('mt-[34px] px-[41px]', 'mo:p-0')}>
           {/** 아이템 정보 */}
           <div className="mb-[40px] flex gap-[20px] rounded-[8px] bg-[#F4F4F4] p-[20px]">
             <Image
@@ -168,14 +212,24 @@ export default function ReviewModal(props: PropsType) {
             </div>
           </div>
           {/** 리뷰 작성 */}
-          <div className="mb-[50px] flex flex-col items-center gap-[20px]">
+          <div
+            className={cn(
+              'mb-[50px] flex flex-col items-center gap-[20px]',
+              'mo:items-start',
+            )}
+          >
             <p>상품은 만족하셨나요?</p>
             <div className="flex gap-[8px]">
               {/** 별점 입력 */}
               <StarRatingFormatter rating={rating} setRate={setRating} />
             </div>
           </div>
-          <div className="flex flex-col items-center gap-[20px]">
+          <div
+            className={cn(
+              'flex flex-col items-center gap-[20px]',
+              'mo:items-start',
+            )}
+          >
             <p>리뷰글을 작성해주세요.</p>
             <textarea
               name="content"
@@ -187,23 +241,43 @@ export default function ReviewModal(props: PropsType) {
               value={content}
               required
             />
-            <button
-              type="button"
-              onClick={() => {
-                if (InputRef.current) {
-                  InputRef.current.click()
-                }
-              }}
-              className="w-full border border-dashed border-[#DADADA] py-[11px]"
-            >
-              사진 첨부하기
-            </button>
-            {/** Review Image List */}
-            <ReviewImagesDisplay
-              existingImages={existingImages}
-              newImages={multipartReviewImages}
-              onImageDelete={handleImageDelete}
-            />
+            <div className="mo:flex mo:gap-[8px]">
+              <button
+                type="button"
+                onClick={() => {
+                  if (InputRef.current) {
+                    InputRef.current.click()
+                  }
+                }}
+                className={cn(
+                  'mb-[15px] w-full border border-dashed border-[#DADADA] py-[11px]',
+                  'mo:flex mo:h-[96px] mo:w-[96px] mo:flex-col mo:items-center mo:justify-center mo:gap-[4px]',
+                )}
+              >
+                <Image
+                  width={24}
+                  height={24}
+                  className={cn('hidden', 'mo:block')}
+                  src="/image/icon/icon-camera.svg"
+                  alt="close"
+                />
+                <span className="mo:hidden">사진 첨부하기</span>
+                <span
+                  className={cn(
+                    'hidden text-[#B7B7B7] mo:text-[12px]',
+                    'mo:block',
+                  )}
+                >
+                  {existingImages.length + multipartReviewImages.length}/5
+                </span>
+              </button>
+              {/** Review Image List */}
+              <ReviewImagesDisplay
+                existingImages={existingImages}
+                newImages={multipartReviewImages}
+                onImageDelete={handleImageDelete}
+              />
+            </div>
             <input
               name="multipartReviewImages"
               type="file"
@@ -216,7 +290,10 @@ export default function ReviewModal(props: PropsType) {
           <div className="mt-[50px] flex w-full gap-[20px] text-[16px] font-semibold">
             <button
               type="button"
-              className="flex-1 rounded-[4px] border border-[#DADADA] py-[12px]"
+              className={cn(
+                'flex-1 rounded-[4px] border border-[#DADADA] py-[12px]',
+                'mo:hidden',
+              )}
               onClick={() => {
                 setShowReviewModal(false)
               }}
@@ -225,9 +302,21 @@ export default function ReviewModal(props: PropsType) {
             </button>
             <button
               type="submit"
-              className="flex-1 rounded-[4px] bg-black py-[12px] text-white"
+              className={cn(
+                'flex-1 rounded-[4px] bg-black py-[12px] text-white',
+                'mo:hidden',
+              )}
             >
               등록
+            </button>
+            <button
+              type="submit"
+              className={cn(
+                'hidden flex-1 rounded-[4px] bg-black py-[12px] text-white',
+                'mo:block',
+              )}
+            >
+              작성 완료
             </button>
           </div>
         </div>

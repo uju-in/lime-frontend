@@ -75,12 +75,7 @@ export default function PostForm() {
       <p className="mt-[8px] text-[14px] font-[400] text-[#A4A4A4]">
         *네이버 쇼핑, 쿠팡, 다나와 URL만 입력 가능합니다.
       </p>
-      <div
-        className={cn(
-          'flex justify-center',
-          'mo:absolute mo:bottom-[38px] mo:w-[calc(100%-32px)]',
-        )}
-      >
+      <div className="flex justify-center">
         <button
           className={cn(
             'mt-[70px] h-[45px] w-[250px] rounded-[2px] bg-black text-[15px] text-white',

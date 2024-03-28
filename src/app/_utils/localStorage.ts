@@ -37,4 +37,22 @@ export namespace LocalStorage {
       },
     }
   }
+
+  // 리뷰 상세 이미지
+  export const imageUrls = () => {
+    const KEY = 'imageUrls'
+
+    return {
+      getter: (): string[] => {
+        const data = localStorage.getItem(KEY)
+        return data ? JSON.parse(data) : []
+      },
+      setter: (value: string[]): void => {
+        localStorage.setItem(KEY, JSON.stringify(value))
+      },
+      remove: (): void => {
+        localStorage.removeItem(KEY)
+      },
+    }
+  }
 }

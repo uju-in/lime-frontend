@@ -1,12 +1,14 @@
-import React from 'react'
 import { cn } from '@/app/_utils/twMerge'
 import CategoryPicker from '@/app/_components/categoryPicker/CategoryPicker'
+import MoNavbar from '@/app/_components/layout/mobile/MoNavbar'
 import SideMenu from './_components/SideMenu'
 import ItemList from './_components/ItemList'
+import MoItemListHeader from './_components/MoItemListHeader'
 
 export default function page() {
   return (
     <>
+      <MoItemListHeader />
       <div
         className={cn('mt-[16px] hidden justify-between pt-[56px]', 'mo:flex')}
       >
@@ -23,6 +25,7 @@ export default function page() {
           <ItemList />
         </div>
       </div>
+      <MoNavbar />
     </>
   )
 }
