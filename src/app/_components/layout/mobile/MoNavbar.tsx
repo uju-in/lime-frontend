@@ -19,7 +19,7 @@ export default function MoNavbar() {
   return (
     <div
       className={cn(
-        'fixed bottom-0 z-50 hidden w-full border-t border-[#E0E0E0] bg-white px-[10px] py-[5px]',
+        'fixed bottom-0 z-40 hidden w-full border-t border-[#E0E0E0] bg-white px-[10px] py-[5px]',
         'mo:block',
       )}
     >

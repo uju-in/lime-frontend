@@ -20,10 +20,15 @@ export default function AddFolderModal({ setShowAddFolderModal }: Props) {
 
   return (
     <Modal>
-      <div className="relative p-[42px_44px]">
+      <div
+        className={cn(
+          'relative flex flex-col gap-[26px] p-[42px_44px]',
+          'mo:gap-[22px] mo:bg-[#F2F2F2] mo:px-0 mo:pb-0 mo:pt-[26px]',
+        )}
+      >
         <button
           type="button"
-          className="absolute right-[14px] top-[14px]"
+          className={cn('absolute right-[14px] top-[14px] block', 'mo:hidden')}
           onClick={() => setShowAddFolderModal(false)}
         >
           <Image
@@ -33,26 +38,63 @@ export default function AddFolderModal({ setShowAddFolderModal }: Props) {
             alt="close"
           />
         </button>
-        <div className="flex flex-col gap-[26px]">
-          <h1 className="text-[24px]">새 폴더 만들기</h1>
-          <div className="flex gap-[18px]">
-            <input
-              placeholder="폴더 이름"
-              value={folderName}
-              onChange={(e) => setFolderName(e.target.value)}
-              className="w-[365px] rounded-[3px] border border-[#DADADA] p-[10px_12px]"
-            />
-            <button
-              type="button"
-              className={cn('rounded-[100px] p-[13px_23px] text-white', {
+        <h1
+          className={cn(
+            'text-[24px]',
+            'mo:text-center mo:text-[14px] mo:font-semibold',
+          )}
+        >
+          새 폴더 만들기
+        </h1>
+        <div className="flex gap-[18px]">
+          <input
+            placeholder="폴더 이름"
+            value={folderName}
+            onChange={(e) => setFolderName(e.target.value)}
+            className={cn(
+              'w-[365px] rounded-[3px] border border-[#DADADA] p-[10px_12px]',
+              'placeholder:text-[#737373]',
+              'focus:outline-none',
+              'mo:mx-[15px] mo:w-[240px] mo:rounded-[8px] mo:border-[0.5px] mo:border-[#8C8C8C] mo:p-[8px_7px] mo:text-[11px]',
+            )}
+          />
+          <button
+            type="button"
+            className={cn(
+              'block rounded-[100px] p-[13px_23px] text-white',
+              {
                 'bg-black': folderName.length > 0,
                 'bg-[#B1B1B1]': folderName.length <= 0,
-              })}
-              onClick={handleAddFolder}
-            >
-              만들기
-            </button>
-          </div>
+              },
+              'mo:hidden',
+            )}
+            onClick={handleAddFolder}
+          >
+            만들기
+          </button>
+        </div>
+        <div
+          className={cn(
+            'hidden w-full divide-x-[0.5px] divide-[#8C8C8C] border-t-[0.5px] border-[#8C8C8C] text-[18px] font-medium text-[#0045CC]',
+            'mo:flex',
+          )}
+        >
+          <button
+            onClick={() => {
+              setShowAddFolderModal(false)
+            }}
+            type="button"
+            className="flex-1 py-[12px]"
+          >
+            취소
+          </button>
+          <button
+            onClick={handleAddFolder}
+            type="button"
+            className="flex-1 py-[12px]"
+          >
+            확인
+          </button>
         </div>
       </div>
     </Modal>

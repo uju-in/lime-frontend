@@ -22,7 +22,7 @@ export default function SaveItem(props: Props) {
   } = props
 
   return (
-    <div className="relative flex w-[184px] flex-col gap-[7px] text-[14px]">
+    <div className="relative flex flex-col gap-[7px] text-[14px]">
       <Image
         height={184}
         width={184}
@@ -42,7 +42,7 @@ export default function SaveItem(props: Props) {
       )}
       <p
         onClick={onClick}
-        className="cursor-pointer text-[#515151] hover:underline"
+        className="line-clamp-2 cursor-pointer text-[#515151] hover:underline"
       >
         {originalName}
       </p>

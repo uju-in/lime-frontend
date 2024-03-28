@@ -6,6 +6,8 @@ import { cn } from '@/app/_utils/twMerge'
 import { useRouter } from 'next/navigation'
 import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
 import { useChangeSaveFolderName } from '@/app/_hook/api/saves/useChangeSaveFolderName'
+import { useSetRecoilState } from 'recoil'
+import { saveModeState } from '@/app/_atoms/saveModeState'
 
 /**
  * 찜 폴더 내부 페이지 Header
@@ -13,17 +15,16 @@ import { useChangeSaveFolderName } from '@/app/_hook/api/saves/useChangeSaveFold
 export namespace SaveFolderHeader {
   // Default 상태
   export function Default({
-    setMode,
     folderId,
     originFolderName,
   }: {
-    setMode: React.Dispatch<React.SetStateAction<SavePageMode>>
     folderId: number
     originFolderName: string
   }) {
     const dropdownRef = useRef(null)
     const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
     const router = useRouter()
+    const setMode = useSetRecoilState(saveModeState)
 
     const { mutateAsync: deleteFolder } = useDeleteSave()
 
@@ -108,17 +109,16 @@ export namespace SaveFolderHeader {
 
   // 폴더 이름 변경
   export function ChangeName({
-    setMode,
     folderId,
     originFolderName,
   }: {
-    setMode: React.Dispatch<React.SetStateAction<SavePageMode>>
     folderId: number
     originFolderName: string
   }) {
     const [newFolderName, setNewFolderName] = useState('')
     const { mutateAsync: changeName } = useChangeSaveFolderName()
     const router = useRouter()
+    const setMode = useSetRecoilState(saveModeState)
 
     const handleChangeName = useCallback(async () => {
       await changeName({ folderId, folderName: newFolderName })
