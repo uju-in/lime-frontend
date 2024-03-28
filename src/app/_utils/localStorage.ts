@@ -43,9 +43,9 @@ export namespace LocalStorage {
     const KEY = 'imageUrls'
 
     return {
-      getter: (): string => {
+      getter: (): string[] => {
         const data = localStorage.getItem(KEY)
-        return data || '[]'
+        return data ? JSON.parse(data) : []
       },
       setter: (value: string[]): void => {
         localStorage.setItem(KEY, JSON.stringify(value))
