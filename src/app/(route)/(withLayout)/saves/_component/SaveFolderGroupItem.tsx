@@ -1,5 +1,4 @@
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 import React from 'react'
 
 interface Props {
@@ -24,27 +23,24 @@ export default function SaveFolderGroupItem(props: Props) {
       }}
       className="relative flex h-[240px] overflow-hidden rounded-[9px] bg-[#D2D2D2]"
     >
-      <Image
-        src={itemCount > 0 ? imageUrls[0] : gray64Img}
-        className="z-0 rounded-l-[9px]"
-        width={240}
-        height={240}
-        alt="img"
+      <div
+        style={{
+          backgroundImage: `url('${itemCount > 0 ? imageUrls[0] : gray64Img}')`,
+        }}
+        className="h-full w-full flex-1 bg-cover bg-center bg-no-repeat"
       />
-      <div>
-        <Image
-          src={itemCount > 1 ? imageUrls[1] : gray64Img}
-          className="z-0 rounded-tr-[9px]"
-          width={147}
-          height={120}
-          alt="img"
+      <div className="flex h-full w-[147px] flex-col items-center">
+        <div
+          style={{
+            backgroundImage: `url('${itemCount > 1 ? imageUrls[1] : gray64Img}')`,
+          }}
+          className="h-full w-full flex-1 bg-cover bg-center bg-no-repeat"
         />
-        <Image
-          src={itemCount > 2 ? imageUrls[2] : gray64Img}
-          className="z-0 rounded-br-[9px]"
-          width={147}
-          height={120}
-          alt="img"
+        <div
+          style={{
+            backgroundImage: `url('${itemCount > 2 ? imageUrls[2] : gray64Img}')`,
+          }}
+          className="h-full w-full flex-1 bg-cover bg-center bg-no-repeat"
         />
       </div>
       <div className="absolute left-0 top-0 z-10 h-[193px] w-full rounded-t-[9px] bg-gradient-folder pl-4 pt-4">
