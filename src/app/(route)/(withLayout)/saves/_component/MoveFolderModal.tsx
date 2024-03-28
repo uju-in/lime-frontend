@@ -1,13 +1,15 @@
+import { saveModeState } from '@/app/_atoms/saveModeState'
 import Modal from '@/app/_components/modal'
 import useMoveSaveItems, {
   MoveSaveItemsRequest,
 } from '@/app/_hook/api/saves/useMoveSaveItems'
 import useSaveList from '@/app/_hook/api/saves/useSavesList'
-import { SaveFolderType } from '@/app/_types/save.type'
+import { SaveFolderType, SavePageMode } from '@/app/_types/save.type'
 import renderToast from '@/app/_utils/toast'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import React, { useCallback, useState } from 'react'
+import { useSetRecoilState } from 'recoil'
 
 interface Props {
   currentFolderId: number
@@ -27,6 +29,7 @@ export default function MoveFolderModal(props: Props) {
   const [selectFolderId, setSelectFolderId] = useState<number | null>(null)
   const { saveInfo, isLoading, isError } = useSaveList('folder')
   const { mutateAsync: moveItems } = useMoveSaveItems()
+  const setMode = useSetRecoilState(saveModeState)
 
   const handleMoveItems = useCallback(async () => {
     if (!selectFolderId) return
@@ -44,12 +47,14 @@ export default function MoveFolderModal(props: Props) {
 
     await moveItems(req)
     setShowMoveFolderModal(false)
+    setMode(SavePageMode.DEFAULT)
   }, [
     selectFolderId,
     moveItems,
     checkedList,
     setShowMoveFolderModal,
     currentFolderId,
+    setMode,
   ])
 
   if (isLoading) return <div>...loading</div>
