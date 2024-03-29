@@ -4,8 +4,6 @@ import Image from 'next/image'
 import React from 'react'
 
 export default function KakaoLoginButton() {
-  const MODE = process.env.NEXT_PUBLIC_MODE === 'local'
-
   return (
     <button
       type="button"
