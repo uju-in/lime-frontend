@@ -21,8 +21,11 @@ export default function MoChangeFolderNameModal(props: Props) {
   const router = useRouter()
 
   const handleChangeName = useCallback(async () => {
-    if (!newFolderName) {
-      renderToast({ type: 'error', message: '폴더 이름을 입력해주세요.' })
+    if (newFolderName.length > 20 || newFolderName.length === 0) {
+      renderToast({
+        type: 'error',
+        message: '1-20자로 설정해주세요.',
+      })
       return
     }
 
