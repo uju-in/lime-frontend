@@ -1,24 +1,24 @@
 import { useMemo } from 'react'
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query'
 import { PagesResponse, SortOption } from '@/app/_types/review.type'
-import { getCookie } from 'cookies-next'
+import { useCookies } from 'next-client-cookies'
 import { reviewKeys } from '.'
 
 interface ReviewQueryParams {
   pageParam: string | null
   itemId: number
   sortOption: SortOption
+  accessToken: string
 }
 
 async function fetchReviewList({
   pageParam,
   itemId,
   sortOption,
+  accessToken,
 }: ReviewQueryParams) {
   /** 기본 3개 - 추가 10개 */
   const REVIEW_DATA_SIZE = !pageParam ? 3 : 10
-
-  const accessToken = getCookie('accessToken')
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews?itemId=${itemId}&size=${REVIEW_DATA_SIZE}&cursorId=${pageParam}&reviewSortCondition=${sortOption}`,
@@ -42,11 +42,14 @@ async function fetchReviewList({
 }
 
 export const useSearchItemQuery = (itemId: number, sortOption: SortOption) => {
+  const cookies = useCookies()
+  const accessToken = cookies.get('accessToken') ?? ''
+
   const { data, fetchNextPage, isFetchingNextPage, hasNextPage } =
     useSuspenseInfiniteQuery({
       queryKey: reviewKeys.reviewList(itemId, sortOption).queryKey,
       queryFn: ({ pageParam = null }) =>
-        fetchReviewList({ pageParam, itemId, sortOption }),
+        fetchReviewList({ pageParam, itemId, sortOption, accessToken }),
       initialPageParam: null,
       getNextPageParam: (lastPage: PagesResponse) => {
         return lastPage.nextCursorId
