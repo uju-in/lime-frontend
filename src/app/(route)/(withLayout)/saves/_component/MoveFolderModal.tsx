@@ -35,7 +35,7 @@ export default function MoveFolderModal(props: Props) {
   const [moveY, setMoveY] = useState(0)
   const [endY, setEndY] = useState(0)
 
-  const ref: any = useRef(null)
+  const ref = useRef<HTMLDivElement>(null)
 
   const onTouchStart = (e: TouchEvent) => {
     setStartY(e.touches[0].clientY)
