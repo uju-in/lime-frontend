@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import renderToast from '@/app/_utils/toast'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'

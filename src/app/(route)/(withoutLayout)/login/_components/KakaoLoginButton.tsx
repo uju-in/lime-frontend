@@ -1,16 +1,13 @@
 'use client'
 
 import Image from 'next/image'
-import React from 'react'
 
 export default function KakaoLoginButton() {
-  const MODE = process.env.NEXT_PUBLIC_MODE === 'local'
-
   return (
     <button
       type="button"
       onClick={() => {
-        window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=35267469080e7ac5febcef396de8852f&redirect_uri=${process.env.NEXT_PUBLIC_MODE_URI}/oauth-redirect&response_type=code`
+        window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=35267469080e7ac5febcef396de8852f&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_LOGIN_URL}/oauth-redirect&response_type=code`
       }}
     >
       <Image

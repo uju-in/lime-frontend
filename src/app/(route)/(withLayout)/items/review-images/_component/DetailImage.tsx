@@ -2,10 +2,15 @@
 
 import { LocalStorage } from '@/app/_utils/localStorage'
 import Image from 'next/image'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function DetailImage() {
-  const imageUrls = useMemo(() => LocalStorage.imageUrls().getter(), [])
+  const [imageUrls, setImageUrls] = useState<string[]>([])
+
+  useEffect(() => {
+    const storedImageUrls = LocalStorage.imageUrls().getter() || []
+    setImageUrls(storedImageUrls)
+  }, [])
 
   const [selectedImageUrl, setSelectedImageUrl] = useState<string>(
     imageUrls[0] || '/image/icon/icon-close.svg',
