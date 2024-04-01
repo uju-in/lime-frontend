@@ -9,6 +9,7 @@ import { useChangeSaveFolderName } from '@/app/_hook/api/saves/useChangeSaveFold
 import { useSetRecoilState } from 'recoil'
 import { saveModeState } from '@/app/_atoms/saveModeState'
 import renderToast from '@/app/_utils/toast'
+import { validateSaveFolderName } from '../../_utils/validation'
 
 /**
  * 찜 폴더 내부 페이지 Header
@@ -122,13 +123,7 @@ export namespace SaveFolderHeader {
     const setMode = useSetRecoilState(saveModeState)
 
     const handleChangeName = useCallback(async () => {
-      if (newFolderName.length > 20 || newFolderName.length === 0) {
-        renderToast({
-          type: 'error',
-          message: '1-20자로 설정해주세요.',
-        })
-        return
-      }
+      if (!validateSaveFolderName(newFolderName)) return
 
       await changeName({ folderId, folderName: newFolderName })
       router.replace(`/saves/${folderId}?name=${newFolderName}`)
