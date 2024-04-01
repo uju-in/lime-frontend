@@ -1,15 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
-import { getCookie } from 'cookies-next'
+import { useCookies } from 'next-client-cookies'
 import { saveKeys } from '.'
 
 interface SaveListRequest {
   type: 'all' | 'folder' | 'item'
   folderId?: number
+  accessToken: string
 }
 
-async function getSavesList({ type, folderId }: SaveListRequest) {
-  const accessToken = getCookie('accessToken')
-
+async function getSavesList({ type, folderId, accessToken }: SaveListRequest) {
   let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/favorites`
 
   if (type === 'folder') {
@@ -35,9 +34,12 @@ export default function useSaveList(
   type: 'all' | 'folder' | 'item',
   folderId?: number,
 ) {
+  const cookies = useCookies()
+  const accessToken = cookies.get('accessToken') ?? ''
+
   const { data, isLoading, isError } = useQuery({
     queryKey: saveKeys.saveList(folderId || 0, type).queryKey,
-    queryFn: () => getSavesList({ type, folderId }),
+    queryFn: () => getSavesList({ type, folderId, accessToken }),
   })
 
   return {
