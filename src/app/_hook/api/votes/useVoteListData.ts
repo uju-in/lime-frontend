@@ -15,17 +15,19 @@ async function fetchVoteData({
   sortOption,
 }: VoteQueryParams) {
   const SIZE = 6
+  let URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/votes?hobby=${hobby}&size=${SIZE}&sort=${sortOption}`
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/votes?hobby=${hobby}&cursorId=${pageParam}&size=${SIZE}&sort=${sortOption}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      cache: 'no-store',
+  if (pageParam) {
+    URL += `&cursorId=${pageParam}`
+  }
+
+  const res = await fetch(URL, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  )
+    cache: 'no-store',
+  })
 
   const data = await res.json()
 
