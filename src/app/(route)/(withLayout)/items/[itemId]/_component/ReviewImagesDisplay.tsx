@@ -32,7 +32,7 @@ export default function ReviewImagesDisplay({
   return (
     <div
       className={cn(
-        'flex w-[508px] gap-2 overflow-y-hidden overflow-x-scroll',
+        'flex w-[508px] gap-2 overflow-x-auto overflow-y-hidden',
         'mo:w-[250px]',
       )}
     >
