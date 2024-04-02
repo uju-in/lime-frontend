@@ -1,8 +1,10 @@
 import Modal from '@/app/_components/modal'
 import useAddSaveFolder from '@/app/_hook/api/saves/useAddSaveFolder'
+import renderToast from '@/app/_utils/toast'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import React, { useCallback, useState } from 'react'
+import { validateSaveFolderName } from '../_utils/validation'
 
 interface Props {
   setShowAddFolderModal: React.Dispatch<React.SetStateAction<boolean>>
@@ -14,6 +16,8 @@ export default function AddFolderModal({ setShowAddFolderModal }: Props) {
   const { mutateAsync: addFolder } = useAddSaveFolder()
 
   const handleAddFolder = useCallback(async () => {
+    if (!validateSaveFolderName(folderName)) return
+
     await addFolder(folderName)
     setShowAddFolderModal(false)
   }, [folderName, setShowAddFolderModal, addFolder])

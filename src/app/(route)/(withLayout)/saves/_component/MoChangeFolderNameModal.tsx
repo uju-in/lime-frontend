@@ -4,6 +4,7 @@ import { cn } from '@/app/_utils/twMerge'
 import renderToast from '@/app/_utils/toast'
 import { useChangeSaveFolderName } from '@/app/_hook/api/saves/useChangeSaveFolderName'
 import { useParams, useRouter } from 'next/navigation'
+import { validateSaveFolderName } from '../_utils/validation'
 
 interface Props {
   originFolderName: string
@@ -21,10 +22,7 @@ export default function MoChangeFolderNameModal(props: Props) {
   const router = useRouter()
 
   const handleChangeName = useCallback(async () => {
-    if (!newFolderName) {
-      renderToast({ type: 'error', message: '폴더 이름을 입력해주세요.' })
-      return
-    }
+    if (!validateSaveFolderName(newFolderName)) return
 
     await changeName({ folderId: fId, folderName: newFolderName })
     router.replace(`/saves/${fId}?name=${newFolderName}`)

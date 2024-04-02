@@ -8,6 +8,8 @@ import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
 import { useChangeSaveFolderName } from '@/app/_hook/api/saves/useChangeSaveFolderName'
 import { useSetRecoilState } from 'recoil'
 import { saveModeState } from '@/app/_atoms/saveModeState'
+import renderToast from '@/app/_utils/toast'
+import { validateSaveFolderName } from '../../_utils/validation'
 
 /**
  * 찜 폴더 내부 페이지 Header
@@ -121,6 +123,8 @@ export namespace SaveFolderHeader {
     const setMode = useSetRecoilState(saveModeState)
 
     const handleChangeName = useCallback(async () => {
+      if (!validateSaveFolderName(newFolderName)) return
+
       await changeName({ folderId, folderName: newFolderName })
       router.replace(`/saves/${folderId}?name=${newFolderName}`)
       setMode(SavePageMode.DEFAULT)
