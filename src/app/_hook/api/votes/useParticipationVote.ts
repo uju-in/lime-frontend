@@ -41,7 +41,7 @@ export const useParticipationVote = () => {
     onSuccess: () => {
       renderToast({
         type: 'success',
-        message: '투표 취소 성공!',
+        message: '투표 성공!',
       })
 
       queryClient.invalidateQueries({
