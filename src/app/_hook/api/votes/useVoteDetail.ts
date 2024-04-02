@@ -22,7 +22,7 @@ async function fetchVoteDetail(
   const data = await res.json()
 
   if (!res.ok) {
-    throw Error(data.message)
+    throw new Error(data.message)
   }
 
   return data

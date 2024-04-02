@@ -62,8 +62,7 @@ export default function Header() {
             <ItemSection />
           </li>
         </ul>
-        {/* TODO: href 변경 */}
-        <Link href="/" className="border-l px-[50px] font-bold">
+        <Link href="/mypage" className="border-l px-[50px] font-bold">
           MY
         </Link>
       </div>
