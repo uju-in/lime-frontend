@@ -5,7 +5,7 @@ import { voteKeys } from '.'
 interface RequestInfo {
   type: 'folder' | 'item'
   folderId?: number | null
-  accessToken: string
+  accessToken?: string
 }
 
 export async function fetchFavoriteList({
