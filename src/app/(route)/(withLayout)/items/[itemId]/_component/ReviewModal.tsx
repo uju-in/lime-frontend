@@ -142,7 +142,7 @@ export default function ReviewModal(props: PropsType) {
   return (
     <Modal innerClassNames="mo:top-0 mo:max-w-full mo:max-h-full mo:-translate-y-0">
       <form
-        className={cn('w-full p-[13px_0_45px]', 'mo:px-[16px]')}
+        className={cn('w-[590px] p-[13px_0_45px]', 'mo:w-full mo:px-[16px]')}
         onSubmit={handleSubmit}
       >
         <div
@@ -232,14 +232,14 @@ export default function ReviewModal(props: PropsType) {
             <textarea
               name="content"
               placeholder="최소 10자 이상 작성해주세요."
-              className="h-[152px] w-[508px] max-w-full resize-none border border-[#DADADA] bg-[#F4F4F4] p-[14px_12px] text-[14px] outline-none"
+              className="h-[152px] w-full resize-none border border-[#DADADA] bg-[#F4F4F4] p-[14px_12px] text-[14px] outline-none"
               onChange={(e) => setContent(e.target.value)}
               minLength={10}
               maxLength={1000}
               value={content}
               required
             />
-            <div className="mo:flex mo:gap-[8px]">
+            <div className="w-full mo:flex mo:gap-[8px]">
               <button
                 type="button"
                 onClick={() => {
