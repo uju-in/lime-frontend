@@ -9,13 +9,14 @@ interface VoteQueryParams {
   sortOption: string
 }
 
+const VOTE_FETCH_SIZE = 6
+
 async function fetchVoteData({
   pageParam,
   hobby,
   sortOption,
 }: VoteQueryParams) {
-  const SIZE = 6
-  let URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/votes?hobby=${hobby}&size=${SIZE}&sort=${sortOption}`
+  let URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/votes?hobby=${hobby}&size=${VOTE_FETCH_SIZE}&sort=${sortOption}`
 
   if (pageParam) {
     URL += `&cursorId=${pageParam}`
@@ -46,6 +47,10 @@ export const useVoteListData = (hobby: string, sortOption: string) => {
         fetchVoteData({ pageParam, sortOption, hobby }),
       initialPageParam: null,
       getNextPageParam: (lastPage: PagesResponse) => {
+        if (lastPage.totalCount < VOTE_FETCH_SIZE) {
+          return null
+        }
+
         return lastPage.nextCursorId
       },
       staleTime: 1000 * 60,
