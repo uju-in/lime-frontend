@@ -71,7 +71,7 @@ export const validateImage = ({
   }
 
   /** 최소 이미지 개수 */
-  if (existingImages.length + multipartReviewImages.length === MIN_COUNT) {
+  if (totalImagesCount < MIN_COUNT) {
     renderToast({
       type: 'error',
       message: '이미지를 등록해 주세요.',
