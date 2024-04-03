@@ -1,20 +1,19 @@
 'use client'
 
-import React, { ChangeEvent, useRef, useState } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
 import Image from 'next/image'
-
 import { ReviewInfo } from '@/app/_types/review.type'
-
 import useAddReview from '@/app/_hook/api/reviews/useAddReview'
 import useEditReview from '@/app/_hook/api/reviews/useEditReview'
-
 import Modal from '@/app/_components/modal'
 import { cn } from '@/app/_utils/twMerge'
-import renderToast from '@/app/_utils/toast'
 import StarRatingFormatter from './StarRatingFormatter'
 import ReviewImagesDisplay from './ReviewImagesDisplay'
-
-import { validateForm, validateImage } from '../_utils/validation'
+import {
+  validateForm,
+  validateImage,
+  validateImageSize,
+} from '../_utils/validation'
 
 interface PropsType {
   setShowReviewModal: React.Dispatch<React.SetStateAction<boolean>>
@@ -27,8 +26,6 @@ interface PropsType {
   action: 'create' | 'edit'
   review?: ReviewInfo
 }
-
-const MAX_IMAGE_COUNT = 5
 
 export default function ReviewModal(props: PropsType) {
   const { setShowReviewModal, itemData, action, review } = props
@@ -59,12 +56,13 @@ export default function ReviewModal(props: PropsType) {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files)
 
-      const totalImagesCount =
-        existingImages.length + multipartReviewImages.length + filesArray.length
+      if (!validateImageSize(filesArray)) {
+        return
+      }
 
-      if (totalImagesCount > MAX_IMAGE_COUNT) {
-        renderToast({ type: 'error', message: '최대 5장까지 등록 가능합니다.' })
-
+      if (
+        !validateImage({ existingImages, multipartReviewImages, filesArray })
+      ) {
         return
       }
 
@@ -108,7 +106,7 @@ export default function ReviewModal(props: PropsType) {
 
     if (
       action === 'edit' &&
-      !validateImage({ multipartReviewImages, existingImages, content })
+      !validateImage({ multipartReviewImages, existingImages })
     ) {
       return
     }
@@ -144,7 +142,7 @@ export default function ReviewModal(props: PropsType) {
   return (
     <Modal innerClassNames="mo:top-0 mo:max-w-full mo:max-h-full mo:-translate-y-0">
       <form
-        className={cn('w-full p-[13px_0_45px]', 'mo:px-[16px]')}
+        className={cn('w-[590px] p-[13px_0_45px]', 'mo:w-full mo:px-[16px]')}
         onSubmit={handleSubmit}
       >
         <div
@@ -234,14 +232,14 @@ export default function ReviewModal(props: PropsType) {
             <textarea
               name="content"
               placeholder="최소 10자 이상 작성해주세요."
-              className="h-[152px] w-[508px] max-w-full resize-none border border-[#DADADA] bg-[#F4F4F4] p-[14px_12px] text-[14px] outline-none"
+              className="h-[152px] w-full resize-none border border-[#DADADA] bg-[#F4F4F4] p-[14px_12px] text-[14px] outline-none"
               onChange={(e) => setContent(e.target.value)}
               minLength={10}
               maxLength={1000}
               value={content}
               required
             />
-            <div className="mo:flex mo:gap-[8px]">
+            <div className="w-full mo:flex mo:gap-[8px]">
               <button
                 type="button"
                 onClick={() => {
@@ -285,6 +283,7 @@ export default function ReviewModal(props: PropsType) {
               ref={InputRef}
               className="hidden"
               onChange={handleFileChange}
+              accept="image/jpeg, image/png, image/gif, image/bmp, image/svg+xml, image/tiff, image/webp"
             />
           </div>
           <div className="mt-[50px] flex w-full gap-[20px] text-[16px] font-semibold">

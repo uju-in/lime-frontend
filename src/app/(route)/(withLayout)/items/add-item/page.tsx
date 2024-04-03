@@ -1,4 +1,3 @@
-import RQProvider from '@/app/_components/RQProvider'
 import { cn } from '@/app/_utils/twMerge'
 import PostForm from './_component/PostForm'
 
@@ -10,9 +9,7 @@ export default function AddItemPage() {
       <div className="flex items-center mo:hidden">
         <h1 className="text-[32px] font-bold">아이템 생성</h1>
       </div>
-      <RQProvider>
-        <PostForm />
-      </RQProvider>
+      <PostForm />
     </section>
   )
 }

@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import renderToast from '@/app/_utils/toast'
 import { getCookie } from 'cookies-next'
 import { reviewKeys } from '.'
+import { itemKeys } from '../items'
 
 interface AddReviewRequest {
   itemId: number
@@ -43,6 +44,7 @@ export default function useAddReview() {
       queryClient.invalidateQueries({
         queryKey: reviewKeys.reviewList._def,
       })
+      queryClient.invalidateQueries({ queryKey: itemKeys.itemDetail._def })
     },
     onError: (error) => {
       renderToast({
