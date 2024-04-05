@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import renderToast from '@/app/_utils/toast'
 import { getCookie } from 'cookies-next'
 import { saveKeys } from '.'
+import { useHandleApiError } from '../../common/useHandleApiError'
 
 const addSaveFolder = async (folderName: string) => {
   const accessToken = getCookie('accessToken')
@@ -27,6 +28,7 @@ const addSaveFolder = async (folderName: string) => {
 
 export default function useAddSaveFolder() {
   const queryClient = useQueryClient()
+  const handleApiError = useHandleApiError()
 
   return useMutation<void, Error, string>({
     mutationFn: (folderName) => addSaveFolder(folderName),
@@ -36,7 +38,7 @@ export default function useAddSaveFolder() {
       queryClient.invalidateQueries({ queryKey: saveKeys.saveList._def })
     },
     onError: (error) => {
-      renderToast({ type: 'error', message: String(error) })
+      handleApiError(error)
     },
   })
 }

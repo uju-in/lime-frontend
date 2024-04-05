@@ -9,5 +9,11 @@ export async function fetchTokenValidity(accessToken: string) {
     },
   )
 
+  const data = await res.json()
+
+  if (!res.ok) {
+    throw data
+  }
+
   return res.ok
 }

@@ -2,6 +2,7 @@ import renderToast from '@/app/_utils/toast'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getCookie } from 'cookies-next'
 import { voteKeys } from '.'
+import { useHandleApiError } from '../../common/useHandleApiError'
 
 interface VoteItemRequest {
   itemId: number | null
@@ -27,7 +28,7 @@ async function voteItem({ itemId, voteId }: VoteItemRequest): Promise<number> {
   if (!res.ok) {
     const data = await res.json()
 
-    throw Error(data.message)
+    throw data
   }
 
   return res.status
@@ -35,6 +36,7 @@ async function voteItem({ itemId, voteId }: VoteItemRequest): Promise<number> {
 
 export const useParticipationVote = () => {
   const queryClient = useQueryClient()
+  const handleApiError = useHandleApiError()
 
   return useMutation<number, Error, VoteItemRequest>({
     mutationFn: ({ itemId, voteId }) => voteItem({ itemId, voteId }),
@@ -55,10 +57,7 @@ export const useParticipationVote = () => {
       })
     },
     onError: (error) => {
-      renderToast({
-        type: 'error',
-        message: String(error),
-      })
+      handleApiError(error)
     },
   })
 }

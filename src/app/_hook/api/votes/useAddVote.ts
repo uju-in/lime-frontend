@@ -3,6 +3,7 @@ import { VoteInfoType } from '@/app/_types/addVote.type'
 import renderToast from '@/app/_utils/toast'
 import { getCookie } from 'cookies-next'
 import { voteKeys } from '.'
+import { useHandleApiError } from '../../common/useHandleApiError'
 
 async function postAddItem(params: VoteInfoType) {
   const accessToken = getCookie('accessToken')
@@ -19,7 +20,7 @@ async function postAddItem(params: VoteInfoType) {
   if (!res.ok) {
     const data = await res.json()
 
-    throw data.message
+    throw data
   }
 
   return res.status
@@ -27,6 +28,7 @@ async function postAddItem(params: VoteInfoType) {
 
 export default function useAddVote() {
   const queryClient = useQueryClient()
+  const handleApiError = useHandleApiError()
 
   return useMutation<number, Error, VoteInfoType>({
     mutationFn: postAddItem,
@@ -40,10 +42,7 @@ export default function useAddVote() {
       queryClient.invalidateQueries({ queryKey: voteKeys.voteRanking._def })
     },
     onError: (error) => {
-      renderToast({
-        type: 'error',
-        message: String(error),
-      })
+      handleApiError(error)
     },
   })
 }

@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import renderToast from '@/app/_utils/toast'
 import { getCookie } from 'cookies-next'
 import { voteKeys } from '.'
+import { useHandleApiError } from '../../common/useHandleApiError'
 
 async function deleteVote(voteId: number): Promise<number> {
   const accessToken = getCookie('accessToken')
@@ -20,7 +21,7 @@ async function deleteVote(voteId: number): Promise<number> {
   if (!res.ok) {
     const data = await res.json()
 
-    throw Error(data.message)
+    throw data
   }
 
   return res.status
@@ -28,6 +29,7 @@ async function deleteVote(voteId: number): Promise<number> {
 
 export const useDeleteVote = () => {
   const queryClient = useQueryClient()
+  const handleApiError = useHandleApiError()
 
   return useMutation<number, Error, number>({
     mutationFn: (voidId) => deleteVote(voidId),
@@ -45,10 +47,7 @@ export const useDeleteVote = () => {
       })
     },
     onError: (error) => {
-      renderToast({
-        type: 'error',
-        message: String(error),
-      })
+      handleApiError(error)
     },
   })
 }

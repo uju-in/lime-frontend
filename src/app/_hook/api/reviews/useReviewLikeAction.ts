@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import renderToast from '@/app/_utils/toast'
 import { getCookie } from 'cookies-next'
 import { reviewKeys } from '.'
+import { useHandleApiError } from '../../common/useHandleApiError'
 
 interface ReviewLikeRequest {
   reviewId: number
@@ -24,12 +24,13 @@ async function postReviewLikeAction({ reviewId, isLiked }: ReviewLikeRequest) {
   if (!res.ok) {
     const data = await res.json()
 
-    throw data.message
+    throw data
   }
 }
 
 export default function useReviewLikeAction() {
   const queryClient = useQueryClient()
+  const handleApiError = useHandleApiError()
 
   return useMutation<void, Error, ReviewLikeRequest>({
     mutationFn: ({ reviewId, isLiked }) =>
@@ -38,10 +39,7 @@ export default function useReviewLikeAction() {
       queryClient.invalidateQueries({ queryKey: reviewKeys.reviewList._def })
     },
     onError: (error) => {
-      renderToast({
-        type: 'error',
-        message: String(error),
-      })
+      handleApiError(error)
     },
   })
 }
