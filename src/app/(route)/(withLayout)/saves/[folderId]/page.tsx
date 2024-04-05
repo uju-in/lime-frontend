@@ -1,5 +1,4 @@
 import React from 'react'
-import RQProvider from '@/app/_components/RQProvider'
 
 import SaveFolderComponent from './_component/SaveFolderComponent'
 
@@ -12,9 +11,5 @@ export default function SavesDetailPage({ params, searchParams }: Props) {
   const { folderId } = params
   const { name } = searchParams
 
-  return (
-    <RQProvider>
-      <SaveFolderComponent folderId={Number(folderId)} folderName={name} />
-    </RQProvider>
-  )
+  return <SaveFolderComponent folderId={Number(folderId)} folderName={name} />
 }
