@@ -34,7 +34,7 @@ export default function CategoryPicker({ path = '/' }: { path?: string }) {
           >
             <li
               className={cn(
-                'h-[42.5px] w-[86.5px] cursor-pointer rounded-[83.333px] px-[16px] py-[8px] text-[#fff]',
+                'cursor-pointer rounded-[83.333px] px-[16px] py-[8px] text-[#fff]',
                 {
                   'bg-black text-white mo:rounded-none mo:border-2 mo:border-x-0 mo:border-t-0 mo:border-black mo:bg-white mo:text-black':
                     title === item.title,

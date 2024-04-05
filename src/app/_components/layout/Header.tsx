@@ -36,7 +36,7 @@ export default function Header() {
         'mo:hidden',
       )}
     >
-      <div className="flex items-center gap-[50px]">
+      <div className="flex items-center gap-[40px]">
         {/* 로고 */}
         <div className="pr-[50px] text-[35px] font-bold">
           <Link href="/">LIME</Link>
