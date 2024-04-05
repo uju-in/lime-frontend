@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-
 import renderToast from '@/app/_utils/toast'
 import { getCookie } from 'cookies-next'
 import { saveKeys } from '.'
+import { useHandleApiError } from '../../common/useHandleApiError'
 
 async function deleteSave(favoriteItemIds: number[], folderIds: number[]) {
   const accessToken = getCookie('accessToken')
@@ -24,7 +24,7 @@ async function deleteSave(favoriteItemIds: number[], folderIds: number[]) {
   if (!res.ok) {
     const data = await res.json()
 
-    throw data.message
+    throw data
   }
 }
 
@@ -35,6 +35,7 @@ interface DeleteSaveRequest {
 
 export default function useDeleteSave() {
   const queryClient = useQueryClient()
+  const handleApiError = useHandleApiError()
 
   return useMutation<void, Error, DeleteSaveRequest>({
     mutationFn: ({ favoriteItemIds, folderIds }) =>
@@ -45,7 +46,7 @@ export default function useDeleteSave() {
       queryClient.invalidateQueries({ queryKey: saveKeys.saveList._def })
     },
     onError: (error) => {
-      renderToast({ type: 'error', message: String(error) })
+      handleApiError(error)
     },
   })
 }

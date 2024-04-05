@@ -2,6 +2,7 @@ import renderToast from '@/app/_utils/toast'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getCookie } from 'cookies-next'
 import { voteKeys } from '.'
+import { useHandleApiError } from '../../common/useHandleApiError'
 
 async function reVote(voteId: number): Promise<void> {
   const accessToken = getCookie('accessToken')
@@ -27,6 +28,7 @@ async function reVote(voteId: number): Promise<void> {
 
 export const useReParticipation = () => {
   const queryClient = useQueryClient()
+  const handleApiError = useHandleApiError()
 
   return useMutation<void, Error, number>({
     mutationFn: (voidId) => reVote(voidId),
@@ -47,10 +49,7 @@ export const useReParticipation = () => {
       })
     },
     onError: (error) => {
-      renderToast({
-        type: 'error',
-        message: String(error),
-      })
+      handleApiError(error)
     },
   })
 }

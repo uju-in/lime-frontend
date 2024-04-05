@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-
 import renderToast from '@/app/_utils/toast'
 import { getCookie } from 'cookies-next'
 import { reviewKeys } from '.'
 import { itemKeys } from '../items'
+import { useHandleApiError } from '../../common/useHandleApiError'
 
 async function deleteReview(reviewId: number) {
   const accessToken = getCookie('accessToken')
@@ -21,12 +21,13 @@ async function deleteReview(reviewId: number) {
   if (!res.ok) {
     const data = await res.json()
 
-    throw data.message
+    throw data
   }
 }
 
 export default function useDeleteReview() {
   const queryClient = useQueryClient()
+  const handleApiError = useHandleApiError()
 
   return useMutation<void, Error, number>({
     mutationFn: (reviewId) => deleteReview(reviewId),
@@ -44,10 +45,7 @@ export default function useDeleteReview() {
       })
     },
     onError: (error) => {
-      renderToast({
-        type: 'error',
-        message: String(error),
-      })
+      handleApiError(error)
     },
   })
 }

@@ -1,5 +1,3 @@
-'use client'
-
 import { ItemType } from '@/app/_types/item.type'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'

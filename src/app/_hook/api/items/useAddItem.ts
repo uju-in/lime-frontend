@@ -3,6 +3,7 @@ import { ItemState } from '@/app/_types/addItem.type'
 import renderToast from '@/app/_utils/toast'
 import { getCookie } from 'cookies-next'
 import { itemKeys } from '.'
+import { useHandleApiError } from '../../common/useHandleApiError'
 
 async function postAddItem(params: ItemState) {
   const accessToken = getCookie('accessToken')
@@ -19,10 +20,10 @@ async function postAddItem(params: ItemState) {
     },
   )
 
-  const data = await res.json()
-
   if (!res.ok) {
-    throw data.message
+    const data = await res.json()
+
+    throw data
   }
 
   return res.status
@@ -30,8 +31,9 @@ async function postAddItem(params: ItemState) {
 
 export default function useAddItem() {
   const queryClient = useQueryClient()
+  const handleApiError = useHandleApiError()
 
-  return useMutation<number, unknown, ItemState>({
+  return useMutation<number, Error, ItemState>({
     mutationFn: postAddItem,
     onSuccess: () => {
       renderToast({
@@ -42,10 +44,7 @@ export default function useAddItem() {
       queryClient.invalidateQueries({ queryKey: itemKeys.itemList._def })
     },
     onError: (error) => {
-      renderToast({
-        type: 'error',
-        message: String(error),
-      })
+      handleApiError(error)
     },
   })
 }

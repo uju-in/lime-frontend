@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-
 import renderToast from '@/app/_utils/toast'
 import { getCookie } from 'cookies-next'
 import { reviewKeys } from '.'
 import { itemKeys } from '../items'
+import { useHandleApiError } from '../../common/useHandleApiError'
 
 interface AddReviewRequest {
   itemId: number
@@ -21,10 +21,10 @@ async function postAddReview({ formData }: AddReviewRequest) {
     body: formData,
   })
 
-  const data = await res.json()
-
   if (!res.ok) {
-    throw data.message
+    const data = await res.json()
+
+    throw data
   }
 
   return res.status
@@ -32,6 +32,7 @@ async function postAddReview({ formData }: AddReviewRequest) {
 
 export default function useAddReview() {
   const queryClient = useQueryClient()
+  const handleApiError = useHandleApiError()
 
   return useMutation<number, Error, AddReviewRequest>({
     mutationFn: ({ itemId, formData }) => postAddReview({ itemId, formData }),
@@ -47,10 +48,7 @@ export default function useAddReview() {
       queryClient.invalidateQueries({ queryKey: itemKeys.itemDetail._def })
     },
     onError: (error) => {
-      renderToast({
-        type: 'error',
-        message: String(error),
-      })
+      handleApiError(error)
     },
   })
 }
