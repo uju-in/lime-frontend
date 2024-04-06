@@ -2,6 +2,7 @@ import renderToast from '@/app/_utils/toast'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getCookie } from 'cookies-next'
 import { itemKeys } from '.'
+import { useHandleApiError } from '../../common/useHandleApiError'
 
 async function postSaveToWishlist(itemIds: number[]): Promise<void> {
   const accessToken = getCookie('accessToken')
@@ -22,12 +23,13 @@ async function postSaveToWishlist(itemIds: number[]): Promise<void> {
   if (!res.ok) {
     const data = await res.json()
 
-    throw data.message
+    throw data
   }
 }
 
 export default function useAddFavorites() {
   const queryClient = useQueryClient()
+  const handleApiError = useHandleApiError()
 
   return useMutation<void, Error, number[]>({
     mutationFn: postSaveToWishlist,
@@ -40,10 +42,7 @@ export default function useAddFavorites() {
       queryClient.invalidateQueries({ queryKey: itemKeys.itemDetail._def })
     },
     onError: (error) => {
-      renderToast({
-        type: 'error',
-        message: String(error),
-      })
+      handleApiError(error)
     },
   })
 }

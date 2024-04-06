@@ -11,6 +11,9 @@ interface ReviewQueryParams {
   accessToken: string
 }
 
+const INITIAL_SIZE = 3
+const REVIEW_FETCH_SIZE = 10
+
 async function fetchReviewList({
   pageParam,
   itemId,
@@ -18,7 +21,7 @@ async function fetchReviewList({
   accessToken,
 }: ReviewQueryParams) {
   /** 기본 3개 - 추가 10개 */
-  const REVIEW_DATA_SIZE = !pageParam ? 3 : 10
+  const REVIEW_DATA_SIZE = !pageParam ? INITIAL_SIZE : REVIEW_FETCH_SIZE
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews?itemId=${itemId}&size=${REVIEW_DATA_SIZE}&cursorId=${pageParam}&reviewSortCondition=${sortOption}`,
@@ -51,7 +54,26 @@ export const useSearchItemQuery = (itemId: number, sortOption: SortOption) => {
       queryFn: ({ pageParam = null }) =>
         fetchReviewList({ pageParam, itemId, sortOption, accessToken }),
       initialPageParam: null,
-      getNextPageParam: (lastPage: PagesResponse) => {
+      getNextPageParam: (
+        lastPage: PagesResponse,
+        allPages: PagesResponse[],
+      ) => {
+        const allReviewsLoaded = allPages.flatMap((page) => page.reviews).length
+
+        const remainingReviews =
+          lastPage.itemReviewTotalCount - allReviewsLoaded
+
+        if (allReviewsLoaded === INITIAL_SIZE && remainingReviews === 0) {
+          return null
+        }
+
+        if (
+          allReviewsLoaded > INITIAL_SIZE &&
+          remainingReviews < REVIEW_FETCH_SIZE
+        ) {
+          return null
+        }
+
         return lastPage.nextCursorId
       },
       staleTime: 1000 * 60,

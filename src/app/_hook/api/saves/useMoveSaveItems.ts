@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import renderToast from '@/app/_utils/toast'
 import { getCookie } from 'cookies-next'
 import { saveKeys } from '.'
+import { useHandleApiError } from '../../common/useHandleApiError'
 
 export interface MoveSaveItemsRequest {
   folderId?: number
@@ -29,7 +30,7 @@ async function postMoveSaveItems({
   if (!res.ok) {
     const data = await res.json()
 
-    throw data.message
+    throw data
   }
 
   return res.status
@@ -37,6 +38,7 @@ async function postMoveSaveItems({
 
 export default function useMoveSaveItems() {
   const queryClient = useQueryClient()
+  const handleApiError = useHandleApiError()
 
   return useMutation<number, Error, MoveSaveItemsRequest>({
     mutationFn: ({ folderId, favoriteItemIds }) =>
@@ -47,7 +49,7 @@ export default function useMoveSaveItems() {
       queryClient.invalidateQueries({ queryKey: saveKeys.saveList._def })
     },
     onError: (error) => {
-      renderToast({ type: 'error', message: String(error) })
+      handleApiError(error)
     },
   })
 }

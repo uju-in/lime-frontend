@@ -3,6 +3,7 @@ import renderToast from '@/app/_utils/toast'
 import { getCookie } from 'cookies-next'
 import { reviewKeys } from '.'
 import { itemKeys } from '../items'
+import { useHandleApiError } from '../../common/useHandleApiError'
 
 interface EditReviewRequest {
   reviewId: number
@@ -26,7 +27,7 @@ async function postReviewData({ reviewId, formData }: EditReviewRequest) {
   if (!res.ok) {
     const data = await res.json()
 
-    throw data.message
+    throw data
   }
 
   return res.status
@@ -34,6 +35,7 @@ async function postReviewData({ reviewId, formData }: EditReviewRequest) {
 
 export default function useEditReview() {
   const queryClient = useQueryClient()
+  const handleApiError = useHandleApiError()
 
   return useMutation<number, Error, EditReviewRequest>({
     mutationFn: ({ reviewId, formData }) =>
@@ -48,10 +50,7 @@ export default function useEditReview() {
       queryClient.invalidateQueries({ queryKey: itemKeys.itemDetail._def })
     },
     onError: (error) => {
-      renderToast({
-        type: 'error',
-        message: String(error),
-      })
+      handleApiError(error)
     },
   })
 }
