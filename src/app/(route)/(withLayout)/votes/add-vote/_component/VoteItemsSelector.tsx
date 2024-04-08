@@ -20,7 +20,7 @@ export default function VoteItemsSelector(props: PropsType) {
 
   return (
     <div>
-      {selectedFolder.itemCount !== 0 ? (
+      {selectedFolder.itemCount !== 0 && selectedFolder.folderId ? (
         <>
           <p className={cn('my-[13px] text-[12px]', 'mo:hidden')}>
             아이템 {selectedFolder.itemCount}개
