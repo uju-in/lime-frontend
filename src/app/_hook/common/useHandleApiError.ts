@@ -13,20 +13,15 @@ export const useHandleApiError = () => {
   return (error: ApiError) => {
     switch (error.code) {
       case ERROR_CODE.INSUFFICIENT_PERMISSION:
-        renderToast({
-          type: 'error',
-          message: ERROR_MESSAGE.PROFILE_COMPLETION_REQUIRED,
-        })
-
-        router.push('/join')
-
+        if (window.confirm(ERROR_MESSAGE.PROFILE_COMPLETION_REQUIRED)) {
+          router.push('/join')
+        }
         break
 
       case ERROR_CODE.INVALID_ACCESS_TOKEN:
-        renderToast({ type: 'error', message: ERROR_MESSAGE.LOGIN_REQUIRED })
-
-        router.push('/login')
-
+        if (window.confirm(ERROR_MESSAGE.LOGIN_REQUIRED)) {
+          router.push('/login')
+        }
         break
 
       default:
