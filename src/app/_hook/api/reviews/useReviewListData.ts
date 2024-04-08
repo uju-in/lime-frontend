@@ -63,12 +63,12 @@ export const useSearchItemQuery = (itemId: number, sortOption: SortOption) => {
         const remainingReviews =
           lastPage.itemReviewTotalCount - allReviewsLoaded
 
-        if (allReviewsLoaded === INITIAL_SIZE && remainingReviews === 0) {
-          return null
-        }
-
-        if (
-          allReviewsLoaded > INITIAL_SIZE &&
+        if (allPages.length === 1) {
+          if (allReviewsLoaded <= INITIAL_SIZE && remainingReviews === 0) {
+            return null
+          }
+        } else if (
+          remainingReviews === 0 ||
           remainingReviews < REVIEW_FETCH_SIZE
         ) {
           return null
