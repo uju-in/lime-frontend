@@ -140,9 +140,12 @@ export default function ReviewModal(props: PropsType) {
   }
 
   return (
-    <Modal innerClassNames="mo:top-0 mo:max-w-full mo:max-h-full mo:-translate-y-0">
+    <Modal innerClassNames="mo:top-0 mo:max-w-full mo:max-h-full mo:-translate-y-0 mo:rounded-[0px]">
       <form
-        className={cn('w-[590px] p-[13px_0_45px]', 'mo:w-full mo:px-[16px]')}
+        className={cn(
+          'w-[590px] p-[13px_0_45px]',
+          'mo:w-full mo:px-[16px] mo:pb-[112px]',
+        )}
         onSubmit={handleSubmit}
       >
         <div
