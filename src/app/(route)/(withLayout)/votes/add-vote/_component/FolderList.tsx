@@ -46,7 +46,7 @@ export default function FolderList(props: PropsType) {
           <div
             key={favoriteId}
             className={cn(
-              'flex w-full cursor-pointer items-center border border-x-0 border-t-0 border-b-[#DADADA] py-[12px] pl-[18px]',
+              'flex w-full cursor-pointer items-center rounded-[8px] border border-x-0 border-t-0 border-b-[#DADADA] py-[12px] pl-[18px]',
               {
                 'bg-[#E5E5E5]': selectedFolder.folderId === favoriteId,
                 'bg-[#fff]': selectedFolder.folderId !== favoriteId,
