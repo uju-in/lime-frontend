@@ -34,7 +34,7 @@ export default function VoteItemsSelector(props: PropsType) {
       ) : (
         <div
           className={cn(
-            'flex h-full flex-col items-center justify-center',
+            'flex h-full flex-col items-center justify-center pt-[160px]',
             'mo:pt-[250px]',
           )}
         >
