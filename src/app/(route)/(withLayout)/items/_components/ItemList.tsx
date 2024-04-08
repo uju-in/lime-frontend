@@ -53,7 +53,7 @@ export default function ItemList() {
         className={cn(
           'grid grid-cols-[repeat(5,minmax(0px,1fr))] gap-x-[19px] gap-y-[25px]',
           'tablet:grid-cols-[repeat(4,minmax(0px,1fr))]',
-          'mo:grid-cols-[repeat(3,minmax(0px,1fr))]',
+          'mo:grid-cols-[repeat(3,minmax(0px,1fr))] mo:pb-[86px]',
         )}
       >
         {itemList.map((item: ItemType) => {
