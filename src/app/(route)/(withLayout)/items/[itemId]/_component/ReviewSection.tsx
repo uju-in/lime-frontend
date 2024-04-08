@@ -60,7 +60,7 @@ export default function ReviewSection(props: PropsType) {
       {/** 리뷰 정렬 */}
       {data?.pages[0].itemReviewTotalCount !== 0 ? (
         <>
-          <div className="mb-[12px] mt-[30px] flex gap-[10px] text-[12px] font-[500]">
+          <div className="mb-[12px] mt-[30px] flex items-center gap-[10px] text-[12px] font-[500]">
             {sortOptions.map((option, index) => (
               <React.Fragment key={option.value}>
                 {index > 0 && (
