@@ -23,7 +23,7 @@ export default function VoteList() {
   return (
     <section className="mo:px-[16px]">
       {voteList.length === 0 ? (
-        <div className="mt-[186px] flex flex-col items-center gap-[29px]">
+        <div className="flex flex-col items-center gap-[29px] py-[96px]">
           <strong className="text-[20px] font-[500]">
             등록한 투표가 없어요.
           </strong>
