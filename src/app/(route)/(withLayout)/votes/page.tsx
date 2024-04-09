@@ -19,8 +19,6 @@ export default function page() {
         </div>
         <Suspense fallback={<div>Loading. . . </div>}>
           <RankingList />
-        </Suspense>
-        <Suspense fallback={<div>Loading. . . </div>}>
           <VoteList />
         </Suspense>
       </main>
