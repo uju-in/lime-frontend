@@ -34,6 +34,7 @@ export default function FavoritesVoteItem(props: PropsType) {
         src={image}
         alt="item1 image"
         className="mo:rounded-[6px]"
+        loading="eager"
       />
       <div
         className={cn(
