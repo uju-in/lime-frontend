@@ -4,7 +4,6 @@ import CategoryPicker from '../../_components/categoryPicker/CategoryPicker'
 import LoadMoreButton from './_components/LoadMoreButton'
 import VoteSection from './_components/VoteSection'
 import ItemSection from './_components/ItemSection'
-import HomeHeader from './_components/HomeHeader'
 
 type Props = {
   searchParams: { category: string }
@@ -15,7 +14,6 @@ export default function Home({ searchParams }: Props) {
 
   return (
     <main className={cn('bg-[#F7F7F7]', 'mo:bg-white')}>
-      <HomeHeader />
       <section className="bg-white pt-[56px]">
         <CategoryPicker />
       </section>
