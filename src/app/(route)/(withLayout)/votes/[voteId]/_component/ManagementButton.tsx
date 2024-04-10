@@ -1,12 +1,12 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { memo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { useDeleteVote } from '@/app/_hook/api/votes/useDeleteVote'
 import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 
-export default function ManagementButton({ voteId }: { voteId: number }) {
+function ManagementButtonBase({ voteId }: { voteId: number }) {
   const router = useRouter()
 
   const { mutateAsync: deleteVote } = useDeleteVote()
@@ -64,3 +64,7 @@ export default function ManagementButton({ voteId }: { voteId: number }) {
     </div>
   )
 }
+
+const ManagementButton = memo(ManagementButtonBase)
+
+export default ManagementButton
