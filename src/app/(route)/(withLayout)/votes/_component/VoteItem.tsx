@@ -7,6 +7,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { cn } from '@/app/_utils/twMerge'
+import { blurDataURL } from '@/app/_constants/images'
 
 interface VoteItemProps {
   item: {
@@ -39,12 +40,16 @@ export default function VoteItem(props: VoteItemProps) {
           alt="vote item1"
           width={width}
           height={height}
+          placeholder="blur"
+          blurDataURL={blurDataURL}
         />
         <Image
           src={item2Info.image}
           alt="vote item2"
           width={width}
           height={height}
+          placeholder="blur"
+          blurDataURL={blurDataURL}
         />
       </div>
       <p className="mt-[18px] h-[45px] text-[14px] font-[500]">

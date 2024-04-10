@@ -4,12 +4,13 @@
  * Item 컴포넌트의 width, height는 호출하는 상위 태그에서 결정
  */
 
+import { blurDataURL } from '@/app/_constants/images'
 import { ItemType } from '@/app/_types/item.type'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 export default function Item({ item }: { item: ItemType }) {
-  const { name, price, id, image, createdAt, favoriteCount, reviewCount } =
+  const { name, price, id, image, favoriteCount, reviewCount } =
     item.itemSummary
   const router = useRouter()
 
@@ -27,6 +28,8 @@ export default function Item({ item }: { item: ItemType }) {
           alt="item-image"
           width={184}
           height={187}
+          placeholder="blur"
+          blurDataURL={blurDataURL}
         />
       </div>
       <div
