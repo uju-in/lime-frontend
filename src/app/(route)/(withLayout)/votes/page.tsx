@@ -11,7 +11,7 @@ import MoVoteHeader from './_component/MoVoteHeader'
 export default function page() {
   return (
     <>
-      <main className={cn('mx-auto w-[794px]', 'mo:w-full')}>
+      <main className={cn('mx-auto h-dvh w-[794px]', 'mo:w-full')}>
         <MoVoteHeader />
         <div className={cn('mt-[52px] flex justify-between', 'mo:pt-[16px]')}>
           <CategoryPicker path="votes" />
