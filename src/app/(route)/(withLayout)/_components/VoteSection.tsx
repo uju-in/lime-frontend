@@ -28,7 +28,12 @@ export default async function VoteSection({
           key={item.cursorId}
           className={cn('h-[332px] w-[290px]', 'mo:w-full')}
         >
-          <VoteItem item={item} width={128} height={156} path="/" />
+          <VoteItem
+            item={item}
+            width={128}
+            height={156}
+            innerClassNames="h-[156px]"
+          />
         </div>
       ))}
     </div>
