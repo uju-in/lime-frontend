@@ -8,6 +8,7 @@ import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import { cn } from '@/app/_utils/twMerge'
 import renderToast from '@/app/_utils/toast'
 import VoteItemList from './VoteItemList'
+import { validateSelectedItem } from '../_utils/validation'
 
 interface PropsType {
   setShowVoteModal: React.Dispatch<React.SetStateAction<boolean>>
@@ -26,14 +27,10 @@ export default function VoteModal(props: PropsType) {
   const [currentFolderName, setCurrentFolderName] = useState('찜목록')
 
   const handleSelectItem = () => {
-    if (!currentSelectedItem) {
-      renderToast({ type: 'error', message: '아이템을 선택해 주세요.' })
-
-      return
+    if (validateSelectedItem(currentSelectedItem)) {
+      onSelectItem(currentSelectedItem as CurrentFavoriteItemMetadata)
+      setShowVoteModal(false)
     }
-
-    onSelectItem(currentSelectedItem)
-    setShowVoteModal(false)
   }
 
   return (
