@@ -1,6 +1,6 @@
 'use client'
 
-import React, { ChangeEvent, useCallback, useState } from 'react'
+import { ChangeEvent, useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import useAddVote from '@/app/_hook/api/votes/useAddVote'
 import { VoteInfoType } from '@/app/_types/addVote.type'

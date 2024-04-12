@@ -11,7 +11,7 @@ export default function JoinPage() {
       <section
         className={cn(
           'mx-auto flex w-[610px] flex-1 flex-col gap-[69px] bg-white px-[87px]',
-          'mo:w-full mo:gap-[54px] mo:px-[16px]',
+          'mo:w-full mo:gap-[54px] mo:px-[16px] mo:pt-[62px]',
         )}
       >
         <JoinHeader />

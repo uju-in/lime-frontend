@@ -1,24 +1,17 @@
 'use client'
 
-import React, { useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useParticipationVote } from '@/app/_hook/api/votes/useParticipationVote'
-import { ItemInfoType, VoteInfoType } from '@/app/_types/detailVote.type'
+import { VoteDetailType } from '@/app/_types/detailVote.type'
 import { useReParticipation } from '@/app/_hook/api/votes/useReParticipation'
 import { cn } from '@/app/_utils/twMerge'
-import renderToast from '@/app/_utils/toast'
 import ProgressBar from './ProgressBar'
 import VoteItem from './FavoritesVoteItem'
 import VoteProgressTracker from './VoteProgressTracker'
+import { validateChoiceItem } from '../_utils/validation'
 
-interface PropsType {
-  item1Info: ItemInfoType
-  item2Info: ItemInfoType
-  voteInfo: VoteInfoType
-  selectedItemId: number | null
-}
-
-export default function VoteInfo(props: PropsType) {
-  const { item1Info, item2Info, voteInfo, selectedItemId } = props
+export default function VoteInfo({ voteData }: { voteData: VoteDetailType }) {
+  const { item1Info, item2Info, voteInfo, selectedItemId } = voteData
   const {
     id: voteId,
     item1Votes,
@@ -46,12 +39,7 @@ export default function VoteInfo(props: PropsType) {
 
   /** 투표 참여 */
   const handleVote = async () => {
-    if (!itemId) {
-      renderToast({
-        type: 'error',
-        message: '아이템을 선택해 주세요!',
-      })
-
+    if (!validateChoiceItem(itemId)) {
       return
     }
 

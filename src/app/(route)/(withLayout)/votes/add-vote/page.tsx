@@ -1,6 +1,5 @@
 import { cn } from '@/app/_utils/twMerge'
 import VoteForm from './_component/VoteForm'
-import MoAddVoteHeader from './_component/MoAddVoteHeader'
 
 export default function page() {
   return (
@@ -10,7 +9,6 @@ export default function page() {
         ' mo:w-full mo:px-[16px]',
       )}
     >
-      <MoAddVoteHeader />
       <h1
         className={cn(
           'mb-[10px] pt-[39px] text-[30px] font-[600]',

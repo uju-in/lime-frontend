@@ -51,7 +51,7 @@ export namespace MoHeader {
     return (
       <header
         className={cn(
-          'fixed left-0 right-0 top-0 hidden items-center justify-between bg-white py-[10px]',
+          'fixed left-0 right-0 top-0 z-10 hidden items-center justify-between bg-white py-[10px]',
           'mo:flex',
           {
             'mo:hidden': scrollDirection === 'down',

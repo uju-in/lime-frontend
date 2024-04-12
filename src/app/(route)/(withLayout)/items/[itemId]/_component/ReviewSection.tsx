@@ -1,10 +1,11 @@
 'use client'
 
-import React, { useState } from 'react'
+import { Fragment, useState } from 'react'
 import Image from 'next/image'
 import { ItemInfo, ReviewResponse, SortOption } from '@/app/_types/review.type'
 import { useSearchItemQuery } from '@/app/_hook/api/reviews/useReviewListData'
 import { cn } from '@/app/_utils/twMerge'
+import InfiniteScrollTrigger from '@/app/_components/infiniteScrollTrigger'
 import Review from './Review'
 import ReviewModal from './ReviewModal'
 import { ReviewItemSkeleton } from './ReviewSkeletonUI'
@@ -22,11 +23,6 @@ export default function ReviewSection(props: PropsType) {
 
   const { data, reviewList, fetchNextPage, isFetchingNextPage, hasNextPage } =
     useSearchItemQuery(itemInfo.id, sortOption)
-
-  /** 추가 데이터 요청(리뷰 더보기) */
-  const handleLoadMore = () => {
-    fetchNextPage()
-  }
 
   return (
     <article className={cn('mt-[64px]', 'mo:mt-[28px] mo:px-[16px]')}>
@@ -62,7 +58,7 @@ export default function ReviewSection(props: PropsType) {
         <>
           <div className="mb-[12px] mt-[30px] flex items-center gap-[10px] text-[12px] font-[500]">
             {sortOptions.map((option, index) => (
-              <React.Fragment key={option.value}>
+              <Fragment key={option.value}>
                 {index > 0 && (
                   <div className="h-[10px] w-[0.5px] bg-[#D4D4D4]" />
                 )}
@@ -76,7 +72,7 @@ export default function ReviewSection(props: PropsType) {
                 >
                   {option.label}
                 </button>
-              </React.Fragment>
+              </Fragment>
             ))}
           </div>
           {/** 리뷰 */}
@@ -93,29 +89,13 @@ export default function ReviewSection(props: PropsType) {
             <div
               className={cn('flex items-start justify-center', 'mo:pb-[80px]')}
             >
-              {isFetchingNextPage ? (
+              <InfiniteScrollTrigger
+                isFetchingNextPage={isFetchingNextPage}
+                hasNextPage={hasNextPage}
+                fetchNextPage={fetchNextPage}
+              >
                 <ReviewItemSkeleton />
-              ) : (
-                hasNextPage && (
-                  <button
-                    className={cn(
-                      'flex items-center justify-center text-[14px] font-[600] text-[#BCBCBC]',
-                      'mo:h-[48px] mo:w-full mo:rounded-[100px] mo:border',
-                    )}
-                    type="button"
-                    onClick={handleLoadMore}
-                  >
-                    <p>리뷰 더보기</p>
-                    <Image
-                      className="ml-2"
-                      width={14}
-                      height={14}
-                      src="/image/icon/icon-arrow_bottom_BD.svg"
-                      alt="arrow bottom"
-                    />
-                  </button>
-                )
-              )}
+              </InfiniteScrollTrigger>
             </div>
           </div>
         </>

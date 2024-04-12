@@ -4,7 +4,6 @@ import CategoryPicker from '../../_components/categoryPicker/CategoryPicker'
 import LoadMoreButton from './_components/LoadMoreButton'
 import VoteSection from './_components/VoteSection'
 import ItemSection from './_components/ItemSection'
-import HomeHeader from './_components/HomeHeader'
 
 type Props = {
   searchParams: { category: string }
@@ -15,7 +14,6 @@ export default function Home({ searchParams }: Props) {
 
   return (
     <main className={cn('bg-[#F7F7F7]', 'mo:bg-white')}>
-      <HomeHeader />
       <section className="bg-white pt-[56px]">
         <CategoryPicker />
       </section>
@@ -26,15 +24,15 @@ export default function Home({ searchParams }: Props) {
           'mo:w-full mo:px-[16px]',
         )}
       >
-        <section className="pt-[80px]">
+        {/* <section className="pt-[80px]">
           <div className="flex justify-between">
             <strong className="text-[32px] font-[700]">피드</strong>
             <LoadMoreButton sectionName="피드" />
           </div>
           <div className="mt-[32px] h-[357px]" />
-        </section>
+        </section> */}
         {/** Votes */}
-        <section className={cn('mt-[157px] pb-[157px]', 'mo:pb-[52px]')}>
+        <section className={cn('pb-[157px] pt-[80px]', 'mo:pb-[52px]')}>
           <div className="flex justify-between">
             <strong className="text-[32px] font-[700]">투표</strong>
             <LoadMoreButton sectionName="투표" />
