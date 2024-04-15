@@ -1,3 +1,11 @@
+export interface ReviewState {
+  rating: number
+  content: string
+  multipartReviewImages: File[]
+  existingImages: string[]
+  reviewItemUrlsToRemove: string[]
+}
+
 export interface MemberInfo {
   level: number
   memberId: number
