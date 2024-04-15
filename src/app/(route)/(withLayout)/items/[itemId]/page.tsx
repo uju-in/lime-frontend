@@ -13,7 +13,9 @@ export default function DetailPage({ params }: Props) {
   return (
     <>
       <MoItemDetailHeader />
-      <article className={cn('mx-auto mt-[32px] w-[720px]', 'mo:w-full')}>
+      <article
+        className={cn('mx-auto mt-[32px] min-h-[650px] w-[720px]', 'mo:w-full')}
+      >
         <Suspense fallback={<div>Loading. . .</div>}>
           <ItemDetailView itemId={itemId} />
         </Suspense>
