@@ -1,15 +1,16 @@
 'use client'
 
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
-import { ItemInfo, ReviewResponse, SortOption } from '@/app/_types/review.type'
+import { ReviewResponse, SortOption } from '@/app/_types/review.type'
 import { useSearchItemQuery } from '@/app/_hook/api/reviews/useReviewListData'
 import { cn } from '@/app/_utils/twMerge'
 import InfiniteScrollTrigger from '@/app/_components/infiniteScrollTrigger'
+import { ItemInfo } from '@/app/_types/item.type'
 import Review from './Review'
 import ReviewModal from './ReviewModal'
 import { ReviewItemSkeleton } from './ReviewSkeletonUI'
-import { sortOptions } from '../_constants'
+import ReviewSortOptions from './ReviewSortOptions'
 
 interface PropsType {
   itemInfo: ItemInfo
@@ -56,25 +57,10 @@ export default function ReviewSection(props: PropsType) {
       {/** 리뷰 정렬 */}
       {data?.pages[0].itemReviewTotalCount !== 0 ? (
         <>
-          <div className="mb-[12px] mt-[30px] flex items-center gap-[10px] text-[12px] font-[500]">
-            {sortOptions.map((option, index) => (
-              <Fragment key={option.value}>
-                {index > 0 && (
-                  <div className="h-[10px] w-[0.5px] bg-[#D4D4D4]" />
-                )}
-                <button
-                  type="button"
-                  className={cn({
-                    'text-[#000]': sortOption === option.value,
-                    'text-[#BCBCBC]': sortOption !== option.value,
-                  })}
-                  onClick={() => setSortOption(option.value)}
-                >
-                  {option.label}
-                </button>
-              </Fragment>
-            ))}
-          </div>
+          <ReviewSortOptions
+            sortOption={sortOption}
+            setSortOption={setSortOption}
+          />
           {/** 리뷰 */}
           <div>
             {reviewList?.map((review: ReviewResponse, index: number) => (
