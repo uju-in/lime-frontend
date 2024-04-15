@@ -1,5 +1,4 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { ItemDetailType } from '@/app/_types/review.type'
 import { itemKeys } from '.'
 
 async function fetchItemDetail(itemId: number) {
@@ -23,16 +22,11 @@ async function fetchItemDetail(itemId: number) {
 }
 
 export const useItemDetail = (itemId: number) => {
-  const {
-    data: itemData,
-    isError,
-    isLoading,
-    isSuccess,
-  } = useSuspenseQuery<ItemDetailType, Error, ItemDetailType>({
+  const { data: itemData, isError } = useSuspenseQuery({
     queryKey: itemKeys.itemDetail(itemId).queryKey,
     queryFn: () => fetchItemDetail(itemId),
     staleTime: 1000 * 60,
   })
 
-  return { itemData, isError, isSuccess, isLoading }
+  return { itemData, isError }
 }
