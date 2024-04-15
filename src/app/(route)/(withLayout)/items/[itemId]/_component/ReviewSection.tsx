@@ -87,7 +87,7 @@ export default function ReviewSection(props: PropsType) {
         </>
       ) : (
         // 리뷰가 없을 경우
-        <div className="flex justify-center pb-[101px] pt-[41px] font-[500]">
+        <div className="flex items-center justify-center py-[132px] font-[500]">
           이 상품의 첫 번째 리뷰를 작성해 보세요
         </div>
       )}
