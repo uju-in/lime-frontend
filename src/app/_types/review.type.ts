@@ -1,18 +1,3 @@
-export interface ItemInfo {
-  id: number
-  name: string
-  price: number
-  image: string
-}
-
-export interface ItemDetailType {
-  itemInfo: ItemInfo
-  hobbyName: string
-  itemAvgRate: number
-  itemUrl: string
-  favoriteCount: number
-}
-
 export interface MemberInfo {
   level: number
   memberId: number
