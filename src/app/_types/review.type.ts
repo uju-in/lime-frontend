@@ -1,16 +1,9 @@
-export interface ItemInfo {
-  id: number
-  name: string
-  price: number
-  image: string
-}
-
-export interface ItemDetailType {
-  itemInfo: ItemInfo
-  hobbyName: string
-  itemAvgRate: number
-  itemUrl: string
-  favoriteCount: number
+export interface ReviewState {
+  rating: number
+  content: string
+  multipartReviewImages: File[]
+  existingImages: string[]
+  reviewItemUrlsToRemove: string[]
 }
 
 export interface MemberInfo {

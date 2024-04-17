@@ -24,7 +24,7 @@ export default function Confirm(props: PropsType) {
           {title}를 삭제하시겠습니까?
         </span>
       </div>
-      <div className="flex h-[44px] items-center border border-[0.5px] border-[#8C8C8C] text-center text-[18px] font-[500]">
+      <div className="flex h-[44px] items-center border border-[0.5px] border-x-0 border-[#8C8C8C] text-center text-[18px] font-[500]">
         <button
           type="button"
           className="flex h-full flex-1 items-center justify-center border border-[0.5px] border-y-0 border-[#8C8C8C] text-center text-[#0045CC]"

@@ -31,7 +31,7 @@ export default function ActionButtons(props: PropsType) {
   return (
     <div
       className={cn(
-        'flex h-[48px] justify-between',
+        'flex justify-between',
         'mo:fixed mo:bottom-0 mo:right-0 mo:z-50 mo:h-[68px] mo:w-full mo:items-center mo:justify-center mo:gap-[8px] mo:border mo:bg-white mo:px-[16px]',
       )}
     >

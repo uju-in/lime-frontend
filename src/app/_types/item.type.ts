@@ -17,3 +17,18 @@ export interface ItemResponse {
   totalCount: number
   items: ItemType[]
 }
+
+export interface ItemInfo {
+  id: number
+  name: string
+  price: number
+  image: string
+}
+
+export interface ItemDetailType {
+  itemInfo: ItemInfo
+  hobbyName: string
+  itemAvgRate: number
+  itemUrl: string
+  favoriteCount: number
+}
