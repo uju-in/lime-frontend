@@ -4,7 +4,7 @@ import MoAddButton from '@/app/_components/layout/mobile/MoAddButton'
 import CategoryPicker from '../../../_components/categoryPicker/CategoryPicker'
 import CreateVoteButton from './_component/CreateVoteButton'
 import MoVoteHeader from './_component/MoVoteHeader'
-import VotingDashboard from './_component/VotingDashboard'
+import VoteListPage from './_component/VoteListPage'
 
 export default function page() {
   return (
@@ -17,7 +17,7 @@ export default function page() {
           <CategoryPicker path="votes" />
           <CreateVoteButton />
         </section>
-        <VotingDashboard />
+        <VoteListPage />
       </main>
       <MoAddButton path="votes/add-vote" />
       <MoNavbar />
