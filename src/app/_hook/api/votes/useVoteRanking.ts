@@ -17,18 +17,18 @@ async function fetchVoteRanking(hobby: string): Promise<RankingInfo> {
   const data = await res.json()
 
   if (!res.ok) {
-    throw data.message
+    throw new Error(data.message)
   }
 
   return data
 }
 
 export const useVoteRanking = (hobby: string) => {
-  const { data: rankingList, isError } = useSuspenseQuery({
+  const { data: rankingList } = useSuspenseQuery({
     queryKey: voteKeys.voteRanking(hobby).queryKey,
     queryFn: () => fetchVoteRanking(hobby),
     staleTime: 1000 * 60,
   })
 
-  return { rankingList, isError }
+  return { rankingList }
 }
