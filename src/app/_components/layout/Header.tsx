@@ -1,33 +1,20 @@
-'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRecoilState } from 'recoil'
-import { searchViewState } from '@/app/_atoms/searchViewState'
-import useOutsideClick from '@/app/_hook/common/useOutsideClick'
+import { cookies } from 'next/headers'
 import { cn } from '@/app/_utils/twMerge'
-import React, { useRef } from 'react'
+import { fetchTokenValidity } from '@/app/_hook/api/auth/useTokenValidity'
+import React from 'react'
 import ItemSection from './ItemSection'
-import Search from './Search'
+import SearchButton from './search/SearchButton'
 
-export default function Header() {
-  const searchRef = useRef(null)
-  const [isSearchView, setIsSearchView] = useRecoilState(searchViewState)
-
-  useOutsideClick(searchRef, () => {
-    if (isSearchView) {
-      setIsSearchView(false)
-    }
-  })
-
-  if (isSearchView)
-    return (
-      <div className="mx-auto my-[23px] flex w-[1200px] max-w-full items-center justify-between px-[10px]">
-        <div className="relative mx-auto h-[52.5px] w-fit" ref={searchRef}>
-          <Search />
-        </div>
-      </div>
-    )
+export default async function Header() {
+  let isValidToken = false
+  try {
+    const accessToken = cookies().get('accessToken')?.value
+    isValidToken = accessToken ? await fetchTokenValidity(accessToken) : false
+  } catch (e) {
+    console.error(e)
+  }
 
   return (
     <div
@@ -67,18 +54,16 @@ export default function Header() {
         </Link>
       </div>
       <div className="flex gap-[24px]">
+        {/* 로그인 버튼 */}
+        {!isValidToken ? (
+          <Link href="/login" className="flex items-center">
+            Login
+          </Link>
+        ) : (
+          <div className="h-[33px] w-[33px] rounded-full bg-[#777]" />
+        )}
         {/* 검색 */}
-        <button type="button" onClick={() => setIsSearchView(true)}>
-          <Image
-            className="cursor-pointer"
-            width={22}
-            height={22}
-            src="/image/icon/icon-search.svg"
-            alt="search"
-          />
-        </button>
-        {/* 프로필 */}
-        <div className="h-[33px] w-[33px] rounded-full bg-[#777]" />
+        <SearchButton />
       </div>
     </div>
   )
