@@ -26,7 +26,8 @@ export async function fetchFavoriteList({ type, folderId }: RequestInfo) {
   const data = await res.json()
 
   if (!res.ok) {
-    return data
+    if (type === 'item') throw new Error(data.message)
+    if (type === 'folder') return data
   }
 
   return data
@@ -36,15 +37,12 @@ export const useFavoritesList = (
   type: 'folder' | 'item',
   folderId?: number | null,
 ) => {
-  const {
-    data: itemList,
-    isError,
-    isSuccess,
-  } = useQuery({
+  const { data: itemList, isSuccess } = useQuery({
     queryKey: voteKeys.favorites(folderId as number).queryKey,
     queryFn: () => fetchFavoriteList({ type, folderId }),
     staleTime: 1000 * 60,
+    throwOnError: true,
   })
 
-  return { itemList, isError, isSuccess }
+  return { itemList, isSuccess }
 }
