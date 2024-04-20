@@ -40,6 +40,7 @@ export default function useAddFavorites() {
       })
 
       queryClient.invalidateQueries({ queryKey: itemKeys.itemDetail._def })
+      queryClient.invalidateQueries({ queryKey: itemKeys.itemList._def })
     },
     onError: (error) => {
       handleApiError(error)
