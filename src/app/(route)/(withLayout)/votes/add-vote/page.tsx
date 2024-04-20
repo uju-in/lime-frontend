@@ -1,5 +1,5 @@
 import { cn } from '@/app/_utils/twMerge'
-import VoteForm from './_component/VoteForm'
+import AddVotePage from './_component/AddVotePage'
 
 export default function page() {
   return (
@@ -17,7 +17,7 @@ export default function page() {
       >
         투표 생성
       </h1>
-      <VoteForm />
+      <AddVotePage />
     </section>
   )
 }
