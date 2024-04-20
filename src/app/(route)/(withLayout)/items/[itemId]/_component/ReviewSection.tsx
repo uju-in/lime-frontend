@@ -30,7 +30,7 @@ export default function ReviewSection(props: PropsType) {
       {/** 리뷰 헤더 (리뷰 개수/작성 버튼) */}
       <ReviewHeader
         setShowReviewModal={setShowReviewModal}
-        itemReviewTotalCount={data.pages[0].itemReviewTotalCount}
+        itemReviewTotalCount={data?.pages[0]?.itemReviewTotalCount ?? 0}
       />
       {/** 리뷰 정렬 */}
       {data?.pages[0].itemReviewTotalCount !== 0 ? (
