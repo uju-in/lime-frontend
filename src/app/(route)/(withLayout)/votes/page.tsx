@@ -9,7 +9,7 @@ import VoteListPage from './_component/VoteListPage'
 export default function page() {
   return (
     <>
-      <main className={cn('mx-auto h-dvh w-[794px]', 'mo:w-full')}>
+      <main className={cn('mx-auto h-auto h-full w-[794px]', 'mo:w-full')}>
         <MoVoteHeader />
         <section
           className={cn('mt-[52px] flex justify-between', 'mo:pt-[16px]')}
