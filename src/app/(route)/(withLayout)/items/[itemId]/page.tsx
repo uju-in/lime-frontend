@@ -1,8 +1,6 @@
-import { Suspense } from 'react'
 import { cn } from '@/app/_utils/twMerge'
-import Loading from '@/app/_components/loading'
-import ItemDetailView from './_component/ItemDetailView'
 import MoItemDetailHeader from './_component/MoItemDetailHeader'
+import ItemDetailPage from './_component/ItemDetailPage'
 
 type Props = {
   params: { itemId: number }
@@ -17,9 +15,7 @@ export default function DetailPage({ params }: Props) {
       <article
         className={cn('mx-auto mt-[32px] min-h-[650px] w-[720px]', 'mo:w-full')}
       >
-        <Suspense fallback={<Loading />}>
-          <ItemDetailView itemId={itemId} />
-        </Suspense>
+        <ItemDetailPage itemId={itemId} />
       </article>
     </>
   )

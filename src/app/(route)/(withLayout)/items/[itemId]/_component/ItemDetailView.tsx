@@ -3,6 +3,9 @@
 import { useItemDetail } from '@/app/_hook/api/items/useItemDetail'
 import { Suspense } from 'react'
 import { cn } from '@/app/_utils/twMerge'
+import { QueryErrorResetBoundary } from '@tanstack/react-query'
+import ErrorBoundary from '@/app/_components/errorBoundary'
+import ErrorFullback from '@/app/_components/errorFullback'
 import ReviewSection from './ReviewSection'
 import { ReviewSectionSkeletonUI } from './ReviewSkeletonUI'
 import Breadcrumb from './Breadcrumb'
@@ -15,11 +18,9 @@ interface Props {
 export default function ItemDetailView(props: Props) {
   const { itemId } = props
 
-  const { itemData, isError } = useItemDetail(itemId)
+  const { itemData } = useItemDetail(itemId)
 
   const { itemInfo, hobbyName } = itemData
-
-  if (isError) return <div>Error. . .</div>
 
   return (
     <>
@@ -28,9 +29,15 @@ export default function ItemDetailView(props: Props) {
       <div
         className={cn('hidden h-[8px] bg-[#EEE]', 'mo:mt-[16px] mo:block')}
       />
-      <Suspense fallback={<ReviewSectionSkeletonUI />}>
-        <ReviewSection itemInfo={itemInfo} />
-      </Suspense>
+      <QueryErrorResetBoundary>
+        {({ reset }) => (
+          <ErrorBoundary onReset={reset} FallbackComponent={ErrorFullback}>
+            <Suspense fallback={<ReviewSectionSkeletonUI />}>
+              <ReviewSection itemInfo={itemInfo} />
+            </Suspense>
+          </ErrorBoundary>
+        )}
+      </QueryErrorResetBoundary>
     </>
   )
 }
