@@ -2,13 +2,19 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { cookies } from 'next/headers'
 import { cn } from '@/app/_utils/twMerge'
+import { fetchTokenValidity } from '@/app/_hook/api/auth/useTokenValidity'
 import React from 'react'
 import ItemSection from './ItemSection'
 import SearchButton from './search/SearchButton'
 
-export default function Header() {
-  const accessTokenObj = cookies().get('accessToken')
-  const accessToken = accessTokenObj?.value
+export default async function Header() {
+  let isValidToken = false
+  try {
+    const accessToken = cookies().get('accessToken')?.value
+    isValidToken = accessToken ? await fetchTokenValidity(accessToken) : false
+  } catch (e) {
+    console.error(e)
+  }
 
   return (
     <div
@@ -49,7 +55,7 @@ export default function Header() {
       </div>
       <div className="flex gap-[24px]">
         {/* 로그인 버튼 */}
-        {!accessToken ? (
+        {!isValidToken ? (
           <Link href="/login" className="flex items-center">
             Login
           </Link>
