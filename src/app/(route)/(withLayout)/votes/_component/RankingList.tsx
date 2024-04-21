@@ -9,12 +9,8 @@ import Link from 'next/link'
 export default function RankingList() {
   const hobby = useGetSearchParam('category') || '농구'
 
-  const { rankingList, isError } = useVoteRanking(hobby)
+  const { rankingList } = useVoteRanking(hobby)
   const { rankingInfos } = rankingList
-
-  if (isError) {
-    return <div>Error. . . </div>
-  }
 
   return (
     <section className={cn('mt-[52px] w-full', 'mo:pl-[16px]')}>

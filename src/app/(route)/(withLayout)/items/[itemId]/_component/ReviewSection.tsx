@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import { ReviewResponse, SortOption } from '@/app/_types/review.type'
 import { useSearchItemQuery } from '@/app/_hook/api/reviews/useReviewListData'
 import { cn } from '@/app/_utils/twMerge'
@@ -11,6 +10,7 @@ import Review from './Review'
 import ReviewModal from './ReviewModal'
 import { ReviewItemSkeleton } from './ReviewSkeletonUI'
 import ReviewSortOptions from './ReviewSortOptions'
+import ReviewHeader from './ReviewHeader'
 
 interface PropsType {
   itemInfo: ItemInfo
@@ -27,33 +27,11 @@ export default function ReviewSection(props: PropsType) {
 
   return (
     <article className={cn('mt-[64px]', 'mo:mt-[28px] mo:px-[16px]')}>
-      <div
-        className={cn(
-          'flex h-[42px] justify-between border-b-2 border-b-[#000]',
-          'mo:border-0',
-        )}
-      >
-        <strong className="text-[18px] font-[600]">
-          리뷰 ({data?.pages[0]?.itemReviewTotalCount})
-        </strong>
-        <span className="flex items-center font-[600] text-[#3F3F3F]">
-          <Image
-            width={14}
-            height={14}
-            src="/image/icon/icon-pencil.svg"
-            alt="write review"
-          />
-          <button
-            type="button"
-            className="flex items-center text-[14px] font-[600]"
-            onClick={() => {
-              setShowReviewModal((prev) => !prev)
-            }}
-          >
-            리뷰 작성
-          </button>
-        </span>
-      </div>
+      {/** 리뷰 헤더 (리뷰 개수/작성 버튼) */}
+      <ReviewHeader
+        setShowReviewModal={setShowReviewModal}
+        itemReviewTotalCount={data?.pages[0]?.itemReviewTotalCount ?? 0}
+      />
       {/** 리뷰 정렬 */}
       {data?.pages[0].itemReviewTotalCount !== 0 ? (
         <>

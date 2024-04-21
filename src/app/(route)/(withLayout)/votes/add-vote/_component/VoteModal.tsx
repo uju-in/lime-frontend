@@ -6,9 +6,10 @@ import Image from 'next/image'
 import Modal from '@/app/_components/modal'
 import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import { cn } from '@/app/_utils/twMerge'
-import renderToast from '@/app/_utils/toast'
 import VoteItemList from './VoteItemList'
 import { validateSelectedItem } from '../_utils/validation'
+import MoItemSelectHeader from './MoItemSelectHeader'
+import VoteModalHeader from './VoteModalHeader'
 
 interface PropsType {
   setShowVoteModal: React.Dispatch<React.SetStateAction<boolean>>
@@ -46,74 +47,15 @@ export default function VoteModal(props: PropsType) {
       >
         <div className={cn('h-[592px] w-[852px]', 'mo:w-full')}>
           {/** PC Modal Header */}
-          <div
-            className={cn(
-              'flex justify-between py-[20px] pl-[46px] pr-[18px]',
-              'mo:hidden',
-            )}
-          >
-            <strong className="text-[24px] font-[600]">찜목록</strong>
-            <button
-              type="button"
-              aria-label="close"
-              onClick={() => {
-                setShowVoteModal(false)
-              }}
-            >
-              <Image
-                width={24}
-                height={24}
-                src="/image/icon/icon-close.svg"
-                alt="close"
-              />
-            </button>
-          </div>
+          <VoteModalHeader setShowVoteModal={setShowVoteModal} />
           {/** Mobile Modal Header */}
-          <div
-            className={cn(
-              'hidden h-[40px] items-center justify-center',
-              'mo:flex',
-            )}
-          >
-            <div className="h-0 w-[42px] rounded-[6px] border-[3px] bg-[#D2D2D2]" />
-          </div>
-          <div
-            className={cn(
-              'hidden h-[42px] items-center justify-center px-[16px] font-[600]',
-              'mo:flex',
-            )}
-          >
-            <button
-              type="button"
-              className="flex flex-1 justify-start"
-              onClick={() => {
-                setShowMobileItemList(false)
-                setCurrentFolderName('찜목록')
-              }}
-            >
-              <Image
-                width={7}
-                height={15}
-                src="/image/icon/icon-arrow_left_black.svg"
-                alt="close"
-              />
-            </button>
-            <strong className="flex-none px-4 text-center">
-              {currentFolderName}
-            </strong>
-            <div className="flex flex-1 justify-end">
-              <button
-                type="button"
-                className={cn({
-                  'text-black': currentSelectedItem,
-                  'text-[#C3C3C3]': !currentSelectedItem,
-                })}
-                onClick={handleSelectItem}
-              >
-                선택완료
-              </button>
-            </div>
-          </div>
+          <MoItemSelectHeader
+            setShowMobileItemList={setShowMobileItemList}
+            setCurrentFolderName={setCurrentFolderName}
+            currentSelectedItem={currentSelectedItem}
+            currentFolderName={currentFolderName}
+            handleSelectItem={handleSelectItem}
+          />
           <article className={cn('px-[46px]', 'mo:px-0')}>
             <VoteItemList
               currentSelectedItem={currentSelectedItem}

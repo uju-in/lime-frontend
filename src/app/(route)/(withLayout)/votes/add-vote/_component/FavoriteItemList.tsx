@@ -23,7 +23,7 @@ interface PropsType {
 export default function FavoriteList(props: PropsType) {
   const { folderId, currentSelectedItem, setCurrentSelectedItem } = props
 
-  const { itemList, isError, isSuccess } = useFavoritesList('item', folderId)
+  const { itemList, isSuccess } = useFavoritesList('item', folderId)
 
   const handleSelectItem = useCallback(
     (favoriteItemMetadata: FavoriteItemMetadata, originalName: string) => {
@@ -41,10 +41,6 @@ export default function FavoriteList(props: PropsType) {
     },
     [currentSelectedItem, setCurrentSelectedItem],
   )
-
-  if (isError) {
-    return <div>Error . . .</div>
-  }
 
   if (isSuccess) {
     return (

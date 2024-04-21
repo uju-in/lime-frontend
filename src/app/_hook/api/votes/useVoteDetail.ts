@@ -32,11 +32,11 @@ export const useVoteDetail = (voteId: number) => {
   const cookies = useCookies()
   const accessToken = cookies.get('accessToken') ?? ''
 
-  const { data: voteData, isError } = useSuspenseQuery({
+  const { data: voteData } = useSuspenseQuery({
     queryKey: voteKeys.detail(voteId).queryKey,
     queryFn: () => fetchVoteDetail(voteId, accessToken),
     staleTime: 1000 * 60,
   })
 
-  return { voteData, isError }
+  return { voteData }
 }

@@ -1,87 +1,29 @@
 'use client'
 
-import { ChangeEvent, useCallback, useState } from 'react'
-import { useRouter } from 'next/navigation'
-import useAddVote from '@/app/_hook/api/votes/useAddVote'
-import { VoteInfoType } from '@/app/_types/addVote.type'
 import CategorySelector from '@/app/_components/categorySelector'
-import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import { cn } from '@/app/_utils/twMerge'
-import VoteModal from './VoteModal'
+import { SelectedItemType, VoteInfoType } from '@/app/_types/addVote.type'
+import { ChangeEvent } from 'react'
 import ItemSelector from './ItemSelector'
 
-export default function VoteForm() {
-  const router = useRouter()
+interface PropsType {
+  handleChange: (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void
+  handleOpenModal: (type: 'item1' | 'item2') => void
+  voteInfo: VoteInfoType
+  setVoteInfo: (voteInfo: VoteInfoType) => void
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  selectedItem: SelectedItemType
+}
 
-  const [showVoteModal, setShowVoteModal] = useState(false)
-  const [itemType, setItemType] = useState<string | null>(null)
-  const [voteInfo, setVoteInfo] = useState<VoteInfoType>({
-    hobby: '',
-    maximumParticipants: 100,
-    content: '',
-    item1Id: null,
-    item2Id: null,
-  })
-
-  /**
-   * itemImageUrl1,2 - Selected Item Image URL
-   * itemTitle1,2 - Selected Item Title
-   */
-  const [itemImageUrl1, setItemImageUrl1] = useState<string | null>(null)
-  const [itemImageUrl2, setItemImageUrl2] = useState<string | null>(null)
-  const [itemTitle1, setItemTitle1] = useState<string>('')
-  const [itemTitle2, setItemTitle2] = useState<string>('')
-
-  const { mutateAsync: addVote } = useAddVote()
-
-  const handleChange = (
-    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
-  ) => {
-    const { name, value } = e.target
-
-    setVoteInfo((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }))
-  }
-
-  const handleOpenModal = (type: 'item1' | 'item2') => {
-    setItemType(type)
-    setShowVoteModal(true)
-  }
-
-  const handleSelectItem = useCallback(
-    (selectItem: CurrentFavoriteItemMetadata) => {
-      const { itemId, imageUrl, originalName } = selectItem
-
-      if (itemType === 'item1') {
-        setVoteInfo((prevState) => ({
-          ...prevState,
-          item1Id: itemId,
-        }))
-        setItemImageUrl1(imageUrl)
-        setItemTitle1(originalName)
-      } else if (itemType === 'item2') {
-        setVoteInfo((prevState) => ({
-          ...prevState,
-          item2Id: itemId,
-        }))
-        setItemImageUrl2(imageUrl)
-        setItemTitle2(originalName)
-      }
-    },
-    [itemType],
-  )
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    const status = await addVote(voteInfo)
-
-    if (status === 200) {
-      router.push('/votes')
-    }
-  }
+export default function VoteForm(props: PropsType) {
+  const {
+    handleChange,
+    handleOpenModal,
+    voteInfo,
+    setVoteInfo,
+    handleSubmit,
+    selectedItem,
+  } = props
 
   return (
     <form onSubmit={handleSubmit} className="mo:w-full">
@@ -122,14 +64,14 @@ export default function VoteForm() {
         <ItemSelector
           onOpenModal={handleOpenModal}
           itemType="item1"
-          itemImageUrl={itemImageUrl1 || ''}
-          itemTitle={itemTitle1}
+          itemImageUrl={selectedItem.imageUrl1 || ''}
+          itemTitle={selectedItem.title1}
         />
         <ItemSelector
           onOpenModal={handleOpenModal}
           itemType="item2"
-          itemImageUrl={itemImageUrl2 || ''}
-          itemTitle={itemTitle2}
+          itemImageUrl={selectedItem.imageUrl2 || ''}
+          itemTitle={selectedItem.title2}
         />
       </div>
       <p className="mb-[20px] mt-[40px] text-[18px] font-[600]">
@@ -157,12 +99,6 @@ export default function VoteForm() {
           생성하기
         </button>
       </div>
-      {showVoteModal && (
-        <VoteModal
-          setShowVoteModal={setShowVoteModal}
-          selectItem={handleSelectItem}
-        />
-      )}
     </form>
   )
 }

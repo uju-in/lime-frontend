@@ -15,18 +15,18 @@ async function fetchItemDetail(itemId: number) {
   const data = await res.json()
 
   if (!res.ok) {
-    throw data.message
+    throw new Error(data.message)
   }
 
   return data
 }
 
 export const useItemDetail = (itemId: number) => {
-  const { data: itemData, isError } = useSuspenseQuery({
+  const { data: itemData } = useSuspenseQuery({
     queryKey: itemKeys.itemDetail(itemId).queryKey,
     queryFn: () => fetchItemDetail(itemId),
     staleTime: 1000 * 60,
   })
 
-  return { itemData, isError }
+  return { itemData }
 }
