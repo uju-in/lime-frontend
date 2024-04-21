@@ -1,4 +1,4 @@
-'use Client'
+'use client'
 
 import CategorySelector from '@/app/_components/categorySelector'
 import { cn } from '@/app/_utils/twMerge'
