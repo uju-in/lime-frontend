@@ -1,12 +1,7 @@
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import Link from 'next/link'
-
-const SideMenu = [
-  // { label: '인벤토리', id: 'inventory' },
-  // { label: 'MY피드', id: 'feed' },
-  { label: 'MY투표', id: 'vote' },
-]
+import { SideMenu } from '../_constants/mypageSideMenu'
 
 export default function MypageNav({ menu = 'MY투표' }: { menu: string }) {
   return (
