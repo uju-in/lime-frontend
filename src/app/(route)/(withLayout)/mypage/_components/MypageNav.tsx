@@ -8,17 +8,17 @@ const SideMenu = [
   { label: 'MY투표', id: 'vote' },
 ]
 
-export default function MypageNav({ title }: { title: string }) {
+export default function MypageNav({ menu = 'MY투표' }: { menu: string }) {
   return (
     <nav>
       <ul className="flex flex-col gap-[12px]">
         {SideMenu.map(({ label, id }) => (
-          <Link key={id} href={`/mypage?title=${id}`}>
+          <Link key={id} href={`/mypage?menu=${label}`}>
             <li
               className={cn(
                 'flex w-full items-center gap-[16px] rounded-[4px] p-[12px_25px] text-[18px] font-semibold',
-                { 'bg-[#dfdfdf]': title === id },
-                { 'bg-[#F7F7F7]': title !== id },
+                { 'bg-[#dfdfdf]': menu === label },
+                { 'bg-[#F7F7F7]': menu !== label },
               )}
             >
               <Image

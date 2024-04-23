@@ -4,11 +4,11 @@ import Profile from './_components/Profile'
 import MypageNav from './_components/MypageNav'
 
 type Props = {
-  searchParams: { title: string }
+  searchParams: { menu: string }
 }
 
 export default function page({ searchParams }: Props) {
-  const { title } = searchParams
+  const { menu } = searchParams
 
   return (
     <div className="flex gap-[65px]">
@@ -16,10 +16,10 @@ export default function page({ searchParams }: Props) {
         <Suspense fallback={<div>Loading. . .</div>}>
           <Profile />
         </Suspense>
-        <MypageNav title={title} />
+        <MypageNav menu={menu} />
       </section>
       <section className="pt-[89px]">
-        <CategoryPicker path="/mypage" />
+        <CategoryPicker path="/mypage?menu=" />
       </section>
     </div>
   )
