@@ -7,11 +7,13 @@ import { CategoryOption } from '@/app/_constants'
 import { defaultCategory } from '../../_utils/defaultCategory'
 
 export default function CategoryPicker({
-  path = '/',
+  path,
   innerClassNames,
+  isMenu,
 }: {
-  path?: string
+  path: string
   innerClassNames?: string
+  isMenu?: boolean
 }) {
   const title = useGetSearchParam('title') || '스포츠'
   const category = useGetSearchParam('category') || '농구'
@@ -31,7 +33,7 @@ export default function CategoryPicker({
       >
         {CategoryOption.map((item) => (
           <Link
-            href={`${path === '/' ? `${path}?` : `${path}${menu}&`}title=${item.title}&category=${defaultCategory(
+            href={`${!isMenu ? '?' : `${path}${menu}&`}title=${item.title}&category=${defaultCategory(
               item.title,
             )}`}
             key={item.title}
@@ -61,7 +63,7 @@ export default function CategoryPicker({
           categoryList.list.map((item) => {
             return (
               <Link
-                href={`${path === '/' ? `${path}?` : `${path}${menu}&`}title=${title}&category=${item}`}
+                href={`${!isMenu ? '?' : `${path}${menu}&`}title=${title}&category=${item}`}
                 key={item}
               >
                 <li

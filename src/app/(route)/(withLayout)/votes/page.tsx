@@ -14,7 +14,7 @@ export default function page() {
         <section
           className={cn('mt-[52px] flex justify-between', 'mo:pt-[16px]')}
         >
-          <CategoryPicker path="votes" />
+          <CategoryPicker path="/votes" />
           <CreateVoteButton />
         </section>
         <VoteListPage />

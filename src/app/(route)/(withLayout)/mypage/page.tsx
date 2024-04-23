@@ -19,7 +19,7 @@ export default function page({ searchParams }: Props) {
         <MypageNav menu={menu} />
       </section>
       <section className="pt-[89px]">
-        <CategoryPicker path="/mypage?menu=" />
+        <CategoryPicker path="/mypage?menu=" isMenu />
       </section>
     </div>
   )
