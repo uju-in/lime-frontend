@@ -1,27 +1,25 @@
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const SideMenu = [
-  { label: '인벤토리', id: 'inventory' },
-  { label: '버킷', id: 'bucket' },
-  { label: 'MY피드', id: 'feed' },
+  // { label: '인벤토리', id: 'inventory' },
+  // { label: 'MY피드', id: 'feed' },
   { label: 'MY투표', id: 'vote' },
 ]
 
-export default function MypageNav() {
-  const tab = '인벤토리'
-
+export default function MypageNav({ title }: { title: string }) {
   return (
     <nav>
       <ul className="flex flex-col gap-[12px]">
         {SideMenu.map(({ label, id }) => (
-          <li key={id}>
-            <button
+          <Link key={id} href={`/mypage?title=${id}`}>
+            <li
               className={cn(
                 'flex w-full items-center gap-[16px] rounded-[4px] p-[12px_25px] text-[18px] font-semibold',
-                { 'bg-[#dfdfdf]': tab === label },
+                { 'bg-[#dfdfdf]': title === id },
+                { 'bg-[#F7F7F7]': title !== id },
               )}
-              type="button"
             >
               <Image
                 src={`/image/icon/icon-${id}.svg`}
@@ -30,8 +28,8 @@ export default function MypageNav() {
                 height={36}
               />
               <span>{label}</span>
-            </button>
-          </li>
+            </li>
+          </Link>
         ))}
       </ul>
     </nav>
