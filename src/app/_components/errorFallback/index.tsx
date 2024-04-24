@@ -7,7 +7,7 @@ interface ErrorProps {
   resetErrorBoundary: () => void
 }
 
-export default function ErrorFullback({
+export default function ErrorFallback({
   error,
   resetErrorBoundary,
 }: ErrorProps) {
