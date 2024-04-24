@@ -2,9 +2,9 @@
 
 import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import { cn } from '@/app/_utils/twMerge'
-import { QueryErrorResetBoundary } from '@tanstack/react-query'
-import ErrorBoundary from '@/app/_components/errorBoundary'
-import ErrorFullback from '@/app/_components/errorFullback'
+import ErrorHandlingWrapper from '@/app/_components/errorHandlingWrapper'
+import ErrorFallback from '@/app/_components/errorFallback'
+import Loading from '@/app/_components/loading'
 import FavoriteList from './FavoriteItemList'
 
 interface PropsType {
@@ -28,17 +28,16 @@ export default function VoteItemsSelector(props: PropsType) {
           <p className={cn('my-[13px] text-[12px]', 'mo:hidden')}>
             아이템 {selectedFolder.itemCount}개
           </p>
-          <QueryErrorResetBoundary>
-            {({ reset }) => (
-              <ErrorBoundary onReset={reset} FallbackComponent={ErrorFullback}>
-                <FavoriteList
-                  folderId={selectedFolder.folderId}
-                  currentSelectedItem={currentSelectedItem}
-                  setCurrentSelectedItem={setCurrentSelectedItem}
-                />
-              </ErrorBoundary>
-            )}
-          </QueryErrorResetBoundary>
+          <ErrorHandlingWrapper
+            fallbackComponent={ErrorFallback}
+            suspenseFallback={<Loading />}
+          >
+            <FavoriteList
+              folderId={selectedFolder.folderId}
+              currentSelectedItem={currentSelectedItem}
+              setCurrentSelectedItem={setCurrentSelectedItem}
+            />
+          </ErrorHandlingWrapper>
         </>
       ) : (
         <div

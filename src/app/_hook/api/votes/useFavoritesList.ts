@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import { getCookie } from 'cookies-next'
 import { voteKeys } from '.'
 
@@ -27,7 +27,7 @@ export async function fetchFavoriteList({ type, folderId }: RequestInfo) {
 
   if (!res.ok) {
     if (type === 'item') throw new Error(data.message)
-    if (type === 'folder') return data
+    if (type === 'folder') throw new Error(data.message)
   }
 
   return data
@@ -37,12 +37,11 @@ export const useFavoritesList = (
   type: 'folder' | 'item',
   folderId?: number | null,
 ) => {
-  const { data: itemList, isSuccess } = useQuery({
+  const { data: itemList } = useSuspenseQuery({
     queryKey: voteKeys.favorites(folderId as number).queryKey,
     queryFn: () => fetchFavoriteList({ type, folderId }),
     staleTime: 1000 * 60,
-    throwOnError: true,
   })
 
-  return { itemList, isSuccess }
+  return { itemList }
 }

@@ -1,11 +1,9 @@
 'use client'
 
 import { useItemDetail } from '@/app/_hook/api/items/useItemDetail'
-import { Suspense } from 'react'
 import { cn } from '@/app/_utils/twMerge'
-import { QueryErrorResetBoundary } from '@tanstack/react-query'
-import ErrorBoundary from '@/app/_components/errorBoundary'
-import ErrorFullback from '@/app/_components/errorFullback'
+import ErrorHandlingWrapper from '@/app/_components/errorHandlingWrapper'
+import ErrorFallback from '@/app/_components/errorFallback'
 import ReviewSection from './ReviewSection'
 import { ReviewSectionSkeletonUI } from './ReviewSkeletonUI'
 import Breadcrumb from './Breadcrumb'
@@ -29,15 +27,12 @@ export default function ItemDetailView(props: Props) {
       <div
         className={cn('hidden h-[8px] bg-[#EEE]', 'mo:mt-[16px] mo:block')}
       />
-      <QueryErrorResetBoundary>
-        {({ reset }) => (
-          <ErrorBoundary onReset={reset} FallbackComponent={ErrorFullback}>
-            <Suspense fallback={<ReviewSectionSkeletonUI />}>
-              <ReviewSection itemInfo={itemInfo} />
-            </Suspense>
-          </ErrorBoundary>
-        )}
-      </QueryErrorResetBoundary>
+      <ErrorHandlingWrapper
+        fallbackComponent={ErrorFallback}
+        suspenseFallback={<ReviewSectionSkeletonUI />}
+      >
+        <ReviewSection itemInfo={itemInfo} />
+      </ErrorHandlingWrapper>
     </>
   )
 }

@@ -5,9 +5,7 @@ import { ProfileType } from '@/app/_types/mypage.type'
 import Image from 'next/image'
 
 export default function Profile() {
-  const { profile, isError } = useUserProfile()
-
-  if (isError) return <div>Loading. . .</div>
+  const { profile } = useUserProfile()
 
   const { memberProfile } = profile as ProfileType
   const { nickName, profileImage, level, hobby, career, content, mbti } =
