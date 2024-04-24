@@ -5,7 +5,13 @@ import renderToast from '@/app/_utils/toast'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import { setCookie } from 'cookies-next'
 
-async function fetchAccessToken(code: string) {
+interface ResponseType {
+  memberId: number
+  nickname: string
+  accessToken: string
+}
+
+async function fetchAccessToken(code: string): Promise<ResponseType> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/auth/kakao/callback?code=${code}`,
     {
@@ -42,10 +48,11 @@ export function useRequestToken() {
       return
     }
 
-    const { accessToken } = await fetchAccessToken(code)
+    const { accessToken, nickname } = await fetchAccessToken(code)
 
     if (accessToken) {
       setCookie('accessToken', accessToken)
+      setCookie('nickname', nickname)
 
       router.push('/')
     }
