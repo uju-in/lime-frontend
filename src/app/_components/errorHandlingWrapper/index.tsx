@@ -1,17 +1,25 @@
 'use client'
 
 import { QueryErrorResetBoundary } from '@tanstack/react-query'
-import { Suspense } from 'react'
-import ErrorBoundary from '../errorBoundary'
-import ErrorFallback from '../errorFallback'
-import Loading from '../loading'
+import { ComponentType, ReactNode, Suspense } from 'react'
+import ErrorBoundary, { FallbackProps } from '../errorBoundary'
 
-export default function ErrorHandlingWrapper({ children }: any) {
+interface PropsType {
+  children: React.ReactNode
+  fallbackComponent: ComponentType<FallbackProps>
+  suspenseFallback: ReactNode
+}
+
+export default function ErrorHandlingWrapper({
+  children,
+  fallbackComponent: FallbackComponent,
+  suspenseFallback: SuspenseFallback,
+}: PropsType) {
   return (
     <QueryErrorResetBoundary>
       {({ reset }) => (
-        <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
-          <Suspense fallback={<Loading />}>{children}</Suspense>
+        <ErrorBoundary onReset={reset} FallbackComponent={FallbackComponent}>
+          <Suspense fallback={SuspenseFallback}>{children}</Suspense>
         </ErrorBoundary>
       )}
     </QueryErrorResetBoundary>
