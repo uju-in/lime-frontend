@@ -19,6 +19,7 @@ export default function Profile() {
         width={113}
         height={113}
         className="mb-[23px] rounded-full"
+        loading="eager"
       />
       <p className="mb-[8px] text-[20px] font-bold">{nickName}</p>
       <p className="mb-[12px] text-[16px] font-bold text-[#747474]">
