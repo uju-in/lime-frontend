@@ -1,22 +1,25 @@
 import CategoryPicker from '@/app/_components/categoryPicker/CategoryPicker'
-import React, { Suspense } from 'react'
+import React from 'react'
 import Loading from '@/app/_components/loading'
 import ErrorHandlingWrapper from '@/app/_components/errorHandlingWrapper'
-import ErrorBoundary from '@/app/_components/errorBoundary'
 import ErrorFallback from '@/app/_components/errorFallback'
 import Profile from './_components/Profile'
 import MypageNav from './_components/MypageNav'
+import UserContentTabs from './_components/UserContentTabs'
 
 type Props = {
-  searchParams: { menu: string }
+  searchParams: {
+    menu: string
+    nickname: string
+  }
   children: React.ReactNode
 }
 
 export default function page({ searchParams }: Props) {
-  const { menu } = searchParams
+  const { menu, nickname } = searchParams
 
   return (
-    <div className="flex gap-[65px]">
+    <div className="flex w-full gap-[65px]">
       <section className="flex max-w-[342px] flex-col gap-[19px]">
         <ErrorHandlingWrapper
           fallbackComponent={ErrorFallback}
@@ -26,8 +29,9 @@ export default function page({ searchParams }: Props) {
         </ErrorHandlingWrapper>
         <MypageNav menu={menu} />
       </section>
-      <section className="pt-[89px]">
-        <CategoryPicker path="/mypage?menu=" isMenu />
+      <section className="w-full pt-[89px]">
+        <CategoryPicker path={`/mypage?nickname=${nickname}&menu=`} isMenu />
+        <UserContentTabs />
       </section>
     </div>
   )

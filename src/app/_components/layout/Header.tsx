@@ -1,16 +1,19 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { cookies } from 'next/headers'
 import { cn } from '@/app/_utils/twMerge'
 import { fetchTokenValidity } from '@/app/_hook/api/auth/useTokenValidity'
 import React from 'react'
+import { serverCookies } from '@/app/_utils/serverCookie'
 import ItemSection from './ItemSection'
 import SearchButton from './search/SearchButton'
 
 export default async function Header() {
   let isValidToken = false
+
+  const nickname = serverCookies.getCookie('nickname')
+  const accessToken = serverCookies.getCookie('accessToken')
+
   try {
-    const accessToken = cookies().get('accessToken')?.value
     isValidToken = accessToken ? await fetchTokenValidity(accessToken) : false
   } catch (e) {
     console.error(e)
@@ -49,7 +52,10 @@ export default async function Header() {
             <ItemSection />
           </li>
         </ul>
-        <Link href="/mypage" className="border-l px-[50px] font-bold">
+        <Link
+          href={`/mypage?nickname=${nickname}`}
+          className="border-l px-[50px] font-bold"
+        >
           MY
         </Link>
       </div>
