@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import renderToast from '@/app/_utils/toast'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
-import { setCookie } from 'cookies-next'
+import { useClientCookies } from '../../common/useClientCookies'
 
 interface ResponseType {
   memberId: number
@@ -33,6 +33,7 @@ async function fetchAccessToken(code: string): Promise<ResponseType> {
 
 export function useRequestToken() {
   const router = useRouter()
+  const { setClientCookie } = useClientCookies()
 
   const code = useGetSearchParam('code')
 
@@ -51,8 +52,8 @@ export function useRequestToken() {
     const { accessToken, nickname } = await fetchAccessToken(code)
 
     if (accessToken) {
-      setCookie('accessToken', accessToken)
-      setCookie('nickname', nickname)
+      setClientCookie('accessToken', accessToken)
+      setClientCookie('nickname', nickname)
 
       router.push('/')
     }

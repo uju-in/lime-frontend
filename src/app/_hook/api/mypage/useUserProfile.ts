@@ -1,10 +1,11 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { ProfileType } from '@/app/_types/mypage.type'
 import { mypageKeys } from '.'
+import { useClientCookies } from '../../common/useClientCookies'
 
-async function fetchUserProfile(): Promise<ProfileType> {
+async function fetchUserProfile(nickname: string): Promise<ProfileType> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/members/mypage/${'도라에몽'}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/members/mypage/${nickname}`,
     {
       method: 'GET',
       headers: {
@@ -24,11 +25,14 @@ async function fetchUserProfile(): Promise<ProfileType> {
 }
 
 export const useUserProfile = () => {
-  const { data: profile, isError } = useSuspenseQuery({
-    queryKey: mypageKeys.userProfile.queryKey,
-    queryFn: () => fetchUserProfile(),
+  const clientCookies = useClientCookies()
+  const nickname = clientCookies.getClientCookie('nickname')
+
+  const { data: profile } = useSuspenseQuery({
+    queryKey: mypageKeys.userProfile(nickname).queryKey,
+    queryFn: () => fetchUserProfile(nickname),
     staleTime: 1000 * 60,
   })
 
-  return { profile, isError }
+  return { profile }
 }
