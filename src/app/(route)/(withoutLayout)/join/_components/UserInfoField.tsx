@@ -97,7 +97,7 @@ export default function UserInfoField() {
       if (data === 200) {
         setCookie('nickname', profile.nickname)
 
-        router.push(`/mypage`)
+        router.push(`/mypage?nickname=${profile.nickname}`)
       }
     } else {
       const data = await signUp(profile)
