@@ -1,19 +1,17 @@
-import { getCookies } from 'next-client-cookies/server'
+'use server'
 
-export namespace serverCookies {
-  const cookies = getCookies()
+import { cookies } from 'next/headers'
 
-  export const setCookie = (key: string, value: string) => {
-    cookies.set(key, encodeURIComponent(value))
-  }
+export const setServerCookie = (key: string, value: string) => {
+  cookies().set(key, encodeURIComponent(value))
+}
 
-  export const getCookie = (key: string) => {
-    const cookieValue = cookies.get(key) ?? ''
+export const getServerCookie = (key: string) => {
+  const cookieValue = cookies().get(key)?.value ?? ''
 
-    return decodeURIComponent(cookieValue)
-  }
+  return decodeURIComponent(cookieValue)
+}
 
-  export const removeCookie = (key: string) => {
-    cookies.remove(key)
-  }
+export const deleteServerCookie = (key: string) => {
+  cookies().delete(key)
 }
