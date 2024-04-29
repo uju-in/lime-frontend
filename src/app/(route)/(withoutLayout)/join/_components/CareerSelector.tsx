@@ -1,24 +1,39 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-
 import useOutsideClick from '@/app/_hook/common/useOutsideClick'
-
 import { cn } from '@/app/_utils/twMerge'
 import { CareerOption } from '@/app/_types/signUp.types'
-
 import { careerOptions } from '../_constants'
 
 interface CareerSelectorProps {
   setCareer: (value: number) => void
+  initialCareer: number | null
 }
 
-export default function CareerSelector({ setCareer }: CareerSelectorProps) {
+export default function CareerSelector({
+  setCareer,
+  initialCareer,
+}: CareerSelectorProps) {
   const dropdownRef = useRef(null)
 
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
   const [careerLabel, setCareerLabel] = useState<string>('경력 기간 선택')
+
+  useEffect(() => {
+    const foundOption = careerOptions.find(
+      (option) => option.value === initialCareer,
+    )
+
+    if (initialCareer !== null) {
+      if (foundOption) {
+        setCareerLabel(foundOption.label)
+      } else {
+        setCareerLabel('경력 기간 선택')
+      }
+    }
+  }, [initialCareer])
 
   const handleCareerChange = ({ label, value }: CareerOption) => {
     setCareer(value)

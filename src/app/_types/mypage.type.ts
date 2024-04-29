@@ -1,17 +1,30 @@
+export const defaultMemberProfile: MemberProfile = {
+  memberId: 0,
+  nickname: '',
+  profileImage: '',
+  level: 1,
+  hobby: '',
+  content: '',
+  career: null,
+  mbti: '',
+  followerCount: 0,
+  followingCount: 0,
+}
+
 export interface ProfileType {
   bucketProfiles: []
   inventoryProfiles: []
   memberProfile: MemberProfile
 }
 
-interface MemberProfile {
+export interface MemberProfile {
   memberId: number
-  nickName: string
+  nickname: string
   profileImage: string
   level: number
   hobby: string
   content: string
-  career: number
+  career: number | null
   mbti: string
   followerCount: number
   followingCount: number

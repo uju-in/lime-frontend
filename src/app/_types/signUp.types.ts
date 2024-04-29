@@ -1,7 +1,7 @@
 export interface SignUpState {
   nickname: string
   career: number | null
-  mbti: string
+  mbti: string | null
   content: string
   hobby: string
 }

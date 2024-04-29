@@ -1,7 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { ProfileType } from '@/app/_types/mypage.type'
 import { mypageKeys } from '.'
-import { useClientCookies } from '../../common/useClientCookies'
 
 async function fetchUserProfile(nickname: string): Promise<ProfileType> {
   const res = await fetch(
@@ -24,10 +23,7 @@ async function fetchUserProfile(nickname: string): Promise<ProfileType> {
   return data
 }
 
-export const useUserProfile = () => {
-  const clientCookies = useClientCookies()
-  const nickname = clientCookies.getClientCookie('nickname')
-
+export const useUserProfile = (nickname: string) => {
   const { data: profile } = useSuspenseQuery({
     queryKey: mypageKeys.userProfile(nickname).queryKey,
     queryFn: () => fetchUserProfile(nickname),

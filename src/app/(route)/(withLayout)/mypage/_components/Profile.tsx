@@ -1,14 +1,26 @@
 'use client'
 
+import { editProfileState } from '@/app/_atoms/editProfileState'
 import { useUserProfile } from '@/app/_hook/api/mypage/useUserProfile'
-import { ProfileType } from '@/app/_types/mypage.type'
+import { useClientCookies } from '@/app/_hook/common/useClientCookies'
+import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useSetRecoilState } from 'recoil'
 
 export default function Profile() {
-  const { profile } = useUserProfile()
+  const clientCookies = useClientCookies()
+  const postNickname =
+    useGetSearchParam('nickname') || clientCookies.getClientCookie('nickname')
+  const setProfile = useSetRecoilState(editProfileState)
+  const currentUserNickname = clientCookies.getClientCookie('nickname')
 
-  const { memberProfile } = profile as ProfileType
-  const { nickName, profileImage, level, hobby, career, content, mbti } =
+  const router = useRouter()
+
+  const { profile } = useUserProfile(postNickname)
+
+  const { memberProfile } = profile
+  const { nickname, profileImage, level, hobby, career, content, mbti } =
     memberProfile
 
   return (
@@ -21,7 +33,7 @@ export default function Profile() {
         className="mb-[23px] rounded-full"
         loading="eager"
       />
-      <p className="mb-[8px] text-[20px] font-bold">{nickName}</p>
+      <p className="mb-[8px] text-[20px] font-bold">{nickname}</p>
       <p className="mb-[12px] text-[16px] font-bold text-[#747474]">
         Lv. {level}
       </p>
@@ -41,19 +53,24 @@ export default function Profile() {
           <span className="font-medium text-[#808080]">{career}년차</span>
         </div>
       </div>
-
-      <button
-        type="button"
-        className="flex w-full items-center justify-center gap-[7px] rounded-full bg-[#494949] py-[8px] text-[16px] font-bold text-white"
-      >
-        <Image
-          src="/image/icon/icon-pencil_white.svg"
-          width={24}
-          height={24}
-          alt="pencil"
-        />
-        <span>내 프로필 편집</span>
-      </button>
+      {currentUserNickname === nickname && (
+        <button
+          type="button"
+          className="flex w-full items-center justify-center gap-[7px] rounded-full bg-[#494949] py-[8px] text-[16px] font-bold text-white"
+          onClick={() => {
+            setProfile(memberProfile)
+            router.push('/join')
+          }}
+        >
+          <Image
+            src="/image/icon/icon-pencil_white.svg"
+            width={24}
+            height={24}
+            alt="pencil"
+          />
+          <span>내 프로필 편집</span>
+        </button>
+      )}
     </div>
   )
 }

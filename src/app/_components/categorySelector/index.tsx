@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@/app/_utils/twMerge'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface Categories {
   스포츠: string | null
@@ -10,6 +10,7 @@ interface Categories {
 
 interface CategorySelectorProps {
   setCategory: (item: string) => void
+  initialHobby?: string | null
 }
 
 const categories: { [K in keyof Categories]: string[] } = {
@@ -17,13 +18,38 @@ const categories: { [K in keyof Categories]: string[] } = {
   라이프: ['드로잉', '음악', '쿠킹', '게임', '데스크테리어'],
 }
 
+const findInitialCategory = (hobby: string | null | undefined) => {
+  if (!hobby) return null
+
+  const category = Object.entries(categories).find(([_, items]) =>
+    items.includes(hobby),
+  )
+  return category ? category[0] : null
+}
+
 export default function CategorySelector({
   setCategory,
+  initialHobby,
 }: CategorySelectorProps) {
+  const initialCategory = findInitialCategory(initialHobby || null)
+
   const [selected, setSelected] = useState<{
     category: keyof Categories | null
     item: string | null
-  }>({ category: null, item: null })
+  }>({
+    category: initialCategory as keyof Categories,
+    item: initialHobby || null,
+  })
+
+  useEffect(() => {
+    if (initialHobby && initialCategory) {
+      setSelected({
+        category: initialCategory as keyof Categories,
+        item: initialHobby,
+      })
+      setCategory(initialHobby)
+    }
+  }, [initialHobby, initialCategory])
 
   const handleRadioChange = (category: keyof Categories, item: string) => {
     setSelected({ category, item })
