@@ -13,7 +13,12 @@ export async function middleware(request: NextRequest) {
   const accessToken = request.cookies.get('accessToken')?.value ?? ''
 
   // 접근 제한이 필요한 경로
-  const protectedPaths = ['/saves', '/items/add-item', '/votes/add-vote']
+  const protectedPaths = [
+    '/mypage',
+    '/saves',
+    '/items/add-item',
+    '/votes/add-vote',
+  ]
   const authPaths = ['/login', '/join']
 
   // 현재 경로가 로그인이나 회원가입 경로에 있을 경우, 추가 처리 없이 요청을 계속 진행
@@ -58,6 +63,7 @@ export const config = {
   matcher: [
     '/login',
     '/join',
+    '/mypage',
     '/saves',
     '/saves/:path*',
     '/items/add-item',
