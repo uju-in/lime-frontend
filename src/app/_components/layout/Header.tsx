@@ -3,15 +3,15 @@ import Link from 'next/link'
 import { cn } from '@/app/_utils/twMerge'
 import { fetchTokenValidity } from '@/app/_hook/api/auth/useTokenValidity'
 import React from 'react'
-import { serverCookies } from '@/app/_utils/serverCookie'
+import { getServerCookie } from '@/app/_utils/serverCookie'
 import ItemSection from './ItemSection'
 import SearchButton from './search/SearchButton'
 
 export default async function Header() {
   let isValidToken = false
 
-  const nickname = serverCookies.getCookie('nickname')
-  const accessToken = serverCookies.getCookie('accessToken')
+  const nickname = getServerCookie('nickname')
+  const accessToken = getServerCookie('accessToken')
 
   try {
     isValidToken = accessToken ? await fetchTokenValidity(accessToken) : false

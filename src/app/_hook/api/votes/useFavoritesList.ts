@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { getCookie } from 'cookies-next'
+import { getServerCookie } from '@/app/_utils/serverCookie'
 import { voteKeys } from '.'
 
 interface RequestInfo {
@@ -8,7 +8,8 @@ interface RequestInfo {
 }
 
 export async function fetchFavoriteList({ type, folderId }: RequestInfo) {
-  const accessToken = getCookie('accessToken')
+  const accessToken = await getServerCookie('accessToken')
+
   let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/favorites?favoriteTypeCondition=${type}`
 
   if (type === 'item' && folderId) {
