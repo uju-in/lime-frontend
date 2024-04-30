@@ -10,7 +10,6 @@ import SearchButton from './search/SearchButton'
 export default async function Header() {
   let isValidToken = false
 
-  const nickname = getServerCookie('nickname')
   const accessToken = getServerCookie('accessToken')
 
   try {
@@ -52,10 +51,7 @@ export default async function Header() {
             <ItemSection />
           </li>
         </ul>
-        <Link
-          href={`/mypage?nickname=${nickname}`}
-          className="border-l px-[50px] font-bold"
-        >
+        <Link href="/mypage" className="border-l px-[50px] font-bold">
           MY
         </Link>
       </div>
