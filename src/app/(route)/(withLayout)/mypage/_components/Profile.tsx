@@ -10,10 +10,13 @@ import { useSetRecoilState } from 'recoil'
 
 export default function Profile() {
   const clientCookies = useClientCookies()
+
+  const currentUserNickname = clientCookies.getClientCookie('nickname')
+
   const postNickname =
     useGetSearchParam('nickname') || clientCookies.getClientCookie('nickname')
+
   const setProfile = useSetRecoilState(editProfileState)
-  const currentUserNickname = clientCookies.getClientCookie('nickname')
 
   const router = useRouter()
 
