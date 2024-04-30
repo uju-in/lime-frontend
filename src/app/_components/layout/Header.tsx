@@ -11,6 +11,7 @@ export default async function Header() {
   let isValidToken = false
 
   const accessToken = getServerCookie('accessToken')
+  const nickname = getServerCookie('nickname')
 
   try {
     isValidToken = accessToken ? await fetchTokenValidity(accessToken) : false
@@ -51,7 +52,10 @@ export default async function Header() {
             <ItemSection />
           </li>
         </ul>
-        <Link href="/mypage" className="border-l px-[50px] font-bold">
+        <Link
+          href={`/mypage?&nickname=${nickname}`}
+          className="border-l px-[50px] font-bold"
+        >
           MY
         </Link>
       </div>
