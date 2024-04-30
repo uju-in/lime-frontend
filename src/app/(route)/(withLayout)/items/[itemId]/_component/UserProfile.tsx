@@ -30,13 +30,13 @@ export default function UserProfile({ memberInfo, reviewSummary }: PropsType) {
         src={memberInfo.profileImage}
         alt="member profile"
         className="mr-[8px] h-[40px] w-[40px] cursor-pointer rounded-full"
-        onClick={(e) => handleViewProfile(e)}
+        onClick={handleViewProfile}
       />
       <div>
         <div className="flex items-center">
           <p
             className="mr-[4.52px] cursor-pointer text-[12px] font-[700] "
-            onClick={(e) => handleViewProfile(e)}
+            onClick={handleViewProfile}
           >
             {memberInfo.nickname}
           </p>
