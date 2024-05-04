@@ -1,7 +1,7 @@
 import { VoteDetailType } from '@/app/_types/detailVote.type'
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { useCookies } from 'next-client-cookies'
 import { voteKeys } from '.'
+import { useClientCookies } from '../../common/useClientCookies'
 
 async function fetchVoteDetail(
   voteId: number,
@@ -29,8 +29,8 @@ async function fetchVoteDetail(
 }
 
 export const useVoteDetail = (voteId: number) => {
-  const cookies = useCookies()
-  const accessToken = cookies.get('accessToken') ?? ''
+  const { getClientCookie } = useClientCookies()
+  const accessToken = getClientCookie('accessToken')
 
   const { data: voteData } = useSuspenseQuery({
     queryKey: voteKeys.detail(voteId).queryKey,

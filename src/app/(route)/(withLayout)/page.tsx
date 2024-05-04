@@ -15,7 +15,7 @@ export default function Home({ searchParams }: Props) {
   return (
     <main className={cn('bg-[#F7F7F7]', 'mo:bg-white')}>
       <section className="bg-white pt-[56px]">
-        <CategoryPicker />
+        <CategoryPicker innerClassNames="justify-center" path="/" />
       </section>
       {/** Feed */}
       <article

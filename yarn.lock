@@ -259,9 +259,9 @@
   integrity sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==
 
 "@types/node@^16.10.2":
-  version "16.18.86"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.18.86.tgz#87426ce3747a4c135229e15765cbf9c5a18d280c"
-  integrity sha512-QMvdZf+ZTSiv7gspwhqbfB7Y5DmbYgCsUnakS8Ul9uRbJQehDKaM7SL+GbcDS003Lh7VK4YlelHsRm9HCv26eA==
+  version "16.18.96"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.18.96.tgz#eb0012d23ff53d14d64ec8a352bf89792de6aade"
+  integrity sha512-84iSqGXoO+Ha16j8pRZ/L90vDMKX04QTYMTfYeE1WrjWaZXuchBehGUZEpNgx7JnmlrIHdnABmpjrQjhCnNldQ==
 
 "@types/node@^20":
   version "20.11.13"

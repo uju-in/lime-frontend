@@ -61,9 +61,9 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/mypage',
     '/login',
     '/join',
+    '/mypage',
     '/saves',
     '/saves/:path*',
     '/items/add-item',

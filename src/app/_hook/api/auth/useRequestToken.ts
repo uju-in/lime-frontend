@@ -3,9 +3,15 @@
 import { useRouter } from 'next/navigation'
 import renderToast from '@/app/_utils/toast'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
-import { setCookie } from 'cookies-next'
+import { useClientCookies } from '../../common/useClientCookies'
 
-async function fetchAccessToken(code: string) {
+interface ResponseType {
+  memberId: number
+  nickname: string
+  accessToken: string
+}
+
+async function fetchAccessToken(code: string): Promise<ResponseType> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/auth/kakao/callback?code=${code}`,
     {
@@ -27,6 +33,7 @@ async function fetchAccessToken(code: string) {
 
 export function useRequestToken() {
   const router = useRouter()
+  const { setClientCookie } = useClientCookies()
 
   const code = useGetSearchParam('code')
 
@@ -42,10 +49,11 @@ export function useRequestToken() {
       return
     }
 
-    const { accessToken } = await fetchAccessToken(code)
+    const { accessToken, nickname } = await fetchAccessToken(code)
 
     if (accessToken) {
-      setCookie('accessToken', accessToken)
+      setClientCookie('accessToken', accessToken)
+      setClientCookie('nickname', nickname)
 
       router.push('/')
     }
