@@ -51,7 +51,7 @@ export default function MBTISelector({
               selectedMBTI !== 'MBTI 유형 선택' && selectedMBTI !== null,
           })}
         >
-          {selectedMBTI || 'MBTI 유형 선택'}
+          {selectedMBTI || initialMBTI}
         </span>
         <Image
           className="cursor-pointer"
