@@ -61,11 +61,12 @@ export default function CategoryPicker({
       >
         {categoryList &&
           categoryList.list.map((item) => {
+            const link = isMenu
+              ? `${path}${menu}&title=${title}&category=${item}`
+              : `?title=${title}&category=${item}`
+
             return (
-              <Link
-                href={`${!isMenu ? '?' : `${path}${menu}&`}title=${title}&category=${item}`}
-                key={item}
-              >
+              <Link href={link} key={item}>
                 <li
                   className={cn(
                     'flex h-[39px] min-w-[60px] cursor-pointer items-center justify-center text-nowrap border-[3px] font-[600]',
