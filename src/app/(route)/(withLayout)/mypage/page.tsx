@@ -1,5 +1,4 @@
 import CategoryPicker from '@/app/_components/categoryPicker/CategoryPicker'
-import React from 'react'
 import Loading from '@/app/_components/loading'
 import ErrorHandlingWrapper from '@/app/_components/errorHandlingWrapper'
 import ErrorFallback from '@/app/_components/errorFallback'
@@ -12,7 +11,6 @@ type Props = {
     menu: string
     nickname: string
   }
-  children: React.ReactNode
 }
 
 export default function page({ searchParams }: Props) {
