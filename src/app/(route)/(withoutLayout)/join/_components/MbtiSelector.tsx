@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import useOutsideClick from '@/app/_hook/common/useOutsideClick'
 import { cn } from '@/app/_utils/twMerge'
@@ -8,13 +8,21 @@ import { MBTIOptions } from '../_constants'
 
 interface Props {
   setMbti: (mbti: string) => void
+  initialMBTI?: string | null
 }
 
-export default function MBTISelector({ setMbti }: Props) {
+export default function MBTISelector({
+  setMbti,
+  initialMBTI = 'MBTI 유형 선택',
+}: Props) {
   const dropdownRef = useRef(null)
-
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
-  const [selectedMBTI, setSelectedMBTI] = useState<string>('MBTI 유형 선택')
+
+  const [selectedMBTI, setSelectedMBTI] = useState<string | null>(initialMBTI)
+
+  useEffect(() => {
+    setSelectedMBTI(initialMBTI)
+  }, [initialMBTI])
 
   const handleSelectMBTI = (mbti: string) => {
     setSelectedMBTI(mbti)
@@ -37,11 +45,13 @@ export default function MBTISelector({ setMbti }: Props) {
       >
         <span
           className={cn('font-[500]', {
-            'text-[#BDBDBD]': selectedMBTI === 'MBTI 유형 선택',
-            'text-[#000]': selectedMBTI !== 'MBTI 유형 선택',
+            'text-[#BDBDBD]':
+              selectedMBTI === 'MBTI 유형 선택' || selectedMBTI === null,
+            'text-[#000]':
+              selectedMBTI !== 'MBTI 유형 선택' && selectedMBTI !== null,
           })}
         >
-          {selectedMBTI}
+          {selectedMBTI || initialMBTI}
         </span>
         <Image
           className="cursor-pointer"

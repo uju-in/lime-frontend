@@ -31,7 +31,7 @@ const validateForm = ({
   career,
   content,
 }: {
-  isDuplicated: boolean
+  isDuplicated?: boolean
   career: number | null
   content: string
 }) => {

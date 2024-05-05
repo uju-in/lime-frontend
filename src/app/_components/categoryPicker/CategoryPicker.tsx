@@ -6,9 +6,18 @@ import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import { CategoryOption } from '@/app/_constants'
 import { defaultCategory } from '../../_utils/defaultCategory'
 
-export default function CategoryPicker({ path = '/' }: { path?: string }) {
+export default function CategoryPicker({
+  path,
+  innerClassNames,
+  isMenu,
+}: {
+  path: string
+  innerClassNames?: string
+  isMenu?: boolean
+}) {
   const title = useGetSearchParam('title') || '스포츠'
   const category = useGetSearchParam('category') || '농구'
+  const menu = useGetSearchParam('menu') || 'MY투표'
 
   const categoryList = CategoryOption.find((item) => {
     return item.title === title
@@ -18,16 +27,13 @@ export default function CategoryPicker({ path = '/' }: { path?: string }) {
     <div className="w-full">
       <ul
         className={cn(
-          'flex gap-[15px] text-[20px] font-[700]',
+          `flex gap-[15px] text-[20px] font-[700] ${innerClassNames}`,
           'mo:rounded-none mo:border mo:border-x-0 mo:border-t-0 mo:border-black mo:pl-[16px]',
-          {
-            'justify-center': path === '/',
-          },
         )}
       >
         {CategoryOption.map((item) => (
           <Link
-            href={`${path}?title=${item.title}&category=${defaultCategory(
+            href={`${!isMenu ? '?' : `${path}${menu}&`}title=${item.title}&category=${defaultCategory(
               item.title,
             )}`}
             key={item.title}
@@ -49,17 +55,18 @@ export default function CategoryPicker({ path = '/' }: { path?: string }) {
       </ul>
       <ul
         className={cn(
-          'mt-[20px] flex gap-[15px] overflow-x-scroll text-center scrollbar-hide',
+          `mt-[20px] flex gap-[15px] overflow-x-scroll text-center scrollbar-hide ${innerClassNames}`,
           'mo:gap-[9px] mo:pl-[16px]',
-          {
-            'justify-center': path === '/',
-          },
         )}
       >
         {categoryList &&
           categoryList.list.map((item) => {
+            const link = isMenu
+              ? `${path}${menu}&title=${title}&category=${item}`
+              : `?title=${title}&category=${item}`
+
             return (
-              <Link href={`${path}?title=${title}&category=${item}`} key={item}>
+              <Link href={link} key={item}>
                 <li
                   className={cn(
                     'flex h-[39px] min-w-[60px] cursor-pointer items-center justify-center text-nowrap border-[3px] font-[600]',

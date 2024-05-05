@@ -7,7 +7,7 @@ interface ErrorBoundaryState {
   error: Error | null
 }
 
-interface FallbackProps {
+export interface FallbackProps {
   error: Error | null
   resetErrorBoundary: () => void
 }

@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query'
 import { PagesResponse, SortOption } from '@/app/_types/review.type'
-import { useCookies } from 'next-client-cookies'
 import { reviewKeys } from '.'
+import { useClientCookies } from '../../common/useClientCookies'
 
 interface ReviewQueryParams {
   pageParam: string | null
@@ -45,8 +45,8 @@ async function fetchReviewList({
 }
 
 export const useSearchItemQuery = (itemId: number, sortOption: SortOption) => {
-  const cookies = useCookies()
-  const accessToken = cookies.get('accessToken') ?? ''
+  const { getClientCookie } = useClientCookies()
+  const accessToken = getClientCookie('accessToken')
 
   const { data, fetchNextPage, isFetchingNextPage, hasNextPage } =
     useSuspenseInfiniteQuery({

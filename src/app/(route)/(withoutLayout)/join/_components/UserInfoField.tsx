@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent, useState, useEffect } from 'react'
+import { ChangeEvent, useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { SignUpState } from '@/app/_types/signUp.types'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
@@ -8,30 +8,39 @@ import {
   validateForm,
   validateNickname,
 } from '@/app/(route)/(withoutLayout)/join/_utils/validation'
-import CategorySelector from '@/app/_components/categorySelector'
 import useNicknameValidation from '@/app/_hook/api/auth/useNicknameValidation'
 import useSignUp from '@/app/_hook/api/auth/useSignUp'
-import { cn } from '@/app/_utils/twMerge'
 import { setCookie } from 'cookies-next'
-import CareerSelector from './CareerSelector'
-import MBTISelector from './MbtiSelector'
+import { useRecoilValue } from 'recoil'
+import { editProfileState } from '@/app/_atoms/editProfileState'
+import useEditProfile from '@/app/_hook/api/auth/useEditProfile'
+import UserInfoForm from './UserInfoForm'
 
 export default function UserInfoField() {
   const router = useRouter()
+
+  const recoilProfile = useRecoilValue(editProfileState)
 
   const token = useGetSearchParam('accessToken')
 
   const { mutateAsync: verifyUniqueNickname } = useNicknameValidation()
   const { mutateAsync: signUp } = useSignUp()
+  const { mutateAsync: editProfile } = useEditProfile()
 
+  const initialReviewState: SignUpState = {
+    nickname: recoilProfile.nickname || '',
+    career: recoilProfile.career,
+    mbti: recoilProfile.mbti || null,
+    content: recoilProfile.content || '',
+    hobby: recoilProfile.hobby || '',
+  }
+
+  const [profile, setProfile] = useState<SignUpState>(initialReviewState)
   const [isDuplicated, setIsDuplicated] = useState<boolean>(true)
-  const [profile, setProfile] = useState<SignUpState>({
-    nickname: '',
-    career: null,
-    mbti: '',
-    content: '',
-    hobby: '',
-  })
+  const changeNickname = useMemo(
+    () => recoilProfile.nickname,
+    [recoilProfile.nickname],
+  )
 
   useEffect(() => {
     if (token) {
@@ -69,100 +78,45 @@ export default function UserInfoField() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
+    const isChangeNickname =
+      recoilProfile.career !== null && profile.nickname === changeNickname
+        ? false
+        : isDuplicated
+
     const isValid = validateForm({
-      isDuplicated,
+      isDuplicated: isChangeNickname,
       career: profile.career,
       content: profile.content,
     })
 
     if (!isValid) return
 
-    const data = await signUp(profile)
+    if (recoilProfile.career !== null) {
+      const data = await editProfile(profile)
 
-    if (data === 200) {
-      router.push('/')
+      if (data === 200) {
+        setCookie('nickname', profile.nickname)
+
+        router.push(`/mypage?nickname=${profile.nickname}`)
+      }
+    } else {
+      const data = await signUp(profile)
+
+      if (data === 200) {
+        router.push('/')
+      }
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-y-[48px]">
-      {/* 닉네임 */}
-      <div className={cn('flex flex-col gap-[16px]', 'mo:gap-[12px]')}>
-        <label htmlFor="nickname" className="font-[600]">
-          닉네임
-        </label>
-        <div className="flex">
-          <input
-            id="nickname"
-            name="nickname"
-            minLength={1}
-            maxLength={25}
-            disabled={!isDuplicated}
-            onChange={handleChange}
-            placeholder="닉네임을 입력해 주세요. (최대 25자)"
-            className={cn(
-              'mr-[16px] h-[48px] flex-1 rounded-[4px] border border-[#BDBDBD] px-[12px] outline-0',
-              {
-                'bg-[#DADADA]': !isDuplicated,
-                'bg-white': isDuplicated,
-              },
-            )}
-          />
-          <button
-            className="h-[48px] rounded-[4px] bg-black px-[15px] font-[600] text-white"
-            type="button"
-            onClick={
-              isDuplicated
-                ? handleValidationNickname
-                : () => setIsDuplicated(true)
-            }
-          >
-            {isDuplicated ? '중복확인' : '변경'}
-          </button>
-        </div>
-      </div>
-      {/* 자기소개 */}
-      <div className={cn('flex flex-col gap-[16px]', 'mo:gap-[12px]')}>
-        <label htmlFor="content" className="font-[600]">
-          자기소개
-        </label>
-        <textarea
-          id="content"
-          name="content"
-          maxLength={300}
-          placeholder="자기소개를 입력해 주세요. (최대 300자)"
-          className="h-[140px] resize-none rounded-[4px] border border-[#BDBDBD] px-[12px] pt-[14px] outline-0"
-          onChange={handleChange}
-          required
-        />
-      </div>
-      {/* MBTI */}
-      <div className={cn('flex flex-col gap-[16px]', 'mo:gap-[12px]')}>
-        <label htmlFor="mbti" className="font-[600]">
-          MBTI
-        </label>
-        <MBTISelector setMbti={(mbti) => setProfile({ ...profile, mbti })} />
-      </div>
-      <div>
-        <p className="font-[600]">대표 취미</p>
-        <CategorySelector
-          setCategory={(hobby) => setProfile({ ...profile, hobby })}
-        />
-      </div>
-      <div className={cn('flex flex-col gap-[16px]', 'mo:gap-[12px]')}>
-        <p className="font-[600]">취미 경력</p>
-        <CareerSelector
-          setCareer={(career) => setProfile({ ...profile, career })}
-        />
-      </div>
-      <div className={cn('mb-[170px] mt-[170px]', 'mo:mb-[70px]')}>
-        <button
-          className="flex h-[48px] w-full items-center justify-center rounded-[4px] bg-black font-[600] text-white"
-          type="submit"
-        >
-          회원가입
-        </button>
-      </div>
-    </form>
+    <UserInfoForm
+      profile={profile}
+      isDuplicated={isDuplicated}
+      handleChange={handleChange}
+      handleValidationNickname={handleValidationNickname}
+      handleSubmit={handleSubmit}
+      setProfile={setProfile}
+      setIsDuplicated={setIsDuplicated}
+    />
   )
 }
