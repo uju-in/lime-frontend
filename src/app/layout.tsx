@@ -8,7 +8,7 @@ import RecoilRootProvider from './_components/RecoilRootProvider'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'LIME',
+  title: 'LIME: Life Time',
   description: '취미 아이템 구매를 위한 결정을 도와주는 서비스 🍋',
 }
 
