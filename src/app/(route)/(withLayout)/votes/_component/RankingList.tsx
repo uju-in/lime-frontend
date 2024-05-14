@@ -35,14 +35,14 @@ export default function RankingList() {
                     height={93}
                     src={item.item1Image}
                     alt="vote item1"
-                    className="flex-1 rounded-l-full"
+                    className="flex-1 rounded-l-full object-contain"
                   />
                   <Image
                     width={46}
                     height={93}
                     src={item.item2Image}
                     alt="vote item2"
-                    className="flex-1 rounded-r-full"
+                    className="flex-1 rounded-r-full object-contain"
                   />
                 </div>
               </div>
