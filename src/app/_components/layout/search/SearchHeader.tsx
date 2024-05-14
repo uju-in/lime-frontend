@@ -18,7 +18,7 @@ export default function SearchHeader() {
 
   if (isSearchView)
     return (
-      <div className="absolute top-0 z-50 mx-auto my-[23px] flex w-[1200px] max-w-full items-center justify-between bg-white px-[10px]">
+      <div className="absolute top-0 z-50 mx-auto my-[23px] flex w-full max-w-full items-center justify-between bg-white px-[10px]">
         <div className="relative mx-auto h-[52.5px] w-fit" ref={searchRef}>
           <Search />
         </div>
