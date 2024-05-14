@@ -33,7 +33,7 @@ export default function VoteItem(props: VoteItemProps) {
   const router = useRouter()
 
   return (
-    <div className="flex h-[156px] h-full flex-col rounded-[8px] border border-[#E6E6E6] bg-white px-[24px] pt-[12px]">
+    <div className="flex h-full flex-col rounded-[8px] border border-[#E6E6E6] bg-white px-[24px] pt-[12px]">
       <div className={cn('flex h-[208px]', innerClassNames)}>
         <Image
           className="object-contain"
