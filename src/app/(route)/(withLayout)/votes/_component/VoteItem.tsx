@@ -4,10 +4,10 @@
  * VoteItem 컴포넌트의 width, height는 호출하는 상위 태그에서 결정
  */
 
+import { blurDataURL } from '@/app/_constants/images'
+import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { cn } from '@/app/_utils/twMerge'
-import { blurDataURL } from '@/app/_constants/images'
 
 interface VoteItemProps {
   item: {
@@ -33,10 +33,10 @@ export default function VoteItem(props: VoteItemProps) {
   const router = useRouter()
 
   return (
-    <div className="flex h-full flex-col rounded-[8px] border border-[#E6E6E6] bg-white px-[24px] pt-[12px]">
-      <div className={cn('flex h-[208px]', innerClassNames)}>
+    <div className="flex h-full flex-col rounded-[8px] border border-[#E6E6E6] px-[24px] pt-[12px]">
+      <div className={cn('flex h-[156px] justify-center', innerClassNames)}>
         <Image
-          className="object-contain"
+          className="flex-1 object-contain"
           src={item1Info.image}
           alt="vote item1"
           width={width}
@@ -45,7 +45,7 @@ export default function VoteItem(props: VoteItemProps) {
           blurDataURL={blurDataURL}
         />
         <Image
-          className="object-contain"
+          className="flex-1 object-contain "
           src={item2Info.image}
           alt="vote item2"
           width={width}

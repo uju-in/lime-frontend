@@ -1,14 +1,14 @@
 'use client'
 
+import InfiniteScrollTrigger from '@/app/_components/infiniteScrollTrigger'
 import { useVoteListData } from '@/app/_hook/api/votes/useVoteListData'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
-import { useState } from 'react'
 import { cn } from '@/app/_utils/twMerge'
-import InfiniteScrollTrigger from '@/app/_components/infiniteScrollTrigger'
+import { useState } from 'react'
 import { SortOption } from '../_constants'
+import EmptyVoteList from './EmptyVoteList'
 import SortButtons from './SortButtons'
 import VoteItem from './VoteItem'
-import EmptyVoteList from './EmptyVoteList'
 import VoteItemSkeleton from './VoteItemSkeleton'
 
 export default function VoteList() {
@@ -49,7 +49,7 @@ export default function VoteList() {
               ))}
             </ul>
             {/** More Item Request */}
-            <div className="flex items-start items-center justify-center gap-[20px] pb-[85px] pt-[32px]">
+            <div className="flex justify-center gap-[20px] pb-[85px] pt-[32px]">
               <InfiniteScrollTrigger
                 isFetchingNextPage={isFetchingNextPage}
                 hasNextPage={hasNextPage}
