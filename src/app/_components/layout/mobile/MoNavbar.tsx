@@ -5,7 +5,8 @@ import { useRouter, usePathname } from 'next/navigation'
 import React from 'react'
 
 const NavList = [
-  { label: '피드', url: '/feeds' },
+  // TODO: 개발 전 주석 처리
+  // { label: '피드', url: '/feeds' },
   { label: '투표', url: '/votes' },
   { label: '홈', url: '/' },
   { label: '아이템', url: '/items' },

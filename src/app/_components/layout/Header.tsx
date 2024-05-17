@@ -33,10 +33,10 @@ export default async function Header() {
         </div>
         {/* 카테고리 */}
         <ul className="flex gap-[80px] text-[18px]">
-          <li className="font-bold">
-            {/* TODO: href 변경 */}
+          {/* TODO: 개발 전 주석 처리 */}
+          {/* <li className="font-bold">
             <Link href="/">피드</Link>
-          </li>
+          </li> */}
           <li className="font-bold">
             <Link href="/votes">투표</Link>
           </li>
