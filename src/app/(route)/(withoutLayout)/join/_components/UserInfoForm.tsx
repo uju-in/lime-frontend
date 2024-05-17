@@ -109,7 +109,7 @@ export default function UserInfoForm({
           className="flex h-[48px] w-full items-center justify-center rounded-[4px] bg-black font-[600] text-white"
           type="submit"
         >
-          회원가입
+          완료
         </button>
       </div>
     </form>
