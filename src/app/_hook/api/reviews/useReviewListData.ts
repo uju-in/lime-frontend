@@ -1,6 +1,6 @@
-import { useMemo } from 'react'
+import { PageType, SortOption } from '@/app/_types/review.type'
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query'
-import { PagesResponse, SortOption } from '@/app/_types/review.type'
+import { useMemo } from 'react'
 import { reviewKeys } from '.'
 import { useClientCookies } from '../../common/useClientCookies'
 
@@ -54,10 +54,7 @@ export const useSearchItemQuery = (itemId: number, sortOption: SortOption) => {
       queryFn: ({ pageParam = null }) =>
         fetchReviewList({ pageParam, itemId, sortOption, accessToken }),
       initialPageParam: null,
-      getNextPageParam: (
-        lastPage: PagesResponse,
-        allPages: PagesResponse[],
-      ) => {
+      getNextPageParam: (lastPage: PageType, allPages: PageType[]) => {
         const allReviewsLoaded = allPages.flatMap((page) => page.reviews).length
 
         const remainingReviews =

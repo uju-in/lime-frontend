@@ -33,11 +33,15 @@ export interface ReviewResponse {
   }
 }
 
-export interface PagesResponse {
-  nextCursorId: string
+export interface PageType {
   itemReviewTotalCount: number
-  totalCount: number
+  nextCursorId: string
   reviews: ReviewResponse[]
+}
+
+export interface PagesResponse {
+  pages: PageType[]
+  pageParams: any[]
 }
 
 export type SortOption = 'NEWEST' | 'LIKE_COUNT_DESC'
