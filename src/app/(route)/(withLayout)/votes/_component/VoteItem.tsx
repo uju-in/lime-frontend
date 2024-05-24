@@ -5,22 +5,13 @@
  */
 
 import { blurDataURL } from '@/app/_constants/images'
+import { VoteInfo } from '@/app/_types/vote.type'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 interface VoteItemProps {
-  item: {
-    cursorId: string
-    item1Info: { image: string }
-    item2Info: { image: string }
-    voteInfo: {
-      content: string
-      participants: number
-      isVoting: boolean
-      id: number
-    }
-  }
+  item: VoteInfo
   width: number
   height: number
   innerClassNames?: string
