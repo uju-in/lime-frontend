@@ -1,4 +1,4 @@
-import { fetchVotes } from '@/app/_hook/api/home/useGetVotes'
+import { fetchVotes } from '@/app/_hook/api/home/apis/fetchVotes'
 import { cn } from '@/app/_utils/twMerge'
 import VoteItem from '../votes/_component/VoteItem'
 import NoResults from './NoResults'

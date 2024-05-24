@@ -1,4 +1,4 @@
-import { fetchItems } from '@/app/_hook/api/home/useGetItems'
+import { fetchItems } from '@/app/_hook/api/home/apis/fetchItems'
 import { cn } from '@/app/_utils/twMerge'
 import Item from '../items/_components/Item'
 import NoResults from './NoResults'

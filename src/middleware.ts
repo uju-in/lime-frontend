@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { fetchTokenValidity } from './app/_hook/api/auth/useTokenValidity'
 import { ERROR_CODE } from './app/_constants/error'
+import { fetchTokenValidity } from './app/_hook/api/auth/apis/fetchTokenValidity'
 
 interface ApiError {
   code?: string
