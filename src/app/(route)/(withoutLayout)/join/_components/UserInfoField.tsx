@@ -1,19 +1,19 @@
 'use client'
 
-import { ChangeEvent, useState, useEffect, useMemo } from 'react'
-import { useRouter } from 'next/navigation'
-import { SignUpState } from '@/app/_types/signUp.types'
-import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import {
   validateForm,
   validateNickname,
 } from '@/app/(route)/(withoutLayout)/join/_utils/validation'
-import useNicknameValidation from '@/app/_hook/api/auth/useNicknameValidation'
-import useSignUp from '@/app/_hook/api/auth/useSignUp'
-import { setCookie } from 'cookies-next'
-import { useRecoilValue } from 'recoil'
 import { editProfileState } from '@/app/_atoms/editProfileState'
-import useEditProfile from '@/app/_hook/api/auth/useEditProfile'
+import useEditProfile from '@/app/_hook/api/auth/mutations/useEditProfile'
+import useNicknameValidation from '@/app/_hook/api/auth/mutations/useNicknameValidation'
+import useSignUp from '@/app/_hook/api/auth/mutations/useSignUp'
+import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
+import { SignUpState } from '@/app/_types/signUp.types'
+import { setCookie } from 'cookies-next'
+import { useRouter } from 'next/navigation'
+import { ChangeEvent, useEffect, useMemo, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 import UserInfoForm from './UserInfoForm'
 
 export default function UserInfoField() {

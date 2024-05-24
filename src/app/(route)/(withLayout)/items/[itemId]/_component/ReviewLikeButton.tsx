@@ -1,6 +1,7 @@
 'use client'
 
-import useReviewLikeAction from '@/app/_hook/api/reviews/useReviewLikeAction'
+import useReviewLikeAction from '@/app/_hook/api/reviews/mutations/useReviewLikeAction'
+import { SortOption } from '@/app/_types/review.type'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 
@@ -8,13 +9,22 @@ interface PropsType {
   reviewId: number
   isLiked: boolean
   likeCount: number
+  itemId: number
+  sortOption: SortOption
   showReviewDetail: number | null
   innerClassNames?: string
 }
 
 export default function ReviewLikeButton(props: PropsType) {
-  const { reviewId, isLiked, likeCount, showReviewDetail, innerClassNames } =
-    props
+  const {
+    reviewId,
+    isLiked,
+    likeCount,
+    showReviewDetail,
+    innerClassNames,
+    sortOption,
+    itemId,
+  } = props
   const { mutateAsync: likeAction } = useReviewLikeAction()
 
   const handleLikeClick = async (e: React.MouseEvent<HTMLElement>) => {
@@ -23,6 +33,8 @@ export default function ReviewLikeButton(props: PropsType) {
     await likeAction({
       reviewId,
       isLiked,
+      itemId,
+      sortOption,
     })
   }
 

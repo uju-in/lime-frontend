@@ -1,15 +1,15 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import Image from 'next/image'
-import useOutsideClick from '@/app/_hook/common/useOutsideClick'
-import { ReviewResponse } from '@/app/_types/review.type'
-import { cn } from '@/app/_utils/twMerge'
 import UserProfile from '@/app/(route)/(withLayout)/items/[itemId]/_component/UserProfile'
-import ReviewModal from './ReviewModal'
+import useOutsideClick from '@/app/_hook/common/useOutsideClick'
+import { ReviewResponse, SortOption } from '@/app/_types/review.type'
+import { cn } from '@/app/_utils/twMerge'
+import Image from 'next/image'
+import { useRef, useState } from 'react'
 import EditButtons from './EditButtons'
-import ReviewLikeButton from './ReviewLikeButton'
 import ReviewImage from './ReviewImage'
+import ReviewLikeButton from './ReviewLikeButton'
+import ReviewModal from './ReviewModal'
 
 interface PropsType {
   review: ReviewResponse
@@ -20,10 +20,11 @@ interface PropsType {
     price: number
     image: string
   }
+  sortOption: SortOption
 }
 
 export default function Review(props: PropsType) {
-  const { review, isFirst, itemInfo } = props
+  const { review, isFirst, itemInfo, sortOption } = props
   const { memberInfo, reviewSummary, reviewLoginMemberStatus } = review
 
   const dropdownRef = useRef(null)
@@ -82,6 +83,8 @@ export default function Review(props: PropsType) {
               reviewId={reviewSummary.reviewId}
               isLiked={reviewLoginMemberStatus.isLiked}
               likeCount={reviewSummary.likeCount}
+              sortOption={sortOption}
+              itemId={itemInfo.id}
               showReviewDetail={showReviewDetail}
             />
           </div>
@@ -125,6 +128,8 @@ export default function Review(props: PropsType) {
           reviewId={reviewSummary.reviewId}
           isLiked={reviewLoginMemberStatus.isLiked}
           likeCount={reviewSummary.likeCount}
+          sortOption={sortOption}
+          itemId={itemInfo.id}
           showReviewDetail={showReviewDetail}
           innerClassNames="mo:hidden"
         />

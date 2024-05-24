@@ -1,6 +1,6 @@
 'use client'
 
-import useAddFavorites from '@/app/_hook/api/items/useSaveToWishlist'
+import useAddFavorites from '@/app/_hook/api/items/mutations/useSaveToWishlist'
 import { cn } from '@/app/_utils/twMerge'
 
 interface PropsType {

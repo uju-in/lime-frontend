@@ -1,6 +1,6 @@
 'use client'
 
-import { useVoteDetail } from '@/app/_hook/api/votes/useVoteDetail'
+import { useVoteDetail } from '@/app/_hook/api/votes/queries/useVoteDetail'
 import VoteInfo from './VoteInfo'
 import VoteItemInfo from './VoteItemInfo'
 

@@ -1,9 +1,8 @@
+import { fetchTokenValidity } from '@/app/_hook/api/auth/apis/fetchTokenValidity'
+import { getServerCookie } from '@/app/_utils/serverCookie'
+import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import Link from 'next/link'
-import { cn } from '@/app/_utils/twMerge'
-import { fetchTokenValidity } from '@/app/_hook/api/auth/useTokenValidity'
-import React from 'react'
-import { getServerCookie } from '@/app/_utils/serverCookie'
 import ItemSection from './ItemSection'
 import SearchButton from './search/SearchButton'
 

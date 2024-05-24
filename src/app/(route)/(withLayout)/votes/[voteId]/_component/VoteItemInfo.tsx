@@ -1,14 +1,14 @@
 'use client'
 
-import { useCallback, useState } from 'react'
-import { useParticipationVote } from '@/app/_hook/api/votes/useParticipationVote'
+import { useParticipationVote } from '@/app/_hook/api/votes/mutations/useParticipationVote'
+import { useReParticipation } from '@/app/_hook/api/votes/mutations/useReParticipation'
 import { VoteDetailType } from '@/app/_types/detailVote.type'
-import { useReParticipation } from '@/app/_hook/api/votes/useReParticipation'
 import { cn } from '@/app/_utils/twMerge'
-import ProgressBar from './ProgressBar'
-import VoteItem from './FavoritesVoteItem'
-import VoteProgressTracker from './VoteProgressTracker'
+import { useCallback, useState } from 'react'
 import { validateChoiceItem } from '../_utils/validation'
+import VoteItem from './FavoritesVoteItem'
+import ProgressBar from './ProgressBar'
+import VoteProgressTracker from './VoteProgressTracker'
 
 export default function VoteInfo({ voteData }: { voteData: VoteDetailType }) {
   const { item1Info, item2Info, voteInfo, selectedItemId } = voteData

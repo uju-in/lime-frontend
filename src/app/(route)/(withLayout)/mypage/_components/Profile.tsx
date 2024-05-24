@@ -1,7 +1,7 @@
 'use client'
 
 import { editProfileState } from '@/app/_atoms/editProfileState'
-import { useUserProfile } from '@/app/_hook/api/mypage/useUserProfile'
+import { useUserProfile } from '@/app/_hook/api/mypage/queries/useUserProfile'
 import { useClientCookies } from '@/app/_hook/common/useClientCookies'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import Image from 'next/image'
