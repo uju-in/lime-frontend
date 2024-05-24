@@ -15,6 +15,7 @@ export default function VoteImage({ src, innerClassNames }: PropsType) {
       src={src}
       alt="vote image"
       className={`flex-1 ${innerClassNames}`}
+      priority
     />
   )
 }
