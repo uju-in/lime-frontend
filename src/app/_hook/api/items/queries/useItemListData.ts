@@ -1,7 +1,7 @@
 import { ItemType } from '@/app/_types/item.type'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
-import { itemKeys } from '.'
+import { itemKeys } from '..'
 
 export const fetchItemList = async (
   hobbyName: string,

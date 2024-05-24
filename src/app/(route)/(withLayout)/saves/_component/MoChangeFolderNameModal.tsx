@@ -1,9 +1,8 @@
-import React, { useCallback, useState } from 'react'
 import Modal from '@/app/_components/modal'
+import { useChangeSaveFolderName } from '@/app/_hook/api/saves/mutations/useChangeSaveFolderName'
 import { cn } from '@/app/_utils/twMerge'
-import renderToast from '@/app/_utils/toast'
-import { useChangeSaveFolderName } from '@/app/_hook/api/saves/useChangeSaveFolderName'
 import { useParams, useRouter } from 'next/navigation'
+import React, { useCallback, useState } from 'react'
 import { validateSaveFolderName } from '../_utils/validation'
 
 interface Props {

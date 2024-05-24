@@ -1,6 +1,6 @@
 import { RankingInfo } from '@/app/_types/vote.type'
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { voteKeys } from '.'
+import { voteKeys } from '..'
 
 async function fetchVoteRanking(hobby: string): Promise<RankingInfo> {
   const res = await fetch(

@@ -1,10 +1,10 @@
 'use client'
 
-import { memo, useRef, useState } from 'react'
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
-import { useDeleteVote } from '@/app/_hook/api/votes/useDeleteVote'
+import { useDeleteVote } from '@/app/_hook/api/votes/mutations/useDeleteVote'
 import useOutsideClick from '@/app/_hook/common/useOutsideClick'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { memo, useRef, useState } from 'react'
 
 function ManagementButtonBase({ voteId }: { voteId: number }) {
   const router = useRouter()

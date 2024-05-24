@@ -1,8 +1,8 @@
 import { PagesResponse, SortOption } from '@/app/_types/review.type'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getCookie } from 'cookies-next'
-import { reviewKeys } from '.'
-import { useHandleApiError } from '../../common/useHandleApiError'
+import { reviewKeys } from '..'
+import { useHandleApiError } from '../../../common/useHandleApiError'
 
 interface ReviewLikeRequest {
   reviewId: number

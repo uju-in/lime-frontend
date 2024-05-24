@@ -1,6 +1,6 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
 import { ProfileType } from '@/app/_types/mypage.type'
-import { mypageKeys } from '.'
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { mypageKeys } from '..'
 
 async function fetchUserProfile(nickname: string): Promise<ProfileType> {
   const res = await fetch(

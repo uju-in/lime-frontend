@@ -1,13 +1,13 @@
 'use client'
 
-import { useItemDetail } from '@/app/_hook/api/items/useItemDetail'
-import { cn } from '@/app/_utils/twMerge'
-import ErrorHandlingWrapper from '@/app/_components/errorHandlingWrapper'
 import ErrorFallback from '@/app/_components/errorFallback'
-import ReviewSection from './ReviewSection'
-import { ReviewSectionSkeletonUI } from './ReviewSkeletonUI'
+import ErrorHandlingWrapper from '@/app/_components/errorHandlingWrapper'
+import { useItemDetail } from '@/app/_hook/api/items/queries/useItemDetail'
+import { cn } from '@/app/_utils/twMerge'
 import Breadcrumb from './Breadcrumb'
 import ItemDetail from './ItemDetail'
+import ReviewSection from './ReviewSection'
+import { ReviewSectionSkeletonUI } from './ReviewSkeletonUI'
 
 interface Props {
   itemId: number

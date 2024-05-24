@@ -1,7 +1,7 @@
-import { useMemo } from 'react'
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query'
 import { PagesResponse } from '@/app/_types/vote.type'
-import { voteKeys } from '.'
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query'
+import { useMemo } from 'react'
+import { voteKeys } from '..'
 
 interface VoteQueryParams {
   pageParam: string | null

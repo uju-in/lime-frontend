@@ -1,6 +1,6 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
 import { getServerCookie } from '@/app/_utils/serverCookie'
-import { voteKeys } from '.'
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { voteKeys } from '..'
 
 interface RequestInfo {
   type: 'folder' | 'item'

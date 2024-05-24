@@ -1,6 +1,6 @@
 'use client'
 
-import useReviewLikeAction from '@/app/_hook/api/reviews/useReviewLikeAction'
+import useReviewLikeAction from '@/app/_hook/api/reviews/mutations/useReviewLikeAction'
 import { SortOption } from '@/app/_types/review.type'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'

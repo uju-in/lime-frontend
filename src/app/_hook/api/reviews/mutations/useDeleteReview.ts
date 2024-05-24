@@ -1,19 +1,18 @@
 import renderToast from '@/app/_utils/toast'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getCookie } from 'cookies-next'
-import { voteKeys } from '.'
-import { useHandleApiError } from '../../common/useHandleApiError'
+import { reviewKeys } from '..'
+import { useHandleApiError } from '../../../common/useHandleApiError'
+import { itemKeys } from '../../items'
 
-async function reVote(voteId: number): Promise<void> {
+async function deleteReview(reviewId: number) {
   const accessToken = getCookie('accessToken')
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/votes/${voteId}/cancel
-        `,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews/${reviewId}`,
     {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`,
       },
     },
@@ -22,30 +21,27 @@ async function reVote(voteId: number): Promise<void> {
   if (!res.ok) {
     const data = await res.json()
 
-    throw Error(data.message)
+    throw data
   }
 }
 
-export const useReParticipation = () => {
+export default function useDeleteReview() {
   const queryClient = useQueryClient()
   const handleApiError = useHandleApiError()
 
   return useMutation<void, Error, number>({
-    mutationFn: (voidId) => reVote(voidId),
+    mutationFn: (reviewId) => deleteReview(reviewId),
     onSuccess: () => {
       renderToast({
         type: 'success',
-        message: '투표 취소 성공!',
+        message: '리뷰를 삭제했습니다.',
       })
 
       queryClient.invalidateQueries({
-        queryKey: voteKeys.detail._def,
+        queryKey: reviewKeys.reviewList._def,
       })
       queryClient.invalidateQueries({
-        queryKey: voteKeys.voteList._def,
-      })
-      queryClient.invalidateQueries({
-        queryKey: voteKeys.voteRanking._def,
+        queryKey: itemKeys.itemDetail._def,
       })
     },
     onError: (error) => {

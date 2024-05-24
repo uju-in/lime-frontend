@@ -1,8 +1,8 @@
 import { PageType, SortOption } from '@/app/_types/review.type'
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
-import { reviewKeys } from '.'
-import { useClientCookies } from '../../common/useClientCookies'
+import { reviewKeys } from '..'
+import { useClientCookies } from '../../../common/useClientCookies'
 
 interface ReviewQueryParams {
   pageParam: string | null

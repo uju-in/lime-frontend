@@ -1,7 +1,7 @@
 'use client'
 
 import InfiniteScrollTrigger from '@/app/_components/infiniteScrollTrigger'
-import { useSearchItemQuery } from '@/app/_hook/api/reviews/useReviewListData'
+import { useSearchItemQuery } from '@/app/_hook/api/reviews/queries/useReviewListData'
 import { ItemInfo } from '@/app/_types/item.type'
 import { ReviewResponse, SortOption } from '@/app/_types/review.type'
 import { cn } from '@/app/_utils/twMerge'

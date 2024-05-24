@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
-import Image from 'next/image'
-import useDeleteReview from '@/app/_hook/api/reviews/useDeleteReview'
 import Confirm from '@/app/_components/confirm'
+import useDeleteReview from '@/app/_hook/api/reviews/mutations/useDeleteReview'
 import { cn } from '@/app/_utils/twMerge'
+import Image from 'next/image'
+import { useState } from 'react'
 
 interface PropsType {
   setShowReviewModal: React.Dispatch<React.SetStateAction<boolean>>

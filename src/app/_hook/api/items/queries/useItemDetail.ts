@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { itemKeys } from '.'
+import { itemKeys } from '..'
 
 async function fetchItemDetail(itemId: number) {
   const res = await fetch(

@@ -1,14 +1,14 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import { ItemType } from '@/app/_types/item.type'
-import useItemListData from '@/app/_hook/api/items/useItemListData'
+import useItemListData from '@/app/_hook/api/items/queries/useItemListData'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
+import { ItemType } from '@/app/_types/item.type'
 import { cn } from '@/app/_utils/twMerge'
+import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
-import SortBox from './SortBox'
 import { SortOption } from '../_constants'
 import Item from './Item'
+import SortBox from './SortBox'
 
 export default function ItemList() {
   const [sortOption, setSortOption] = useState(SortOption[2])

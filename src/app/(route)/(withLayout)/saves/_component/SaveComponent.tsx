@@ -1,15 +1,15 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import { SaveFolderType, SavePageMode } from '@/app/_types/save.type'
-import useSaveList from '@/app/_hook/api/saves/useSavesList'
-import { cn } from '@/app/_utils/twMerge'
-import { useSetRecoilState } from 'recoil'
 import { saveModeState } from '@/app/_atoms/saveModeState'
+import useSaveList from '@/app/_hook/api/saves/queries/useSavesList'
+import { SaveFolderType, SavePageMode } from '@/app/_types/save.type'
+import { cn } from '@/app/_utils/twMerge'
+import { useEffect, useState } from 'react'
+import { useSetRecoilState } from 'recoil'
 
+import AddFolderModal from './AddFolderModal'
 import { SaveHeader } from './SaveHeader'
 import SaveList from './SaveList'
-import AddFolderModal from './AddFolderModal'
 
 export default function SaveComponent() {
   const [showAddFolderModal, setShowAddFolderModal] = useState(false)

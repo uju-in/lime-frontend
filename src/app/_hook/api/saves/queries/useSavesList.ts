@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { saveKeys } from '.'
-import { useClientCookies } from '../../common/useClientCookies'
+import { saveKeys } from '..'
+import { useClientCookies } from '../../../common/useClientCookies'
 
 interface SaveListRequest {
   type: 'all' | 'folder' | 'item'

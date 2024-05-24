@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { itemKeys } from '.'
+import { itemKeys } from '..'
 
 async function getSearchItemList(keyword: string) {
   const response = await fetch(

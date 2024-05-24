@@ -1,8 +1,8 @@
 import renderToast from '@/app/_utils/toast'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getCookie } from 'cookies-next'
-import { voteKeys } from '.'
-import { useHandleApiError } from '../../common/useHandleApiError'
+import { voteKeys } from '..'
+import { useHandleApiError } from '../../../common/useHandleApiError'
 
 interface VoteItemRequest {
   itemId: number | null

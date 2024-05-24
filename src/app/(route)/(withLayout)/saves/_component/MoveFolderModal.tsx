@@ -1,8 +1,8 @@
 import { saveModeState } from '@/app/_atoms/saveModeState'
 import useMoveSaveItems, {
   MoveSaveItemsRequest,
-} from '@/app/_hook/api/saves/useMoveSaveItems'
-import useSaveList from '@/app/_hook/api/saves/useSavesList'
+} from '@/app/_hook/api/saves/mutations/useMoveSaveItems'
+import useSaveList from '@/app/_hook/api/saves/queries/useSavesList'
 import { SaveFolderType, SavePageMode } from '@/app/_types/save.type'
 import renderToast from '@/app/_utils/toast'
 import { cn } from '@/app/_utils/twMerge'

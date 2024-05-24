@@ -1,6 +1,6 @@
-import { useMemo } from 'react'
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query'
-import { mypageKeys } from '.'
+import { useMemo } from 'react'
+import { mypageKeys } from '..'
 
 interface MyContentQueryParams {
   pageParam: string | null

@@ -1,8 +1,8 @@
 import renderToast from '@/app/_utils/toast'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getCookie } from 'cookies-next'
-import { itemKeys } from '.'
-import { useHandleApiError } from '../../common/useHandleApiError'
+import { itemKeys } from '..'
+import { useHandleApiError } from '../../../common/useHandleApiError'
 
 async function postSaveToWishlist(itemIds: number[]): Promise<void> {
   const accessToken = getCookie('accessToken')

@@ -1,15 +1,15 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
+import useItemListData from '@/app/_hook/api/items/queries/useItemListData'
 import { ItemType } from '@/app/_types/item.type'
-import useItemListData from '@/app/_hook/api/items/useItemListData'
 import { cn } from '@/app/_utils/twMerge'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { SortOption } from '../_constants'
-import SortBox from './SortBox'
 import { SearchItem } from './SearchItem'
+import SortBox from './SortBox'
 
 export default function SearchItemList({ keyword }: { keyword: string }) {
   const [sortOption, setSortOption] = useState(SortOption[2])

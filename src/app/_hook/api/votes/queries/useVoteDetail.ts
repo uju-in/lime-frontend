@@ -1,7 +1,7 @@
 import { VoteDetailType } from '@/app/_types/detailVote.type'
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { voteKeys } from '.'
-import { useClientCookies } from '../../common/useClientCookies'
+import { voteKeys } from '..'
+import { useClientCookies } from '../../../common/useClientCookies'
 
 async function fetchVoteDetail(
   voteId: number,
