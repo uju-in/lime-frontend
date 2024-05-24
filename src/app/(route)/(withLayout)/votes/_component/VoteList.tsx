@@ -1,7 +1,7 @@
 'use client'
 
 import InfiniteScrollTrigger from '@/app/_components/infiniteScrollTrigger'
-import { useVoteListData } from '@/app/_hook/api/votes/useVoteListData'
+import { useVoteListData } from '@/app/_hook/api/votes/queries/useVoteListData'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import { cn } from '@/app/_utils/twMerge'
 import { useState } from 'react'

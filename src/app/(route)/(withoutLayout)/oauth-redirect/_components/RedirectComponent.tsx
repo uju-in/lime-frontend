@@ -1,6 +1,6 @@
 'use client'
 
-import { useRequestToken } from '@/app/_hook/api/auth/useRequestToken'
+import { useRequestToken } from '@/app/_hook/api/auth/apis/useRequestToken'
 import { useEffect } from 'react'
 
 export default function RedirectComponent() {

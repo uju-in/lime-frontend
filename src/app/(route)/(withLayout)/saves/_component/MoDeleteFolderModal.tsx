@@ -1,5 +1,5 @@
 import Modal from '@/app/_components/modal'
-import useDeleteSave from '@/app/_hook/api/saves/useDeleteSave'
+import useDeleteSave from '@/app/_hook/api/saves/mutations/useDeleteSave'
 import { useParams, useRouter } from 'next/navigation'
 import React from 'react'
 

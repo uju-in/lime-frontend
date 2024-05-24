@@ -1,16 +1,16 @@
 'use client'
 
-import { useState } from 'react'
-import { ReviewResponse, SortOption } from '@/app/_types/review.type'
-import { useSearchItemQuery } from '@/app/_hook/api/reviews/useReviewListData'
-import { cn } from '@/app/_utils/twMerge'
 import InfiniteScrollTrigger from '@/app/_components/infiniteScrollTrigger'
+import { useSearchItemQuery } from '@/app/_hook/api/reviews/queries/useReviewListData'
 import { ItemInfo } from '@/app/_types/item.type'
+import { ReviewResponse, SortOption } from '@/app/_types/review.type'
+import { cn } from '@/app/_utils/twMerge'
+import { useState } from 'react'
 import Review from './Review'
+import ReviewHeader from './ReviewHeader'
 import ReviewModal from './ReviewModal'
 import { ReviewItemSkeleton } from './ReviewSkeletonUI'
 import ReviewSortOptions from './ReviewSortOptions'
-import ReviewHeader from './ReviewHeader'
 
 interface PropsType {
   itemInfo: ItemInfo
@@ -46,6 +46,7 @@ export default function ReviewSection(props: PropsType) {
                 key={review.reviewSummary.reviewId}
                 review={review}
                 itemInfo={itemInfo}
+                sortOption={sortOption}
                 isFirst={index === 0}
               />
             ))}

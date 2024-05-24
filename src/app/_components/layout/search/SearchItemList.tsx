@@ -1,4 +1,4 @@
-import useSearchItem from '@/app/_hook/api/items/useSearchItem'
+import useSearchItem from '@/app/_hook/api/items/queries/useSearchItem'
 import useDebounceValue from '@/app/_hook/common/useDebounce'
 import { SearchItemType } from '@/app/_types/searchItem.type'
 import { cn } from '@/app/_utils/twMerge'
