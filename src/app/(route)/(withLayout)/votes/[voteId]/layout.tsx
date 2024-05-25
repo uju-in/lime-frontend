@@ -6,9 +6,9 @@ export default function DetailItemLayout({
   children: React.ReactNode
 }) {
   return (
-    <main className="flex h-dvh justify-center">
+    <section className="flex h-dvh justify-center">
       <MoDetailVoteHeader />
       {children}
-    </main>
+    </section>
   )
 }
