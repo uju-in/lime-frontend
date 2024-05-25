@@ -5,6 +5,7 @@ export function dateFormatter(dateString: string): string {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
+    timeZone: 'UTC',
   }).format(date)
 
   return formattedDate
@@ -22,6 +23,7 @@ export function detailDateFormatter(dateString: string): string {
     hour: '2-digit',
     minute: '2-digit',
     hour12: false,
+    timeZone: 'UTC',
   }
 
   const formattedDate = new Intl.DateTimeFormat('ko-KR', options).format(date)
