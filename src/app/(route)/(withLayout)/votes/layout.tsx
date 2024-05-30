@@ -9,11 +9,11 @@ export default function DetailItemLayout({
   children: React.ReactNode
 }) {
   return (
-    <>
+    <section>
       <MoVoteHeader />
       <RQProvider>{children}</RQProvider>
       <MoAddButton path="votes/add-vote" />
       <MoNavbar />
-    </>
+    </section>
   )
 }

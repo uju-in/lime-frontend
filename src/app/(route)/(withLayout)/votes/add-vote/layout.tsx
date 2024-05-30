@@ -6,9 +6,9 @@ export default function AddVoteLayout({
   children: React.ReactNode
 }) {
   return (
-    <main className="bg-[#F7F7F7]">
+    <section className="bg-[#F7F7F7]">
       <MoAddVoteHeader />
       {children}
-    </main>
+    </section>
   )
 }

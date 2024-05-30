@@ -1,14 +1,14 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 import Modal from '@/app/_components/modal'
 import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import { cn } from '@/app/_utils/twMerge'
-import VoteItemList from './VoteItemList'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { validateSelectedItem } from '../_utils/validation'
 import MoItemSelectHeader from './MoItemSelectHeader'
+import VoteItemList from './VoteItemList'
 import VoteModalHeader from './VoteModalHeader'
 
 interface PropsType {
@@ -35,8 +35,8 @@ export default function VoteModal(props: PropsType) {
   }
 
   return (
-    <dialog
-      className="block h-full w-full"
+    <div
+      className="h-full w-full"
       onClick={() => {
         setShowVoteModal(false)
       }}
@@ -64,7 +64,6 @@ export default function VoteModal(props: PropsType) {
               setShowMobileItemList={setShowMobileItemList}
               setCurrentFolderName={setCurrentFolderName}
             />
-            {/** Go to ItemList */}
             <div
               className={cn(
                 'mt-[43px] flex items-center justify-between',
@@ -87,9 +86,9 @@ export default function VoteModal(props: PropsType) {
                 </span>
               </button>
               <div className="absolute bottom-[60px] left-[45px] flex flex-col items-center">
-                <div className=" h-[27px] w-[152px] rounded-[4px] bg-[#000] px-[17px] py-[7px] text-[10px] font-[600] text-[#fff]">
+                <span className=" h-[27px] w-[152px] rounded-[4px] bg-[#000] px-[17px] py-[7px] text-[10px] font-[600] text-[#fff]">
                   취미에 맞는 아이템이 없다면?
-                </div>
+                </span>
                 <div className="h-0 w-0 border-l-[7px] border-r-[7px] border-t-[7px] border-l-transparent border-r-transparent border-t-black" />
               </div>
               <button
@@ -103,6 +102,6 @@ export default function VoteModal(props: PropsType) {
           </article>
         </div>
       </Modal>
-    </dialog>
+    </div>
   )
 }

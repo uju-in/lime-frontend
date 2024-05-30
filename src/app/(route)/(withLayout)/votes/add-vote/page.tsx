@@ -3,7 +3,7 @@ import AddVotePage from './_component/AddVotePage'
 
 export default function page() {
   return (
-    <section
+    <main
       className={cn(
         'mx-auto w-[780px] bg-white px-[30px]',
         ' mo:w-full mo:px-[16px]',
@@ -18,6 +18,6 @@ export default function page() {
         투표 생성
       </h1>
       <AddVotePage />
-    </section>
+    </main>
   )
 }
