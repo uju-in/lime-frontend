@@ -28,7 +28,8 @@ export default function AddVotePage() {
     item2Id: null,
   })
 
-  const [selectedItem, setSelectedItem] = useRecoilState(selectedItemState)
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  const [_, setSelectedItem] = useRecoilState(selectedItemState)
   const resetSelectedItem = useResetRecoilState(selectedItemState)
 
   const handleChange = (
@@ -99,7 +100,6 @@ export default function AddVotePage() {
       handleSubmit={handleSubmit}
       voteInfo={voteInfo}
       setVoteInfo={setVoteInfo}
-      selectedItem={selectedItem}
     />
   )
 }

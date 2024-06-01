@@ -71,8 +71,10 @@ export default function FavoriteList(props: PropsType) {
                 <div className="absolute bottom-0 left-0 right-0 top-0 bg-[#6F6F6F] opacity-80" />
               )}
             </div>
-            <div className="h-[70px] text-[10px] font-[500]">
-              <span>{truncateString(originalName, 26)}</span>
+            <div className="text-[10px] font-[500]">
+              <span className="block pb-[4px]">
+                {truncateString(originalName, 26)}
+              </span>
               <strong className="font-[700]">
                 {favoriteItemMetadata.price.toLocaleString()}원
               </strong>

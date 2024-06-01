@@ -1,7 +1,7 @@
 'use client'
 
 import CategorySelector from '@/app/_components/categorySelector'
-import { SelectedItemType, VoteInfoType } from '@/app/_types/addVote.type'
+import { VoteInfoType } from '@/app/_types/addVote.type'
 import { cn } from '@/app/_utils/twMerge'
 import { ChangeEvent } from 'react'
 import ItemSelector from './ItemSelector'
@@ -12,18 +12,11 @@ interface PropsType {
   voteInfo: VoteInfoType
   setVoteInfo: (voteInfo: VoteInfoType) => void
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
-  selectedItem: SelectedItemType
 }
 
 export default function VoteForm(props: PropsType) {
-  const {
-    handleChange,
-    handleOpenModal,
-    voteInfo,
-    setVoteInfo,
-    handleSubmit,
-    selectedItem,
-  } = props
+  const { handleChange, handleOpenModal, voteInfo, setVoteInfo, handleSubmit } =
+    props
 
   return (
     <form
