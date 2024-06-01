@@ -18,7 +18,7 @@ export default function page() {
       >
         투표 생성
       </h1>
-      <Suspense fallback={<div>loading</div>}>
+      <Suspense>
         <AddVotePage />
       </Suspense>
     </main>
