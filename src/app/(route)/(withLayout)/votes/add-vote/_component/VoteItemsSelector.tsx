@@ -22,9 +22,9 @@ export default function VoteItemsSelector(props: PropsType) {
     <div>
       {selectedFolder.itemCount !== 0 && selectedFolder.folderId ? (
         <>
-          <p className={cn('my-[13px] text-[12px]', 'mo:hidden')}>
+          <span className={cn('my-[13px] text-[12px]', 'mo:hidden')}>
             아이템 {selectedFolder.itemCount}개
-          </p>
+          </span>
           <FavoriteList
             folderId={selectedFolder.folderId}
             currentSelectedItem={currentSelectedItem}
@@ -41,9 +41,9 @@ export default function VoteItemsSelector(props: PropsType) {
           <strong className="mb-[12px] text-[20px] font-[600]">
             찜한 아이템이 없어요
           </strong>
-          <p className="text-[14px] font-[500]">
+          <span className="text-[14px] font-[500]">
             마음에 드는 아이템을 담아보세요
-          </p>
+          </span>
         </div>
       )}
     </div>
