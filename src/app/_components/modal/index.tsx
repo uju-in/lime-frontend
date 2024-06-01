@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@/app/_utils/twMerge'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 
 type ModalProps = {
   children: ReactNode
@@ -14,6 +14,14 @@ function Modal({
   innerClassNames,
   children,
 }: ModalProps) {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [])
+
   return (
     <div
       id="ModalContainer"
