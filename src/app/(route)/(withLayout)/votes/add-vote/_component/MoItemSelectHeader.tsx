@@ -23,7 +23,7 @@ export default function MoItemSelectHeader(props: PropsType) {
 
   return (
     <header className={cn('hidden', 'mo:block')}>
-      <div className="flex h-[40px] items-center justify-center bg-red-500">
+      <div className="flex h-[40px] items-center justify-center">
         <div className="h-0 w-[42px] rounded-[6px] border-[3px] bg-[#D2D2D2]" />
       </div>
       <div className="flex h-[42px] items-center justify-center px-[16px] font-[600]">
