@@ -4,6 +4,7 @@ import ErrorFallback from '@/app/_components/errorFallback'
 import ErrorHandlingWrapper from '@/app/_components/errorHandlingWrapper'
 import Loading from '@/app/_components/loading'
 import Modal from '@/app/_components/modal'
+import { useModals } from '@/app/_hook/common/useModal'
 import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
@@ -15,16 +16,16 @@ import VoteItemList from './VoteItemList'
 import VoteModalHeader from './VoteModalHeader'
 
 interface PropsType {
-  setShowVoteModal: React.Dispatch<React.SetStateAction<boolean>>
-  selectItem: (selectItem: CurrentFavoriteItemMetadata) => void
+  onSelectItem: (
+    selectItem: CurrentFavoriteItemMetadata,
+    modalItemType: 'item1' | 'item2',
+  ) => void
+  itemType: 'item1' | 'item2'
 }
 
-export default function VoteModal(props: PropsType) {
-  const { setShowVoteModal, selectItem: onSelectItem } = props
-
+export default function VoteModal({ onSelectItem, itemType }: PropsType) {
   const router = useRouter()
-
-  /** Select item (not confirmed) */
+  const { close } = useModals()
   const [currentSelectedItem, setCurrentSelectedItem] =
     useState<CurrentFavoriteItemMetadata | null>(null)
   const [showMobileItemList, setShowMobileItemList] = useState(false)
@@ -32,8 +33,8 @@ export default function VoteModal(props: PropsType) {
 
   const handleSelectItem = () => {
     if (validateSelectedItem(currentSelectedItem)) {
-      onSelectItem(currentSelectedItem as CurrentFavoriteItemMetadata)
-      setShowVoteModal(false)
+      onSelectItem(currentSelectedItem as CurrentFavoriteItemMetadata, itemType)
+      close()
     }
   }
 
@@ -41,7 +42,7 @@ export default function VoteModal(props: PropsType) {
     <div
       className="h-full w-full"
       onClick={() => {
-        setShowVoteModal(false)
+        close()
       }}
     >
       <Modal
@@ -50,7 +51,7 @@ export default function VoteModal(props: PropsType) {
       >
         <div className={cn('h-[592px] w-[852px]', 'mo:w-full')}>
           {/** PC Modal Header */}
-          <VoteModalHeader setShowVoteModal={setShowVoteModal} />
+          <VoteModalHeader />
           {/** Mobile Modal Header */}
           <MoItemSelectHeader
             setShowMobileItemList={setShowMobileItemList}

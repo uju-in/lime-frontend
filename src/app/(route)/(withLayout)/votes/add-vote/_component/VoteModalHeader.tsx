@@ -1,13 +1,12 @@
 'use client'
 
+import { useModals } from '@/app/_hook/common/useModal'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 
-export default function VoteModalHeader({
-  setShowVoteModal,
-}: {
-  setShowVoteModal: React.Dispatch<React.SetStateAction<boolean>>
-}) {
+export default function VoteModalHeader() {
+  const { close } = useModals()
+
   return (
     <header
       className={cn(
@@ -20,7 +19,7 @@ export default function VoteModalHeader({
         type="button"
         aria-label="close"
         onClick={() => {
-          setShowVoteModal(false)
+          close()
         }}
       >
         <Image

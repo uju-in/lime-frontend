@@ -1,15 +1,21 @@
+import { selectedItemState } from '@/app/_atoms/selectedItemState'
 import Image from 'next/image'
+import { useRecoilValue } from 'recoil'
 import { truncateString } from '../../_utils/truncateString'
 
 interface PropsType {
   onOpenModal: (itemType: 'item1' | 'item2') => void
-  itemImageUrl: string
-  itemTitle: string
   itemType: 'item1' | 'item2'
 }
 
 export default function ItemSelector(props: PropsType) {
-  const { onOpenModal, itemImageUrl, itemTitle, itemType } = props
+  const { onOpenModal, itemType } = props
+  const selectedItem = useRecoilValue(selectedItemState)
+  const itemImageUrl =
+    itemType === 'item1' ? selectedItem.imageUrl1 : selectedItem.imageUrl2
+  const itemTitle =
+    itemType === 'item1' ? selectedItem.title1 : selectedItem.title2
+
   return (
     <div className="w-[88px]">
       <button

@@ -64,18 +64,8 @@ export default function VoteForm(props: PropsType) {
         투표할 아이템을 두 개 선택해 주세요.
       </span>
       <div className="mt-[20px] flex h-[160px] gap-[16px] ">
-        <ItemSelector
-          onOpenModal={handleOpenModal}
-          itemType="item1"
-          itemImageUrl={selectedItem.imageUrl1 || ''}
-          itemTitle={selectedItem.title1}
-        />
-        <ItemSelector
-          onOpenModal={handleOpenModal}
-          itemType="item2"
-          itemImageUrl={selectedItem.imageUrl2 || ''}
-          itemTitle={selectedItem.title2}
-        />
+        <ItemSelector onOpenModal={handleOpenModal} itemType="item1" />
+        <ItemSelector onOpenModal={handleOpenModal} itemType="item2" />
       </div>
       <span className="mb-[20px] mt-[40px] text-[18px] font-[600]">
         투표 내용을 작성해 주세요.
