@@ -1,9 +1,10 @@
 'use client'
 
+import Loading from '@/app/_components/loading'
 import { useFolderList } from '@/app/_hook/api/votes/queries/useFolderList'
 import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import { cn } from '@/app/_utils/twMerge'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import FolderList from './FolderList'
 import VoteItemsSelector from './VoteItemsSelector'
 
@@ -63,19 +64,23 @@ export default function VoteItemList(props: PropsType) {
         </div>
       ) : (
         <div className={cn('hidden w-full', 'mo:block')}>
+          <Suspense fallback={<Loading />}>
+            <VoteItemsSelector
+              selectedFolder={selectedFolder}
+              currentSelectedItem={currentSelectedItem}
+              setCurrentSelectedItem={setCurrentSelectedItem}
+            />
+          </Suspense>
+        </div>
+      )}
+      <div className={cn('flex-1 overflow-y-auto pl-[16px]', 'mo:hidden')}>
+        <Suspense fallback={<Loading />}>
           <VoteItemsSelector
             selectedFolder={selectedFolder}
             currentSelectedItem={currentSelectedItem}
             setCurrentSelectedItem={setCurrentSelectedItem}
           />
-        </div>
-      )}
-      <div className={cn('flex-1 overflow-y-auto pl-[16px]', 'mo:hidden')}>
-        <VoteItemsSelector
-          selectedFolder={selectedFolder}
-          currentSelectedItem={currentSelectedItem}
-          setCurrentSelectedItem={setCurrentSelectedItem}
-        />
+        </Suspense>
       </div>
     </div>
   )
