@@ -33,6 +33,7 @@
     "jsx-a11y/no-static-element-interactions": "off",
     "no-underscore-dangle": "off",
     "global-require": "off",
-    "react/destructuring-assignment": "off"
+    "react/destructuring-assignment": "off",
+    "react/jsx-props-no-spreading": "off"
   }
 }
