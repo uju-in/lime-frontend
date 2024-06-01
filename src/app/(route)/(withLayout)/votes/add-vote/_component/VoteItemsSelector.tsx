@@ -11,7 +11,10 @@ interface PropsType {
 }
 
 export default function VoteItemsSelector({ selectedFolder }: PropsType) {
-  if (!selectedFolder.itemCount && !selectedFolder.folderId) {
+  if (
+    (!selectedFolder.itemCount && !selectedFolder.folderId) ||
+    selectedFolder.itemCount === 0
+  ) {
     return (
       <div
         className={cn(
