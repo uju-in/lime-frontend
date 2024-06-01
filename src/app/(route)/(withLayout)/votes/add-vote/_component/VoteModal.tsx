@@ -33,14 +33,14 @@ export default function VoteModal({ onSelectItem, itemType }: PropsType) {
   const [currentSelectedItem, setCurrentSelectedItem] = useRecoilState(
     currentSelectedItemState,
   )
-  // const [currentSelectedItem, setCurrentSelectedItem] =
-  //   useState<CurrentFavoriteItemMetadata | null>(null)
+
   const [showMobileItemList, setShowMobileItemList] = useState(false)
   const [currentFolderName, setCurrentFolderName] = useState('찜목록')
 
   const handleSelectItem = () => {
     if (validateSelectedItem(currentSelectedItem)) {
       onSelectItem(currentSelectedItem as CurrentFavoriteItemMetadata, itemType)
+      setCurrentSelectedItem(null)
       close()
     }
   }
