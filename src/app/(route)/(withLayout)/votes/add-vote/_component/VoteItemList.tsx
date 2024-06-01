@@ -2,30 +2,20 @@
 
 import Loading from '@/app/_components/loading'
 import { useFolderList } from '@/app/_hook/api/votes/queries/useFolderList'
-import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import { cn } from '@/app/_utils/twMerge'
 import { Suspense, useState } from 'react'
 import FolderList from './FolderList'
 import VoteItemsSelector from './VoteItemsSelector'
 
 interface PropsType {
-  setCurrentSelectedItem: React.Dispatch<
-    React.SetStateAction<CurrentFavoriteItemMetadata | null>
-  >
-  currentSelectedItem: CurrentFavoriteItemMetadata | null
   showMobileItemList: boolean
   setShowMobileItemList: React.Dispatch<React.SetStateAction<boolean>>
   setCurrentFolderName: React.Dispatch<React.SetStateAction<string>>
 }
 
 export default function VoteItemList(props: PropsType) {
-  const {
-    setCurrentSelectedItem,
-    currentSelectedItem,
-    showMobileItemList,
-    setShowMobileItemList,
-    setCurrentFolderName,
-  } = props
+  const { showMobileItemList, setShowMobileItemList, setCurrentFolderName } =
+    props
 
   const [selectedFolder, setSelectedFolder] = useState<{
     folderId: number | null
@@ -65,21 +55,13 @@ export default function VoteItemList(props: PropsType) {
       ) : (
         <div className={cn('hidden w-full', 'mo:block')}>
           <Suspense fallback={<Loading />}>
-            <VoteItemsSelector
-              selectedFolder={selectedFolder}
-              currentSelectedItem={currentSelectedItem}
-              setCurrentSelectedItem={setCurrentSelectedItem}
-            />
+            <VoteItemsSelector selectedFolder={selectedFolder} />
           </Suspense>
         </div>
       )}
       <div className={cn('flex-1 overflow-y-auto pl-[16px]', 'mo:hidden')}>
         <Suspense fallback={<Loading />}>
-          <VoteItemsSelector
-            selectedFolder={selectedFolder}
-            currentSelectedItem={currentSelectedItem}
-            setCurrentSelectedItem={setCurrentSelectedItem}
-          />
+          <VoteItemsSelector selectedFolder={selectedFolder} />
         </Suspense>
       </div>
     </div>

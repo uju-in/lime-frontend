@@ -1,8 +1,8 @@
 'use client'
 
+import { currentSelectedItemState } from '@/app/_atoms/currentSelectedItemState'
 import { useFavoritesList } from '@/app/_hook/api/votes/queries/useFavoritesList'
 import {
-  CurrentFavoriteItemMetadata,
   FavoriteItemMetadata,
   MetadataType,
   SaveItemType,
@@ -10,20 +10,21 @@ import {
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import { useCallback } from 'react'
+import { useRecoilState } from 'recoil'
 import { truncateString } from '../../_utils/truncateString'
 
 interface PropsType {
   folderId: number | null
-  currentSelectedItem: CurrentFavoriteItemMetadata | null
-  setCurrentSelectedItem: React.Dispatch<
-    React.SetStateAction<CurrentFavoriteItemMetadata | null>
-  >
 }
 
 export default function FavoriteList(props: PropsType) {
-  const { folderId, currentSelectedItem, setCurrentSelectedItem } = props
+  const { folderId } = props
 
   const { itemList } = useFavoritesList('item', folderId)
+
+  const [currentSelectedItem, setCurrentSelectedItem] = useRecoilState(
+    currentSelectedItemState,
+  )
 
   const handleSelectItem = useCallback(
     (favoriteItemMetadata: FavoriteItemMetadata, originalName: string) => {

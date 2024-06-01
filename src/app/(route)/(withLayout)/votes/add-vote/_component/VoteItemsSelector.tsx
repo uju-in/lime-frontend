@@ -1,6 +1,5 @@
 'use client'
 
-import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import { cn } from '@/app/_utils/twMerge'
 import FavoriteList from './FavoriteItemList'
 
@@ -9,14 +8,10 @@ interface PropsType {
     folderId: number | null
     itemCount: number | null
   }
-  currentSelectedItem: CurrentFavoriteItemMetadata | null
-  setCurrentSelectedItem: React.Dispatch<
-    React.SetStateAction<CurrentFavoriteItemMetadata | null>
-  >
 }
 
 export default function VoteItemsSelector(props: PropsType) {
-  const { currentSelectedItem, setCurrentSelectedItem, selectedFolder } = props
+  const { selectedFolder } = props
 
   return (
     <div>
@@ -25,11 +20,7 @@ export default function VoteItemsSelector(props: PropsType) {
           <span className={cn('my-[13px] block text-[12px]', 'mo:hidden')}>
             아이템 {selectedFolder.itemCount}개
           </span>
-          <FavoriteList
-            folderId={selectedFolder.folderId}
-            currentSelectedItem={currentSelectedItem}
-            setCurrentSelectedItem={setCurrentSelectedItem}
-          />
+          <FavoriteList folderId={selectedFolder.folderId} />
         </>
       ) : (
         <div

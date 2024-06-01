@@ -1,5 +1,6 @@
 'use client'
 
+import { currentSelectedItemState } from '@/app/_atoms/currentSelectedItemState'
 import ErrorFallback from '@/app/_components/errorFallback'
 import ErrorHandlingWrapper from '@/app/_components/errorHandlingWrapper'
 import Loading from '@/app/_components/loading'
@@ -10,6 +11,7 @@ import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { useRecoilState } from 'recoil'
 import { validateSelectedItem } from '../_utils/validation'
 import MoItemSelectHeader from './MoItemSelectHeader'
 import VoteItemList from './VoteItemList'
@@ -25,9 +27,14 @@ interface PropsType {
 
 export default function VoteModal({ onSelectItem, itemType }: PropsType) {
   const router = useRouter()
+
   const { close } = useModals()
-  const [currentSelectedItem, setCurrentSelectedItem] =
-    useState<CurrentFavoriteItemMetadata | null>(null)
+
+  const [currentSelectedItem, setCurrentSelectedItem] = useRecoilState(
+    currentSelectedItemState,
+  )
+  // const [currentSelectedItem, setCurrentSelectedItem] =
+  //   useState<CurrentFavoriteItemMetadata | null>(null)
   const [showMobileItemList, setShowMobileItemList] = useState(false)
   const [currentFolderName, setCurrentFolderName] = useState('찜목록')
 
@@ -66,8 +73,6 @@ export default function VoteModal({ onSelectItem, itemType }: PropsType) {
               suspenseFallback={<Loading />}
             >
               <VoteItemList
-                currentSelectedItem={currentSelectedItem}
-                setCurrentSelectedItem={setCurrentSelectedItem}
                 showMobileItemList={showMobileItemList}
                 setShowMobileItemList={setShowMobileItemList}
                 setCurrentFolderName={setCurrentFolderName}
