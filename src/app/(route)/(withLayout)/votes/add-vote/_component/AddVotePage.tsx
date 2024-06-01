@@ -1,6 +1,7 @@
 'use client'
 
 import useAddVote from '@/app/_hook/api/votes/mutations/useAddVote'
+import { useFolderList } from '@/app/_hook/api/votes/queries/useFolderList'
 import { SelectedItemType, VoteInfoType } from '@/app/_types/addVote.type'
 import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import { useRouter } from 'next/navigation'
@@ -10,6 +11,9 @@ import VoteModal from './VoteModal'
 
 export default function AddVotePage() {
   const router = useRouter()
+
+  /** 페이지 로드 시 폴더 리스트 데이터 캐싱 */
+  useFolderList('folder')
 
   const [showVoteModal, setShowVoteModal] = useState(false)
   const [itemType, setItemType] = useState<string | null>(null)

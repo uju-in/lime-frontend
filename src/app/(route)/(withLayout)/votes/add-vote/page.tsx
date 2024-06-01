@@ -1,4 +1,5 @@
 import { cn } from '@/app/_utils/twMerge'
+import { Suspense } from 'react'
 import AddVotePage from './_component/AddVotePage'
 
 export default function page() {
@@ -17,7 +18,9 @@ export default function page() {
       >
         투표 생성
       </h1>
-      <AddVotePage />
+      <Suspense fallback={<div>loading</div>}>
+        <AddVotePage />
+      </Suspense>
     </main>
   )
 }

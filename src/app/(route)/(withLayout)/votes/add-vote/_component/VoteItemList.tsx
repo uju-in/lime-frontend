@@ -1,12 +1,9 @@
 'use client'
 
-import { fetchFavoriteList } from '@/app/_hook/api/votes/queries/useFavoritesList'
-import {
-  CurrentFavoriteItemMetadata,
-  SaveItemType,
-} from '@/app/_types/saveItem.type'
+import { useFolderList } from '@/app/_hook/api/votes/queries/useFolderList'
+import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import { cn } from '@/app/_utils/twMerge'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import FolderList from './FolderList'
 import VoteItemsSelector from './VoteItemsSelector'
 
@@ -29,20 +26,13 @@ export default function VoteItemList(props: PropsType) {
     setCurrentFolderName,
   } = props
 
-  const [folderInfo, setFolderInfo] = useState<SaveItemType[]>([])
   const [selectedFolder, setSelectedFolder] = useState<{
     folderId: number | null
     itemCount: number | null
   }>({ folderId: null, itemCount: null })
 
-  const fetchFolderList = async () => {
-    const { favoriteInfos } = await fetchFavoriteList({ type: 'folder' })
-    setFolderInfo(favoriteInfos)
-  }
-
-  useEffect(() => {
-    fetchFolderList()
-  }, [showMobileItemList])
+  const { folderList } = useFolderList('folder')
+  const { favoriteInfos } = folderList
 
   return (
     <div
@@ -52,7 +42,7 @@ export default function VoteItemList(props: PropsType) {
       )}
     >
       <FolderList
-        favoriteInfos={folderInfo}
+        favoriteInfos={favoriteInfos}
         selectedFolder={selectedFolder}
         setSelectedFolder={setSelectedFolder}
         setCurrentFolderName={setCurrentFolderName}
@@ -65,7 +55,7 @@ export default function VoteItemList(props: PropsType) {
           }}
         >
           <FolderList
-            favoriteInfos={folderInfo}
+            favoriteInfos={favoriteInfos}
             selectedFolder={selectedFolder}
             setSelectedFolder={setSelectedFolder}
             setCurrentFolderName={setCurrentFolderName}

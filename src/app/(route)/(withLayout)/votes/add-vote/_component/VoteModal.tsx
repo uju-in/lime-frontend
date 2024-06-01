@@ -1,5 +1,8 @@
 'use client'
 
+import ErrorFallback from '@/app/_components/errorFallback'
+import ErrorHandlingWrapper from '@/app/_components/errorHandlingWrapper'
+import Loading from '@/app/_components/loading'
 import Modal from '@/app/_components/modal'
 import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import { cn } from '@/app/_utils/twMerge'
@@ -57,13 +60,18 @@ export default function VoteModal(props: PropsType) {
             handleSelectItem={handleSelectItem}
           />
           <article className={cn('px-[46px]', 'mo:px-0')}>
-            <VoteItemList
-              currentSelectedItem={currentSelectedItem}
-              setCurrentSelectedItem={setCurrentSelectedItem}
-              showMobileItemList={showMobileItemList}
-              setShowMobileItemList={setShowMobileItemList}
-              setCurrentFolderName={setCurrentFolderName}
-            />
+            <ErrorHandlingWrapper
+              fallbackComponent={ErrorFallback}
+              suspenseFallback={<Loading />}
+            >
+              <VoteItemList
+                currentSelectedItem={currentSelectedItem}
+                setCurrentSelectedItem={setCurrentSelectedItem}
+                showMobileItemList={showMobileItemList}
+                setShowMobileItemList={setShowMobileItemList}
+                setCurrentFolderName={setCurrentFolderName}
+              />
+            </ErrorHandlingWrapper>
             <div
               className={cn(
                 'mt-[43px] flex items-center justify-between',

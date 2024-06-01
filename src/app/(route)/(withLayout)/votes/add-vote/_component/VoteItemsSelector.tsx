@@ -2,9 +2,6 @@
 
 import { CurrentFavoriteItemMetadata } from '@/app/_types/saveItem.type'
 import { cn } from '@/app/_utils/twMerge'
-import ErrorHandlingWrapper from '@/app/_components/errorHandlingWrapper'
-import ErrorFallback from '@/app/_components/errorFallback'
-import Loading from '@/app/_components/loading'
 import FavoriteList from './FavoriteItemList'
 
 interface PropsType {
@@ -28,16 +25,11 @@ export default function VoteItemsSelector(props: PropsType) {
           <p className={cn('my-[13px] text-[12px]', 'mo:hidden')}>
             아이템 {selectedFolder.itemCount}개
           </p>
-          <ErrorHandlingWrapper
-            fallbackComponent={ErrorFallback}
-            suspenseFallback={<Loading />}
-          >
-            <FavoriteList
-              folderId={selectedFolder.folderId}
-              currentSelectedItem={currentSelectedItem}
-              setCurrentSelectedItem={setCurrentSelectedItem}
-            />
-          </ErrorHandlingWrapper>
+          <FavoriteList
+            folderId={selectedFolder.folderId}
+            currentSelectedItem={currentSelectedItem}
+            setCurrentSelectedItem={setCurrentSelectedItem}
+          />
         </>
       ) : (
         <div
