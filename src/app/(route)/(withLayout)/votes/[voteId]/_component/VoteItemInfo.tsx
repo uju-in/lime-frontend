@@ -6,8 +6,8 @@ import { VoteDetailType } from '@/app/_types/detailVote.type'
 import { cn } from '@/app/_utils/twMerge'
 import { useCallback, useState } from 'react'
 import { validateChoiceItem } from '../_utils/validation'
-import VoteItem from './FavoritesVoteItem'
 import ProgressBar from './ProgressBar'
+import VoteItemCard from './VoteItemCard'
 import VoteProgressTracker from './VoteProgressTracker'
 
 export default function VoteInfo({ voteData }: { voteData: VoteDetailType }) {
@@ -70,7 +70,7 @@ export default function VoteInfo({ voteData }: { voteData: VoteDetailType }) {
           )}
         >
           {/** item1 */}
-          <VoteItem
+          <VoteItemCard
             voteItemInfo={item1Info}
             itemId={itemId}
             onSelectItem={handleSelectItem}
@@ -82,7 +82,7 @@ export default function VoteInfo({ voteData }: { voteData: VoteDetailType }) {
             )}
           />
           {/** item2 */}
-          <VoteItem
+          <VoteItemCard
             voteItemInfo={item2Info}
             itemId={itemId}
             onSelectItem={handleSelectItem}

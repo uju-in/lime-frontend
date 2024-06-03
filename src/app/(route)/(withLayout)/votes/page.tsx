@@ -10,10 +10,10 @@ import VoteList from './_component/VoteList'
 export default function page() {
   return (
     <main className={cn('mx-auto w-[794px]', 'mo:w-full')}>
-      <section className={cn('mt-[52px] flex justify-between', 'mo:pt-[16px]')}>
+      <nav className={cn('mt-[52px] flex justify-between', 'mo:pt-[16px]')}>
         <CategoryPicker path="/votes" />
         <CreateVoteButton />
-      </section>
+      </nav>
       <ErrorHandlingWrapper
         fallbackComponent={ErrorFallback}
         suspenseFallback={<Loading />}

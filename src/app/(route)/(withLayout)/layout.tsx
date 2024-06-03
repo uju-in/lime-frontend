@@ -1,7 +1,9 @@
+import RQProvider from '@/app/_components/RQProvider'
 import Footer from '@/app/_components/layout/Footer'
 import Header from '@/app/_components/layout/Header'
 import SearchHeader from '@/app/_components/layout/search/SearchHeader'
-import React, { ReactNode } from 'react'
+import ModalContainer from '@/app/_components/modalContainer'
+import { ReactNode } from 'react'
 import HomeHeader from './_components/HomeHeader'
 
 export default function WithLayout({ children }: { children: ReactNode }) {
@@ -10,7 +12,12 @@ export default function WithLayout({ children }: { children: ReactNode }) {
       <SearchHeader />
       <Header />
       <HomeHeader />
-      <div className="mb-[18px]">{children}</div>
+      <div className="mb-[18px]">
+        <RQProvider>
+          {children}
+          <ModalContainer />
+        </RQProvider>
+      </div>
       <Footer />
     </main>
   )

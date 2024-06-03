@@ -1,48 +1,29 @@
 'use client'
 
-import { fetchFavoriteList } from '@/app/_hook/api/votes/queries/useFavoritesList'
-import {
-  CurrentFavoriteItemMetadata,
-  SaveItemType,
-} from '@/app/_types/saveItem.type'
+import Loading from '@/app/_components/loading'
+import { useFolderList } from '@/app/_hook/api/votes/queries/useFolderList'
 import { cn } from '@/app/_utils/twMerge'
-import { useEffect, useState } from 'react'
+import { Suspense, useState } from 'react'
 import FolderList from './FolderList'
 import VoteItemsSelector from './VoteItemsSelector'
 
 interface PropsType {
-  setCurrentSelectedItem: React.Dispatch<
-    React.SetStateAction<CurrentFavoriteItemMetadata | null>
-  >
-  currentSelectedItem: CurrentFavoriteItemMetadata | null
   showMobileItemList: boolean
   setShowMobileItemList: React.Dispatch<React.SetStateAction<boolean>>
   setCurrentFolderName: React.Dispatch<React.SetStateAction<string>>
 }
 
 export default function VoteItemList(props: PropsType) {
-  const {
-    setCurrentSelectedItem,
-    currentSelectedItem,
-    showMobileItemList,
-    setShowMobileItemList,
-    setCurrentFolderName,
-  } = props
+  const { showMobileItemList, setShowMobileItemList, setCurrentFolderName } =
+    props
 
-  const [folderInfo, setFolderInfo] = useState<SaveItemType[]>([])
   const [selectedFolder, setSelectedFolder] = useState<{
     folderId: number | null
     itemCount: number | null
   }>({ folderId: null, itemCount: null })
 
-  const fetchFolderList = async () => {
-    const { favoriteInfos } = await fetchFavoriteList({ type: 'folder' })
-    setFolderInfo(favoriteInfos)
-  }
-
-  useEffect(() => {
-    fetchFolderList()
-  }, [showMobileItemList])
+  const { folderList } = useFolderList('folder')
+  const { favoriteInfos } = folderList
 
   return (
     <div
@@ -52,7 +33,7 @@ export default function VoteItemList(props: PropsType) {
       )}
     >
       <FolderList
-        favoriteInfos={folderInfo}
+        favoriteInfos={favoriteInfos}
         selectedFolder={selectedFolder}
         setSelectedFolder={setSelectedFolder}
         setCurrentFolderName={setCurrentFolderName}
@@ -65,7 +46,7 @@ export default function VoteItemList(props: PropsType) {
           }}
         >
           <FolderList
-            favoriteInfos={folderInfo}
+            favoriteInfos={favoriteInfos}
             selectedFolder={selectedFolder}
             setSelectedFolder={setSelectedFolder}
             setCurrentFolderName={setCurrentFolderName}
@@ -73,19 +54,15 @@ export default function VoteItemList(props: PropsType) {
         </div>
       ) : (
         <div className={cn('hidden w-full', 'mo:block')}>
-          <VoteItemsSelector
-            selectedFolder={selectedFolder}
-            currentSelectedItem={currentSelectedItem}
-            setCurrentSelectedItem={setCurrentSelectedItem}
-          />
+          <Suspense fallback={<Loading />}>
+            <VoteItemsSelector selectedFolder={selectedFolder} />
+          </Suspense>
         </div>
       )}
       <div className={cn('flex-1 overflow-y-auto pl-[16px]', 'mo:hidden')}>
-        <VoteItemsSelector
-          selectedFolder={selectedFolder}
-          currentSelectedItem={currentSelectedItem}
-          setCurrentSelectedItem={setCurrentSelectedItem}
-        />
+        <Suspense fallback={<Loading />}>
+          <VoteItemsSelector selectedFolder={selectedFolder} />
+        </Suspense>
       </div>
     </div>
   )

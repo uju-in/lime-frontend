@@ -3,8 +3,8 @@
 import { useVoteRanking } from '@/app/_hook/api/votes/queries/useVoteRanking'
 import useGetSearchParam from '@/app/_hook/common/useGetSearchParams'
 import { cn } from '@/app/_utils/twMerge'
-import Image from 'next/image'
 import Link from 'next/link'
+import VoteImage from './VoteImage'
 
 export default function RankingList() {
   const hobby = useGetSearchParam('category') || '농구'
@@ -12,49 +12,42 @@ export default function RankingList() {
   const { rankingList } = useVoteRanking(hobby)
   const { rankingInfos } = rankingList
 
+  // 투표 랭킹 아이템이 없을 경우
+  if (rankingInfos.length < 0) {
+    return <div className="h-[104px]" />
+  }
+
   return (
-    <section className={cn('mt-[52px] w-full', 'mo:pl-[16px]')}>
-      <strong className="text-[26px] font-[700]">투표 랭킹</strong>
-      <div
+    <article className={cn('mt-[52px] w-full', 'mo:pl-[16px]')}>
+      <h1 className="text-[26px] font-[700]">투표 랭킹</h1>
+      <ul
         className={cn(
-          'mt-[22px] flex gap-[33.5px] scrollbar-hide',
+          'mt-[22px] flex gap-[33px] scrollbar-hide',
           'mo:gap-[12px] mo:overflow-x-scroll',
         )}
       >
-        {rankingInfos.length > 0 ? (
-          rankingInfos.map((item) => (
-            <Link
-              href={`/votes/${item.id}`}
-              key={item.id}
-              className="text-center"
-            >
+        {rankingInfos.map((item) => (
+          <li key={item.id} className="cursor-pointer text-center">
+            <Link href={`/votes/${item.id}`}>
               <div className="flex h-[104px] w-[104px] items-center justify-center rounded-full border-[2px] border-[#D9D9D9]">
-                <div className="flex h-[93px] w-[93px] rounded-full border">
-                  <Image
-                    width={46}
-                    height={93}
+                <figure className="flex h-[93px] w-[93px] rounded-full border">
+                  <VoteImage
                     src={item.item1Image}
-                    alt="vote item1"
-                    className="flex-1 rounded-l-full object-contain"
+                    innerClassNames="rounded-l-full"
                   />
-                  <Image
-                    width={46}
-                    height={93}
+                  <VoteImage
                     src={item.item2Image}
-                    alt="vote item2"
-                    className="flex-1 rounded-r-full object-contain"
+                    innerClassNames="rounded-r-full"
                   />
-                </div>
+                </figure>
               </div>
-              <p className="mt-[11.4px] text-[14.2px] font-[500] text-[#5D5D5D]">
+              <span className="mt-[11.4px] text-[14.2px] font-[500] text-[#5D5D5D]">
                 {item.participants}명 참여중
-              </p>
+              </span>
             </Link>
-          ))
-        ) : (
-          <div className="h-[104px]" />
-        )}
-      </div>
-    </section>
+          </li>
+        ))}
+      </ul>
+    </article>
   )
 }

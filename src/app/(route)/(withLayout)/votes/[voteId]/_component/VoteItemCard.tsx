@@ -1,9 +1,9 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 import { ItemInfoType } from '@/app/_types/detailVote.type'
 import { cn } from '@/app/_utils/twMerge'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { truncateString } from '../../_utils/truncateString'
 
 interface PropsType {
@@ -12,18 +12,18 @@ interface PropsType {
   onSelectItem: (selectItemId: number) => void
 }
 
-export default function FavoritesVoteItem(props: PropsType) {
+export default function VoteItemCard(props: PropsType) {
   const { itemId, voteItemInfo, onSelectItem } = props
   const { id, image, name, price } = voteItemInfo
   const router = useRouter()
 
   return (
-    <div
+    <article
       className={cn(
         'relative',
         'mo:flex:1 border-black mo:rounded-[6px] mo:border-[2px]',
         {
-          'border-0 border-[3px]': id === itemId,
+          'border-[3px]': id === itemId,
         },
       )}
       onClick={() => onSelectItem(id)}
@@ -35,6 +35,7 @@ export default function FavoritesVoteItem(props: PropsType) {
         alt="item1 image"
         className="mo:rounded-[6px]"
         loading="eager"
+        priority
       />
       <div
         className={cn(
@@ -46,9 +47,9 @@ export default function FavoritesVoteItem(props: PropsType) {
           },
         )}
       >
-        <p className="mb-[15.4px] h-[65px] text-center text-[14px] font-[500]">
+        <strong className="mb-[15.4px] h-[65px] text-center text-[14px] font-[500]">
           <strong>{truncateString(name, 35)}</strong>
-        </p>
+        </strong>
         <strong className="text-[14px] font-[700]">
           {price.toLocaleString()}원
         </strong>
@@ -75,6 +76,6 @@ export default function FavoritesVoteItem(props: PropsType) {
           </button>
         </div>
       </div>
-    </div>
+    </article>
   )
 }
