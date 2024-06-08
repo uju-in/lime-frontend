@@ -1,17 +1,13 @@
 'use client'
 
+import { itemDataState } from '@/app/_atoms/itemDataState'
+import { ItemInfo } from '@/app/_types/item.type'
 import Image from 'next/image'
+import { useRecoilValue } from 'recoil'
 
-interface PropsType {
-  itemData: {
-    id: number
-    name: string
-    price: number
-    image: string
-  }
-}
+export default function ReviewModalItemDisplay() {
+  const itemData = useRecoilValue(itemDataState) as ItemInfo
 
-export default function ReviewModalItemDisplay({ itemData }: PropsType) {
   return (
     <div className="mb-[40px] flex gap-[20px] rounded-[8px] bg-[#F4F4F4] p-[20px]">
       <Image

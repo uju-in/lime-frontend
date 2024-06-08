@@ -15,7 +15,6 @@ interface PropsType {
 }
 
 export default function ReviewSection({ itemId }: PropsType) {
-  const [showReviewModal, setShowReviewModal] = useState(false)
   const [sortOption, setSortOption] = useState<SortOption>('NEWEST')
 
   const { data, reviewList, fetchNextPage, isFetchingNextPage, hasNextPage } =
@@ -26,10 +25,7 @@ export default function ReviewSection({ itemId }: PropsType) {
   return (
     <section className={cn('mt-[64px]', 'mo:mt-[28px] mo:px-[16px]')}>
       {/** 리뷰 헤더 (리뷰 개수/작성 버튼) */}
-      <ReviewHeader
-        setShowReviewModal={setShowReviewModal}
-        totalReviewCount={TOTAL_REVIEW_COUNT}
-      />
+      <ReviewHeader totalReviewCount={TOTAL_REVIEW_COUNT} />
       {TOTAL_REVIEW_COUNT !== 0 ? (
         <>
           {/** 리뷰 정렬 */}
@@ -68,14 +64,6 @@ export default function ReviewSection({ itemId }: PropsType) {
           이 상품의 첫 번째 리뷰를 작성해 보세요
         </div>
       )}
-      {/** 리뷰 작성 모달 */}
-      {/* {showReviewModal && (
-        <ReviewModal
-          action="create"
-          itemData={itemInfo}
-          setShowReviewModal={setShowReviewModal}
-        />
-      )} */}
     </section>
   )
 }

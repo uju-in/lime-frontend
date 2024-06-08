@@ -24,7 +24,6 @@ export default function Review(props: PropsType) {
   const dropdownRef = useRef(null)
 
   const [showReviewDetail, setShowReviewDetail] = useState<number | null>(null)
-  const [showReviewModal, setShowReviewModal] = useState<boolean>(false)
   const [showEditMenu, setShowEditMenu] = useState<boolean>(false)
 
   /** 리뷰 상세 보기 */
@@ -96,10 +95,7 @@ export default function Review(props: PropsType) {
         </div>
         {reviewLoginMemberStatus.isReviewed && (
           <div className={cn('hidden', 'mo:block')}>
-            <EditButtons
-              setShowReviewModal={setShowReviewModal}
-              reviewId={reviewSummary.reviewId}
-            />
+            <EditButtons reviewSummary={review.reviewSummary} />
           </div>
         )}
         {/** 리뷰 상세 이미지 */}
@@ -139,26 +135,13 @@ export default function Review(props: PropsType) {
               alt="kebab menu"
             />
           </button>
-          {showEditMenu && (
-            <EditButtons
-              setShowReviewModal={setShowReviewModal}
-              reviewId={reviewSummary.reviewId}
-            />
-          )}
+          {showEditMenu && <EditButtons reviewSummary={review.reviewSummary} />}
         </div>
       )}
       {/** 리뷰 썸네일 이미지 (PC) */}
       {showReviewDetail !== reviewSummary.reviewId && (
         <ReviewImage imageUrls={reviewSummary.imageUrls} />
       )}
-      {/* {showReviewModal && (
-        <ReviewModal
-          action="edit"
-          itemData={itemInfo}
-          setShowReviewModal={setShowReviewModal}
-          review={review.reviewSummary}
-        />
-      )} */}
     </div>
   )
 }
