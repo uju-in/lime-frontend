@@ -9,22 +9,16 @@ import { useRef, useState } from 'react'
 import EditButtons from './EditButtons'
 import ReviewImage from './ReviewImage'
 import ReviewLikeButton from './ReviewLikeButton'
-import ReviewModal from './ReviewModal'
 
 interface PropsType {
   review: ReviewResponse
   isFirst: boolean
-  itemInfo: {
-    id: number
-    name: string
-    price: number
-    image: string
-  }
+  itemId: number
   sortOption: SortOption
 }
 
 export default function Review(props: PropsType) {
-  const { review, isFirst, itemInfo, sortOption } = props
+  const { review, isFirst, itemId, sortOption } = props
   const { memberInfo, reviewSummary, reviewLoginMemberStatus } = review
 
   const dropdownRef = useRef(null)
@@ -84,7 +78,7 @@ export default function Review(props: PropsType) {
               isLiked={reviewLoginMemberStatus.isLiked}
               likeCount={reviewSummary.likeCount}
               sortOption={sortOption}
-              itemId={itemInfo.id}
+              itemId={itemId}
               showReviewDetail={showReviewDetail}
             />
           </div>
@@ -129,7 +123,7 @@ export default function Review(props: PropsType) {
           isLiked={reviewLoginMemberStatus.isLiked}
           likeCount={reviewSummary.likeCount}
           sortOption={sortOption}
-          itemId={itemInfo.id}
+          itemId={itemId}
           showReviewDetail={showReviewDetail}
           innerClassNames="mo:hidden"
         />
@@ -157,14 +151,14 @@ export default function Review(props: PropsType) {
       {showReviewDetail !== reviewSummary.reviewId && (
         <ReviewImage imageUrls={reviewSummary.imageUrls} />
       )}
-      {showReviewModal && (
+      {/* {showReviewModal && (
         <ReviewModal
           action="edit"
           itemData={itemInfo}
           setShowReviewModal={setShowReviewModal}
           review={review.reviewSummary}
         />
-      )}
+      )} */}
     </div>
   )
 }

@@ -2,28 +2,24 @@
 
 import InfiniteScrollTrigger from '@/app/_components/infiniteScrollTrigger'
 import { useSearchItemQuery } from '@/app/_hook/api/reviews/queries/useReviewListData'
-import { ItemInfo } from '@/app/_types/item.type'
 import { ReviewResponse, SortOption } from '@/app/_types/review.type'
 import { cn } from '@/app/_utils/twMerge'
 import { useState } from 'react'
 import Review from './Review'
 import ReviewHeader from './ReviewHeader'
-import ReviewModal from './ReviewModal'
 import { ReviewItemSkeleton } from './ReviewSkeletonUI'
 import ReviewSortOptions from './ReviewSortOptions'
 
 interface PropsType {
-  itemInfo: ItemInfo
+  itemId: number
 }
 
-export default function ReviewSection(props: PropsType) {
-  const { itemInfo } = props
-
+export default function ReviewSection({ itemId }: PropsType) {
   const [showReviewModal, setShowReviewModal] = useState(false)
   const [sortOption, setSortOption] = useState<SortOption>('NEWEST')
 
   const { data, reviewList, fetchNextPage, isFetchingNextPage, hasNextPage } =
-    useSearchItemQuery(itemInfo.id, sortOption)
+    useSearchItemQuery(itemId, sortOption)
 
   return (
     <article className={cn('mt-[64px]', 'mo:mt-[28px] mo:px-[16px]')}>
@@ -45,7 +41,7 @@ export default function ReviewSection(props: PropsType) {
               <Review
                 key={review.reviewSummary.reviewId}
                 review={review}
-                itemInfo={itemInfo}
+                itemId={itemId}
                 sortOption={sortOption}
                 isFirst={index === 0}
               />
@@ -71,13 +67,13 @@ export default function ReviewSection(props: PropsType) {
         </div>
       )}
       {/** 리뷰 작성 모달 */}
-      {showReviewModal && (
+      {/* {showReviewModal && (
         <ReviewModal
           action="create"
           itemData={itemInfo}
           setShowReviewModal={setShowReviewModal}
         />
-      )}
+      )} */}
     </article>
   )
 }

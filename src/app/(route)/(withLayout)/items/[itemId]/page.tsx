@@ -2,13 +2,16 @@ import ErrorFallback from '@/app/_components/errorFallback'
 import ErrorHandlingWrapper from '@/app/_components/errorHandlingWrapper'
 import Loading from '@/app/_components/loading'
 import { cn } from '@/app/_utils/twMerge'
-import ItemDetailView from './_component/ItemDetailView'
+import { Suspense } from 'react'
+import ItemDetail from './_component/ItemDetail'
+import ReviewSection from './_component/ReviewSection'
+import { ReviewSectionSkeletonUI } from './_component/ReviewSkeletonUI'
 
-type Props = {
+type PropsType = {
   params: { itemId: number }
 }
 
-export default function DetailPage({ params }: Props) {
+export default function DetailPage({ params }: PropsType) {
   const { itemId } = params
 
   return (
@@ -19,7 +22,15 @@ export default function DetailPage({ params }: Props) {
         fallbackComponent={ErrorFallback}
         suspenseFallback={<Loading />}
       >
-        <ItemDetailView itemId={itemId} />
+        <Suspense fallback={<Loading />}>
+          <ItemDetail itemId={itemId} />
+        </Suspense>
+        <div
+          className={cn('hidden h-[8px] bg-[#EEE]', 'mo:mt-[16px] mo:block')}
+        />
+        <Suspense fallback={<ReviewSectionSkeletonUI />}>
+          <ReviewSection itemId={itemId} />
+        </Suspense>
       </ErrorHandlingWrapper>
     </main>
   )
