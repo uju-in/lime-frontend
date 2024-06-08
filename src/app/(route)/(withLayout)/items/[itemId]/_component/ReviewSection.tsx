@@ -21,23 +21,25 @@ export default function ReviewSection({ itemId }: PropsType) {
   const { data, reviewList, fetchNextPage, isFetchingNextPage, hasNextPage } =
     useSearchItemQuery(itemId, sortOption)
 
+  const TOTAL_REVIEW_COUNT = data?.pages[0].itemReviewTotalCount
+
   return (
-    <article className={cn('mt-[64px]', 'mo:mt-[28px] mo:px-[16px]')}>
+    <section className={cn('mt-[64px]', 'mo:mt-[28px] mo:px-[16px]')}>
       {/** 리뷰 헤더 (리뷰 개수/작성 버튼) */}
       <ReviewHeader
         setShowReviewModal={setShowReviewModal}
-        itemReviewTotalCount={data?.pages[0]?.itemReviewTotalCount ?? 0}
+        totalReviewCount={TOTAL_REVIEW_COUNT}
       />
-      {/** 리뷰 정렬 */}
-      {data?.pages[0].itemReviewTotalCount !== 0 ? (
+      {TOTAL_REVIEW_COUNT !== 0 ? (
         <>
+          {/** 리뷰 정렬 */}
           <ReviewSortOptions
             sortOption={sortOption}
             setSortOption={setSortOption}
           />
-          {/** 리뷰 */}
-          <div>
-            {reviewList?.map((review: ReviewResponse, index: number) => (
+          {/** 리뷰 리스트 */}
+          <article>
+            {reviewList.map((review: ReviewResponse, index: number) => (
               <Review
                 key={review.reviewSummary.reviewId}
                 review={review}
@@ -58,7 +60,7 @@ export default function ReviewSection({ itemId }: PropsType) {
                 <ReviewItemSkeleton />
               </InfiniteScrollTrigger>
             </div>
-          </div>
+          </article>
         </>
       ) : (
         // 리뷰가 없을 경우
@@ -74,6 +76,6 @@ export default function ReviewSection({ itemId }: PropsType) {
           setShowReviewModal={setShowReviewModal}
         />
       )} */}
-    </article>
+    </section>
   )
 }

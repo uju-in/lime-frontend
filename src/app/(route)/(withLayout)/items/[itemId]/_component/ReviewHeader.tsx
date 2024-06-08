@@ -5,12 +5,12 @@ import Image from 'next/image'
 
 interface PropsType {
   setShowReviewModal: React.Dispatch<React.SetStateAction<boolean>>
-  itemReviewTotalCount: number
+  totalReviewCount: number
 }
 
 export default function ReviewHeader({
   setShowReviewModal,
-  itemReviewTotalCount,
+  totalReviewCount,
 }: PropsType) {
   return (
     <header
@@ -20,7 +20,7 @@ export default function ReviewHeader({
       )}
     >
       <strong className="text-[18px] font-[600]">
-        리뷰 ({itemReviewTotalCount})
+        리뷰 ({totalReviewCount})
       </strong>
       <span className="flex items-center font-[600] text-[#3F3F3F]">
         <Image
