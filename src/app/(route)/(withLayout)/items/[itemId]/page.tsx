@@ -1,8 +1,7 @@
-import { cn } from '@/app/_utils/twMerge'
+import ErrorFallback from '@/app/_components/errorFallback'
 import ErrorHandlingWrapper from '@/app/_components/errorHandlingWrapper'
 import Loading from '@/app/_components/loading'
-import ErrorFallback from '@/app/_components/errorFallback'
-import MoItemDetailHeader from './_component/MoItemDetailHeader'
+import { cn } from '@/app/_utils/twMerge'
 import ItemDetailView from './_component/ItemDetailView'
 
 type Props = {
@@ -13,18 +12,15 @@ export default function DetailPage({ params }: Props) {
   const { itemId } = params
 
   return (
-    <>
-      <MoItemDetailHeader />
-      <article
-        className={cn('mx-auto mt-[32px] min-h-[650px] w-[720px]', 'mo:w-full')}
+    <main
+      className={cn('mx-auto mt-[32px] min-h-[650px] w-[720px]', 'mo:w-full')}
+    >
+      <ErrorHandlingWrapper
+        fallbackComponent={ErrorFallback}
+        suspenseFallback={<Loading />}
       >
-        <ErrorHandlingWrapper
-          fallbackComponent={ErrorFallback}
-          suspenseFallback={<Loading />}
-        >
-          <ItemDetailView itemId={itemId} />
-        </ErrorHandlingWrapper>
-      </article>
-    </>
+        <ItemDetailView itemId={itemId} />
+      </ErrorHandlingWrapper>
+    </main>
   )
 }
