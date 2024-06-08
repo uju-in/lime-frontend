@@ -20,7 +20,7 @@ export default function ItemDetailSection({ itemId }: PropsType) {
   const { itemData } = useItemDetail(itemId)
 
   useEffect(() => {
-    setItemData(itemData)
+    setItemData(itemData.itemInfo)
   }, [itemData, setItemData])
 
   const { itemInfo, hobbyName, itemAvgRate, favoriteCount, itemUrl } = itemData
