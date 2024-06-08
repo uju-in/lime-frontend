@@ -7,7 +7,7 @@ import { SortOption } from '@/app/_types/review.type'
 import { cn } from '@/app/_utils/twMerge'
 import { useState } from 'react'
 import Breadcrumb from './Breadcrumb'
-import ItemDetail from './ItemDetail'
+import ItemDetail from './ItemDetailSection'
 import ReviewSection from './ReviewSection'
 import { ReviewSectionSkeletonUI } from './ReviewSkeletonUI'
 

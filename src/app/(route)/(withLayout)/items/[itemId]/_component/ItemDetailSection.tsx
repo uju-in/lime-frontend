@@ -13,9 +13,10 @@ interface PropsType {
   itemId: number
 }
 
-export default function ItemDetail({ itemId }: PropsType) {
+export default function ItemDetailSection({ itemId }: PropsType) {
   const setItemData = useSetRecoilState(itemDataState)
 
+  /** 아이템 정보 저장 (for add review) */
   const { itemData } = useItemDetail(itemId)
 
   useEffect(() => {
@@ -25,9 +26,9 @@ export default function ItemDetail({ itemId }: PropsType) {
   const { itemInfo, hobbyName, itemAvgRate, favoriteCount, itemUrl } = itemData
 
   return (
-    <>
+    <section>
       <Breadcrumb hobbyName={hobbyName} innerClassNames="mo:hidden" />
-      <section className={cn('flex justify-between', 'mo:flex-col')}>
+      <article className={cn('flex justify-between', 'mo:flex-col')}>
         <div className="flex justify-center">
           <Image
             className={cn('rounded-[8px]', 'mo:hidden')}
@@ -64,14 +65,15 @@ export default function ItemDetail({ itemId }: PropsType) {
                 innerClassNames="mo:mt-[12px] mo:mb-0"
               />
             </div>
-            <strong
+            <h1
               className={cn(
                 'mt-[10px] text-[22px] font-[700]',
                 'mo:mt-0 mo:text-[17px]',
               )}
             >
               {itemInfo.name}
-            </strong>
+            </h1>
+            {/** 평점 */}
             <div className="flex w-full">
               <Image
                 className="mr-1"
@@ -96,14 +98,16 @@ export default function ItemDetail({ itemId }: PropsType) {
                   src="/image/icon/icon-save.svg"
                   alt="save"
                 />
-                <p className="font-[500] text-[#6F6F6F]">{favoriteCount}</p>
+                <span className="font-[500] text-[#6F6F6F]">
+                  {favoriteCount}
+                </span>
               </div>
             </div>
           </div>
           {/** 아이템 담기, 구매하러 가기 버튼 */}
           <ActionButtons itemUrl={itemUrl} itemId={itemInfo.id} />
         </div>
-      </section>
-    </>
+      </article>
+    </section>
   )
 }

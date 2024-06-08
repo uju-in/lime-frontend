@@ -3,7 +3,7 @@ import ErrorHandlingWrapper from '@/app/_components/errorHandlingWrapper'
 import Loading from '@/app/_components/loading'
 import { cn } from '@/app/_utils/twMerge'
 import { Suspense } from 'react'
-import ItemDetail from './_component/ItemDetail'
+import ItemDetailSection from './_component/ItemDetailSection'
 import ReviewSection from './_component/ReviewSection'
 import { ReviewSectionSkeletonUI } from './_component/ReviewSkeletonUI'
 
@@ -23,7 +23,7 @@ export default function DetailPage({ params }: PropsType) {
         suspenseFallback={<Loading />}
       >
         <Suspense fallback={<Loading />}>
-          <ItemDetail itemId={itemId} />
+          <ItemDetailSection itemId={itemId} />
         </Suspense>
         <div
           className={cn('hidden h-[8px] bg-[#EEE]', 'mo:mt-[16px] mo:block')}
