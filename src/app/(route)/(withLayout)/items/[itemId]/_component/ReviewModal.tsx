@@ -2,6 +2,7 @@
 
 import { itemDataState } from '@/app/_atoms/itemDataState'
 import Modal from '@/app/_components/modal'
+import Portal from '@/app/_components/potal'
 import useAddReview from '@/app/_hook/api/reviews/mutations/useAddReview'
 import useEditReview from '@/app/_hook/api/reviews/mutations/useEditReview'
 import { useModals } from '@/app/_hook/common/useModal'
@@ -144,25 +145,27 @@ export default function ReviewModal(props: PropsType) {
   }
 
   return (
-    <Modal innerClassNames="mo:top-0 mo:max-w-full mo:max-h-full mo:-translate-y-0 mo:rounded-[0px]">
-      <article
-        className={cn(
-          'w-[590px] p-[13px_0_45px]',
-          'mo:w-full mo:px-[16px] mo:pb-[112px]',
-        )}
-      >
-        <ReviewModalHeader />
-        <div className={cn('mt-[34px] px-[41px]', 'mo:p-0')}>
-          <ReviewModalItemDisplay />
-          <ReviewModalForm
-            onSubmit={handleSubmit}
-            handleFileChange={handleFileChange}
-            onImageDelete={handleImageDelete}
-            reviewState={reviewState}
-            setReviewState={setReviewState}
-          />
-        </div>
-      </article>
-    </Modal>
+    <Portal title="review-modal">
+      <Modal innerClassNames="mo:top-0 mo:max-w-full mo:max-h-full mo:-translate-y-0 mo:rounded-[0px]">
+        <article
+          className={cn(
+            'w-[590px] p-[13px_0_45px]',
+            'mo:w-full mo:px-[16px] mo:pb-[112px]',
+          )}
+        >
+          <ReviewModalHeader />
+          <div className={cn('mt-[34px] px-[41px]', 'mo:p-0')}>
+            <ReviewModalItemDisplay />
+            <ReviewModalForm
+              onSubmit={handleSubmit}
+              handleFileChange={handleFileChange}
+              onImageDelete={handleImageDelete}
+              reviewState={reviewState}
+              setReviewState={setReviewState}
+            />
+          </div>
+        </article>
+      </Modal>
+    </Portal>
   )
 }
