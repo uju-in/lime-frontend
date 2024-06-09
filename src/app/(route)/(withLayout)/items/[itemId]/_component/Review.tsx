@@ -50,7 +50,7 @@ export default function Review(props: PropsType) {
   })
 
   return (
-    <div
+    <article
       ref={dropdownRef}
       className={cn(
         'flex w-full justify-between p-[20px] hover:bg-[#f6f6f6]',
@@ -91,7 +91,7 @@ export default function Review(props: PropsType) {
             'mo:ml-0',
           )}
         >
-          <p className="text-start">{reviewSummary.content}</p>
+          <span className="text-start">{reviewSummary.content}</span>
         </div>
         {reviewLoginMemberStatus.isReviewed && (
           <div className={cn('hidden', 'mo:block')}>
@@ -142,6 +142,6 @@ export default function Review(props: PropsType) {
       {showReviewDetail !== reviewSummary.reviewId && (
         <ReviewImage imageUrls={reviewSummary.imageUrls} />
       )}
-    </div>
+    </article>
   )
 }

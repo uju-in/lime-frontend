@@ -30,14 +30,14 @@ export default function ReviewModalHeader() {
           alt="close"
         />
       </button>
-      <p
+      <span
         className={cn(
           'w-full text-center text-[24px]',
           'mo:text-[16px] mo:font-[600]',
         )}
       >
         리뷰 작성
-      </p>
+      </span>
       <button
         type="button"
         aria-label="close"
