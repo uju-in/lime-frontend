@@ -9,28 +9,21 @@ import { useRef, useState } from 'react'
 import EditButtons from './EditButtons'
 import ReviewImage from './ReviewImage'
 import ReviewLikeButton from './ReviewLikeButton'
-import ReviewModal from './ReviewModal'
 
 interface PropsType {
   review: ReviewResponse
   isFirst: boolean
-  itemInfo: {
-    id: number
-    name: string
-    price: number
-    image: string
-  }
+  itemId: number
   sortOption: SortOption
 }
 
 export default function Review(props: PropsType) {
-  const { review, isFirst, itemInfo, sortOption } = props
+  const { review, isFirst, itemId, sortOption } = props
   const { memberInfo, reviewSummary, reviewLoginMemberStatus } = review
 
   const dropdownRef = useRef(null)
 
   const [showReviewDetail, setShowReviewDetail] = useState<number | null>(null)
-  const [showReviewModal, setShowReviewModal] = useState<boolean>(false)
   const [showEditMenu, setShowEditMenu] = useState<boolean>(false)
 
   /** 리뷰 상세 보기 */
@@ -57,7 +50,7 @@ export default function Review(props: PropsType) {
   })
 
   return (
-    <div
+    <article
       ref={dropdownRef}
       className={cn(
         'flex w-full justify-between p-[20px] hover:bg-[#f6f6f6]',
@@ -84,7 +77,7 @@ export default function Review(props: PropsType) {
               isLiked={reviewLoginMemberStatus.isLiked}
               likeCount={reviewSummary.likeCount}
               sortOption={sortOption}
-              itemId={itemInfo.id}
+              itemId={itemId}
               showReviewDetail={showReviewDetail}
             />
           </div>
@@ -98,14 +91,11 @@ export default function Review(props: PropsType) {
             'mo:ml-0',
           )}
         >
-          <p className="text-start">{reviewSummary.content}</p>
+          <span className="text-start">{reviewSummary.content}</span>
         </div>
         {reviewLoginMemberStatus.isReviewed && (
           <div className={cn('hidden', 'mo:block')}>
-            <EditButtons
-              setShowReviewModal={setShowReviewModal}
-              reviewId={reviewSummary.reviewId}
-            />
+            <EditButtons reviewSummary={review.reviewSummary} />
           </div>
         )}
         {/** 리뷰 상세 이미지 */}
@@ -129,7 +119,7 @@ export default function Review(props: PropsType) {
           isLiked={reviewLoginMemberStatus.isLiked}
           likeCount={reviewSummary.likeCount}
           sortOption={sortOption}
-          itemId={itemInfo.id}
+          itemId={itemId}
           showReviewDetail={showReviewDetail}
           innerClassNames="mo:hidden"
         />
@@ -145,26 +135,13 @@ export default function Review(props: PropsType) {
               alt="kebab menu"
             />
           </button>
-          {showEditMenu && (
-            <EditButtons
-              setShowReviewModal={setShowReviewModal}
-              reviewId={reviewSummary.reviewId}
-            />
-          )}
+          {showEditMenu && <EditButtons reviewSummary={review.reviewSummary} />}
         </div>
       )}
       {/** 리뷰 썸네일 이미지 (PC) */}
       {showReviewDetail !== reviewSummary.reviewId && (
         <ReviewImage imageUrls={reviewSummary.imageUrls} />
       )}
-      {showReviewModal && (
-        <ReviewModal
-          action="edit"
-          itemData={itemInfo}
-          setShowReviewModal={setShowReviewModal}
-          review={review.reviewSummary}
-        />
-      )}
-    </div>
+    </article>
   )
 }

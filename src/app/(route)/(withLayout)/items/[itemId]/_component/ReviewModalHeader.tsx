@@ -1,13 +1,12 @@
 'use client'
 
+import { useModals } from '@/app/_hook/common/useModal'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 
-export default function ReviewModalHeader({
-  setShowReviewModal,
-}: {
-  setShowReviewModal: React.Dispatch<React.SetStateAction<boolean>>
-}) {
+export default function ReviewModalHeader() {
+  const { close } = useModals()
+
   return (
     <div
       className={cn(
@@ -20,7 +19,7 @@ export default function ReviewModalHeader({
         type="button"
         aria-label="close"
         onClick={() => {
-          setShowReviewModal(false)
+          close()
         }}
       >
         <Image
@@ -31,20 +30,20 @@ export default function ReviewModalHeader({
           alt="close"
         />
       </button>
-      <p
+      <span
         className={cn(
           'w-full text-center text-[24px]',
           'mo:text-[16px] mo:font-[600]',
         )}
       >
         리뷰 작성
-      </p>
+      </span>
       <button
         type="button"
         aria-label="close"
         className="mo:hidden"
         onClick={() => {
-          setShowReviewModal(false)
+          close()
         }}
       >
         <Image

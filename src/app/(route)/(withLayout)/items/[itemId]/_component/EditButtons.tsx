@@ -2,26 +2,39 @@
 
 import Confirm from '@/app/_components/confirm'
 import useDeleteReview from '@/app/_hook/api/reviews/mutations/useDeleteReview'
+import { useModals } from '@/app/_hook/common/useModal'
+import { ReviewInfo } from '@/app/_types/review.type'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import { useState } from 'react'
+import ReviewModal from './ReviewModal'
 
 interface PropsType {
-  setShowReviewModal: React.Dispatch<React.SetStateAction<boolean>>
-  reviewId: number
+  reviewSummary: ReviewInfo
 }
 
 export default function EditButtons(props: PropsType) {
-  const { setShowReviewModal, reviewId } = props
+  const { reviewSummary } = props
 
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
 
+  const { open } = useModals()
+
   const { mutateAsync: deleteReview } = useDeleteReview()
 
+  /** 리뷰 삭제 */
   const handleDeleteReview = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
 
     setShowConfirm(true)
+  }
+
+  /** 리뷰 수정 */
+  const handleOpenModal = () => {
+    open(ReviewModal, {
+      action: 'edit',
+      reviewSummary,
+    })
   }
 
   return (
@@ -37,9 +50,7 @@ export default function EditButtons(props: PropsType) {
           'flex flex-1 items-center justify-center border-b-[0.5px] border-[#EDEDED]',
           'mo:flex-none mo:border-0',
         )}
-        onClick={() => {
-          setShowReviewModal((prev) => !prev)
-        }}
+        onClick={handleOpenModal}
       >
         <span className="mr-[5px]">수정하기</span>
         <Image
@@ -73,7 +84,7 @@ export default function EditButtons(props: PropsType) {
       {showConfirm && (
         <Confirm
           setShowConfirm={setShowConfirm}
-          id={reviewId}
+          id={reviewSummary.reviewId}
           title="리뷰"
           onConfirmedAction={deleteReview}
         />

@@ -3,20 +3,22 @@
 import ErrorFallback from '@/app/_components/errorFallback'
 import ErrorHandlingWrapper from '@/app/_components/errorHandlingWrapper'
 import { useItemDetail } from '@/app/_hook/api/items/queries/useItemDetail'
+import { SortOption } from '@/app/_types/review.type'
 import { cn } from '@/app/_utils/twMerge'
+import { useState } from 'react'
 import Breadcrumb from './Breadcrumb'
-import ItemDetail from './ItemDetail'
+import ItemDetail from './ItemDetailSection'
 import ReviewSection from './ReviewSection'
 import { ReviewSectionSkeletonUI } from './ReviewSkeletonUI'
 
-interface Props {
+interface PropsType {
   itemId: number
 }
 
-export default function ItemDetailView(props: Props) {
-  const { itemId } = props
-
+export default function ItemDetailView({ itemId }: PropsType) {
   const { itemData } = useItemDetail(itemId)
+
+  const [sortOption, setSortOption] = useState<SortOption>('NEWEST')
 
   const { itemInfo, hobbyName } = itemData
 

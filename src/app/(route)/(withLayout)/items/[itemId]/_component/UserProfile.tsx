@@ -34,25 +34,25 @@ export default function UserProfile({ memberInfo, reviewSummary }: PropsType) {
       />
       <div>
         <div className="flex items-center">
-          <p
+          <span
             className="mr-[4.52px] cursor-pointer text-[12px] font-[700] "
             onClick={handleViewProfile}
           >
             {memberInfo.nickname}
-          </p>
+          </span>
           <div className="flex h-[13px] w-[27px] justify-center rounded-[4px] bg-[#000]">
-            <p className="text-[8px] font-[700] text-white">
+            <span className="text-[8px] font-[700] text-white">
               Lv. {memberInfo.level}
-            </p>
+            </span>
           </div>
         </div>
         <div className="mt-[4px] flex">
           {/** 리뷰 별점 */}
           <StarRating rate={reviewSummary.rate} />
           <div className="mx-[10px] h-[12px] border-l-[0.5px] border-[#B3B3B3] " />
-          <p className="flex items-center text-[10px] font-[500] text-[#747474]">
+          <span className="flex items-center text-[10px] font-[500] text-[#747474]">
             {dateFormatter(reviewSummary.createdAt)}
-          </p>
+          </span>
         </div>
       </div>
     </div>

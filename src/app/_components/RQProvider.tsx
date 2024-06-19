@@ -1,14 +1,27 @@
 'use client'
 
-import React, { useState } from 'react'
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import React, { Suspense, lazy, useState } from 'react'
 
 type Props = {
   children: React.ReactNode
 }
 
+const ReactQueryDevtoolsProduction = lazy(() =>
+  import('@tanstack/react-query-devtools/production').then((d) => ({
+    default: d.ReactQueryDevtools,
+  })),
+)
+
 function RQProvider({ children }: Props) {
+  const [showDevtools, setShowDevtools] = useState(false)
+
+  React.useEffect(() => {
+    if (process.env.NEXT_PUBLIC_MODE === 'local') {
+      setShowDevtools(true)
+    }
+  }, [])
+
   const [client] = useState(
     new QueryClient({
       defaultOptions: {
@@ -25,9 +38,11 @@ function RQProvider({ children }: Props) {
   return (
     <QueryClientProvider client={client}>
       {children}
-      <ReactQueryDevtools
-        initialIsOpen={process.env.NEXT_PUBLIC_MODE === 'local'}
-      />
+      {showDevtools && (
+        <Suspense fallback={null}>
+          <ReactQueryDevtoolsProduction />
+        </Suspense>
+      )}
     </QueryClientProvider>
   )
 }

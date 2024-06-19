@@ -64,7 +64,7 @@ export default function ReviewLikeButton(props: PropsType) {
         height={14}
         className="cursor-pointer"
       />
-      <p className="ml-[4px] text-[14px] font-[600]">{likeCount}</p>
+      <span className="ml-[4px] text-[14px] font-[600]">{likeCount}</span>
     </button>
   )
 }

@@ -46,14 +46,14 @@ export default function ReviewImage({
         />
       ))}
       {imageUrls.length > 1 && (
-        <p
+        <span
           className={cn(
             'absolute bottom-0 right-0 z-10 flex h-[22px] w-[22px] items-center justify-center bg-[#000] text-[12px] font-[500] text-[#fff]',
             'mo:hidden',
           )}
         >
           {imageUrls.length}
-        </p>
+        </span>
       )}
     </div>
   )

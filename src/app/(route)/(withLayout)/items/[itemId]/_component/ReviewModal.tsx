@@ -1,11 +1,16 @@
 'use client'
 
+import { itemDataState } from '@/app/_atoms/itemDataState'
 import Modal from '@/app/_components/modal'
+import Portal from '@/app/_components/potal'
 import useAddReview from '@/app/_hook/api/reviews/mutations/useAddReview'
 import useEditReview from '@/app/_hook/api/reviews/mutations/useEditReview'
+import { useModals } from '@/app/_hook/common/useModal'
+import { ItemInfo } from '@/app/_types/item.type'
 import { ReviewInfo, ReviewState } from '@/app/_types/review.type'
 import { cn } from '@/app/_utils/twMerge'
 import { ChangeEvent, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 import {
   validateForm,
   validateImage,
@@ -16,25 +21,23 @@ import ReviewModalHeader from './ReviewModalHeader'
 import ReviewModalItemDisplay from './ReviewModalItemDisplay'
 
 interface PropsType {
-  setShowReviewModal: React.Dispatch<React.SetStateAction<boolean>>
-  itemData: {
-    id: number
-    name: string
-    price: number
-    image: string
-  }
   action: 'create' | 'edit'
-  review?: ReviewInfo
+  reviewSummary?: ReviewInfo
 }
 
 export default function ReviewModal(props: PropsType) {
-  const { setShowReviewModal, itemData, action, review } = props
+  const { action, reviewSummary } = props
+
+  const { close } = useModals()
+
+  /** 리뷰 작성 시 상단 아이템 정보 */
+  const itemData = useRecoilValue(itemDataState) as ItemInfo
 
   const initialReviewState: ReviewState = {
-    rating: review?.rate || 0,
-    content: review?.content || '',
+    rating: reviewSummary?.rate || 0,
+    content: reviewSummary?.content || '',
     multipartReviewImages: [],
-    existingImages: review?.imageUrls || [],
+    existingImages: reviewSummary?.imageUrls || [],
     reviewItemUrlsToRemove: [],
   }
 
@@ -130,38 +133,39 @@ export default function ReviewModal(props: PropsType) {
       })
     }
 
-    const reviewId = review?.reviewId as number
+    const reviewId = reviewSummary?.reviewId as number
     const status =
       action === 'create'
         ? await addReview({ itemId: itemData.id, formData })
         : await editReview({ reviewId, formData })
 
     if (status === 200) {
-      setShowReviewModal(false)
+      close()
     }
   }
 
   return (
-    <Modal innerClassNames="mo:top-0 mo:max-w-full mo:max-h-full mo:-translate-y-0 mo:rounded-[0px]">
-      <article
-        className={cn(
-          'w-[590px] p-[13px_0_45px]',
-          'mo:w-full mo:px-[16px] mo:pb-[112px]',
-        )}
-      >
-        <ReviewModalHeader setShowReviewModal={setShowReviewModal} />
-        <div className={cn('mt-[34px] px-[41px]', 'mo:p-0')}>
-          <ReviewModalItemDisplay itemData={itemData} />
-          <ReviewModalForm
-            onSubmit={handleSubmit}
-            setShowReviewModal={setShowReviewModal}
-            handleFileChange={handleFileChange}
-            onImageDelete={handleImageDelete}
-            reviewState={reviewState}
-            setReviewState={setReviewState}
-          />
-        </div>
-      </article>
-    </Modal>
+    <Portal title="review-modal">
+      <Modal innerClassNames="mo:top-0 mo:max-w-full mo:max-h-full mo:-translate-y-0 mo:rounded-[0px]">
+        <article
+          className={cn(
+            'w-[590px] p-[13px_0_45px]',
+            'mo:w-full mo:px-[16px] mo:pb-[112px]',
+          )}
+        >
+          <ReviewModalHeader />
+          <div className={cn('mt-[34px] px-[41px]', 'mo:p-0')}>
+            <ReviewModalItemDisplay />
+            <ReviewModalForm
+              onSubmit={handleSubmit}
+              handleFileChange={handleFileChange}
+              onImageDelete={handleImageDelete}
+              reviewState={reviewState}
+              setReviewState={setReviewState}
+            />
+          </div>
+        </article>
+      </Modal>
+    </Portal>
   )
 }

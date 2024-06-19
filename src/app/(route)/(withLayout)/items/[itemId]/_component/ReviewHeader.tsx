@@ -1,17 +1,23 @@
 'use client'
 
+import { useModals } from '@/app/_hook/common/useModal'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
+import ReviewModal from './ReviewModal'
 
 interface PropsType {
-  setShowReviewModal: React.Dispatch<React.SetStateAction<boolean>>
-  itemReviewTotalCount: number
+  totalReviewCount: number
 }
 
-export default function ReviewHeader({
-  setShowReviewModal,
-  itemReviewTotalCount,
-}: PropsType) {
+export default function ReviewHeader({ totalReviewCount }: PropsType) {
+  const { open } = useModals()
+
+  const handleOpenModal = () => {
+    open(ReviewModal, {
+      action: 'create',
+    })
+  }
+
   return (
     <header
       className={cn(
@@ -20,7 +26,7 @@ export default function ReviewHeader({
       )}
     >
       <strong className="text-[18px] font-[600]">
-        리뷰 ({itemReviewTotalCount})
+        리뷰 ({totalReviewCount})
       </strong>
       <span className="flex items-center font-[600] text-[#3F3F3F]">
         <Image
@@ -32,9 +38,7 @@ export default function ReviewHeader({
         <button
           type="button"
           className="flex items-center text-[14px] font-[600]"
-          onClick={() => {
-            setShowReviewModal((prev) => !prev)
-          }}
+          onClick={handleOpenModal}
         >
           리뷰 작성
         </button>

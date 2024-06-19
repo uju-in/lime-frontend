@@ -1,11 +1,12 @@
 'use client'
 
+import { useModals } from '@/app/_hook/common/useModal'
+import { ReviewState } from '@/app/_types/review.type'
 import { cn } from '@/app/_utils/twMerge'
 import Image from 'next/image'
 import { useRef } from 'react'
-import { ReviewState } from '@/app/_types/review.type'
-import StarRatingFormatter from './StarRatingFormatter'
 import ReviewImagesDisplay from './ReviewImagesDisplay'
+import StarRatingFormatter from './StarRatingFormatter'
 
 interface PropsType {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
@@ -15,7 +16,6 @@ interface PropsType {
     isExisting: boolean,
     imageUrl: string,
   ) => void
-  setShowReviewModal: React.Dispatch<React.SetStateAction<boolean>>
   reviewState: ReviewState
   setReviewState: React.Dispatch<React.SetStateAction<ReviewState>>
 }
@@ -23,12 +23,13 @@ interface PropsType {
 export default function ReviewModalForm(props: PropsType) {
   const {
     onSubmit,
-    setShowReviewModal,
     handleFileChange,
     onImageDelete,
     reviewState,
     setReviewState,
   } = props
+  const { close } = useModals()
+
   const { rating, content, existingImages, multipartReviewImages } = reviewState
 
   const InputRef = useRef<HTMLInputElement>(null)
@@ -129,7 +130,7 @@ export default function ReviewModalForm(props: PropsType) {
             'mo:hidden',
           )}
           onClick={() => {
-            setShowReviewModal(false)
+            close()
           }}
         >
           취소
